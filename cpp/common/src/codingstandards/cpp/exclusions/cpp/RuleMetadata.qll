@@ -44,6 +44,7 @@ import Loops
 import Macros
 import Memory2
 import Memory3
+import Memory4
 import MoveForward
 import Naming
 import Naming2
@@ -115,6 +116,7 @@ newtype TCPPQuery =
   TMacrosPackageQuery(MacrosQuery q) or
   TMemory2PackageQuery(Memory2Query q) or
   TMemory3PackageQuery(Memory3Query q) or
+  TMemory4PackageQuery(Memory4Query q) or
   TMoveForwardPackageQuery(MoveForwardQuery q) or
   TNamingPackageQuery(NamingQuery q) or
   TNaming2PackageQuery(Naming2Query q) or
@@ -186,6 +188,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isMacrosQueryMetadata(query, queryId, ruleId, category) or
   isMemory2QueryMetadata(query, queryId, ruleId, category) or
   isMemory3QueryMetadata(query, queryId, ruleId, category) or
+  isMemory4QueryMetadata(query, queryId, ruleId, category) or
   isMoveForwardQueryMetadata(query, queryId, ruleId, category) or
   isNamingQueryMetadata(query, queryId, ruleId, category) or
   isNaming2QueryMetadata(query, queryId, ruleId, category) or

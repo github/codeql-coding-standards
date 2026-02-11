@@ -1,4 +1,3 @@
-
 struct s1 {
   int m1[10];
 };

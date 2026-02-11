@@ -1,19 +1,17 @@
 /**
- * @id c/misra/object-copied-to-an-overlapping-object
- * @name RULE-19-1: An object shall not be copied to an overlapping object
- * @description An object shall not be copied to an overlapping object.
- * @kind problem
- * @precision high
- * @problem.severity error
- * @tags external/misra/id/rule-19-1
- *       correctness
- *       external/misra/c/2012/third-edition-first-revision
- *       external/misra/obligation/mandatory
+ * Provides a library with a `problems` predicate for the following issue:
+ * An object shall not be copied to an overlapping object.
  */
 
 import cpp
-import codingstandards.c.misra
+import codingstandards.cpp.Customizations
+import codingstandards.cpp.Exclusions
+import codingstandards.cpp.SimpleRangeAnalysisCustomizations
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
+
+abstract class ObjectCopiedToAnOverlappingObjectSharedQuery extends Query { }
+
+Query getQuery() { result instanceof ObjectCopiedToAnOverlappingObjectSharedQuery }
 
 /**
  * Offset in bytes of a field access
@@ -92,9 +90,15 @@ class OverlappingCopy extends Locatable {
   }
 }
 
-from OverlappingCopy copy
-where
-  not isExcluded(copy, Contracts7Package::objectCopiedToAnOverlappingObjectQuery()) and
-  copy.overlaps()
-select copy, "The object to copy $@ overlaps the object to copy $@.", copy.getSrc(), "from",
-  copy.getDst(), "to"
+query predicate problems(
+  OverlappingCopy copy, string message, Expr copySrc, string fromLiteral, Expr copyDst,
+  string toLiteral
+) {
+  not isExcluded(copy, getQuery()) and
+  copy.overlaps() and
+  message = "The object to copy $@ overlaps the object to copy $@." and
+  copySrc = copy.getSrc() and
+  fromLiteral = "from" and
+  copyDst = copy.getDst() and
+  toLiteral = "to"
+}
