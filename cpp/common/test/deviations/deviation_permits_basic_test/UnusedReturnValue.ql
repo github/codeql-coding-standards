@@ -19,6 +19,7 @@ import codingstandards.cpp.CodingStandards
 import codingstandards.cpp.exclusions.cpp.RuleMetadata
 import codingstandards.cpp.rules.unusedreturnvalueshared.UnusedReturnValueShared
 
+/* This is a copy of an AUTOSAR rule, which we are using for testing purposes. */
 module UnusedReturnValueConfig implements UnusedReturnValueSharedConfigSig {
   Query getQuery() { result = DeadCodePackage::unusedReturnValueQuery() }
 }
