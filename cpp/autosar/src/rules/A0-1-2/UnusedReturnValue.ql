@@ -1,5 +1,5 @@
 /**
- * @id cpp/autosar/unused-return-value-autosar
+ * @id cpp/autosar/unused-return-value
  * @name A0-1-2: Unused return value
  * @description The value returned by a function having a non-void return type that is not an
  *              overloaded operator shall be used.

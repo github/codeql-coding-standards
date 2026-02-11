@@ -5,7 +5,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype DeadCodeQuery =
   TUselessAssignmentQuery() or
-  TUnusedReturnValueAutosarQuery() or
+  TUnusedReturnValueQuery() or
   TUnusedLocalFunctionQuery() or
   TUnusedParameterQuery() or
   TUnusedVirtualParameterQuery() or
@@ -33,11 +33,11 @@ predicate isDeadCodeQueryMetadata(Query query, string queryId, string ruleId, st
   category = "required"
   or
   query =
-    // `Query` instance for the `unusedReturnValueAutosar` query
-    DeadCodePackage::unusedReturnValueAutosarQuery() and
+    // `Query` instance for the `unusedReturnValue` query
+    DeadCodePackage::unusedReturnValueQuery() and
   queryId =
-    // `@id` for the `unusedReturnValueAutosar` query
-    "cpp/autosar/unused-return-value-autosar" and
+    // `@id` for the `unusedReturnValue` query
+    "cpp/autosar/unused-return-value" and
   ruleId = "A0-1-2" and
   category = "required"
   or
@@ -185,11 +185,11 @@ module DeadCodePackage {
       TQueryCPP(TDeadCodePackageQuery(TUselessAssignmentQuery()))
   }
 
-  Query unusedReturnValueAutosarQuery() {
+  Query unusedReturnValueQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `unusedReturnValueAutosar` query
-      TQueryCPP(TDeadCodePackageQuery(TUnusedReturnValueAutosarQuery()))
+      // `Query` type for `unusedReturnValue` query
+      TQueryCPP(TDeadCodePackageQuery(TUnusedReturnValueQuery()))
   }
 
   Query unusedLocalFunctionQuery() {

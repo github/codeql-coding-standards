@@ -1,5 +1,5 @@
 /**
- * @id cpp/autosar/unused-return-value-autosar
+ * @id cpp/autosar/unused-return-value
  * @name A0-1-2: Unused return value
  * @description The value returned by a function having a non-void return type that is not an
  *              overloaded operator shall be used.
@@ -17,11 +17,10 @@
 import cpp
 import codingstandards.cpp.CodingStandards
 import codingstandards.cpp.exclusions.cpp.RuleMetadata
-import codingstandards.cpp.rules.unusedreturnvalue.UnusedReturnValue
+import codingstandards.cpp.rules.unusedreturnvalueshared.UnusedReturnValueShared
 
-/* This is a copy of an AUTOSAR rule, which we are using for testing purposes. */
-module UnusedReturnValueAutosarConfig implements UnusedReturnValueConfigSig {
-  Query getQuery() { result = DeadCodePackage::unusedReturnValueAutosarQuery() }
+module UnusedReturnValueConfig implements UnusedReturnValueSharedConfigSig {
+  Query getQuery() { result = DeadCodePackage::unusedReturnValueQuery() }
 }
 
-import UnusedReturnValue<UnusedReturnValueAutosarConfig>
+import UnusedReturnValueShared<UnusedReturnValueConfig>
