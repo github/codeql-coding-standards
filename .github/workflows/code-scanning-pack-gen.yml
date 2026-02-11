@@ -48,7 +48,7 @@ jobs:
 
       - name: Cache CodeQL
         id: cache-codeql
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ github.workspace }}/codeql_home
           key: codeql-home-${{ matrix.os }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library }}
@@ -111,7 +111,7 @@ jobs:
           zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/configuration codeql-coding-standards/scripts/reports codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/guideline_recategorization codeql-coding-standards/schemas
 
       - name: Upload GHAS Query Pack
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: code-scanning-cpp-query-pack.zip
           path: code-scanning-cpp-query-pack.zip
@@ -132,7 +132,7 @@ jobs:
           codeql pack bundle --output=report-coding-standards.tgz cpp/report/src
 
       - name: Upload qlpack bundles
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: coding-standards-codeql-packs
           path: '*-coding-standards.tgz'
