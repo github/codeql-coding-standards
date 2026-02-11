@@ -39,7 +39,8 @@
           "name": "Unused return value",
           "precision": "very-high",
           "severity": "warning",
-          "short_name": "UnusedReturnValue",
+          "short_name": "UnusedReturnValueAutosar",
+          "shared_implementation_short_name": "UnusedReturnValue",
           "tags": [
             "readability",
             "maintainability"

@@ -1,0 +1,3 @@
+ - `A0-1-2` - `UnusedReturnValue.ql`:
+   - Rule implementation has refactored into a shared library for usage in MISRA C++ ruleset.
+   - Query file renamed to `UnusedReturnValueAutosar.ql` to distinguish from the MISRA C++ version of the rule.
