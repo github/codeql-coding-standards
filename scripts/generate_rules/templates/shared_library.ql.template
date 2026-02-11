@@ -3,7 +3,8 @@
     the first matching query in `rule_packages`.
 #}
 /**
- * Provides a library with a `problems` predicate for the following issue:
+ * Provides a configurable module {{shared_implementation_short_name}} with a `problems` predicate
+ * for the following issue:
  * {{ description|join('\n * ') }}
  */
 
@@ -11,10 +12,12 @@ import cpp
 import codingstandards.{{ ql_language_name }}.Customizations
 import codingstandards.{{ ql_language_name }}.Exclusions
 
-abstract class {{shared_implementation_short_name}}SharedQuery extends Query { }
+signature module {{shared_implementation_short_name}}ConfigSig {
+    Query getQuery();
+}
 
-Query getQuery() { result instanceof {{shared_implementation_short_name}}SharedQuery }
-
-query predicate problems(Element e, string message) {
-not isExcluded(e, getQuery()) and message = "<replace with problem alert message for >"
+module {{shared_implementation_short_name}}<{{shared_implementation_short_name}}ConfigSig Config> {
+    query predicate problems(Element e, string message) {
+        not isExcluded(e, Config::getQuery()) and message = "<replace with problem alert message for >"
+    }
 }
