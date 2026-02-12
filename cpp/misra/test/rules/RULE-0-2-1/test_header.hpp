@@ -1,0 +1,1 @@
+const int cg1 = 3; // COMPLIANT - unused constant variable defined in header file.

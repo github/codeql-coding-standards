@@ -827,7 +827,7 @@ cpp,MISRA-C++-2023,RULE-0-0-1,Yes,Required,Decidable,Single Translation Unit,A f
 cpp,MISRA-C++-2023,RULE-0-0-2,Yes,Advisory,Undecidable,System,Controlling expressions should not be invariant,M0-1-2,DeadCode4,Easy,
 cpp,MISRA-C++-2023,RULE-0-1-1,Yes,Advisory,Undecidable,System,A value should not be unnecessarily written to a local object,A0-1-1,DeadCode2,Medium,
 cpp,MISRA-C++-2023,RULE-0-1-2,Yes,Required,Decidable,Single Translation Unit,The value returned by a function shall be used,A0-1-2,DeadCode2,Easy,
-cpp,MISRA-C++-2023,RULE-0-2-1,Yes,Advisory,Decidable,Single Translation Unit,Variables with limited visibility should be used at least once,M0-1-3,DeadCode2,Easy,
+cpp,MISRA-C++-2023,RULE-0-2-1,Yes,Advisory,Decidable,Single Translation Unit,Variables with limited visibility should be used at least once,M0-1-3,DeadCode7,Easy,
 cpp,MISRA-C++-2023,RULE-0-2-2,Yes,Required,Decidable,Single Translation Unit,A named function parameter shall be used at least once,"A0-1-4, A0-1-5",DeadCode2,Easy,
 cpp,MISRA-C++-2023,RULE-0-2-3,Yes,Advisory,Decidable,Single Translation Unit,Types with limited visibility should be used at least once,A0-1-6,DeadCode2,Easy,
 cpp,MISRA-C++-2023,RULE-0-2-4,Yes,Advisory,Decidable,System,Functions with limited visibility should be used at least once,A0-1-3,DeadCode2,Easy,

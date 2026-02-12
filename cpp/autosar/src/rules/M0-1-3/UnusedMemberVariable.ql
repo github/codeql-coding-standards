@@ -19,13 +19,6 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.FunctionEquivalence
 import codingstandards.cpp.deadcode.UnusedVariables
 
-from PotentiallyUnusedMemberVariable v
-where
-  not isExcluded(v, DeadCodePackage::unusedMemberVariableQuery()) and
-  // No variable access
-  not exists(v.getAnAccess()) and
-  // No explicit initialization in a constructor
-  not exists(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = v) and
-  // Exclude members whose value is compile time and is potentially used to inintialize a template
-  not maybeACompileTimeTemplateArgument(v)
+from ThirdPassUnused::UnusedMemberVariable v
+where not isExcluded(v, DeadCodePackage::unusedMemberVariableQuery())
 select v, "Member variable '" + v.getName() + "' is unused."
