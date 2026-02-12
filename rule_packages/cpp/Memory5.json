@@ -1,0 +1,24 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-21-6-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Dynamically allocated memory must not be managed manually.",
+          "kind": "problem",
+          "name": "Dynamic memory shall be managed automatically",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DynamicMemoryManagedManually",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Dynamically allocated memory must not be managed manually."
+    }
+  }
+}

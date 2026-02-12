@@ -1,0 +1,24 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-21-6-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using advanced memory management that either alters allocation and deallocation or constructs object construction on uninitalized memory may result in undefined behavior.",
+          "kind": "problem",
+          "name": "Advanced memory management shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AdvancedMemoryManagementUsed",
+          "tags": [
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Using advanced memory management that either alters allocation and deallocation or constructs object construction on uninitalized memory may result in undefined behavior."
+    }
+  }
+}
