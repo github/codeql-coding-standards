@@ -87,6 +87,13 @@ class FullyDefinedClass extends Class {
   }
 }
 
+class UserProvidedConstructorFieldInit extends ConstructorFieldInit {
+  UserProvidedConstructorFieldInit() {
+    not isCompilerGenerated() and
+    not getEnclosingFunction().isCompilerGenerated()
+  }
+}
+
 /**
  * This module defines unused variables as defined by all standards, including MISRA C, C++, and
  * AUTOSAR.
@@ -206,13 +213,6 @@ predicate isUnused(Variable variable) {
  * and therefore not visible to us.
  */
 module ThirdPassUnused {
-  class UserProvidedConstructorFieldInit extends ConstructorFieldInit {
-    UserProvidedConstructorFieldInit() {
-      not isCompilerGenerated() and
-      not getEnclosingFunction().isCompilerGenerated()
-    }
-  }
-
   /**
    * Holds if `v` may hold a compile time value and is accessible to a template instantiation that
    * receives a constant value as an argument equal to the value of `v`.
