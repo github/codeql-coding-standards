@@ -53,6 +53,27 @@ predicate isDefined(MemberFunction mf) {
   )
 }
 
+/** Gets the constant value of a constexpr/const variable. */
+string getConstExprValue(Variable v) {
+  result = v.getInitializer().getExpr().getValue() and
+  (v.isConst() or v.isConstexpr())
+}
+
+/**
+ * Counts uses of `Variable` v in a local array of size `n`.
+ *
+ * For non `LocalVariable`s, this will return as zero. This is intentional.
+ */
+int countUsesInLocalArraySize(Variable v) {
+  result =
+    count(ArrayType at, LocalVariable arrayVariable |
+      arrayVariable.getType().resolveTypedefs() = at and
+      //v.(SecondPassUnused::UnusedLocalVariable).getFunction() = arrayVariable.getFunction() and
+      v.(LocalVariable).getFunction() = arrayVariable.getFunction() and
+      at.getArraySize().toString() = getConstExprValue(v)
+    )
+}
+
 /** A `Class` where all non compiler generated member functions are defined in the current database. */
 class FullyDefinedClass extends Class {
   FullyDefinedClass() {
@@ -209,24 +230,6 @@ module ThirdPassUnused {
         )
       )
     )
-  }
-
-  /** Gets the constant value of a constexpr/const variable. */
-  string getConstExprValue(Variable v) {
-    result = v.getInitializer().getExpr().getValue() and
-    (v.isConst() or v.isConstexpr())
-  }
-
-  /**
-   * Counts uses of `Variable` v in a local array of size `n`
-   */
-  int countUsesInLocalArraySize(Variable v) {
-    result =
-      count(ArrayType at, LocalVariable arrayVariable |
-        arrayVariable.getType().resolveTypedefs() = at and
-        v.(SecondPassUnused::UnusedLocalVariable).getFunction() = arrayVariable.getFunction() and
-        at.getArraySize().toString() = getConstExprValue(v)
-      )
   }
 
   // Collect constant values that we should use to exclude otherwise unused constexpr variables.
