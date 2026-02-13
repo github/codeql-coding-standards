@@ -68,7 +68,6 @@ int countUsesInLocalArraySize(Variable v) {
   result =
     count(ArrayType at, LocalVariable arrayVariable |
       arrayVariable.getType().resolveTypedefs() = at and
-      //v.(SecondPassUnused::UnusedLocalVariable).getFunction() = arrayVariable.getFunction() and
       v.(LocalVariable).getFunction() = arrayVariable.getFunction() and
       at.getArraySize().toString() = getConstExprValue(v)
     )
