@@ -10,8 +10,7 @@ int test_simple() {
 }
 
 int test_maybe_unused() {
-  [[maybe_unused]]
-  int l0; // COMPLIANT - has attr unused
+  [[maybe_unused]] int l0; // COMPLIANT - has attr unused
 }
 
 int test_const() {
@@ -86,7 +85,7 @@ template <bool... Args> extern constexpr bool all_of_v = true; // COMPLIANT
 
 template <bool B1, bool... Args>
 extern constexpr bool all_of_v<B1, Args...> =
-    B1 && all_of_v<Args...>; // COMPLIANT
+    B1 &&all_of_v<Args...>; // COMPLIANT
 
 void test_template_variable() { all_of_v<true, true, true>; }
 

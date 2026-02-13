@@ -34,7 +34,7 @@ class C1 { // inherits external linkage from enclosing namespace
     int m1;
     static int m2; // inherits external linkage from class scope
     void m3() {}   // inherits external linkage from class scope
-  }; // inherits external linkage from class scope
+  };               // inherits external linkage from class scope
 
   typedef class {
     int m1;
@@ -107,7 +107,7 @@ class C1 { // inherits internal linkage from enclosing namespace
     int m1;
     static int m2; // inherits internal linkage from class scope
     void m3() {}   // inherits internal linkage from class scope
-  }; // inherits internal linkage from class scope
+  };               // inherits internal linkage from class scope
 
   typedef struct {
     int m1;
@@ -131,7 +131,7 @@ typedef class { // inherits internal linkage from enclosing namespace
     int m1;
     // static int m2 not allowed in anonymous class
     void m3() {} // inherits internal linkage from class scope
-  }; // inherits internal linkage from class scope
+  };             // inherits internal linkage from class scope
 
   typedef class { // inherits internal linkage from enclosing namespace
     int m1;
