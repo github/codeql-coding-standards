@@ -1,3 +1,0 @@
- - `M0-1-3`, `RULE-2-8` - `UnusedLocalVariable.ql`, `UnusedMemberVariable.ql`, `UnusedGlobalOrNamespaceVariable.ql`, `UnusedObjectDefinition.ql`, `UnusedObjectDefinitionStrict.ql`:
-   - The organization of unused variable analysis has been reorganized to be usable in MISRA C++ rule 0.2.1, with no expected noticeable change in results.
-   - New filtering passes begin by filtering out variables that have an existing access (`.getAnAccess()`), which should improve performance in later filtering passes and overall query performance.

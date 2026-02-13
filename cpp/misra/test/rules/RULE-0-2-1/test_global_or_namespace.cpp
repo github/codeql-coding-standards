@@ -3,6 +3,7 @@ int g0;            // COMPLIANT -- external linkage
 static int sg0;    // NON_COMPLIANT -- internal linkage, but never used
 const int cg0 = 0; // NON_COMPLIANT -- internal linkage, but never used, not in
                    // header
+extern const int ecg0 = 0; // COMPLIANT -- external linkage
 // tests compliant case of unused constant variable in header file
 #include "test_header.hpp"
 

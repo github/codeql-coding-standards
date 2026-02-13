@@ -1,0 +1,7 @@
+ - All rules using `Linkage.qll`:
+   - `extern const` global variables are now properly analyzed as having external linkage, rather than internal linkage.
+   - Linkage analysis has been fixed to properly handle nested classes, including anonymous and typedefs of anonymous classes.
+   - Linkage for names within classes with internal linkage is now properly inherited as internal, rather than external.
+ - `M0-1-3`, `RULE-2-8` - `UnusedLocalVariable.ql`, `UnusedMemberVariable.ql`, `UnusedGlobalOrNamespaceVariable.ql`, `UnusedObjectDefinition.ql`, `UnusedObjectDefinitionStrict.ql`:
+   - The organization of unused variable analysis has been reorganized to be usable in MISRA C++ rule 0.2.1, with no expected noticeable change in results.
+   - New filtering passes begin by filtering out variables that have an existing access (`.getAnAccess()`), instead of performing such a filter step last, with a measured small reduction in overall tuple counts and improved overall query performance.

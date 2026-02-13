@@ -34,11 +34,14 @@ class UnusedVariable extends Variable {
       or
       this instanceof ThirdPassUnused::UnusedMemberVariable and
       description = "Member variable '" + this.getQualifiedName() + "' is unused."
-    )
+    ) and
+    not (isConstant(this) and this.getFile() instanceof HeaderFile and hasNamespaceScope(this))
   }
 
   string getProblemDescription() { result = description }
 }
+
+predicate isConstant(Variable v) { v.isConst() or v.isConstexpr() or v.isConstinit() }
 
 from UnusedVariable var
 where not isExcluded(var, DeadCode7Package::unusedLimitedVisibilityVariableQuery())

@@ -30,13 +30,47 @@ class C1 { // inherits external linkage from enclosing namespace
   enum e1 { E1_1 };         // inherits external linkage from class scope
   typedef enum { E2_1 } e2; // inherits external linkage from class scope
 
-  class C2 {}; // inherits external linkage from class scope
+  class C2 { // inherits external linkage from class scope
+    int m1;
+    static int m2; // inherits external linkage from class scope
+    void m3() {} // inherits external linkage from class scope
+  }; // inherits external linkage from class scope
+
   typedef class {
+    int m1;
+    // static int m2 not allowed in anonymous class
+    void m3() {} // inherits external linkage from class scope
   } C3; // inherits external linkage from class scope
+
+  class {
+    int m1;
+    // static int m2 not allowed in unnamed class
+    void m3() {} // inherits no linkage from class scope
+  } m4; // anonymous class outside typedef has no linkage
 };
 
 typedef class { // inherits external linkage from enclosing namespace
   int m1;
+  // static int m2 not allowed in anonymous class
+  void m3() {} // inherits external linkage from class scope
+
+  class C2 { // inherits external linkage from enclosing class scope
+    int m1;
+    // static int m2 not allowed in anonymous class
+    void m3() {} // inherits external linkage from class scope
+  };
+
+  typedef class { // inherits external linkage from enclosing namespace
+    int m1;
+    // static int m2 not allowed in anonymous class
+    void m3() {} // inherits external linkage from class scope
+  } C3; // inherits external linkage from enclosing namespace
+
+  class {
+    int m1;
+    // static int m2 not allowed in unnamed class
+    void m3() {} // inherits no linkage from class scope
+  } m4; // anonymous class outside typedef has no linkage
 } C2;
 
 template <typename T>
@@ -66,10 +100,50 @@ void f2(T p1) {} // inherits internal linkage from enclosing namespace
 
 class C1 { // inherits internal linkage from enclosing namespace
   int m1;
+  static int m2; // inherits internal linkage from class scope
+  void m3() {}   // inherits internal linkage from class scope
+
+  class C2 {
+    int m1;
+    static int m2; // inherits internal linkage from class scope
+    void m3() {} // inherits internal linkage from class scope
+  }; // inherits internal linkage from class scope
+
+  typedef struct {
+    int m1;
+    // static int m2 not allowed in anonymous class
+    void m3() {} // inherits internal linkage from class scope
+  } C3; // inherits internal linkage from class scope
+
+  class {
+    int m1;
+    // static int m2 not allowed in unnamed class
+    void m3() {} // inherits no linkage from class scope
+  } m4; // anonymous class outside typedef has no linkage
 };
 
 typedef class { // inherits internal linkage from enclosing namespace
   int m1;
+  // static int m2 not allowed in anonymous class
+  void m3() {} // inherits internal linkage from class scope
+
+  class C2 {
+    int m1;
+    // static int m2 not allowed in anonymous class
+    void m3() {} // inherits internal linkage from class scope
+  }; // inherits internal linkage from class scope
+
+  typedef class { // inherits internal linkage from enclosing namespace
+    int m1;
+    // static int m2 not allowed in anonymous class
+    void m3() {} // inherits internal linkage from class scope
+  } C3; // inherits internal linkage from enclosing namespace
+
+  class {
+    int m1;
+    // static int m2 not allowed in unnamed class
+    void m3() {} // inherits no linkage from class scope
+  } m4; // anonymous class outside typedef has no linkage
 } C2;
 
 template <typename T>
@@ -90,4 +164,17 @@ void g() {
   {
     extern int i; // object with static storage duration and external linkage
   }
+}
+
+void block_scope() {
+  struct S { // No linkage, block scope
+    int m1;
+    void member() {} // No linkage, block scope
+  };
+
+  typedef struct { // No linkage, block scope
+    int m1;
+    void member() {} // No linkage, block scope
+  } S2;
+  
 }
