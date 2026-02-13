@@ -26,13 +26,13 @@ class UnusedVariable extends Variable {
     not hasExternalLinkage(this) and
     not hasAttrUnused(this) and
     (
-      this instanceof ThirdPassUnused::UnusedGlobalOrNamespaceVariable and
+      this instanceof FullyUnusedGlobalOrNamespaceVariable and
       description = "Variable '" + this.getQualifiedName() + "' is unused."
       or
-      this instanceof ThirdPassUnused::UnusedLocalVariable and
+      this instanceof FullyUnusedLocalVariable and
       description = "Variable '" + this.getName() + "' is unused."
       or
-      this instanceof ThirdPassUnused::UnusedMemberVariable and
+      this instanceof FullyUnusedMemberVariable and
       description = "Member variable '" + this.getQualifiedName() + "' is unused."
     ) and
     not (isConstant(this) and this.getFile() instanceof HeaderFile and hasNamespaceScope(this))

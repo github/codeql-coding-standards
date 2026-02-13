@@ -19,6 +19,6 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.FunctionEquivalence
 import codingstandards.cpp.deadcode.UnusedVariables
 
-from ThirdPassUnused::UnusedMemberVariable v
+from FullyUnusedMemberVariable v
 where not isExcluded(v, DeadCodePackage::unusedMemberVariableQuery())
 select v, "Member variable '" + v.getName() + "' is unused."

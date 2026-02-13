@@ -18,6 +18,6 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.deadcode.UnusedVariables
 
-from ThirdPassUnused::UnusedGlobalOrNamespaceVariable v
+from FullyUnusedGlobalOrNamespaceVariable v
 where not isExcluded(v, DeadCodePackage::unusedGlobalOrNamespaceVariableQuery())
 select v, "Variable '" + v.getQualifiedName() + "' is unused."

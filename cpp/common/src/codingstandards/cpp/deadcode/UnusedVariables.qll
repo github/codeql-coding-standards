@@ -95,13 +95,14 @@ class UserProvidedConstructorFieldInit extends ConstructorFieldInit {
 }
 
 /**
- * This module defines unused variables as defined by all standards, including MISRA C, C++, and
- * AUTOSAR.
+ * This module begins the search for unused variables as defined by all standards, including MISRA
+ * C, C++, and AUTOSAR. It does not filter by access count, so that M0-1-4 can find "single use" POD
+ * variables.
  *
  * This pass excludes variables that can be implicitly used in many ways. It notably does not
  * exclude variables that are used in macros, which MISRA C supports specially.
  */
-module FirstPassUnused {
+module FirstPass {
   final private class FinalLocalVariable = LocalVariable;
 
   final private class FinalGlobalOrNspVariable = GlobalOrNamespaceVariable;
@@ -111,7 +112,6 @@ module FirstPassUnused {
    */
   class UnusedLocalVariable extends FinalLocalVariable {
     UnusedLocalVariable() {
-      not exists(getAnAccess()) and
       // Ignore variables where initializing the variable has side effects
       not declarationHasSideEffects(this) and // TODO non POD types with initializers? Also, do something different with templates?
       exists(Function f | f = getFunction() |
@@ -130,7 +130,6 @@ module FirstPassUnused {
   /** A `GlobalOrNamespaceVariable` which is potentially unused and may or may not be defined in a macro */
   class UnusedGlobalOrNamespaceVariable extends FinalGlobalOrNspVariable {
     UnusedGlobalOrNamespaceVariable() {
-      not exists(getAnAccess()) and
       // A non-defined variable may never be used
       hasDefinition() and
       // No side-effects from declaration
@@ -148,12 +147,13 @@ module FirstPassUnused {
  *
  * This pass filters out variables defined in macros, and is used by AUTOSAR and MISRA, before a
  * more expensive third pass.
+ *
+ * This is the last pass performed before M0-1-4, which finds POD variables with a single usage.
  */
-module SecondPassUnused {
-  final private class FirstPassLocalVariable = FirstPassUnused::UnusedLocalVariable;
+module SecondPass {
+  final private class FirstPassLocalVariable = FirstPass::UnusedLocalVariable;
 
-  final private class FirstPassGlobalOrNspVariable =
-    FirstPassUnused::UnusedGlobalOrNamespaceVariable;
+  final private class FirstPassGlobalOrNspVariable = FirstPass::UnusedGlobalOrNamespaceVariable;
 
   final private class FinalMemberVariable = MemberVariable;
 
@@ -170,7 +170,6 @@ module SecondPassUnused {
   /** A `MemberVariable` which is potentially unused. */
   class UnusedMemberVariable extends FinalMemberVariable {
     UnusedMemberVariable() {
-      not exists(getAnAccess()) and
       // Not an unnamed bitfield, which is permitted to be unused
       not getName() = "(unnamed bitfield)" and
       // Must be defined in this database
@@ -201,18 +200,13 @@ module SecondPassUnused {
   }
 }
 
-predicate isUnused(Variable variable) {
-  not exists(variable.getAnAccess()) and
-  variable.getInitializer().fromSource()
-}
-
 /**
  * This module is the final pass for unused variables in AUTOSAR, and an intermediate pass for MISRA.
  *
  * This pass looks for odd cases such as constexpr variables whose usage was inlined by the compiler
  * and therefore not visible to us.
  */
-module ThirdPassUnused {
+module ThirdPass {
   /**
    * Holds if `v` may hold a compile time value and is accessible to a template instantiation that
    * receives a constant value as an argument equal to the value of `v`.
@@ -271,11 +265,11 @@ module ThirdPassUnused {
     not excludeVariableByValue(v)
   }
 
-  final class SecondPassLocalVariable = SecondPassUnused::UnusedLocalVariable;
+  final class SecondPassLocalVariable = SecondPass::UnusedLocalVariable;
 
-  final class SecondPassGlobalOrNspVariable = SecondPassUnused::UnusedGlobalOrNamespaceVariable;
+  final class SecondPassGlobalOrNspVariable = SecondPass::UnusedGlobalOrNamespaceVariable;
 
-  final class SecondPassMemberVariable = SecondPassUnused::UnusedMemberVariable;
+  final class SecondPassMemberVariable = SecondPass::UnusedMemberVariable;
 
   class UnusedLocalVariable extends SecondPassLocalVariable {
     UnusedLocalVariable() {
@@ -305,5 +299,38 @@ module ThirdPassUnused {
       // Exclude members whose value is compile time and is potentially used to inintialize a template
       not maybeACompileTimeTemplateArgument(this)
     }
+  }
+}
+
+/**
+ * A local variable with no implicit usages found in any of the three passes, and no accesses.
+ */
+class FullyUnusedLocalVariable extends ThirdPass::UnusedLocalVariable {
+  FullyUnusedLocalVariable() {
+    // This is checked last, so that M0-1-4 can find "single use" variables, which are not reported
+    // as unused by this predicate, but would be if we required zero accesses here.
+    not exists(getAnAccess())
+  }
+}
+
+/**
+ * A variable with no implicit usages found in any of the three passes, and no accesses.
+ */
+class FullyUnusedGlobalOrNamespaceVariable extends ThirdPass::UnusedGlobalOrNamespaceVariable {
+  FullyUnusedGlobalOrNamespaceVariable() {
+    // This is checked last, so that M0-1-4 can find "single use" variables, which are not reported
+    // as unused by this predicate, but would be if we required zero accesses here.
+    not exists(getAnAccess())
+  }
+}
+
+/**
+ * A member variable with no implicit usages found in any of the three passes, and no accesses.
+ */
+class FullyUnusedMemberVariable extends ThirdPass::UnusedMemberVariable {
+  FullyUnusedMemberVariable() {
+    // This is checked last, so that M0-1-4 can find "single use" variables, which are not reported
+    // as unused by this predicate, but would be if we required zero accesses here.
+    not exists(getAnAccess())
   }
 }

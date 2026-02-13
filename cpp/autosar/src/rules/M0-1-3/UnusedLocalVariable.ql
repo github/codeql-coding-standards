@@ -18,10 +18,6 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.deadcode.UnusedVariables
 
-// 10.1, 41.0
-// 10.9, 45.9
-// 11.0, 52.3
-// 13.1, 59.3
-from ThirdPassUnused::UnusedLocalVariable v
+from FullyUnusedLocalVariable v
 where not isExcluded(v, DeadCodePackage::unusedLocalVariableQuery())
 select v, "Local variable '" + v.getName() + "' in '" + v.getFunction().getName() + "' is not used."

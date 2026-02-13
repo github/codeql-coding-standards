@@ -17,11 +17,12 @@ import codingstandards.cpp.alertreporting.DeduplicateMacroResults
 class UnusedObjectDefinition extends VariableDeclarationEntry {
   UnusedObjectDefinition() {
     (
-      getVariable() instanceof FirstPassUnused::UnusedLocalVariable
+      getVariable() instanceof FirstPass::UnusedLocalVariable
       or
-      getVariable() instanceof FirstPassUnused::UnusedGlobalOrNamespaceVariable
+      getVariable() instanceof FirstPass::UnusedGlobalOrNamespaceVariable
     ) and
-    getVariable().getDefinition() = this
+    getVariable().getDefinition() = this and
+    not exists(getVariable().getAnAccess())
   }
 
   /* Dead objects with these attributes are reported in the "strict" queries. */
