@@ -1,9 +1,9 @@
 | test.cpp:7:7:7:7 | y | Variable 'y' is unused. |
-| test.cpp:20:7:20:7 | z | Variable 'z' is unused. |
-| test.cpp:26:5:26:5 | t | Variable 't' is unused. |
-| test.cpp:26:5:26:5 | t | Variable 't' is unused. |
-| test.cpp:47:6:47:6 | a | Variable 'a' is unused. |
-| test.cpp:94:5:94:5 | t | Variable 't' is unused. |
+| test.cpp:19:7:19:7 | z | Variable 'z' is unused. |
+| test.cpp:25:5:25:5 | t | Variable 't' is unused. |
+| test.cpp:25:5:25:5 | t | Variable 't' is unused. |
+| test.cpp:46:6:46:6 | a | Variable 'a' is unused. |
+| test.cpp:93:5:93:5 | t | Variable 't' is unused. |
 | test_global_or_namespace.cpp:3:12:3:14 | sg0 | Variable 'sg0' is unused. |
 | test_global_or_namespace.cpp:4:11:4:13 | cg0 | Variable 'cg0' is unused. |
 | test_global_or_namespace.cpp:14:5:14:6 | g3 | Variable '(unnamed namespace)::g3' is unused. |
