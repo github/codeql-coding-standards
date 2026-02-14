@@ -12,7 +12,7 @@
           "name": "There shall be no unused named parameters in non-virtual functions",
           "precision": "very-high",
           "severity": "warning",
-          "short_name": "UnusedParameter",
+          "short_name": "UnusedParameterMisraCpp",
           "tags": [
             "scope/single-translation-unit",
             "readability",
