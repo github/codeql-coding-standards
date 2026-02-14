@@ -12,10 +12,13 @@ void test_unnamed(
 }
 
 class A {
-  int a(int x) { return x; }      // COMPLIANT
-  void b(int x) {}                // NON_COMPLIANT
-  void c(int) {}                  // COMPLIANT
-  virtual void d(int x, int y) {} // virtual, not covered by this rule
+  int a(int x) { return x; } // COMPLIANT
+  void b(int x) {}           // NON_COMPLIANT
+  void c(int) {}             // COMPLIANT
+
+  // This is a violation of A0-1-4, but not a violation of Rule 0-0-2, so it's
+  // accepted by the default shared logic. See A0-1-4 tests for coverage.
+  virtual void d(int x, int y) {} // COMPLIANT
 };
 
 void f(

@@ -1,0 +1,1 @@
+| test.cpp:2:14:2:14 | x | Unused parameter 'x' for function $@. | test.cpp:2:8:2:8 | b | A::b |

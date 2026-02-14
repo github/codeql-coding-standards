@@ -1,3 +1,5 @@
 | test.cpp:8:22:8:22 | x | Unused parameter 'x' for function $@. | test.cpp:8:6:8:16 | test_unused | test_unused |
 | test.cpp:16:14:16:14 | x | Unused parameter 'x' for function $@. | test.cpp:16:8:16:8 | b | A::b |
-| test.cpp:35:14:35:14 | y | Unused parameter 'y' for function $@. | test.cpp:34:9:34:9 | operator() | lambda expression |
+| test.cpp:21:22:21:22 | x | Unused parameter 'x' for function $@. | test.cpp:21:16:21:16 | d | A::d |
+| test.cpp:21:29:21:29 | y | Unused parameter 'y' for function $@. | test.cpp:21:16:21:16 | d | A::d |
+| test.cpp:38:14:38:14 | y | Unused parameter 'y' for function $@. | test.cpp:37:9:37:9 | operator() | lambda expression |

@@ -18,6 +18,13 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.deadcode.UnusedParameters
 import codingstandards.cpp.rules.unusedparameter.UnusedParameter
 
-class UnusedParameterQuery extends UnusedParameterSharedQuery {
-  UnusedParameterQuery() { this = DeadCodePackage::unusedParameterQuery() }
+module UnusedParameterQueryConfig implements UnusedParameterSharedConfigSig {
+  Query getQuery() { result = DeadCodePackage::unusedParameterQuery() }
+
+  predicate excludeParameter(Parameter p) {
+    // Virtual functions are covered by a different rule
+    p.getFunction().isVirtual()
+  }
 }
+
+import UnusedParameterShared<UnusedParameterQueryConfig>
