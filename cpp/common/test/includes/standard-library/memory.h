@@ -165,6 +165,7 @@ template <typename T1> struct allocator_traits {
   static pointer allocate(T1 &, size_type, const_void_pointer);
   static void deallocate(T1 &, pointer, size_type);
 };
+
 } // namespace std
 
 #endif // _GHLIBCPP_MEMORY
