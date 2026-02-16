@@ -164,7 +164,7 @@ jobs:
           python-version: "3.9"
 
       - name: Collect test results
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
 
       - name: Validate test results
         shell: python
