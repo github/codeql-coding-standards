@@ -357,8 +357,8 @@ int main() {
   lhs12 << rhs11; // COMPLIANT: lhs12's precision is strictly greater than rhs11
   lhs12 << rhs12; // NON_COMPLIANT: lhs12's precision is not strictly greater
                   // than rhs12's
-  lhs12 << rhs13; // COMPLIANT[FALSE_POSITIVE]: lhs12's precision is strictly greater than rhs13 (FP because range analysis reduced precision for performance reasons)
-  lhs12 << rhs14; // COMPLIANT[FALSE_POSITIVE]: lhs12's precision is strictly greater than rhs14 (FP because range analysis reduced precision for performance reasons)
+  lhs12 << rhs13; // COMPLIANT: lhs12's precision is strictly greater than rhs13
+  lhs12 << rhs14; // COMPLIANT: lhs12's precision is strictly greater than rhs14
   lhs13 << rhs0;  // COMPLIANT: lhs13's precision is strictly greater than rhs0
   lhs13 << rhs1;  // COMPLIANT: lhs13's precision is strictly greater than rhs1
   lhs13 << rhs2;  // COMPLIANT: lhs13's precision is strictly greater than rhs2
@@ -1893,8 +1893,8 @@ int main() {
   lhs12 >> rhs11; // COMPLIANT: lhs12's precision is strictly greater than rhs11
   lhs12 >> rhs12; // NON_COMPLIANT: lhs12's precision is not strictly greater
                   // than rhs12
-  lhs12 >> rhs13; // COMPLIANT[FALSE_POSITIVE]: lhs12's precision is strictly greater than rhs13 (FP because range analysis reduced precision for performance reasons)
-  lhs12 >> rhs14; // COMPLIANT[FALSE_POSITIVE]: lhs12's precision is strictly greater than rhs14 (FP because range analysis reduced precision for performance reasons)
+  lhs12 >> rhs13; // COMPLIANT: lhs12's precision is strictly greater than rhs13
+  lhs12 >> rhs14; // COMPLIANT: lhs12's precision is strictly greater than rhs14
   lhs13 >> rhs0;  // COMPLIANT: lhs13's precision is strictly greater than rhs0
   lhs13 >> rhs1;  // COMPLIANT: lhs13's precision is strictly greater than rhs1
   lhs13 >> rhs2;  // COMPLIANT: lhs13's precision is strictly greater than rhs2
