@@ -1,3 +1,19 @@
+/**
+ * @id cpp/misra/potentially-erroneous-container-usage
+ * @name RULE-28-6-4: The result of std::remove, std::remove_if, std::unique and empty shall be used
+ * @description The `empty` method may be confused with `clear`, and the family of algorithms
+ *              similar to `std::remove` require the resulting iterator to be used in order to
+ *              properly handle the modifications performed.
+ * @kind problem
+ * @precision very-high
+ * @problem.severity error
+ * @tags external/misra/id/rule-28-6-4
+ *       scope/single-translation-unit
+ *       correctness
+ *       external/misra/enforcement/decidable
+ *       external/misra/obligation/required
+ */
+
 import cpp
 import codingstandards.cpp.misra
 
