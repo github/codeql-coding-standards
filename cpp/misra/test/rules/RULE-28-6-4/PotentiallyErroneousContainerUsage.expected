@@ -6,3 +6,5 @@
 | test.cpp:100:3:100:12 | call to empty | Result of call to 'empty' is not used. |
 | test.cpp:117:3:117:13 | call to remove | Result of call to 'remove' is not used. |
 | test.cpp:122:6:122:10 | call to empty | Result of call to 'empty' is not used. |
+| test.cpp:148:21:148:31 | call to remove | Result of call to 'remove' is not used. |
+| test.cpp:149:9:149:19 | call to remove | Result of call to 'remove' is not used. |

@@ -142,3 +142,28 @@ void test_remove_chained_operations() {
   v1.erase(std::remove(v1.begin(), v1.end(), 2), v1.end()); // COMPLIANT
   v2.erase(std::remove(v2.begin(), v2.end(), 6), v2.end()); // COMPLIANT
 }
+
+void test_cast_to_void() {
+  std::vector<std::int32_t> v1 = {1, 2, 3, 2, 4};
+  static_cast<void>(std::remove(v1.begin(), v1.end(), 2)); // NON_COMPLIANT
+  (void)std::remove(v1.begin(), v1.end(), 2);              // NON_COMPLIANT
+}
+
+void test_unrelated_empty() {
+  class MyClass {
+    std::vector<int> v1;
+
+  public:
+    void empty() { v1.clear(); }
+  };
+
+  MyClass c1;
+  c1.empty(); // COMPLIANT - empty is not a member function of a standard
+}
+
+#include <cstdio>
+void test_cstdio_remove() {
+  std::remove("filename.txt"); // COMPLIANT - std::remove from <cstdio>
+  remove("filename.txt"); // COMPLIANT - std::remove from <cstdio> with using
+                          // directive
+}
