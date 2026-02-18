@@ -13,6 +13,7 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.SmartPointers
 
 /**
  * A function that has namespace `std` and has name `allocate` or `deallocate`, including but not limited to:
@@ -45,18 +46,26 @@ class MemoryManagementExpr extends Expr {
   }
 }
 
-from Expr expr
+from Expr expr, string message
 where
   not isExcluded(expr, Memory5Package::dynamicMemoryManagedManuallyQuery()) and
   (
     /* ===== 1. The expression is a use of non-placement `new`/ `new[]`, or a `delete`. ===== */
-    /* ===== 2. The expression is a call to malloc / calloc /  or to `free`. ===== */
-    expr instanceof MemoryManagementExpr
+    /* ===== 2. The expression is a call to `malloc` / `calloc` / `aligned_alloc` or to `free`. ===== */
+    expr instanceof MemoryManagementExpr and
+    message = "This expression dynamically allocates or deallocates memory."
     or
     /* ===== 3. The expression is a call to a member function named `allocate` or `deallocate` in namespace `std`. ===== */
-    expr.(FunctionCall).getTarget() instanceof AllocateOrDeallocateStdlibMemberFunction
+    exists(AllocateOrDeallocateStdlibMemberFunction allocateOrDeallocate |
+      expr.(FunctionCall).getTarget() = allocateOrDeallocate and
+      message =
+        "This expression uses a standard library function `" +
+          allocateOrDeallocate.getQualifiedName() + "` that manages memory manually."
+    )
     or
-    /* ===== 4. The expression is a  ==== */
-    none()
+    /* ===== 4. The expression is a call to `std::unique_ptr::release`. ==== */
+    exists(AutosarUniquePointer uniquePtr | expr = uniquePtr.getAReleaseCall()) and
+    message =
+      "This expression is a call to `std::unique_ptr::release` that manages memory manually."
   )
-select expr, "TODO"
+select expr, message
