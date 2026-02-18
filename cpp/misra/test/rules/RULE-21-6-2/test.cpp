@@ -1,6 +1,8 @@
 #include <cstdlib>
+#include <functional>
 #include <memory>
 #include <memory_resource>
+#include <new>
 #include <scoped_allocator>
 #include <stdlib.h>
 
@@ -14,7 +16,8 @@ public:
 void use_of_new() {
   C1 x1;                 // COMPLIANT: no use of new
   C1 x2{};               // COMPLIANT: no use of new
-  C1 *x3 = new C1;       // NON_COMPLIANT: use of new
+  C1 *x3 = new C1;
+       // NON_COMPLIANT: use of new
   C1 *x4 = new (&x1) C1; // COMPLIANT: placement new (but violates Rule 21.6.3)
 }
 
@@ -153,6 +156,175 @@ void delete_via_get() {
   auto p1 = std::make_unique<C1>();
   C1 *raw = p1.get(); // COMPLIANT: get() is fine
   delete raw;         // NON_COMPLIANT: use of delete (causes double-free!)
+}
+
+// Taking address of allocation functions (Item 2)
+
+void take_address_of_malloc_etc() {
+  std::function<void *(size_t)> alloc1 =
+      std::malloc; // NON_COMPLIANT: implicit address-of malloc
+  std::function<void *(size_t)> alloc2 =
+      &std::malloc; // NON_COMPLIANT: explicit address-of malloc
+  std::function<void *(size_t)> alloc3 =
+      ::malloc; // NON_COMPLIANT: implicit address-of malloc (global)
+  std::function<void *(size_t)> alloc4 =
+      &::malloc; // NON_COMPLIANT: explicit address-of malloc (global)
+
+  std::function<void *(size_t, size_t)> alloc5 =
+      std::calloc; // NON_COMPLIANT: implicit address-of calloc
+  std::function<void *(size_t, size_t)> alloc6 =
+      &std::calloc; // NON_COMPLIANT: explicit address-of calloc
+
+  std::function<void *(void *, size_t)> alloc7 =
+      std::realloc; // NON_COMPLIANT: implicit address-of realloc
+  std::function<void *(void *, size_t)> alloc8 =
+      &std::realloc; // NON_COMPLIANT: explicit address-of realloc
+
+  std::function<void *(size_t, size_t)> alloc9 =
+      std::aligned_alloc; // NON_COMPLIANT: implicit address-of aligned_alloc
+  std::function<void *(size_t, size_t)> alloc10 =
+      &std::aligned_alloc; // NON_COMPLIANT: explicit address-of aligned_alloc
+
+  std::function<void(void *)> dealloc1 =
+      std::free; // NON_COMPLIANT: implicit address-of free
+  std::function<void(void *)> dealloc2 =
+      &std::free; // NON_COMPLIANT: explicit address-of free
+  std::function<void(void *)> dealloc3 =
+      ::free; // NON_COMPLIANT: implicit address-of free (global)
+  std::function<void(void *)> dealloc4 =
+      &::free; // NON_COMPLIANT: explicit address-of free (global)
+}
+
+// Taking address of operator new/delete (Item 1)
+
+void take_address_of_operator_new() {
+  void *(*p1)(std::size_t) =
+      &::operator new; // NON_COMPLIANT: address of operator new
+  void *(*p2)(std::size_t) =
+      ::operator new; // NON_COMPLIANT: implicit address of operator new
+  void *(*p3)(std::size_t) =
+      &::operator new[]; // NON_COMPLIANT: address of operator new[]
+  void *(*p4)(std::size_t) =
+      ::operator new[]; // NON_COMPLIANT: implicit address of operator new[]
+
+  void *(*p5)(std::size_t, const std::nothrow_t &) =
+      &::operator new; // NON_COMPLIANT: address of nothrow operator new
+  void *(*p6)(std::size_t, const std::nothrow_t &) =
+      &::operator new[]; // NON_COMPLIANT: address of nothrow operator new[]
+}
+
+void take_address_of_operator_delete() {
+  void (*p1)(void *) =
+      &::operator delete; // NON_COMPLIANT: address of operator delete
+  void (*p2)(void *) =
+      ::operator delete; // NON_COMPLIANT: implicit address of operator delete
+  void (*p3)(void *) =
+      &::operator delete[]; // NON_COMPLIANT: address of operator delete[]
+  void (*p4)(void *) =
+      ::operator delete[]; // NON_COMPLIANT: implicit address of operator
+                           // delete[]
+
+  void (*p5)(void *, const std::nothrow_t &) =
+      &::operator delete; // NON_COMPLIANT: address of nothrow operator delete
+  void (*p6)(void *, const std::nothrow_t &) =
+      &::operator delete[]; // NON_COMPLIANT: address of nothrow operator
+                            // delete[]
+
+  void (*p7)(void *, std::size_t) =
+      &::operator delete; // NON_COMPLIANT: address of sized operator delete
+  void (*p8)(void *, std::size_t) =
+      &::operator delete[]; // NON_COMPLIANT: address of sized operator
+                            // delete[]
+}
+
+// Taking address of allocate/deallocate member functions (Item 3)
+
+void take_address_of_allocate_deallocate() {
+  // std::allocator
+  auto p1 =
+      &std::allocator<C1>::allocate; // NON_COMPLIANT: address of
+                                     // std::allocator::allocate
+  auto p2 =
+      &std::allocator<C1>::deallocate; // NON_COMPLIANT: address of
+                                       // std::allocator::deallocate
+
+  // std::allocator_traits (static member functions)
+  auto p3 =
+      &std::allocator_traits<
+          std::allocator<C1>>::allocate; // NON_COMPLIANT: address of
+                                         // std::allocator_traits::allocate
+  auto p4 =
+      &std::allocator_traits<
+          std::allocator<C1>>::deallocate; // NON_COMPLIANT: address of
+                                           // std::allocator_traits::deallocate
+
+  // std::pmr::memory_resource
+  auto p5 =
+      &std::pmr::memory_resource::allocate; // NON_COMPLIANT: address of
+                                            // memory_resource::allocate
+  auto p6 =
+      &std::pmr::memory_resource::deallocate; // NON_COMPLIANT: address of
+                                              // memory_resource::deallocate
+
+  // std::pmr::polymorphic_allocator
+  auto p7 =
+      &std::pmr::polymorphic_allocator<
+          C1>::allocate; // NON_COMPLIANT: address of
+                         // polymorphic_allocator::allocate
+  auto p8 =
+      &std::pmr::polymorphic_allocator<
+          C1>::deallocate; // NON_COMPLIANT: address of
+                           // polymorphic_allocator::deallocate
+
+  // std::pmr::monotonic_buffer_resource
+  auto p9 =
+      &std::pmr::monotonic_buffer_resource::
+          allocate; // NON_COMPLIANT: address of
+                    // monotonic_buffer_resource::allocate
+  auto p10 =
+      &std::pmr::monotonic_buffer_resource::
+          deallocate; // NON_COMPLIANT: address of
+                      // monotonic_buffer_resource::deallocate
+
+  // std::pmr::unsynchronized_pool_resource
+  auto p11 =
+      &std::pmr::unsynchronized_pool_resource::
+          allocate; // NON_COMPLIANT: address of
+                    // unsynchronized_pool_resource::allocate
+  auto p12 =
+      &std::pmr::unsynchronized_pool_resource::
+          deallocate; // NON_COMPLIANT: address of
+                      // unsynchronized_pool_resource::deallocate
+
+  // std::pmr::synchronized_pool_resource
+  auto p13 =
+      &std::pmr::synchronized_pool_resource::
+          allocate; // NON_COMPLIANT: address of
+                    // synchronized_pool_resource::allocate
+  auto p14 =
+      &std::pmr::synchronized_pool_resource::
+          deallocate; // NON_COMPLIANT: address of
+                      // synchronized_pool_resource::deallocate
+
+  // std::scoped_allocator_adaptor
+  using ScopedAlloc = std::scoped_allocator_adaptor<std::allocator<C1>>;
+  auto p15 =
+      &ScopedAlloc::allocate; // NON_COMPLIANT: address of
+                              // scoped_allocator_adaptor::allocate
+  auto p16 =
+      &ScopedAlloc::deallocate; // NON_COMPLIANT: address of
+                                // scoped_allocator_adaptor::deallocate
+}
+
+// Taking address of std::unique_ptr::release (Item 4)
+
+void take_address_of_unique_ptr_release() {
+  auto p1 =
+      &std::unique_ptr<C1>::release; // NON_COMPLIANT: address of
+                                     // std::unique_ptr::release
+  auto p2 =
+      &std::unique_ptr<C1[]>::release; // NON_COMPLIANT: address of
+                                       // std::unique_ptr::release (array form)
 }
 
 int main() { return 0; }
