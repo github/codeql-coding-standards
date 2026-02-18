@@ -64,6 +64,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "UnusedLocalFunction",
+          "shared_implementation_short_name": "UnusedLocalFunction",
           "tags": [
             "readability",
             "maintainability"

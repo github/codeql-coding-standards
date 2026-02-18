@@ -137,3 +137,24 @@ private:
     return c + d;
   }
 };
+
+namespace {
+class C1 {
+public:
+  void f() {} // NON_COMPLIANT - never used, internal linkage
+};
+
+namespace named {
+class C2 {
+public:
+  void f() {} // NON_COMPLIANT - never used, internal linkage
+};
+} // namespace named
+} // namespace
+
+namespace N1 {
+class C3 {
+public:
+  void f() {} // COMPLIANT - public external linkage
+};
+} // namespace N1
