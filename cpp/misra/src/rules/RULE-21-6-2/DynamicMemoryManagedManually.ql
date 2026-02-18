@@ -15,6 +15,26 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.SmartPointers
 
+class DynamicMemoryManagementFunction extends Function {
+  string description;
+
+  DynamicMemoryManagementFunction() {
+    (this instanceof AllocationFunction or this instanceof AlignedAlloc) and
+    description = "an expression that dynamically allocates memory"
+    or
+    this instanceof DeallocationFunction and
+    description = "an expression that dynamically deallocates memory"
+    or
+    this instanceof AllocateOrDeallocateStdlibMemberFunction and
+    description = "a standard library function that manages memory manually"
+    or
+    this instanceof UniquePointerReleaseFunction and
+    description = "`std::unique_ptr::release`"
+  }
+
+  string describe() { result = description }
+}
+
 /**
  * A function that has namespace `std` and has name `allocate` or `deallocate`, including but not limited to:
  * - `std::allocator<T>::allocate(std::size_t)`
@@ -36,36 +56,24 @@ class AlignedAlloc extends Function {
   AlignedAlloc() { this.hasGlobalOrStdName("aligned_alloc") }
 }
 
-/**
- * An expression that wraps `Alloc::isMemoryManagementExpr/0` and adds calls to `aligned_alloc`
- * to the set detected by it.
- */
-class MemoryManagementExpr extends Expr {
-  MemoryManagementExpr() {
-    isMemoryManagementExpr(this) or this.(FunctionCall).getTarget() instanceof AlignedAlloc
-  }
+class UniquePointerReleaseFunction extends MemberFunction {
+  UniquePointerReleaseFunction() { this.getClassAndName("release") instanceof AutosarUniquePointer }
 }
 
 from Expr expr, string message
 where
   not isExcluded(expr, Memory5Package::dynamicMemoryManagedManuallyQuery()) and
-  (
-    /* ===== 1. The expression is a use of non-placement `new`/ `new[]`, or a `delete`. ===== */
-    /* ===== 2. The expression is a call to `malloc` / `calloc` / `aligned_alloc` or to `free`. ===== */
-    expr instanceof MemoryManagementExpr and
-    message = "This expression dynamically allocates or deallocates memory."
-    or
-    /* ===== 3. The expression is a call to a member function named `allocate` or `deallocate` in namespace `std`. ===== */
-    exists(AllocateOrDeallocateStdlibMemberFunction allocateOrDeallocate |
-      expr.(FunctionCall).getTarget() = allocateOrDeallocate and
-      message =
-        "This expression uses a standard library function `" +
-          allocateOrDeallocate.getQualifiedName() + "` that manages memory manually."
-    )
-    or
-    /* ===== 4. The expression is a call to `std::unique_ptr::release`. ==== */
-    exists(AutosarUniquePointer uniquePtr | expr = uniquePtr.getAReleaseCall()) and
+  exists(DynamicMemoryManagementFunction dynamicMemoryManagementFunction |
+    /* ===== 1. The expression calls one of the dynamic memory management functions. ===== */
+    expr = dynamicMemoryManagementFunction.getACallToThisFunction() and
     message =
-      "This expression is a call to `std::unique_ptr::release` that manages memory manually."
+      "This expression is a call to `" + dynamicMemoryManagementFunction.getName() + "` which is " +
+        dynamicMemoryManagementFunction.describe() + "."
+    or
+    /* ===== 2. The expression takes address of the dynamic memory management functions. ===== */
+    expr = dynamicMemoryManagementFunction.getAnAccess() and
+    message =
+      "This expression takes address of `" + dynamicMemoryManagementFunction.getName() +
+        "` which is " + dynamicMemoryManagementFunction.describe() + "."
   )
 select expr, message
