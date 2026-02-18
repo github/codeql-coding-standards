@@ -1,0 +1,8 @@
+| test.cpp:10:3:10:13 | call to remove | Result of call to 'remove' is not used. |
+| test.cpp:27:3:27:16 | call to remove_if | Result of call to 'remove_if' is not used. |
+| test.cpp:49:3:49:13 | call to unique | Result of call to 'unique' is not used. |
+| test.cpp:65:3:65:13 | call to unique | Result of call to 'unique' is not used. |
+| test.cpp:82:6:82:10 | call to empty | Result of call to 'empty' is not used. |
+| test.cpp:100:3:100:12 | call to empty | Result of call to 'empty' is not used. |
+| test.cpp:117:3:117:13 | call to remove | Result of call to 'remove' is not used. |
+| test.cpp:122:6:122:10 | call to empty | Result of call to 'empty' is not used. |

@@ -6,6 +6,7 @@
 #include "iosfwd.h"
 #include "iterator.h"
 #include "stddef.h"
+#include <empty.h>
 
 namespace std {
 template <class charT> struct char_traits {
