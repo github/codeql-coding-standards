@@ -249,14 +249,13 @@ void take_address_of_allocate_deallocate() {
                                        // std::allocator::deallocate
 
   // std::allocator_traits (static member functions)
-  auto p3 =
-      &std::allocator_traits<
-          std::allocator<C1>>::allocate; // NON_COMPLIANT: address of
-                                         // std::allocator_traits::allocate
-  auto p4 =
-      &std::allocator_traits<
-          std::allocator<C1>>::deallocate; // NON_COMPLIANT: address of
-                                           // std::allocator_traits::deallocate
+  using Traits = std::allocator_traits<std::allocator<C1>>;
+  C1* (*p3)(std::allocator<C1>&, std::size_t) =
+      &Traits::allocate; // NON_COMPLIANT: address of
+                        // std::allocator_traits::allocate
+  void (*p4)(std::allocator<C1>&, C1*, std::size_t) =
+      &Traits::deallocate; // NON_COMPLIANT: address of
+                          // std::allocator_traits::deallocate
 
   // std::pmr::memory_resource
   auto p5 =
@@ -306,12 +305,12 @@ void take_address_of_allocate_deallocate() {
           deallocate; // NON_COMPLIANT: address of
                       // synchronized_pool_resource::deallocate
 
-  // std::scoped_allocator_adaptor
+  // std::scoped_allocator_adaptor (non-static member functions)
   using ScopedAlloc = std::scoped_allocator_adaptor<std::allocator<C1>>;
-  auto p15 =
+  C1* (ScopedAlloc::*p15)(std::size_t) =
       &ScopedAlloc::allocate; // NON_COMPLIANT: address of
                               // scoped_allocator_adaptor::allocate
-  auto p16 =
+  void (ScopedAlloc::*p16)(C1*, std::size_t) =
       &ScopedAlloc::deallocate; // NON_COMPLIANT: address of
                                 // scoped_allocator_adaptor::deallocate
 }
