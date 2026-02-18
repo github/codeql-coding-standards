@@ -158,9 +158,7 @@ void test_alias_template() { AliasTemplate2<int> l1; }
 
 // Test case 13: Primary class template usage
 namespace {
-template <typename T> struct D1 {
-  T m1;
-}; // COMPLIANT - D1<int> is used
+template <typename T> struct D1 { T m1; }; // COMPLIANT - D1<int> is used
 
 void test_class_template_usage() { D1<int> l1{42}; }
 } // namespace

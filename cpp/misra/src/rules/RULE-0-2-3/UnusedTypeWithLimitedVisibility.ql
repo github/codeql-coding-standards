@@ -1,3 +1,19 @@
+/**
+ * @id cpp/misra/unused-type-with-limited-visibility
+ * @name RULE-0-2-3: Types with limited visibility should be used at least once
+ * @description Types that are unused with limited visibility are unnecessary and should either be
+ *              removed or may indicate a developer mistake.
+ * @kind problem
+ * @precision very-high
+ * @problem.severity error
+ * @tags external/misra/id/rule-0-2-3
+ *       scope/single-translation-unit
+ *       maintainability
+ *       correctness
+ *       external/misra/enforcement/decidable
+ *       external/misra/obligation/advisory
+ */
+
 import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.types.Uses
