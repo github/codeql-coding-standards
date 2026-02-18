@@ -1,0 +1,6 @@
+ - `RULE-2-3`, `A0-1-6` - `UnusedTypeDeclarations.ql`:
+   - Type usage analysis has been improved to find more possible type usages, including:
+     - Previous behavior considered anonymous types in variable declarations to be considered used by the variable definition itself. This has been improved to require that a field of the anonymous type is accessed for the type to be considered used.
+     - Usages of a template type inside a specialization of that template are no longer considered usages of the template type.
+     - Hidden friend declarations are no longer considered usages of the class they are declaring friendship for.
+     - Improved exclusions generally, for cases such as nested types and functions within functions. These previously were a source of incorrectly identified type uses.

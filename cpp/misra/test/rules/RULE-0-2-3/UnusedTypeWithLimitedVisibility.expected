@@ -1,0 +1,11 @@
+| test.cpp:5:9:5:10 | T1 | Type 'T1' with limited visibility is not used. |
+| test.cpp:22:8:22:9 | A1 | Type 'A1' with limited visibility is not used. |
+| test.cpp:26:8:26:9 | A2 | Type 'A2' with limited visibility is not used. |
+| test.cpp:62:28:62:29 | C1<<unnamed>> | Type 'C1<<unnamed>>' with limited visibility is not used. |
+| test.cpp:79:14:79:14 | (unnamed class/struct/union) | Type '(unnamed class/struct/union)' with limited visibility is not used. |
+| test.cpp:105:12:105:13 | E2 | Type 'E2' with limited visibility is not used. |
+| test.cpp:115:9:115:10 | T2 | Type 'T2' with limited visibility is not used. |
+| test.cpp:126:10:126:11 | S2 | Type 'S2' with limited visibility is not used. |
+| test.cpp:133:8:133:9 | A3 | Type 'A3' with limited visibility is not used. |
+| test.cpp:145:8:145:9 | A6 | Type 'A6' with limited visibility is not used. |
+| test.cpp:152:29:152:42 | AliasTemplate1 | Type 'AliasTemplate1' with limited visibility is not used. |
