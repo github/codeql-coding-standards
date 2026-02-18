@@ -829,7 +829,7 @@ cpp,MISRA-C++-2023,RULE-0-1-1,Yes,Advisory,Undecidable,System,A value should not
 cpp,MISRA-C++-2023,RULE-0-1-2,Yes,Required,Decidable,Single Translation Unit,The value returned by a function shall be used,A0-1-2,DeadCode2,Easy,
 cpp,MISRA-C++-2023,RULE-0-2-1,Yes,Advisory,Decidable,Single Translation Unit,Variables with limited visibility should be used at least once,M0-1-3,DeadCode2,Easy,
 cpp,MISRA-C++-2023,RULE-0-2-2,Yes,Required,Decidable,Single Translation Unit,A named function parameter shall be used at least once,"A0-1-4, A0-1-5",DeadCode2,Easy,
-cpp,MISRA-C++-2023,RULE-0-2-3,Yes,Advisory,Decidable,Single Translation Unit,Types with limited visibility should be used at least once,A0-1-6,DeadCode2,Easy,
+cpp,MISRA-C++-2023,RULE-0-2-3,Yes,Advisory,Decidable,Single Translation Unit,Types with limited visibility should be used at least once,A0-1-6,DeadCode9,Easy,
 cpp,MISRA-C++-2023,RULE-0-2-4,Yes,Advisory,Decidable,System,Functions with limited visibility should be used at least once,A0-1-3,DeadCode2,Easy,
 cpp,MISRA-C++-2023,DIR-0-3-1,Yes,Advisory,,,Floating-point arithmetic should be used appropriately,,FloatingPoint,Hard,
 cpp,MISRA-C++-2023,DIR-0-3-2,Yes,Required,,,A function call shall not violate the function’s preconditions,,Preconditions,Hard,
