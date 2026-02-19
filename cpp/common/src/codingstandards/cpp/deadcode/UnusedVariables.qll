@@ -287,7 +287,7 @@ module ThirdPass {
 
   class UnusedGlobalOrNamespaceVariable extends SecondPassGlobalOrNspVariable {
     UnusedGlobalOrNamespaceVariable() {
-      // Exclude members whose value is compile time and is potentially used to inintialize a template
+      // Exclude members whose value is compile time and is potentially used to initialize a template
       not maybeACompileTimeTemplateArgument(this)
     }
   }
@@ -296,7 +296,7 @@ module ThirdPass {
     UnusedMemberVariable() {
       // No explicit initialization in a constructor
       not exists(UserProvidedConstructorFieldInit cfi | cfi.getTarget() = this) and
-      // Exclude members whose value is compile time and is potentially used to inintialize a template
+      // Exclude members whose value is compile time and is potentially used to initialize a template
       not maybeACompileTimeTemplateArgument(this)
     }
   }
