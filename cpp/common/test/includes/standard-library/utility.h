@@ -12,7 +12,7 @@ template <class T> void swap(T &a, T &b) noexcept;
 // Forward declaration only - defined in <tuple>
 template <typename... T1> class tuple;
 
-template <class T, class U> struct pair : tuple<T, U> {
+template <class T, class U> struct pair {
   T first;
   U second;
   pair(T t, U u);
