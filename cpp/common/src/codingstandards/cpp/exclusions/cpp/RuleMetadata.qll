@@ -9,6 +9,7 @@ import BannedLibraries
 import BannedSyntax
 import BannedTypes
 import Classes
+import Classes2
 import Comments
 import Concurrency
 import Conditionals
@@ -17,7 +18,9 @@ import Conversions
 import Conversions2
 import DeadCode
 import DeadCode3
+import DeadCode4
 import DeadCode5
+import DeadCode6
 import Declarations
 import ExceptionSafety
 import Exceptions1
@@ -41,8 +44,12 @@ import Linkage2
 import Literals
 import Loops
 import Macros
+import Memory2
+import Memory3
+import Memory4
 import MoveForward
 import Naming
+import Naming2
 import Null
 import OperatorInvariants
 import Operators
@@ -76,6 +83,7 @@ newtype TCPPQuery =
   TBannedSyntaxPackageQuery(BannedSyntaxQuery q) or
   TBannedTypesPackageQuery(BannedTypesQuery q) or
   TClassesPackageQuery(ClassesQuery q) or
+  TClasses2PackageQuery(Classes2Query q) or
   TCommentsPackageQuery(CommentsQuery q) or
   TConcurrencyPackageQuery(ConcurrencyQuery q) or
   TConditionalsPackageQuery(ConditionalsQuery q) or
@@ -84,7 +92,9 @@ newtype TCPPQuery =
   TConversions2PackageQuery(Conversions2Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
   TDeadCode3PackageQuery(DeadCode3Query q) or
+  TDeadCode4PackageQuery(DeadCode4Query q) or
   TDeadCode5PackageQuery(DeadCode5Query q) or
+  TDeadCode6PackageQuery(DeadCode6Query q) or
   TDeclarationsPackageQuery(DeclarationsQuery q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
@@ -108,8 +118,12 @@ newtype TCPPQuery =
   TLiteralsPackageQuery(LiteralsQuery q) or
   TLoopsPackageQuery(LoopsQuery q) or
   TMacrosPackageQuery(MacrosQuery q) or
+  TMemory2PackageQuery(Memory2Query q) or
+  TMemory3PackageQuery(Memory3Query q) or
+  TMemory4PackageQuery(Memory4Query q) or
   TMoveForwardPackageQuery(MoveForwardQuery q) or
   TNamingPackageQuery(NamingQuery q) or
+  TNaming2PackageQuery(Naming2Query q) or
   TNullPackageQuery(NullQuery q) or
   TOperatorInvariantsPackageQuery(OperatorInvariantsQuery q) or
   TOperatorsPackageQuery(OperatorsQuery q) or
@@ -143,6 +157,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isBannedSyntaxQueryMetadata(query, queryId, ruleId, category) or
   isBannedTypesQueryMetadata(query, queryId, ruleId, category) or
   isClassesQueryMetadata(query, queryId, ruleId, category) or
+  isClasses2QueryMetadata(query, queryId, ruleId, category) or
   isCommentsQueryMetadata(query, queryId, ruleId, category) or
   isConcurrencyQueryMetadata(query, queryId, ruleId, category) or
   isConditionalsQueryMetadata(query, queryId, ruleId, category) or
@@ -151,7 +166,9 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConversions2QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
   isDeadCode3QueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode4QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode5QueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode6QueryMetadata(query, queryId, ruleId, category) or
   isDeclarationsQueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
@@ -175,8 +192,12 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isLiteralsQueryMetadata(query, queryId, ruleId, category) or
   isLoopsQueryMetadata(query, queryId, ruleId, category) or
   isMacrosQueryMetadata(query, queryId, ruleId, category) or
+  isMemory2QueryMetadata(query, queryId, ruleId, category) or
+  isMemory3QueryMetadata(query, queryId, ruleId, category) or
+  isMemory4QueryMetadata(query, queryId, ruleId, category) or
   isMoveForwardQueryMetadata(query, queryId, ruleId, category) or
   isNamingQueryMetadata(query, queryId, ruleId, category) or
+  isNaming2QueryMetadata(query, queryId, ruleId, category) or
   isNullQueryMetadata(query, queryId, ruleId, category) or
   isOperatorInvariantsQueryMetadata(query, queryId, ruleId, category) or
   isOperatorsQueryMetadata(query, queryId, ruleId, category) or
