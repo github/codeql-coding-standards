@@ -1,10 +1,15 @@
 import cpp
 import codingstandards.cpp.Ordering
 
-class VariableAccessInFullExpressionOrdering extends Ordering::Configuration {
-  VariableAccessInFullExpressionOrdering() { this = "VariableAccessInFullExpressionOrdering" }
+module VariableAccessInFullExpressionOrdering implements Ordering::ConfigSig {
+  import Ordering::CppConfigBase
 
-  override predicate isCandidate(Expr e1, Expr e2) { isCandidate(_, e1, e2) }
+  predicate isCandidate(Expr e1, Expr e2) { isCandidate(_, e1, e2) }
+
+  pragma[inline]
+  predicate sequencingEdge(Ordering::ExprEvaluationNode n1, Ordering::ExprEvaluationNode n2) {
+    Ordering::cpp14Edge(n1, n2)
+  }
 }
 
 pragma[noinline]

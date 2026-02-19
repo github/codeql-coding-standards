@@ -19,15 +19,14 @@ import codingstandards.cpp.SideEffect
 import codingstandards.cpp.sideeffect.DefaultEffects
 import codingstandards.cpp.Ordering
 import codingstandards.cpp.orderofevaluation.VariableAccessOrdering
+import Ordering::Make<VariableAccessInFullExpressionOrdering> as FullExprOrdering
 
-from
-  VariableAccessInFullExpressionOrdering config, FullExpr e, VariableEffect ve, VariableAccess va1,
-  VariableAccess va2, Variable v
+from FullExpr e, VariableEffect ve, VariableAccess va1, VariableAccess va2, Variable v
 where
   not isExcluded(e, OrderOfEvaluationPackage::expressionShouldNotRelyOnOrderOfEvaluationQuery()) and
   e = va1.(ConstituentExpr).getFullExpr() and
   va1 = ve.getAnAccess() and
-  config.isUnsequenced(va1, va2) and
+  FullExprOrdering::isUnsequenced(va1, va2) and
   v = va1.getTarget()
 select e,
   "The evaluation is depended on the order of evaluation of $@, that is modified by $@ and $@, that both access $@.",
