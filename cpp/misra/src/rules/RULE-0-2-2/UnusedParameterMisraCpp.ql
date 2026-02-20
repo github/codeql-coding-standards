@@ -1,6 +1,6 @@
 /**
  * @id cpp/misra/unused-parameter-misra-cpp
- * @name RULE-0-2-2: There shall be no unused named parameters in non-virtual functions
+ * @name RULE-0-2-2: There shall be no unused named parameters in both virtual and non-virtual functions
  * @description Unused parameters can indicate a mistake when implementing the function.
  * @kind problem
  * @precision very-high

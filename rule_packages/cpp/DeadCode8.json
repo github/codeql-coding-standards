@@ -9,7 +9,7 @@
         {
           "description": "Unused parameters can indicate a mistake when implementing the function.",
           "kind": "problem",
-          "name": "There shall be no unused named parameters in non-virtual functions",
+          "name": "There shall be no unused named parameters in both virtual and non-virtual functions",
           "precision": "very-high",
           "severity": "warning",
           "short_name": "UnusedParameterMisraCpp",
@@ -21,7 +21,7 @@
           "shared_implementation_short_name": "UnusedParameter"
         }
       ],
-      "title": "There shall be no unused named parameters in non-virtual functions."
+      "title": "There shall be no unused named parameters in both virtual and non-virtual functions."
     }
   }
 }
