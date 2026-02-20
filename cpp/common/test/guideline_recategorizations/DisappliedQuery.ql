@@ -17,7 +17,7 @@ from UserType ut, string reason
 where
   isExcluded(ut, DeadCodePackage::unusedTypeDeclarationsQuery(), reason) and
   exists(ut.getFile()) and
-  not ut instanceof TemplateParameter and
+  not ut instanceof TypeTemplateParameter and
   not ut instanceof ProxyClass and
   not exists(getATypeUse(ut)) and
   not ut.isFromUninstantiatedTemplate(_)

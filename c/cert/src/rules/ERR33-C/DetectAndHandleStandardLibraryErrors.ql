@@ -20,6 +20,7 @@ import cpp
 import codingstandards.c.cert
 import semmle.code.cpp.commons.NULL
 import codingstandards.cpp.ReadErrorsAndEOF
+import semmle.code.cpp.dataflow.DataFlow
 
 ComparisonOperation getAValidComparison(string spec) {
   spec = "=0" and result.(EqualityOperation).getAnOperand().getValue() = "0"

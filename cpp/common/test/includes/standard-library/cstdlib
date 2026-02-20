@@ -1,1 +1,27 @@
-#include "cstdlib.h"
+#ifndef _GHLIBCPP_CSTDLIB
+#define _GHLIBCPP_CSTDLIB
+#include "stdlib.h"
+namespace std {
+using ::_Exit;
+using ::abort;
+using ::at_quick_exit;
+using ::atexit;
+using ::atof;
+using ::atoi;
+using ::atol;
+using ::atoll;
+using ::exit;
+using ::free;
+using ::malloc;
+using ::quick_exit;
+using ::rand;
+using ::strtod;
+using ::strtof;
+using ::strtol;
+using ::strtold;
+using ::strtoll;
+using ::strtoul;
+using ::strtoull;
+using ::system;
+} // namespace std
+#endif // _GHLIBCPP_CSTDLIB

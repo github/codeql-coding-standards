@@ -51,7 +51,8 @@ class WriteFunctionCall extends ReadWriteCall {
   }
 }
 
-pragma[inline]
+bindingset[a, b]
+pragma[inline_late]
 predicate sameSource(FunctionCall a, FunctionCall b) {
   sameStreamSource(a, b) or
   sameFileSource(a, b)

@@ -1,0 +1,2 @@
+ - `FIO39-C`, `FIO50-CPP`, `A27-0-3`, `RULE-30-0-2`: `IOFstreamMissingPositioning.ql`, `InterleavedInputOutputWithoutPosition.ql`, `InterleavedInputOutputWithoutFlush.ql`, `ReadsAndWritesOnStreamNotSeparatedByPositioning.ql`.
+   - Improved performance for codebases with large numbers of stream or file accesses.

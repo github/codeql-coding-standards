@@ -18,7 +18,8 @@ import codingstandards.cpp.FunctionEquivalence
 
 class Candidate extends TemplateFunction {
   Candidate() {
-    this.getAParameter().getType().(RValueReferenceType).getBaseType() instanceof TemplateParameter
+    this.getAParameter().getType().(RValueReferenceType).getBaseType() instanceof
+      TypeTemplateParameter
   }
 }
 

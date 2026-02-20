@@ -19,6 +19,7 @@
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.Iterators
+import semmle.code.cpp.dataflow.DataFlow
 
 predicate startEndArgumentsDoNotPointToTheSameContainer(
   IteratorRangeFunctionCall fc, Expr arg, string reason

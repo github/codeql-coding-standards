@@ -15,14 +15,11 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.pointertoavirtualbaseclasscasttoapointer.PointerToAVirtualBaseClassCastToAPointer
 
-from Cast cast, VirtualBaseClass castFrom, Class castTo
-where
-  not isExcluded(cast, PointersPackage::pointerToAVirtualBaseClassCastToAPointerQuery()) and
-  not cast instanceof DynamicCast and
-  castFrom = cast.getExpr().getType().(PointerType).getBaseType() and
-  cast.getType().(PointerType).getBaseType() = castTo and
-  castTo = castFrom.getADerivedClass+()
-select cast,
-  "A pointer to virtual base class $@ is not cast to a pointer of derived class $@ using a dynamic_cast.",
-  castFrom, castFrom.getName(), castTo, castTo.getName()
+class PointerToAVirtualBaseClassCastToAPointerQuery extends PointerToAVirtualBaseClassCastToAPointerSharedQuery
+{
+  PointerToAVirtualBaseClassCastToAPointerQuery() {
+    this = PointersPackage::pointerToAVirtualBaseClassCastToAPointerQuery()
+  }
+}

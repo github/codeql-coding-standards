@@ -20,6 +20,7 @@ predicate matchesSign(IntegerConstantMacro macro, PossiblyNegativeLiteral litera
   literal.isNegative() implies macro.isSigned()
 }
 
+bindingset[literal]
 predicate matchesSize(IntegerConstantMacro macro, PossiblyNegativeLiteral literal) {
   literal.getRawValue() <= macro.maxValue() and
   literal.getRawValue() >= macro.minValue()

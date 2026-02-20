@@ -20,6 +20,7 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.Iterators
 import semmle.code.cpp.controlflow.Dominance
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * Models a call to an iterator's `operator+`

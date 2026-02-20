@@ -20,6 +20,7 @@ import codingstandards.c.cert
 import codingstandards.c.Errno
 import codingstandards.c.Signal
 import semmle.code.cpp.controlflow.Guards
+import semmle.code.cpp.dataflow.DataFlow
 
 /**
  * A check on `signal` call return value

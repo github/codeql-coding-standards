@@ -1,4 +1,5 @@
 import cpp
+private import semmle.code.cpp.dataflow.DataFlow
 private import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 import codingstandards.cpp.AccessPath
 

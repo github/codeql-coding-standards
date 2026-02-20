@@ -16,6 +16,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Macro
+import codingstandards.cpp.CStyleCasts
 
 /**
  * Gets the macro (if any) that generated the given `CStyleCast`.
@@ -61,18 +62,10 @@ Macro getGeneratedFrom(CStyleCast c) {
  *    argument type is compatible with a single-argument constructor.
  */
 
-from CStyleCast c, string extraMessage, Locatable l, string supplementary
+from ExplicitUserDefinedCStyleCast c, string extraMessage, Locatable l, string supplementary
 where
   not isExcluded(c, BannedSyntaxPackage::traditionalCStyleCastsUsedQuery()) and
-  not c.isImplicit() and
-  not c.getType() instanceof UnknownType and
-  // For casts in templates that occur on types related to a template parameter, the copy of th
-  // cast in the uninstantiated template is represented as a `CStyleCast` even if in practice all
-  // the instantiations represent it as a `ConstructorCall`. To avoid the common false positive case
-  // of using the functional cast notation to call a constructor we exclude all `CStyleCast`s on
-  // uninstantiated templates, and instead rely on reporting results within instantiations.
-  not c.isFromUninstantiatedTemplate(_) and
-  // Exclude casts created from macro invocations of macros defined by third parties
+  // Not generated from a library macro
   not getGeneratedFrom(c) instanceof LibraryMacro and
   // If the cast was generated from a user-provided macro, then report the macro that generated the
   // cast, as the macro itself may have generated the cast

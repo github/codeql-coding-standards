@@ -23,7 +23,7 @@ class UniqueLineStmt extends Locatable {
       exists(Declaration d |
         this = d.getADeclarationEntry() and
         not d instanceof Parameter and
-        not d instanceof TemplateParameter and
+        not d instanceof TypeTemplateParameter and
         // TODO - Needs to be enhanced to solve issues with
         // templated inner classes.
         not d instanceof Function and
@@ -55,11 +55,9 @@ where
   //omit the cases where there is one struct identifier on a struct var line used with typedef
   not exists(Struct s | s.getADeclarationEntry() = e1 and e1 instanceof TypeDeclarationEntry) and
   not exists(Struct s | s.getATypeNameUse() = e1 and e1 instanceof TypeDeclarationEntry) and
-  exists(Location l1, Location l2 |
-    e1.getLocation() = l1 and
-    e2.getLocation() = l2 and
-    not l1 = l2 and
-    l1.getFile() = l2.getFile() and
-    l1.getStartLine() = l2.getStartLine()
+  exists(string file, int startline |
+    e1.getLocation().hasLocationInfo(file, startline, _, _, _) and
+    e2.getLocation().hasLocationInfo(file, startline, _, _, _) and
+    not e1.getLocation() = e2.getLocation()
   )
 select e1, "Expression statement and identifier are on the same line."

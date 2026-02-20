@@ -20,3 +20,10 @@ class BuiltInIntegerType extends BuiltInType {
 class ExcludedVariable extends Parameter {
   ExcludedVariable() { getFunction() instanceof MainFunction }
 }
+
+/**
+ * Any main function.
+ */
+class ExcludedFunction extends Function {
+  ExcludedFunction() { this instanceof MainFunction }
+}

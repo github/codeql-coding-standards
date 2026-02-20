@@ -24,28 +24,32 @@ import codingstandards.c.cert
 import codingstandards.cpp.types.Compatible
 import ExternalIdentifiers
 
-predicate interestedInFunctions(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+predicate interestedInFunctions(
+  FunctionDeclarationEntry f1, FunctionDeclarationEntry f2, ExternalIdentifiers d
+) {
   not f1 = f2 and
-  f1.getDeclaration() = f2.getDeclaration() and
-  f1.getName() = f2.getName()
+  d = f1.getDeclaration() and
+  d = f2.getDeclaration()
 }
+
+predicate interestedInFunctions(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
+  interestedInFunctions(f1, f2, _)
+}
+
+module FuncDeclEquiv =
+  FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>;
 
 from ExternalIdentifiers d, FunctionDeclarationEntry f1, FunctionDeclarationEntry f2
 where
   not isExcluded(f1, Declarations2Package::incompatibleFunctionDeclarationsQuery()) and
   not isExcluded(f2, Declarations2Package::incompatibleFunctionDeclarationsQuery()) and
-  not f1 = f2 and
-  f1.getDeclaration() = d and
-  f2.getDeclaration() = d and
-  f1.getName() = f2.getName() and
+  interestedInFunctions(f1, f2, d) and
   (
     //return type check
-    not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>::equalReturnTypes(f1,
-      f2)
+    not FuncDeclEquiv::equalReturnTypes(f1, f2)
     or
     //parameter type check
-    not FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>::equalParameterTypes(f1,
-      f2)
+    not FuncDeclEquiv::equalParameterTypes(f1, f2)
   ) and
   // Apply ordering on start line, trying to avoid the optimiser applying this join too early
   // in the pipeline

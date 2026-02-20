@@ -1,4 +1,6 @@
 name: Verify Standard Library Dependencies
+permissions:
+  contents: read
 
 # Run this workflow every time the "supported_codeql_configs.json" file or a "qlpack.yml" file is changed
 on:
@@ -22,7 +24,7 @@ jobs:
       matrix: ${{ steps.export-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Export unit test matrix
         id: export-matrix
@@ -44,16 +46,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Python 3
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.9"
 
       - name: Cache CodeQL
         id: cache-codeql
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           # A list of files, directories, and wildcard patterns to cache and restore
           path: ${{github.workspace}}/codeql_home

@@ -18,7 +18,7 @@ import codingstandards.cpp.autosar
 class NonMemberGenericOperator extends TemplateFunction {
   NonMemberGenericOperator() {
     this instanceof Operator and
-    exists(TemplateParameter tp, Type pType |
+    exists(TypeTemplateParameter tp, Type pType |
       pType = getAParameter().getType().getUnspecifiedType() //Parameter Type
     |
       pType = tp or
