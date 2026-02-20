@@ -55,8 +55,8 @@ class UserDeclaredOperatorNewOrDelete extends FunctionDeclarationEntry {
     /* Not in a file called `new`, which is likely to be a stub of the standard library */
     not this.getFile().getBaseName() = "new" and
     (
-      this.getName().regexpMatch("operator new(\\[\\])?") or
-      this.getName().regexpMatch("operator delete(\\[\\])?")
+      this.getName() in ["operator new", "operator new[]"] or
+      this.getName() in ["operator delete", "operator delete[]"]
     )
   }
 }
