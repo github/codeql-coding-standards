@@ -20,8 +20,8 @@ public:
       void *ptr) noexcept; // NON_COMPLIANT: class-specific declaration
   void *operator new(
       std::size_t size,
-      const std::nothrow_t &) noexcept; // NON_COMPLIANT: class-specific
-                                        // nothrow declaration
+      const std::nothrow_t
+          &) noexcept; // NON_COMPLIANT: class-specific nothrow declaration
   void *operator new(std::size_t size,
                      void *ptr) noexcept; // NON_COMPLIANT: class-specific
                                           // placement declaration
@@ -34,6 +34,15 @@ public:
   void *
   operator new(std::size_t size, double alignment,
                int pool); // NON_COMPLIANT: class-specific custom declaration
+  void operator delete(void *ptr,
+                       void *) noexcept; // NON_COMPLIANT: class-specific
+                                         // placement delete declaration
+  void operator delete[](void *ptr,
+                         void *) noexcept; // NON_COMPLIANT: class-specific
+                                           // placement delete[] declaration
+  void operator delete(void *ptr,
+                       int hint) noexcept; // NON_COMPLIANT: class-specific
+                                           // custom delete declaration
 };
 
 /**
@@ -105,41 +114,40 @@ public:
 };
 
 /**
- * Global replaceable forms - COMPLIANT
- * These are the "blessed" signatures that can be replaced globally.
+ * Re-declared allocation / deallocations functions - NON_COMPLIANT
  */
-void *
-operator new(std::size_t size); // COMPLIANT: re-declaring global replaceable
+void *operator new(
+    std::size_t size); // NON_COMPLIANT: re-declaring global replaceable
 void *operator new(std::size_t size) {
   return std::malloc(size);
-} // COMPLIANT: implementing global replaceable
+} // NON_COMPLIANT: implementing global replaceable
 void operator delete(void *ptr) noexcept {
   std::free(ptr);
-} // COMPLIANT: implementing global replaceable
+} // NON_COMPLIANT: implementing global replaceable
 void *operator new[](std::size_t size) {
   return std::malloc(size);
-} // COMPLIANT: implementing global replaceable
+} // NON_COMPLIANT: implementing global replaceable
 void operator delete[](void *ptr) noexcept {
   std::free(ptr);
-} // COMPLIANT: implementing global replaceable
+} // NON_COMPLIANT: implementing global replaceable
 void *operator new(std::size_t size, const std::nothrow_t &) noexcept {
   return std::malloc(size);
-} // COMPLIANT: implementing global replaceable nothrow
+} // NON_COMPLIANT: implementing global replaceable nothrow
 void *operator new[](std::size_t size, const std::nothrow_t &) noexcept {
   return std::malloc(size);
-} // COMPLIANT: implementing global replaceable nothrow
+} // NON_COMPLIANT: implementing global replaceable nothrow
 void operator delete(void *ptr, std::size_t) noexcept {
   std::free(ptr);
-} // COMPLIANT: implementing global replaceable sized
+} // NON_COMPLIANT: implementing global replaceable sized
 void operator delete[](void *ptr, std::size_t) noexcept {
   std::free(ptr);
-} // COMPLIANT: implementing global replaceable sized
+} // NON_COMPLIANT: implementing global replaceable sized
 void operator delete(void *ptr, const std::nothrow_t &) noexcept {
   std::free(ptr);
-} // COMPLIANT: implementing global replaceable placement deallocation
+} // NON_COMPLIANT: implementing global replaceable placement deallocation
 void operator delete[](void *ptr, const std::nothrow_t &) noexcept {
   std::free(ptr);
-} // COMPLIANT: implementing global replaceable placement deallocation
+} // NON_COMPLIANT: implementing global replaceable placement deallocation
 
 /**
  * Global non-standard forms - NON_COMPLIANT
@@ -198,6 +206,20 @@ void use_custom_new_expressions() {
  * Test taking address of global placement new.
  */
 void take_address_of_placement_new() {
+  void *(*c1)(std::size_t) =
+      &::operator new; // COMPLIANT: address of replaceable new
+  void *(*c2)(std::size_t) =
+      ::operator new; // COMPLIANT: implicit address of replaceable new
+  void *(*c3)(std::size_t) =
+      &::operator new[]; // COMPLIANT: address of replaceable new[]
+  void *(*c4)(std::size_t) =
+      ::operator new[]; // COMPLIANT: implicit address of replaceable new[]
+  void *(*c5)(std::size_t, const std::nothrow_t &) =
+      &::operator new; // COMPLIANT: address of nothrow new
+  void *(*c6)(std::size_t, const std::nothrow_t &) =
+      &::operator new[]; // COMPLIANT: address of nothrow new[]
+
+  // Non-compliant: taking address of non-replaceable allocation functions
   void *(*p1)(std::size_t, void *) =
       &::operator new; // NON_COMPLIANT: address of placement new
   void *(*p2)(std::size_t, void *) =
@@ -212,6 +234,25 @@ void take_address_of_placement_new() {
  * Test taking address of global placement delete.
  */
 void take_address_of_placement_delete() {
+  // Compliant: taking address of replaceable deallocation functions
+  void (*c1)(void *) =
+      &::operator delete; // COMPLIANT: address of replaceable delete
+  void (*c2)(void *) =
+      ::operator delete; // COMPLIANT: implicit address of replaceable delete
+  void (*c3)(void *) =
+      &::operator delete[]; // COMPLIANT: address of replaceable delete[]
+  void (*c4)(void *) = ::operator delete[]; // COMPLIANT: implicit address of
+                                            // replaceable delete[]
+  void (*c5)(void *, std::size_t) =
+      &::operator delete; // COMPLIANT: address of sized delete
+  void (*c6)(void *, std::size_t) =
+      &::operator delete[]; // COMPLIANT: address of sized delete[]
+  void (*c7)(void *, const std::nothrow_t &) =
+      &::operator delete; // COMPLIANT: address of nothrow delete
+  void (*c8)(void *, const std::nothrow_t &) =
+      &::operator delete[]; // COMPLIANT: address of nothrow delete[]
+
+  // Non-compliant: taking address of non-replaceable deallocation functions
   void (*p1)(void *, void *) =
       &::operator delete; // NON_COMPLIANT: address of placement delete
   void (*p2)(void *, void *) =
@@ -228,11 +269,14 @@ void take_address_of_placement_delete() {
  */
 void take_address_of_class_specific_new() {
   void *(*p1)(std::size_t) =
-      &C1::operator new; // NON_COMPLIANT: address of class-specific new
+      &C1::operator new; // COMPLIANT: address of class-specific replaceable
+                         // allocation function
   void *(*p2)(std::size_t) =
-      &C1::operator new[]; // NON_COMPLIANT: address of class-specific new[]
+      &C1::operator new[]; // COMPLIANT: address of class-specific replaceable
+                           // allocation function
   void *(*p3)(std::size_t, const std::nothrow_t &) =
-      &C1::operator new; // NON_COMPLIANT: address of class-specific nothrow new
+      &C1::operator new; // COMPLIANT: address of class-specific replaceable
+                         // non-throwing allocation function
   void *(*p4)(std::size_t, void *) =
       &C1::operator new; // NON_COMPLIANT: address of class-specific placement
                          // new
@@ -245,9 +289,20 @@ void take_address_of_class_specific_new() {
  */
 void take_address_of_class_specific_delete() {
   void (*p1)(void *) =
-      &C1::operator delete; // NON_COMPLIANT: address of class-specific delete
-  void (*p2)(void *) = &C1::operator delete[]; // NON_COMPLIANT: address of
-                                               // class-specific delete[]
+      &C1::operator delete; // COMPLIANT: address of class-specific
+                            // replaceable deallocation function
+  void (*p2)(void *) =
+      &C1::operator delete[]; // COMPLIANT: address of class-specific
+                              // replaceable deallocation function
+  void (*p3)(void *, void *) =
+      &C1::operator delete; // NON_COMPLIANT: address of class-specific
+                            // placement delete
+  void (*p4)(void *, void *) =
+      &C1::operator delete[]; // NON_COMPLIANT: address of class-specific
+                              // placement delete[]
+  void (*p5)(void *, int) =
+      &C1::operator delete; // NON_COMPLIANT: address of class-specific custom
+                            // delete
 }
 
 /**
