@@ -20,7 +20,13 @@ abstract class CustomOperatorNewOrDelete extends Operator {
     exists(getFile().getRelativePath()) and
     // Not in a file called `new`, which is likely to be a copy of the standard library
     // as it is in our tests
-    not getFile().getBaseName() = "new"
+    not forall(File file | file = this.getADeclarationLocation().getFile() |
+      file.getBaseName() = "new"
+    ) and
+    (
+      this.getName().regexpMatch("operator new(\\[\\])?") or
+      this.getName().regexpMatch("operator delete(\\[\\])?")
+    )
   }
 
   /**
