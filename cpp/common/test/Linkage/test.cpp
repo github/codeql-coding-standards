@@ -1,7 +1,7 @@
 int g1;                  // external linkage
 extern int g2;           // external linkage from explicit specification
 const int g3 = 0;        // internal linkage
-extern const int g4 = 0; // internal linkage
+extern const int g4 = 0; // external linkage
 static int g5;           // internal linkage
 
 namespace ns1 { // named namespace as external linkage
