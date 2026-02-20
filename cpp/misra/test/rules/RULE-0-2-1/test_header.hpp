@@ -19,6 +19,13 @@ const int cg8 = 8; // COMPLIANT - unused constant variable defined in header
 }
 
 class HeaderClass {
-  const int m1 = 9;            // NON_COMPLIANT -- not namespace scope
-  static const int m2 = 30234; // NON_COMPLIANT -- not namespace scope
+  const int m1 = 9;            // NON_COMPLIANT -- no linkage
+  static const int m2 = 30234; // COMPLIANT -- external linkage
 };
+
+namespace {
+class HeaderClass2 {
+  static const int m1 =
+      9; // NON_COMPLIANT -- internal linkage, not namespace scope
+};
+} // namespace

@@ -33,7 +33,7 @@ class UnusedVariable extends Variable {
       description = "Variable '" + this.getName() + "' is unused."
       or
       this instanceof FullyUnusedMemberVariable and
-      description = "Member variable '" + this.getQualifiedName() + "' is unused."
+      description = "Member variable '" + this.getName() + "' is unused."
     ) and
     not (isConstant(this) and this.getFile() instanceof HeaderFile and hasNamespaceScope(this))
   }

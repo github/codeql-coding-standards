@@ -10,6 +10,9 @@
 | test_global_or_namespace.cpp:29:4:29:4 | a | Variable '(unnamed namespace)::a' is unused. |
 | test_global_or_namespace.cpp:37:5:37:6 | x3 | Variable '(unnamed namespace)::N1::x3' is unused. |
 | test_global_or_namespace.cpp:47:5:47:5 | a | Variable '(unnamed namespace)::N1::a' is unused. |
-| test_header.hpp:22:13:22:14 | m1 | Member variable 'HeaderClass::m1' is unused. |
-| test_member.cpp:4:7:4:8 | m1 | Member variable 'test::A::m1' is unused. |
-| test_member.cpp:31:7:31:8 | m1 | Member variable 'test::C::m1' is unused. |
+| test_header.hpp:22:13:22:14 | m1 | Member variable 'm1' is unused. |
+| test_header.hpp:28:20:28:21 | m1 | Member variable 'm1' is unused. |
+| test_member.cpp:4:7:4:8 | m1 | Member variable 'm1' is unused. |
+| test_member.cpp:17:9:17:11 | pad | Member variable 'pad' is unused. |
+| test_member.cpp:19:9:19:11 | sm2 | Member variable 'sm2' is unused. |
+| test_member.cpp:31:7:31:8 | m1 | Member variable 'm1' is unused. |
