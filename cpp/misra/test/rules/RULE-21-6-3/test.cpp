@@ -9,36 +9,31 @@
  */
 class C1 {
 public:
-  C1() {}
-
-  // Class-specific operator declarations - NON_COMPLIANT[FALSE_NEGATIVE] (any
-  // signature)
-  void *operator new(std::size_t size);       // NON_COMPLIANT[FALSE_NEGATIVE]:
-                                              // class-specific declaration
-  void *operator new[](std::size_t size);     // NON_COMPLIANT[FALSE_NEGATIVE]:
-                                              // class-specific declaration
-  void operator delete(void *ptr) noexcept;   // NON_COMPLIANT[FALSE_NEGATIVE]:
-                                              // class-specific declaration
-  void operator delete[](void *ptr) noexcept; // NON_COMPLIANT[FALSE_NEGATIVE]:
-                                              // class-specific declaration
+  // Class-specific operator declarations - NON_COMPLIANT (any signature)
+  void *
+  operator new(std::size_t size); // NON_COMPLIANT: class-specific declaration
+  void *
+  operator new[](std::size_t size); // NON_COMPLIANT: class-specific declaration
+  void operator delete(
+      void *ptr) noexcept; // NON_COMPLIANT: class-specific declaration
+  void operator delete[](
+      void *ptr) noexcept; // NON_COMPLIANT: class-specific declaration
   void *operator new(
       std::size_t size,
-      const std::nothrow_t &) noexcept; // NON_COMPLIANT[FALSE_NEGATIVE]:
-                                        // class-specific nothrow declaration
+      const std::nothrow_t &) noexcept; // NON_COMPLIANT: class-specific
+                                        // nothrow declaration
+  void *operator new(std::size_t size,
+                     void *ptr) noexcept; // NON_COMPLIANT: class-specific
+                                          // placement declaration
+  void *operator new[](std::size_t size,
+                       void *ptr) noexcept; // NON_COMPLIANT: class-specific
+                                            // placement declaration
   void *
   operator new(std::size_t size,
-               void *ptr) noexcept; // NON_COMPLIANT[FALSE_NEGATIVE]:
-                                    // class-specific placement declaration
+               int hint); // NON_COMPLIANT: class-specific custom declaration
   void *
-  operator new[](std::size_t size,
-                 void *ptr) noexcept; // NON_COMPLIANT[FALSE_NEGATIVE]:
-                                      // class-specific placement declaration
-  void *operator new(std::size_t size,
-                     int hint); // NON_COMPLIANT[FALSE_NEGATIVE]: class-specific
-                                // custom declaration
-  void *operator new(std::size_t size, double alignment,
-                     int pool); // NON_COMPLIANT[FALSE_NEGATIVE]: class-specific
-                                // custom declaration
+  operator new(std::size_t size, double alignment,
+               int pool); // NON_COMPLIANT: class-specific custom declaration
 };
 
 /**
