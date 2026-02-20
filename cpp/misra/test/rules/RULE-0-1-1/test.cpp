@@ -57,7 +57,7 @@ void f3() {
   l11 += l12;  // COMPLIANT
   f0(l11);
 
-  int l13 = 0; // NON_COMPLIANT -- read but not observed
+  int l13 = 0;   // NON_COMPLIANT -- read but not observed
   l13 = l13 + 1; // NON_COMPLIANT -- read but not observed
 
   int l14 = 0;
