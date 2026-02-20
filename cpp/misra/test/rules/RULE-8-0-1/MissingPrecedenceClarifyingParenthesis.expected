@@ -30,5 +30,6 @@
 | test.cpp:153:20:153:26 | ... * ... | Expression with operator '+' contains an unparenthesized child expression with higher precedence operator '*'. |
 | test.cpp:193:16:193:22 | ... * ... | Expression with operator '+' contains an unparenthesized child expression with higher precedence operator '*'. |
 | test.cpp:203:17:203:22 | ... * ... | Expression with operator '+' contains an unparenthesized child expression with higher precedence operator '*'. |
-| test.cpp:208:1:208:38 | #define UNSAFE_MACRO(x,y,z) x + y *z | Expression with operator '+' contains an unparenthesized child expression with higher precedence operator '*'. |
+| test.cpp:215:29:215:34 | ... * ... | Expression with operator '+' contains an unparenthesized child expression with higher precedence operator '*'. |
+| test.cpp:219:25:219:30 | ... * ... | Expression with operator '+' contains an unparenthesized child expression with higher precedence operator '*'. |
 | test.cpp:225:14:225:18 | ... * ... | Expression with operator '+' contains an unparenthesized child expression with higher precedence operator '*'. |
