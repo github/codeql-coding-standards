@@ -11,31 +11,34 @@ class C1 {
 public:
   C1() {}
 
-  // Class-specific operator declarations - NON_COMPLIANT (any signature)
-  void *
-  operator new(std::size_t size); // NON_COMPLIANT: class-specific declaration
-  void *
-  operator new[](std::size_t size); // NON_COMPLIANT: class-specific declaration
-  void operator delete(
-      void *ptr) noexcept; // NON_COMPLIANT: class-specific declaration
-  void operator delete[](
-      void *ptr) noexcept; // NON_COMPLIANT: class-specific declaration
+  // Class-specific operator declarations - NON_COMPLIANT[FALSE_NEGATIVE] (any
+  // signature)
+  void *operator new(std::size_t size);       // NON_COMPLIANT[FALSE_NEGATIVE]:
+                                              // class-specific declaration
+  void *operator new[](std::size_t size);     // NON_COMPLIANT[FALSE_NEGATIVE]:
+                                              // class-specific declaration
+  void operator delete(void *ptr) noexcept;   // NON_COMPLIANT[FALSE_NEGATIVE]:
+                                              // class-specific declaration
+  void operator delete[](void *ptr) noexcept; // NON_COMPLIANT[FALSE_NEGATIVE]:
+                                              // class-specific declaration
   void *operator new(
       std::size_t size,
-      const std::nothrow_t
-          &) noexcept; // NON_COMPLIANT: class-specific nothrow declaration
-  void *operator new(std::size_t size,
-                     void *ptr) noexcept; // NON_COMPLIANT: class-specific
-                                          // placement declaration
-  void *operator new[](std::size_t size,
-                       void *ptr) noexcept; // NON_COMPLIANT: class-specific
-                                            // placement declaration
+      const std::nothrow_t &) noexcept; // NON_COMPLIANT[FALSE_NEGATIVE]:
+                                        // class-specific nothrow declaration
   void *
   operator new(std::size_t size,
-               int hint); // NON_COMPLIANT: class-specific custom declaration
+               void *ptr) noexcept; // NON_COMPLIANT[FALSE_NEGATIVE]:
+                                    // class-specific placement declaration
   void *
-  operator new(std::size_t size, double alignment,
-               int pool); // NON_COMPLIANT: class-specific custom declaration
+  operator new[](std::size_t size,
+                 void *ptr) noexcept; // NON_COMPLIANT[FALSE_NEGATIVE]:
+                                      // class-specific placement declaration
+  void *operator new(std::size_t size,
+                     int hint); // NON_COMPLIANT[FALSE_NEGATIVE]: class-specific
+                                // custom declaration
+  void *operator new(std::size_t size, double alignment,
+                     int pool); // NON_COMPLIANT[FALSE_NEGATIVE]: class-specific
+                                // custom declaration
 };
 
 /**
@@ -68,6 +71,43 @@ void *C1::operator new(std::size_t size, int hint) {
 void *C1::operator new(std::size_t size, double alignment, int pool) {
   return std::malloc(size);
 } // NON_COMPLIANT: class-specific custom
+
+/**
+ * Fixture class with class-specific operator new/delete inline definitions.
+ */
+class C2 {
+public:
+  C2() {}
+
+  // Class-specific operator inline definitions - NON_COMPLIANT (any signature)
+  void *operator new(std::size_t size) {
+    return std::malloc(size);
+  } // NON_COMPLIANT: class-specific inline
+  void *operator new[](std::size_t size) {
+    return std::malloc(size);
+  } // NON_COMPLIANT: class-specific inline
+  void operator delete(void *ptr) noexcept {
+    std::free(ptr);
+  } // NON_COMPLIANT: class-specific inline
+  void operator delete[](void *ptr) noexcept {
+    std::free(ptr);
+  } // NON_COMPLIANT: class-specific inline
+  void *operator new(std::size_t size, const std::nothrow_t &) noexcept {
+    return std::malloc(size);
+  } // NON_COMPLIANT: class-specific nothrow inline
+  void *operator new(std::size_t size, void *ptr) noexcept {
+    return ptr;
+  } // NON_COMPLIANT: class-specific placement inline
+  void *operator new[](std::size_t size, void *ptr) noexcept {
+    return ptr;
+  } // NON_COMPLIANT: class-specific placement inline
+  void *operator new(std::size_t size, int hint) {
+    return std::malloc(size);
+  } // NON_COMPLIANT: class-specific custom inline
+  void *operator new(std::size_t size, double alignment, int pool) {
+    return std::malloc(size);
+  } // NON_COMPLIANT: class-specific custom inline
+};
 
 /**
  * Global replaceable forms - COMPLIANT
