@@ -8,7 +8,7 @@
  * instance, we could use this graph to find recursive functions, which requires knowing how an end
  * node was reached from a start node (the state).
  *
- * Like `GraphPathSearch`, this module uses forward-reverse pruning, wihch is a pattern that is
+ * Like `GraphPathSearch`, this module uses forward-reverse pruning, which is a pattern that is
  * useful for efficiently finding connections between nodes in a directional graph. In a first pass,
  * it finds nodes reachable from the starting point. In the second pass, it finds the subset of
  * those nodes that can be reached from the end point. Together, these create a path from start
