@@ -1,5 +1,5 @@
  - `A5-0-1`, `EXP50-CPP` - `ExpressionShouldNotRelyONOrderOfEvaluation.ql`, `DoNotDependOnTheOrderOfScalarObjectEvaluationForSideEffects.ql`:
    - Fixed a bug where some sequenced operations were not detected as such due to an error in the "candidate selection" process. This could have complex effects on results, but should mostly fix false positives.
    - Some unsequenced operations that previously reported one alert may now report two, due to the extra candidates being considered.
- - `RULE-13-2`, `A5-0-1`, `EXP50-CPP` - `UnsequencedSideEffects.ql`, `UnsequencedAtomicReads.ql`, `ExpressionShouldNotRelyONOrderOfEvaluation.ql`, `DoNotDependOnTheOrderOfScalarObjectEvaluationForSideEffects.ql`:
+ - `RULE-13-2`, `A5-0-1`, `EXP50-CPP`, `EXP30-C` - `UnsequencedSideEffects.ql`, `UnsequencedAtomicReads.ql`, `ExpressionShouldNotRelyONOrderOfEvaluation.ql`, `DoNotDependOnTheOrderOfScalarObjectEvaluationForSideEffects.ql`, `DependenceOnOrderOfScalarEvaluationForSideEffects.ql`:
    - Implementation of ordering has been refactored to share more code across specifications (C11-C17, C++14, and C++17 sequencing rules). No change in results is expected from this refactor.
