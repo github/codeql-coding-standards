@@ -1,0 +1,4 @@
+ - `A5-0-1` - `ExpressionShouldNotRelyONOrderOfEvaluation.ql`
+   - Fixed a bug where some sequenced operations were not detected as such due to an error in the "candidate selection" process. This could have complex effects on results, but should mostly fix false positives.
+ - `RULE-13-2`, `A5-0-1` - `UnsequencedSideEffects.ql`, `UnsequencedAtomicReads.ql`, `ExpressionShouldNotRelyONOrderOfEvaluation.ql`
+   - Implementation of ordering has been refactored to share more code across specifications (C11-C17, C++14, and C++17 sequencing rules). No change in results is expected from this refactor.
