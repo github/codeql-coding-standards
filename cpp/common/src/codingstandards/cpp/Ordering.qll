@@ -137,7 +137,7 @@ module Ordering {
     exists(Call call, Expr qual, Expr arg |
       call.getQualifier() = qual and
       call.getAnArgument() = arg
-      |
+    |
       qual = n1.toExpr().getParent*() and arg = n2.toExpr().getParent*()
     )
     or
@@ -213,5 +213,4 @@ module Ordering {
 
     Location getLocation() { result = toExpr().getLocation() }
   }
-
 }
