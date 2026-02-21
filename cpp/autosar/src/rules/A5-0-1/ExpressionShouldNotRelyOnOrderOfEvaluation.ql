@@ -15,19 +15,21 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.SideEffect
-import codingstandards.cpp.sideeffect.DefaultEffects
+import codingstandards.cpp.rules.expressionwithunsequencedsideeffects.ExpressionWithUnsequencedSideEffects
 import codingstandards.cpp.Ordering
 import codingstandards.cpp.orderofevaluation.VariableAccessOrdering
-import Ordering::Make<VariableAccessInFullExpressionOrdering> as FullExprOrdering
+import Ordering::Make<Cpp14VariableAccessInFullExpressionOrdering> as FullExprOrdering
 
-from FullExpr e, VariableEffect ve, VariableAccess va1, VariableAccess va2, Variable v
-where
-  not isExcluded(e, OrderOfEvaluationPackage::expressionShouldNotRelyOnOrderOfEvaluationQuery()) and
-  e = va1.(ConstituentExpr).getFullExpr() and
-  va1 = ve.getAnAccess() and
-  FullExprOrdering::isUnsequenced(va1, va2) and
-  v = va1.getTarget()
-select e,
-  "The evaluation is depended on the order of evaluation of $@, that is modified by $@ and $@, that both access $@.",
-  va1, "sub-expression", ve, "expression", va2, "sub-expression", v, v.getName()
+module ExpressionShouldNotRelyOnOrderOfEvaluationConfig implements
+  ExpressionWithUnsequencedSideEffectsConfigSig
+{
+  Query getQuery() {
+    result = OrderOfEvaluationPackage::expressionShouldNotRelyOnOrderOfEvaluationQuery()
+  }
+
+  predicate isUnsequenced(VariableAccess va1, VariableAccess va2) {
+    FullExprOrdering::isUnsequenced(va1, va2)
+  }
+}
+
+import ExpressionWithUnsequencedSideEffects<ExpressionShouldNotRelyOnOrderOfEvaluationConfig>

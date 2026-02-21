@@ -132,6 +132,15 @@ module Ordering {
   predicate cpp17Edge(ExprEvaluationNode n1, ExprEvaluationNode n2) {
     cpp14Edge(n1, n2)
     or
+    // [expr.call] The "postfix expression" (the part before the `(...)`) is sequenced before each
+    // expression in the expression list.
+    exists(Call call, Expr qual, Expr arg |
+      call.getQualifier() = qual and
+      call.getAnArgument() = arg
+      |
+      qual = n1.toExpr().getParent*() and arg = n2.toExpr().getParent*()
+    )
+    or
     // [expr.sub] - (in) the expression E1[E2] ... E1 is sequenced before E2
     exists(ArrayExpr ce, ConstituentExpr lhs, ConstituentExpr rhs |
       lhs = ce.getArrayBase() and
@@ -140,10 +149,39 @@ module Ordering {
       lhs = n1.toExpr().getParent*() and rhs = n2.toExpr().getParent*()
     )
     or
-    // [expr.sub] - (in) the expression E1[E2] ... E1 is sequenced before E2
-    exists(NewExpr newExpr, ConstituentExpr lhs, ConstituentExpr rhs |
-      n1.toExpr() = newExpr.getAllocatorCall() and
-      n2.toExpr() = newExpr.getInitializer().getAChild()
+    // [expr.new] -- invocation of the allocation function is sequenced before the expressions in
+    // the new-initializer.
+    exists(NewExpr newExpr, ConstituentExpr alloc, ConstituentExpr arg |
+      alloc = newExpr.getAllocatorCall() and
+      arg = newExpr.getInitializer().getAChild()
+    |
+      alloc = n1.toExpr().getParent*() and
+      arg = n2.toExpr().getParent*()
+    )
+    or
+    // [expr.mptr.oper] - In E.*E2, E1 is sequenced before E2. This is not the case for E->*E2.
+    exists(PointerToMemberExpr ptrToMember, ConstituentExpr object, ConstituentExpr ptr |
+      // TODO: distinguish between `.*` and `->*` operators.
+      object = ptrToMember.getObjectExpr() and
+      ptr = ptrToMember.getPointerExpr()
+    |
+      object = n1.toExpr().getParent*() and ptr = n2.toExpr().getParent*()
+    )
+    or
+    // [expr.shift] In E1 << E2 and E1 >> E2, E1 is sequenced before E2.
+    exists(BitShiftExpr shift, ConstituentExpr lhs, ConstituentExpr rhs |
+      lhs = shift.getLeftOperand() and
+      rhs = shift.getRightOperand()
+    |
+      lhs = n1.toExpr().getParent*() and rhs = n2.toExpr().getParent*()
+    )
+    or
+    // [expr.ass] The right operand is sequenced before the left operand for all assignment operators.
+    exists(Assignment assign, ConstituentExpr lhs, ConstituentExpr rhs |
+      lhs = assign.getLValue() and
+      rhs = assign.getRValue()
+    |
+      lhs = n1.toExpr().getParent*() and rhs = n2.toExpr().getParent*()
     )
   }
 
@@ -172,5 +210,8 @@ module Ordering {
     predicate isValueComputation() { this = TValueComputationNode(_) }
 
     predicate isSideEffect() { this = TSideEffectNode(_, _) }
+
+    Location getLocation() { result = toExpr().getLocation() }
   }
+
 }

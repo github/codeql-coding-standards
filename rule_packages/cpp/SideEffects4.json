@@ -13,6 +13,7 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "MemoryUsageNotSequenced",
+          "shared_implementation_short_name": "ExpressionWithUnsequencedSideEffects",
           "tags": [
             "scope/system",
             "portability",
