@@ -41,3 +41,69 @@ void test_standard_library_predicates() {
   // TODO: implement stubs for greater comparator.
   // std::sort(l1.begin(), l1.end(), std::greater<std::int32_t>()); // COMPLIANT
 }
+
+// =============================================================================
+// Test cases for Rule 28.3.1#PredicateWithPersistentSideEffects
+// This query checks that predicates do not have persistent (global/static)
+// side effects.
+// =============================================================================
+
+// Non-compliant: free function predicate modifying a static local variable
+bool cmp_with_static(std::int32_t l1, std::int32_t l2) {
+  static std::int32_t g_count = 0;
+  ++g_count; // NON_COMPLIANT
+  return l1 < l2;
+}
+
+void test_predicate_fn_static_local() {
+  std::vector<std::int32_t> l1 = {5, 2, 8, 1, 9};
+  std::sort(l1.begin(), l1.end(), cmp_with_static); // NON_COMPLIANT
+}
+
+// Non-compliant: free function predicate modifying a global variable
+std::int32_t g_predicate_call_count = 0;
+
+bool cmp_with_global(std::int32_t l1, std::int32_t l2) {
+  ++g_predicate_call_count; // NON_COMPLIANT
+  return l1 < l2;
+}
+
+void test_predicate_fn_global() {
+  std::vector<std::int32_t> l1 = {5, 2, 8, 1, 9};
+  std::sort(l1.begin(), l1.end(), cmp_with_global); // NON_COMPLIANT
+}
+
+// Non-compliant: function object whose operator() modifies a global variable
+struct F3_SideEffect {
+  bool operator()(std::int32_t l1, std::int32_t l2) const {
+    ++g_predicate_call_count; // NON_COMPLIANT
+    return l1 < l2;
+  }
+};
+
+void test_function_object_with_global_side_effect() {
+  std::vector<std::int32_t> l1 = {5, 2, 8, 1, 9};
+  std::sort(l1.begin(), l1.end(), F3_SideEffect{}); // NON_COMPLIANT
+}
+
+// Compliant: free function predicate with no side effects
+bool cmp_pure(std::int32_t l1, std::int32_t l2) { // COMPLIANT
+  return l1 < l2;
+}
+
+void test_predicate_fn_pure() {
+  std::vector<std::int32_t> l1 = {5, 2, 8, 1, 9};
+  std::sort(l1.begin(), l1.end(), cmp_pure); // COMPLIANT
+}
+
+// Compliant: function object with const operator() and no side effects
+struct F4_Pure {
+  bool operator()(std::int32_t l1, std::int32_t l2) const { // COMPLIANT
+    return l1 < l2;
+  }
+};
+
+void test_function_object_pure() {
+  std::vector<std::int32_t> l1 = {5, 2, 8, 1, 9};
+  std::sort(l1.begin(), l1.end(), F4_Pure{}); // COMPLIANT
+}

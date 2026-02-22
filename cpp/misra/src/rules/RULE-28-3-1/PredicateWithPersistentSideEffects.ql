@@ -18,24 +18,26 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.sideeffect.DefaultEffects
 import codingstandards.cpp.SideEffect
 import codingstandards.cpp.types.Predicate
 
-predicate functionHasSideEffect(Function f) {
-  hasExternalOrGlobalSideEffectInFunction(f)
-}
-
-predicate isPredicateObject(PredicateFunctionObject obj, PredicateType pred, Locatable usageSite, Function callOperator) {
-  obj.getSubstitution().getASubstitutionSite() = usageSite and
-  pred = obj.getPredicateType() and
-  callOperator = obj.getCallOperator()
-}
-
-predicate isPredicateFunctionPointerUse(PredicateFunctionPointerUse predPtrUse, PredicateType pred, Function func) {
-  pred = predPtrUse.getPredicateType() and
-  func = predPtrUse.getTarget()
-}
-
+from Locatable usageSite, Function f, SideEffect effect
 where
-  not isExcluded(x, SideEffects6Package::predicateWithPersistentSideEffectsQuery()) and
-select
+  not isExcluded([usageSite, effect], SideEffects6Package::predicateWithPersistentSideEffectsQuery()) and
+  effect = getAnExternalOrGlobalSideEffectInFunction(f) and
+  not effect instanceof ConstructorFieldInit and
+  (
+    // Case 1: a function pointer used directly as a predicate argument
+    exists(PredicateFunctionPointerUse use |
+      use = usageSite and
+      f = use.getTarget()
+    )
+    or
+    // Case 2: a function object whose call operator has side effects
+    exists(PredicateFunctionObject obj |
+      usageSite = obj.getSubstitution().getASubstitutionSite() and
+      f = obj.getCallOperator()
+    )
+  )
+select usageSite, "Predicate $@ has a $@.", f, f.getName(), effect, "persistent side effect"
