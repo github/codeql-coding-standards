@@ -1,8 +1,9 @@
 /**
  * @id cpp/misra/short-circuited-persistent-side-effect
- * @name RULE-8-14-1: The right-hand operand of a logical && or operator should not contain persistent side effects
+ * @name RULE-8-14-1: The right-hand operand of a logical && or || operator should not contain persistent side effects
  * @description The right-hand operand of a logical && or || operator should not contain persistent
- *              side effects, as this may violate developer intent and expectations.
+ *              side effects, as such side effects will only conditionally occur, which may violate
+ *              developer intent and/or expectations.
  * @kind problem
  * @precision high
  * @problem.severity error
