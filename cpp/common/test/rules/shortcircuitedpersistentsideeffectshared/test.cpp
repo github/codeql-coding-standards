@@ -11,8 +11,8 @@ bool f2() {
 }
 
 bool f3(int &i) {
-    i++;
-    return i == 1;
+  i++;
+  return i == 1;
 }
 
 void f4(bool b) {
@@ -39,7 +39,7 @@ int f6() { return 1; }
 void f7() {
   if (1 && sizeof(f5())) {
   } // COMPLIANT  - sizeof operands not evaluated
-  if (1 &&noexcept(f5()) &&noexcept(f5())) {
+  if (1 && noexcept(f5()) && noexcept(f5())) {
   } // COMPLIANT  - noexcept operands not evaluated
 
   if (1 || (typeid(f6()) == typeid(f5()))) {
@@ -47,22 +47,22 @@ void f7() {
 }
 
 bool f8() {
-    static int k = 0;
-    k++;
-    return k == 1;
+  static int k = 0;
+  k++;
+  return k == 1;
 }
 
 void f9(bool b) {
-    if (b || f8()) { // NON_COMPLIANT, f8 has static side-effects
-    }
+  if (b || f8()) { // NON_COMPLIANT, f8 has static side-effects
+  }
 }
 
 bool f10() {
-    volatile bool m = 0;
-    return m;
+  volatile bool m = 0;
+  return m;
 }
 
 void f11(bool b) {
-    if (b || f10()) { // NON_COMPLIANT, f10 has volatile side-effects
-    }
+  if (b || f10()) { // NON_COMPLIANT, f10 has volatile side-effects
+  }
 }
