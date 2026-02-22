@@ -39,6 +39,7 @@
           "precision": "high",
           "severity": "warning",
           "short_name": "RightHandOperandOfALogicalAndOperatorsContainSideEffects",
+          "shared_implementation_short_name": "ShortCircuitedPersistentSideEffectShared",
           "tags": [
             "correctness"
           ]

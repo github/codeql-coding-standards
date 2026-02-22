@@ -1,0 +1,7 @@
+| test.cpp:20:7:20:14 | ... \|\| ... | The $@ may have a side effect that is not always evaluated. | test.cpp:20:12:20:14 | ... ++ | right-hand operand |
+| test.cpp:23:7:23:21 | ... \|\| ... | The $@ may have a side effect that is not always evaluated. | test.cpp:23:13:23:20 | ... == ... | right-hand operand |
+| test.cpp:26:7:26:15 | ... \|\| ... | The $@ may have a side effect that is not always evaluated. | test.cpp:26:12:26:13 | call to f1 | right-hand operand |
+| test.cpp:29:7:29:16 | ... \|\| ... | The $@ may have a side effect that is not always evaluated. | test.cpp:29:12:29:13 | call to f3 | right-hand operand |
+| test.cpp:45:7:45:41 | ... \|\| ... | The $@ may have a side effect that is not always evaluated. | test.cpp:45:26:45:26 | call to operator== | right-hand operand |
+| test.cpp:56:9:56:17 | ... \|\| ... | The $@ may have a side effect that is not always evaluated. | test.cpp:56:14:56:15 | call to f8 | right-hand operand |
+| test.cpp:66:9:66:18 | ... \|\| ... | The $@ may have a side effect that is not always evaluated. | test.cpp:66:14:66:16 | call to f10 | right-hand operand |

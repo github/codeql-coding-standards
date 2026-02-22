@@ -1,0 +1,2 @@
+ - `M5-14-1` - `RightHandOperandOfALogicalAndOperatorsContainSideEffects.ql`:
+   - Implementation has been refactor to share logic with Rule 8.14.1. No observable changes to results expected.
