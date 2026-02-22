@@ -1,0 +1,1 @@
+| test.cpp:21:3:21:11 | call to sort | Predicate usage of $@ has $@ | test.cpp:10:8:10:9 | F1 | callable object F1 | test.cpp:11:8:11:17 | operator() | non const operator(). |
