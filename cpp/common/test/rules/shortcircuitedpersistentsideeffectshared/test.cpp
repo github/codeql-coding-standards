@@ -39,7 +39,7 @@ int f6() { return 1; }
 void f7() {
   if (1 && sizeof(f5())) {
   } // COMPLIANT  - sizeof operands not evaluated
-  if (1 && noexcept(f5()) && noexcept(f5())) {
+  if (1 &&noexcept(f5()) &&noexcept(f5())) {
   } // COMPLIANT  - noexcept operands not evaluated
 
   if (1 || (typeid(f6()) == typeid(f5()))) {
