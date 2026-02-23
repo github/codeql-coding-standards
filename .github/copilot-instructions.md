@@ -17,4 +17,4 @@ For PRs that add new queries or modify existing queries, also consider the follo
 - Does the query not reinvent features in the standard library?
 - Can the query be simplified further (not golfed!)
 
-Only report checks that fail
+In your review output, list only those checklist items that are not satisfied or are uncertain, but also report any other problems you find outside this checklist; do not mention checklist items that clearly pass.
