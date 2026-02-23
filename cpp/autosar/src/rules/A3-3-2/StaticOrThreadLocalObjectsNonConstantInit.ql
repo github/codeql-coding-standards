@@ -17,7 +17,6 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.orderofevaluation.Initialization
 
-
 from StaticStorageDurationVariable staticOrThreadLocalVar, string reason, Element reasonElement
 where
   not isExcluded(staticOrThreadLocalVar,
