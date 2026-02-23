@@ -1,3 +1,6 @@
+#ifndef _GHLIBCPP_UTILITY
+#define _GHLIBCPP_UTILITY
+
 namespace std {
 // Definition
 template <typename... T1> class tuple {};
@@ -10,3 +13,5 @@ struct ignore_t {
 };
 inline const std::ignore_t ignore; // 'const' only until C++17
 } // namespace std
+
+#endif // _GHLIBCPP_UTILITY
