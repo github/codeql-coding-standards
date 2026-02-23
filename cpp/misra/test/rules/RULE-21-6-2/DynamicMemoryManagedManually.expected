@@ -1,42 +1,88 @@
-| test.cpp:17:12:17:17 | new | This expression dynamically allocates or deallocates memory. |
-| test.cpp:22:12:22:17 | new | This expression dynamically allocates or deallocates memory. |
-| test.cpp:23:3:23:11 | call to operator delete | This expression dynamically allocates or deallocates memory. |
-| test.cpp:23:3:23:11 | delete | This expression dynamically allocates or deallocates memory. |
-| test.cpp:30:7:30:17 | call to malloc | This expression dynamically allocates or deallocates memory. |
-| test.cpp:32:7:32:12 | call to malloc | This expression dynamically allocates or deallocates memory. |
-| test.cpp:37:7:37:17 | call to calloc | This expression dynamically allocates or deallocates memory. |
-| test.cpp:38:30:38:35 | call to calloc | This expression dynamically allocates or deallocates memory. |
-| test.cpp:43:13:43:23 | call to malloc | This expression dynamically allocates or deallocates memory. |
-| test.cpp:44:14:44:25 | call to realloc | This expression dynamically allocates or deallocates memory. |
-| test.cpp:45:14:45:20 | call to realloc | This expression dynamically allocates or deallocates memory. |
-| test.cpp:50:14:50:31 | call to aligned_alloc | This expression dynamically allocates or deallocates memory. |
-| test.cpp:52:14:52:26 | call to aligned_alloc | This expression dynamically allocates or deallocates memory. |
-| test.cpp:59:7:59:17 | call to malloc | This expression dynamically allocates or deallocates memory. |
-| test.cpp:60:3:60:11 | call to free | This expression dynamically allocates or deallocates memory. |
-| test.cpp:61:3:61:6 | call to free | This expression dynamically allocates or deallocates memory. |
-| test.cpp:69:18:69:25 | call to allocate | This expression uses a standard library function `std::allocator<C1>::allocate` that manages memory manually. |
-| test.cpp:70:9:70:18 | call to deallocate | This expression uses a standard library function `std::allocator<C1>::deallocate` that manages memory manually. |
-| test.cpp:77:12:77:27 | call to allocate | This expression uses a standard library function `std::allocator_traits<allocator<C1>>::allocate` that manages memory manually. |
-| test.cpp:79:3:79:20 | call to deallocate | This expression uses a standard library function `std::allocator_traits<allocator<C1>>::deallocate` that manages memory manually. |
-| test.cpp:85:10:85:17 | call to allocate | This expression uses a standard library function `std::pmr::memory_resource::allocate` that manages memory manually. |
-| test.cpp:86:6:86:15 | call to deallocate | This expression uses a standard library function `std::pmr::memory_resource::deallocate` that manages memory manually. |
-| test.cpp:88:17:88:24 | call to allocate | This expression uses a standard library function `std::pmr::memory_resource::allocate` that manages memory manually. |
-| test.cpp:91:6:91:15 | call to deallocate | This expression uses a standard library function `std::pmr::memory_resource::deallocate` that manages memory manually. |
-| test.cpp:99:18:99:25 | call to allocate | This expression uses a standard library function `std::pmr::polymorphic_allocator<C1>::allocate` that manages memory manually. |
-| test.cpp:100:9:100:18 | call to deallocate | This expression uses a standard library function `std::pmr::polymorphic_allocator<C1>::deallocate` that manages memory manually. |
-| test.cpp:107:17:107:24 | call to allocate | This expression uses a standard library function `std::pmr::memory_resource::allocate` that manages memory manually. |
-| test.cpp:109:6:109:15 | call to deallocate | This expression uses a standard library function `std::pmr::memory_resource::deallocate` that manages memory manually. |
-| test.cpp:115:26:115:33 | call to allocate | This expression uses a standard library function `std::pmr::memory_resource::allocate` that manages memory manually. |
-| test.cpp:117:15:117:24 | call to deallocate | This expression uses a standard library function `std::pmr::memory_resource::deallocate` that manages memory manually. |
-| test.cpp:122:24:122:31 | call to allocate | This expression uses a standard library function `std::pmr::memory_resource::allocate` that manages memory manually. |
-| test.cpp:124:13:124:22 | call to deallocate | This expression uses a standard library function `std::pmr::memory_resource::deallocate` that manages memory manually. |
-| test.cpp:133:13:133:20 | call to allocate | This expression uses a standard library function `std::scoped_allocator_adaptor<allocator<C1>>::allocate` that manages memory manually. |
-| test.cpp:134:9:134:18 | call to deallocate | This expression uses a standard library function `std::scoped_allocator_adaptor<allocator<C1>>::deallocate` that manages memory manually. |
-| test.cpp:142:17:142:23 | call to release | This expression is a call to `std::unique_ptr::release` that manages memory manually. |
-| test.cpp:143:3:143:13 | call to operator delete | This expression dynamically allocates or deallocates memory. |
-| test.cpp:143:3:143:13 | delete | This expression dynamically allocates or deallocates memory. |
-| test.cpp:148:10:148:16 | call to release | This expression is a call to `std::unique_ptr::release` that manages memory manually. |
-| test.cpp:149:3:149:15 | call to operator delete[] | This expression dynamically allocates or deallocates memory. |
-| test.cpp:149:3:149:15 | delete[] | This expression dynamically allocates or deallocates memory. |
-| test.cpp:155:3:155:12 | call to operator delete | This expression dynamically allocates or deallocates memory. |
-| test.cpp:155:3:155:12 | delete | This expression dynamically allocates or deallocates memory. |
+| test.cpp:19:12:19:17 | call to operator new | This expression is a call to `operator new` which is an expression that dynamically allocates memory. |
+| test.cpp:25:12:25:17 | call to operator new | This expression is a call to `operator new` which is an expression that dynamically allocates memory. |
+| test.cpp:26:3:26:11 | call to operator delete | This expression is a call to `operator delete` which is an expression that dynamically deallocates memory. |
+| test.cpp:33:7:33:17 | call to malloc | This expression is a call to `malloc` which is an expression that dynamically allocates memory. |
+| test.cpp:35:7:35:12 | call to malloc | This expression is a call to `malloc` which is an expression that dynamically allocates memory. |
+| test.cpp:40:7:40:17 | call to calloc | This expression is a call to `calloc` which is an expression that dynamically allocates memory. |
+| test.cpp:41:30:41:35 | call to calloc | This expression is a call to `calloc` which is an expression that dynamically allocates memory. |
+| test.cpp:46:13:46:23 | call to malloc | This expression is a call to `malloc` which is an expression that dynamically allocates memory. |
+| test.cpp:47:14:47:25 | call to realloc | This expression is a call to `realloc` which is an expression that dynamically allocates memory. |
+| test.cpp:47:14:47:25 | call to realloc | This expression is a call to `realloc` which is an expression that dynamically deallocates memory. |
+| test.cpp:48:14:48:20 | call to realloc | This expression is a call to `realloc` which is an expression that dynamically allocates memory. |
+| test.cpp:48:14:48:20 | call to realloc | This expression is a call to `realloc` which is an expression that dynamically deallocates memory. |
+| test.cpp:53:14:53:31 | call to aligned_alloc | This expression is a call to `aligned_alloc` which is an expression that dynamically allocates memory. |
+| test.cpp:55:14:55:26 | call to aligned_alloc | This expression is a call to `aligned_alloc` which is an expression that dynamically allocates memory. |
+| test.cpp:62:7:62:17 | call to malloc | This expression is a call to `malloc` which is an expression that dynamically allocates memory. |
+| test.cpp:63:3:63:11 | call to free | This expression is a call to `free` which is an expression that dynamically deallocates memory. |
+| test.cpp:64:3:64:6 | call to free | This expression is a call to `free` which is an expression that dynamically deallocates memory. |
+| test.cpp:72:18:72:25 | call to allocate | This expression is a call to `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:73:9:73:18 | call to deallocate | This expression is a call to `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:80:12:80:27 | call to allocate | This expression is a call to `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:82:3:82:20 | call to deallocate | This expression is a call to `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:88:10:88:17 | call to allocate | This expression is a call to `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:89:6:89:15 | call to deallocate | This expression is a call to `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:91:17:91:24 | call to allocate | This expression is a call to `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:94:6:94:15 | call to deallocate | This expression is a call to `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:102:18:102:25 | call to allocate | This expression is a call to `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:103:9:103:18 | call to deallocate | This expression is a call to `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:110:17:110:24 | call to allocate | This expression is a call to `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:112:6:112:15 | call to deallocate | This expression is a call to `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:118:26:118:33 | call to allocate | This expression is a call to `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:120:15:120:24 | call to deallocate | This expression is a call to `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:125:24:125:31 | call to allocate | This expression is a call to `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:127:13:127:22 | call to deallocate | This expression is a call to `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:136:13:136:20 | call to allocate | This expression is a call to `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:137:9:137:18 | call to deallocate | This expression is a call to `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:145:17:145:23 | call to release | This expression is a call to `release` which is `std::unique_ptr::release`. |
+| test.cpp:146:3:146:13 | call to operator delete | This expression is a call to `operator delete` which is an expression that dynamically deallocates memory. |
+| test.cpp:151:10:151:16 | call to release | This expression is a call to `release` which is `std::unique_ptr::release`. |
+| test.cpp:152:3:152:15 | call to operator delete[] | This expression is a call to `operator delete[]` which is an expression that dynamically deallocates memory. |
+| test.cpp:158:3:158:12 | call to operator delete | This expression is a call to `operator delete` which is an expression that dynamically deallocates memory. |
+| test.cpp:165:7:165:17 | malloc | This expression takes address of `malloc` which is an expression that dynamically allocates memory. |
+| test.cpp:167:8:167:18 | malloc | This expression takes address of `malloc` which is an expression that dynamically allocates memory. |
+| test.cpp:169:7:169:14 | malloc | This expression takes address of `malloc` which is an expression that dynamically allocates memory. |
+| test.cpp:171:8:171:15 | malloc | This expression takes address of `malloc` which is an expression that dynamically allocates memory. |
+| test.cpp:174:7:174:17 | calloc | This expression takes address of `calloc` which is an expression that dynamically allocates memory. |
+| test.cpp:176:8:176:18 | calloc | This expression takes address of `calloc` which is an expression that dynamically allocates memory. |
+| test.cpp:179:7:179:18 | realloc | This expression takes address of `realloc` which is an expression that dynamically allocates memory. |
+| test.cpp:179:7:179:18 | realloc | This expression takes address of `realloc` which is an expression that dynamically deallocates memory. |
+| test.cpp:181:8:181:19 | realloc | This expression takes address of `realloc` which is an expression that dynamically allocates memory. |
+| test.cpp:181:8:181:19 | realloc | This expression takes address of `realloc` which is an expression that dynamically deallocates memory. |
+| test.cpp:184:7:184:24 | aligned_alloc | This expression takes address of `aligned_alloc` which is an expression that dynamically allocates memory. |
+| test.cpp:186:8:186:25 | aligned_alloc | This expression takes address of `aligned_alloc` which is an expression that dynamically allocates memory. |
+| test.cpp:189:7:189:15 | free | This expression takes address of `free` which is an expression that dynamically deallocates memory. |
+| test.cpp:191:8:191:16 | free | This expression takes address of `free` which is an expression that dynamically deallocates memory. |
+| test.cpp:193:7:193:12 | free | This expression takes address of `free` which is an expression that dynamically deallocates memory. |
+| test.cpp:195:8:195:13 | free | This expression takes address of `free` which is an expression that dynamically deallocates memory. |
+| test.cpp:202:7:202:21 | operator new | This expression takes address of `operator new` which is an expression that dynamically allocates memory. |
+| test.cpp:204:7:204:20 | operator new | This expression takes address of `operator new` which is an expression that dynamically allocates memory. |
+| test.cpp:206:7:206:23 | operator new[] | This expression takes address of `operator new[]` which is an expression that dynamically allocates memory. |
+| test.cpp:208:7:208:22 | operator new[] | This expression takes address of `operator new[]` which is an expression that dynamically allocates memory. |
+| test.cpp:211:7:211:21 | operator new | This expression takes address of `operator new` which is an expression that dynamically allocates memory. |
+| test.cpp:213:7:213:23 | operator new[] | This expression takes address of `operator new[]` which is an expression that dynamically allocates memory. |
+| test.cpp:218:7:218:24 | operator delete | This expression takes address of `operator delete` which is an expression that dynamically deallocates memory. |
+| test.cpp:220:7:220:23 | operator delete | This expression takes address of `operator delete` which is an expression that dynamically deallocates memory. |
+| test.cpp:222:7:222:26 | operator delete[] | This expression takes address of `operator delete[]` which is an expression that dynamically deallocates memory. |
+| test.cpp:224:7:224:25 | operator delete[] | This expression takes address of `operator delete[]` which is an expression that dynamically deallocates memory. |
+| test.cpp:228:7:228:24 | operator delete | This expression takes address of `operator delete` which is an expression that dynamically deallocates memory. |
+| test.cpp:230:7:230:26 | operator delete[] | This expression takes address of `operator delete[]` which is an expression that dynamically deallocates memory. |
+| test.cpp:234:7:234:24 | operator delete | This expression takes address of `operator delete` which is an expression that dynamically deallocates memory. |
+| test.cpp:236:7:236:26 | operator delete[] | This expression takes address of `operator delete[]` which is an expression that dynamically deallocates memory. |
+| test.cpp:245:7:245:35 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:248:7:248:37 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:254:7:254:23 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:257:8:257:25 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:262:7:262:42 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:265:7:265:44 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:270:7:271:23 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:274:7:275:25 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:280:7:281:18 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:284:7:285:20 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:290:7:291:18 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:294:7:295:20 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:300:7:301:18 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:304:7:305:20 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:311:7:311:28 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:314:7:314:30 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:322:7:322:35 | release | This expression takes address of `release` which is `std::unique_ptr::release`. |
+| test.cpp:325:7:325:37 | release | This expression takes address of `release` which is `std::unique_ptr::release`. |

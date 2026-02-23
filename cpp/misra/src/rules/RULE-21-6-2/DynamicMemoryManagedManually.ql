@@ -15,11 +15,29 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.SmartPointers
 
+/**
+ * An `operator new` or `operator new[]` allocation function called by a placement-new expression.
+ *
+ * The operator functions are supposed to have a `std::size_t` as their first parameter and a
+ * `void*` parameter somewhere in the rest of the parameter list.
+ */
+class PlacementNewOrNewArrayAllocationFunction extends AllocationFunction {
+  PlacementNewOrNewArrayAllocationFunction() {
+    this.getName() in ["operator new", "operator new[]"] and
+    this.getParameter(0).getType().resolveTypedefs*() instanceof Size_t and
+    this.getAParameter().getUnderlyingType() instanceof VoidPointerType
+  }
+}
+
 class DynamicMemoryManagementFunction extends Function {
   string description;
 
   DynamicMemoryManagementFunction() {
-    (this instanceof AllocationFunction or this instanceof AlignedAlloc) and
+    (
+      (this instanceof AllocationFunction or this instanceof AlignedAlloc) and
+      /* Placement-new expressions are not prohibited by this rule, but by Rule 21.6.3. */
+      not this instanceof PlacementNewOrNewArrayAllocationFunction
+    ) and
     description = "an expression that dynamically allocates memory"
     or
     this instanceof DeallocationFunction and
@@ -56,6 +74,9 @@ class AlignedAlloc extends Function {
   AlignedAlloc() { this.hasGlobalOrStdName("aligned_alloc") }
 }
 
+/**
+ * The `std::unique_ptr::release` member function.
+ */
 class UniquePointerReleaseFunction extends MemberFunction {
   UniquePointerReleaseFunction() { this.getClassAndName("release") instanceof AutosarUniquePointer }
 }
