@@ -1,5 +1,5 @@
 name: codeql/common-c-coding-standards
-version: 2.55.0-dev
+version: 2.55.0
 license: MIT
 dependencies:
   codeql/common-cpp-coding-standards: '*'
