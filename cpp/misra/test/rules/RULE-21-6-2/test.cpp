@@ -14,10 +14,10 @@ public:
 // Item 1: Any non-placement form of new or delete
 
 void use_of_new() {
-  C1 x1;                 // COMPLIANT: no use of new
-  C1 x2{};               // COMPLIANT: no use of new
+  C1 x1;   // COMPLIANT: no use of new
+  C1 x2{}; // COMPLIANT: no use of new
   C1 *x3 = new C1;
-       // NON_COMPLIANT: use of new
+  // NON_COMPLIANT: use of new
   C1 *x4 = new (&x1) C1; // COMPLIANT: placement new (but violates Rule 21.6.3)
 }
 
@@ -220,9 +220,8 @@ void take_address_of_operator_delete() {
       ::operator delete; // NON_COMPLIANT: implicit address of operator delete
   void (*p3)(void *) =
       &::operator delete[]; // NON_COMPLIANT: address of operator delete[]
-  void (*p4)(void *) =
-      ::operator delete[]; // NON_COMPLIANT: implicit address of operator
-                           // delete[]
+  void (*p4)(void *) = ::operator delete[]; // NON_COMPLIANT: implicit address
+                                            // of operator delete[]
 
   void (*p5)(void *, const std::nothrow_t &) =
       &::operator delete; // NON_COMPLIANT: address of nothrow operator delete
@@ -241,76 +240,65 @@ void take_address_of_operator_delete() {
 
 void take_address_of_allocate_deallocate() {
   // std::allocator
-  auto p1 =
-      &std::allocator<C1>::allocate; // NON_COMPLIANT: address of
-                                     // std::allocator::allocate
-  auto p2 =
-      &std::allocator<C1>::deallocate; // NON_COMPLIANT: address of
-                                       // std::allocator::deallocate
+  auto p1 = &std::allocator<C1>::allocate;   // NON_COMPLIANT: address of
+                                             // std::allocator::allocate
+  auto p2 = &std::allocator<C1>::deallocate; // NON_COMPLIANT: address of
+                                             // std::allocator::deallocate
 
   // std::allocator_traits (static member functions)
   using Traits = std::allocator_traits<std::allocator<C1>>;
-  C1* (*p3)(std::allocator<C1>&, std::size_t) =
+  C1 *(*p3)(std::allocator<C1> &, std::size_t) =
       &Traits::allocate; // NON_COMPLIANT: address of
-                        // std::allocator_traits::allocate
-  void (*p4)(std::allocator<C1>&, C1*, std::size_t) =
+                         // std::allocator_traits::allocate
+  void (*p4)(std::allocator<C1> &, C1 *, std::size_t) =
       &Traits::deallocate; // NON_COMPLIANT: address of
-                          // std::allocator_traits::deallocate
+                           // std::allocator_traits::deallocate
 
   // std::pmr::memory_resource
-  auto p5 =
-      &std::pmr::memory_resource::allocate; // NON_COMPLIANT: address of
-                                            // memory_resource::allocate
+  auto p5 = &std::pmr::memory_resource::allocate; // NON_COMPLIANT: address of
+                                                  // memory_resource::allocate
   auto p6 =
       &std::pmr::memory_resource::deallocate; // NON_COMPLIANT: address of
                                               // memory_resource::deallocate
 
   // std::pmr::polymorphic_allocator
-  auto p7 =
-      &std::pmr::polymorphic_allocator<
-          C1>::allocate; // NON_COMPLIANT: address of
-                         // polymorphic_allocator::allocate
-  auto p8 =
-      &std::pmr::polymorphic_allocator<
-          C1>::deallocate; // NON_COMPLIANT: address of
-                           // polymorphic_allocator::deallocate
+  auto p7 = &std::pmr::polymorphic_allocator<
+      C1>::allocate; // NON_COMPLIANT: address of
+                     // polymorphic_allocator::allocate
+  auto p8 = &std::pmr::polymorphic_allocator<
+      C1>::deallocate; // NON_COMPLIANT: address of
+                       // polymorphic_allocator::deallocate
 
   // std::pmr::monotonic_buffer_resource
-  auto p9 =
-      &std::pmr::monotonic_buffer_resource::
-          allocate; // NON_COMPLIANT: address of
-                    // monotonic_buffer_resource::allocate
-  auto p10 =
-      &std::pmr::monotonic_buffer_resource::
-          deallocate; // NON_COMPLIANT: address of
-                      // monotonic_buffer_resource::deallocate
+  auto p9 = &std::pmr::monotonic_buffer_resource::
+                allocate; // NON_COMPLIANT: address of
+                          // monotonic_buffer_resource::allocate
+  auto p10 = &std::pmr::monotonic_buffer_resource::
+                 deallocate; // NON_COMPLIANT: address of
+                             // monotonic_buffer_resource::deallocate
 
   // std::pmr::unsynchronized_pool_resource
-  auto p11 =
-      &std::pmr::unsynchronized_pool_resource::
-          allocate; // NON_COMPLIANT: address of
-                    // unsynchronized_pool_resource::allocate
-  auto p12 =
-      &std::pmr::unsynchronized_pool_resource::
-          deallocate; // NON_COMPLIANT: address of
-                      // unsynchronized_pool_resource::deallocate
+  auto p11 = &std::pmr::unsynchronized_pool_resource::
+                 allocate; // NON_COMPLIANT: address of
+                           // unsynchronized_pool_resource::allocate
+  auto p12 = &std::pmr::unsynchronized_pool_resource::
+                 deallocate; // NON_COMPLIANT: address of
+                             // unsynchronized_pool_resource::deallocate
 
   // std::pmr::synchronized_pool_resource
-  auto p13 =
-      &std::pmr::synchronized_pool_resource::
-          allocate; // NON_COMPLIANT: address of
-                    // synchronized_pool_resource::allocate
-  auto p14 =
-      &std::pmr::synchronized_pool_resource::
-          deallocate; // NON_COMPLIANT: address of
-                      // synchronized_pool_resource::deallocate
+  auto p13 = &std::pmr::synchronized_pool_resource::
+                 allocate; // NON_COMPLIANT: address of
+                           // synchronized_pool_resource::allocate
+  auto p14 = &std::pmr::synchronized_pool_resource::
+                 deallocate; // NON_COMPLIANT: address of
+                             // synchronized_pool_resource::deallocate
 
   // std::scoped_allocator_adaptor (non-static member functions)
   using ScopedAlloc = std::scoped_allocator_adaptor<std::allocator<C1>>;
-  C1* (ScopedAlloc::*p15)(std::size_t) =
+  C1 *(ScopedAlloc::*p15)(std::size_t) =
       &ScopedAlloc::allocate; // NON_COMPLIANT: address of
                               // scoped_allocator_adaptor::allocate
-  void (ScopedAlloc::*p16)(C1*, std::size_t) =
+  void (ScopedAlloc::*p16)(C1 *, std::size_t) =
       &ScopedAlloc::deallocate; // NON_COMPLIANT: address of
                                 // scoped_allocator_adaptor::deallocate
 }
@@ -318,9 +306,8 @@ void take_address_of_allocate_deallocate() {
 // Taking address of std::unique_ptr::release (Item 4)
 
 void take_address_of_unique_ptr_release() {
-  auto p1 =
-      &std::unique_ptr<C1>::release; // NON_COMPLIANT: address of
-                                     // std::unique_ptr::release
+  auto p1 = &std::unique_ptr<C1>::release; // NON_COMPLIANT: address of
+                                           // std::unique_ptr::release
   auto p2 =
       &std::unique_ptr<C1[]>::release; // NON_COMPLIANT: address of
                                        // std::unique_ptr::release (array form)
