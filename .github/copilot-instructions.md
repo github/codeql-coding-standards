@@ -18,3 +18,5 @@ For PRs that add new queries or modify existing queries, also consider the follo
 - Does the query have an appropriate level of in-query comments/documentation?
 - Does the query not reinvent features in the standard library?
 - Can the query be simplified further (not golfed!)
+
+Only report checks that failed
