@@ -88,11 +88,7 @@ template <> struct char_traits<wchar_t> {
   static int_type eof();
 };
 
-template <class T> class allocator {
-public:
-  allocator() throw();
-  typedef size_t size_type;
-};
+template <class T> class allocator;
 
 template <class charT, class traits = char_traits<charT>,
           class Allocator = allocator<charT>>
