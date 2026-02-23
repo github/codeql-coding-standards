@@ -18,6 +18,17 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.AlertReporting
 
+/**
+ * MISRA operator precedence levels are not an exact match with standard C++ operator precedence,
+ * and therefore defined in this class.
+ *
+ * For example, MISRA treats ternary, assigment, and throw operators as having separate precedence
+ * levels, while in C++17 they all have the same precedence. Additionally, MISRA treats all
+ * operators not in the list below as having the same precedence, while in C++17 some of the
+ * remaining operators (*x, x[], x++, ++x) have different precedences than others.
+ *
+ * This list is defined in the MISRA specification.
+ */
 class MisraPrecedenceExpr instanceof Expr {
   int precedence;
   string operator;

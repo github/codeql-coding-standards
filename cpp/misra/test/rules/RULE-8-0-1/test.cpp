@@ -205,8 +205,8 @@ void f9() {
 }
 
 // Test macros
-#define UNSAFE_MACRO(x, y, z) x + y *z  // NON_COMPLIANT macro definition
-#define SAFE_MACRO(x, y, z) x + (y * z) // COMPLIANT macro definition
+#define UNSAFE_MACRO(x, y, z) x + y *z  // Non compliant at usage sites
+#define SAFE_MACRO(x, y, z) x + (y * z) // Compliant at usage sites
 
 void f10() {
   int l1 = 1, l2 = 2, l3 = 3;
