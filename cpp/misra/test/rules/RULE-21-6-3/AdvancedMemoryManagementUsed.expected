@@ -1,1 +1,88 @@
-No expected results have yet been specified
+| test.cpp:14:3:14:14 | declaration of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:16:3:16:16 | declaration of operator new[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:17:8:17:22 | declaration of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:19:8:19:24 | declaration of operator delete[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:21:9:21:20 | declaration of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:25:9:25:20 | declaration of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:28:9:28:22 | declaration of operator new[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:32:3:32:14 | declaration of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:35:3:35:14 | declaration of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:37:8:37:22 | declaration of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:40:8:40:24 | declaration of operator delete[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:43:8:43:22 | declaration of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:51:7:51:22 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:54:7:54:24 | definition of operator new[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:57:6:57:24 | definition of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:60:6:60:26 | definition of operator delete[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:63:7:63:22 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:66:7:66:22 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:69:7:69:24 | definition of operator new[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:72:7:72:22 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:75:7:75:22 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:87:9:87:20 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:90:9:90:22 | definition of operator new[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:93:8:93:22 | definition of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:96:8:96:24 | definition of operator delete[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:99:9:99:20 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:102:9:102:20 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:105:9:105:22 | definition of operator new[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:108:9:108:20 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:111:9:111:20 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:119:7:119:18 | declaration of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:121:7:121:18 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:124:6:124:20 | definition of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:127:7:127:20 | definition of operator new[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:130:6:130:22 | definition of operator delete[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:133:7:133:18 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:136:7:136:20 | definition of operator new[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:139:6:139:20 | definition of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:142:6:142:22 | definition of operator delete[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:145:6:145:20 | definition of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:148:6:148:22 | definition of operator delete[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:157:1:157:12 | declaration of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:159:7:159:20 | declaration of operator new[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:162:7:162:18 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:165:7:165:18 | definition of operator new | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:168:6:168:20 | declaration of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:171:6:171:22 | declaration of operator delete[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:174:6:174:20 | definition of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
+| test.cpp:184:12:184:26 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:185:12:186:10 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:190:7:190:31 | call to operator new[] | This expression is a call to `operator new[]` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:193:12:193:23 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:200:12:200:22 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:202:7:202:22 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:224:7:224:21 | operator new | This expression takes address of `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:226:7:226:20 | operator new | This expression takes address of `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:228:7:228:23 | operator new[] | This expression takes address of `operator new[]` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:230:7:230:22 | operator new[] | This expression takes address of `operator new[]` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:257:7:257:24 | operator delete | This expression takes address of `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:259:7:259:23 | operator delete | This expression takes address of `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:261:7:261:26 | operator delete[] | This expression takes address of `operator delete[]` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:263:7:263:25 | operator delete[] | This expression takes address of `operator delete[]` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:281:7:281:23 | operator new | This expression takes address of `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:284:7:284:23 | operator new | This expression takes address of `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:298:7:298:26 | operator delete | This expression takes address of `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:301:7:301:28 | operator delete[] | This expression takes address of `operator delete[]` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:304:7:304:26 | operator delete | This expression takes address of `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:318:3:318:38 | call to uninitialized_default_construct | This expression is a call to `uninitialized_default_construct` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:319:3:319:40 | call to uninitialized_default_construct_n | This expression is a call to `uninitialized_default_construct_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:332:3:332:36 | call to uninitialized_value_construct | This expression is a call to `uninitialized_value_construct` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:333:3:333:38 | call to uninitialized_value_construct_n | This expression is a call to `uninitialized_value_construct_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:345:3:345:25 | call to uninitialized_copy | This expression is a call to `uninitialized_copy` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:346:3:346:27 | call to uninitialized_copy_n | This expression is a call to `uninitialized_copy_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:358:3:358:25 | call to uninitialized_move | This expression is a call to `uninitialized_move` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:359:3:359:27 | call to uninitialized_move_n | This expression is a call to `uninitialized_move_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:372:3:372:25 | call to uninitialized_fill | This expression is a call to `uninitialized_fill` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:373:3:373:27 | call to uninitialized_fill_n | This expression is a call to `uninitialized_fill_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:385:3:385:38 | call to uninitialized_default_construct | This expression is a call to `uninitialized_default_construct` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:387:3:387:14 | call to destroy | This expression is a call to `destroy` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:388:3:388:16 | call to destroy_n | This expression is a call to `destroy_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:389:3:389:17 | call to destroy_at | This expression is a call to `destroy_at` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:397:12:397:26 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:398:3:398:11 | (vacuous destructor call) | This expression is a call to a destructor. |
+| test.cpp:399:12:399:26 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:401:12:401:23 | call to launder | This expression is a call to `launder` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:411:3:411:10 | (vacuous destructor call) | This expression is a call to a destructor. |
+| test.cpp:421:3:421:11 | (vacuous destructor call) | This expression is a call to a destructor. |
+| test.cpp:432:5:432:16 | (vacuous destructor call) | This expression is a call to a destructor. |
