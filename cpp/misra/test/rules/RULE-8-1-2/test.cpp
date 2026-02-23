@@ -28,7 +28,7 @@ void m1() {
   [&]() { return l1; }();          // COMPLIANT
   [l1]() { return l1; }();         // COMPLIANT
   [&, l1]() { return l1; }();      // COMPLIANT
-  [&, l1]() { return l1 + l2; }(); // NON_COMPLIANT
+  [&, l1]() { return l1 + l2; }(); // COMPLIANT
 
   // Transient by immediate move (must not implicitly capture local variables)
   auto la1 = []() { return 1; };            // COMPLIANT
