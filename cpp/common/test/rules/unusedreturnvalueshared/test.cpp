@@ -5,6 +5,9 @@ void g(int x);
 
 class A {
 public:
+  A() {
+    g(2); // Make constructor non-trivial so its call is always extracted.
+  }
   A operator+(const A &other);
 };
 
@@ -21,6 +24,7 @@ void test_return_val() {
   a1 + a2; // COMPLIANT - `+` is a call to operator+, but is permitted by the
            // rule
 
+  A a3{};    // COMPLIANT - not function call syntax.
   (void)f(); // COMPLIANT - explicitly ignoring the return value by C-style cast
              // to void.
   std::ignore = f(); // COMPLIANT - explicitly ignoring the return value by

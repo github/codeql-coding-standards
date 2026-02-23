@@ -145,7 +145,7 @@ jobs:
               }, test_summary_file)
 
       - name: Upload test results
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: test-results-${{runner.os}}-${{matrix.codeql_cli}}-${{matrix.codeql_standard_library_ident}}
           path: |
@@ -164,7 +164,7 @@ jobs:
           python-version: "3.9"
 
       - name: Collect test results
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
 
       - name: Validate test results
         shell: python

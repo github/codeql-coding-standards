@@ -16,6 +16,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.c.Objects
+import codingstandards.cpp.Expr
 
 /**
  * Holds if the value of an expression is used or stored.
@@ -37,32 +38,14 @@ predicate isUsedOrStored(Expr e) {
   e = any(ClassAggregateLiteral l).getAFieldExpr(_)
 }
 
-/**
- * Find expressions that defer their value directly to an inner expression
- * value.
- *
- * When an array is on the rhs of a comma expr, or in the then/else branch of a
- * ternary expr, and the result us used as a pointer, then the ArrayToPointer
- * conversion is marked inside comma expr/ternary expr, on the operands. These
- * conversions are only non-compliant if they flow into an operation or store.
- *
- * Full flow analysis with localFlowStep should not be necessary, and may cast a
- * wider net than needed for some queries, potentially resulting in false
- * positives.
- */
-Expr temporaryObjectFlowStep(Expr e) {
-  e = result.(CommaExpr).getRightOperand()
-  or
-  e = result.(ConditionalExpr).getThen()
-  or
-  e = result.(ConditionalExpr).getElse()
-}
-
 from FieldAccess fa, TemporaryObjectIdentity temporary, ArrayToPointerConversion conversion
 where
   not isExcluded(conversion, InvalidMemory3Package::arrayToPointerConversionOfTemporaryObjectQuery()) and
   fa = temporary.getASubobjectAccess() and
   conversion.getExpr() = fa and
-  isUsedOrStored(temporaryObjectFlowStep*(conversion.getExpr()))
+  exists(Expr useOrStore |
+    temporaryObjectFlowStep*(conversion.getExpr(), useOrStore) and
+    isUsedOrStored(useOrStore)
+  )
 select conversion, "Array to pointer conversion of array $@ from temporary object $@.",
   fa.getTarget(), fa.getTarget().getName(), temporary, temporary.toString()
