@@ -68,6 +68,10 @@ class NonStandardDeleteOrDeleteArrayOperator extends CustomOperatorNewOrDelete {
   }
 }
 
+class ExplicitDestructorCall extends DestructorCall {
+  ExplicitDestructorCall() { not this.isCompilerGenerated() }
+}
+
 from Element element, string message
 where
   not isExcluded(element, Memory6Package::advancedMemoryManagementUsedQuery()) and
@@ -87,7 +91,7 @@ where
   or
   (
     element instanceof VacuousDestructorCall or
-    element instanceof DestructorCall
+    element instanceof ExplicitDestructorCall
   ) and
   message = "This expression is a call to a destructor."
   or
