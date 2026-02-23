@@ -1,3 +1,5 @@
+#ifndef _GHLIBCPP_UTILITY
+#define _GHLIBCPP_UTILITY
 #include "type_traits.h"
 
 namespace std {
@@ -35,3 +37,4 @@ constexpr auto get(const std::pair<T, U> &p) noexcept {
     }
 }
 } // namespace std
+#endif
