@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <functional>
-// #include <set>
+#include <set>
 #include <vector>
 
 // Test cases for Rule 28.3.1#NonConstPredicateFunctionObject
@@ -12,8 +12,7 @@ struct F1 {
 };
 
 void test_function_object_non_const_in_set() {
-  // TODO: implement stubs for set comparator.
-  // std::set<std::int32_t, F1> l1; // NON_COMPLIANT
+  std::set<std::int32_t, F1> l1; // NON_COMPLIANT
 }
 
 void test_function_object_non_const_in_sort() {
@@ -26,8 +25,7 @@ struct F2 {
 };
 
 void test_function_object_const_in_set() {
-  // TODO: implement stubs for set comparator.
-  // std::set<std::int32_t, F2> l1; // COMPLIANT
+  std::set<std::int32_t, F2> l1; // COMPLIANT
 }
 
 void test_function_object_const_in_sort() {
@@ -38,15 +36,8 @@ void test_function_object_const_in_sort() {
 // Compliant: Using standard library predicates (always have const operator())
 void test_standard_library_predicates() {
   std::vector<std::int32_t> l1 = {1, 2, 3, 4, 5};
-  // TODO: implement stubs for greater comparator.
-  // std::sort(l1.begin(), l1.end(), std::greater<std::int32_t>()); // COMPLIANT
+  std::sort(l1.begin(), l1.end(), std::greater<std::int32_t>()); // COMPLIANT
 }
-
-// =============================================================================
-// Test cases for Rule 28.3.1#PredicateWithPersistentSideEffects
-// This query checks that predicates do not have persistent (global/static)
-// side effects.
-// =============================================================================
 
 // Non-compliant: free function predicate modifying a static local variable
 bool cmp_with_static(std::int32_t l1, std::int32_t l2) {

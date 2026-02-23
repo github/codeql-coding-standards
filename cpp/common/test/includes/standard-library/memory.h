@@ -128,6 +128,12 @@ public:
   bad_alloc &operator=(const bad_alloc &) noexcept;
   virtual const char *what() const noexcept;
 };
+
+template <class T> class allocator {
+public:
+  allocator() throw();
+  typedef size_t size_type;
+};
 } // namespace std
 
 #endif // _GHLIBCPP_MEMORY

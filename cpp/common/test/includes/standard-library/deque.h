@@ -2,6 +2,7 @@
 #define _GHLIBCPP_DEQUE
 #include <iterator>
 #include <string>
+#include "memory.h"
 
 namespace std {
 template <class T, class Allocator = std::allocator<T>> class deque {

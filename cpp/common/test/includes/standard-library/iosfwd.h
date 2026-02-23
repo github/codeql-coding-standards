@@ -1,5 +1,6 @@
 #ifndef _GHLIBCPP_IOSFWD
 #define _GHLIBCPP_IOSFWD
+#include "memory.h"
 namespace std {
 template <class charT> class char_traits;
 template <> class char_traits<char>;
