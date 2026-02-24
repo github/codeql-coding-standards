@@ -1,8 +1,6 @@
 #ifndef _GHLIBCPP_UTILITY
 #define _GHLIBCPP_UTILITY
 #include "type_traits.h"
-#ifndef _GHLIBCPP_UTILITY
-#define _GHLIBCPP_UTILITY
 #include "tuple.h"
 
 namespace std {
