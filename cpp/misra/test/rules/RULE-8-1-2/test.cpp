@@ -1,4 +1,38 @@
-#include <functional>
+#include <type_traits>
+
+/**
+ * Declare relevant parts of std utilities here, so that the resulting path
+ * problem nodes and edges are all local paths and don't refer to the actual
+ * standard library implementation.
+ *
+ * This approach reduces the burden of managing compiler compatibility results
+ * (since the exact names and source locations etc will vary between compilers
+ * and versions), and also fixes local vs CI/CD compatibility where absolute
+ * paths differ.
+ *
+ * However, note that does not fix all issues. Users still will have these
+ * absolute paths appear in their own results, which results in unviewable
+ * locations inside GitHub code scanning. However, the fix to this would likely
+ * require defining our own data modeling for where lambdas are stored in the
+ * standard library, which is not work we have yet performed. In the meantime,
+ * including these unviewable locations will hopefully still help users track
+ * the storage locations of their lambdas.
+ */
+namespace std {
+template <class T> constexpr T &&forward(remove_reference_t<T> &t) noexcept {
+  return static_cast<T &&>(t);
+}
+template <class T> constexpr T &&forward(remove_reference_t<T> &&t) noexcept {
+  return static_cast<T &&>(t);
+}
+template <class> class function;
+template <class R, class... Args> class function<R(Args...)> {
+public:
+  function();
+  template <class F> function(F &&f) { auto fptr = new F(std::forward<F>(f)); }
+  template <class F> function &operator=(F &&);
+};
+} // namespace std
 
 template <typename Func> void function_transient(Func f) {
   // transient, does not store.
