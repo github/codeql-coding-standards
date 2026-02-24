@@ -14,19 +14,21 @@ class ConstNoThrowTReferenceType extends ReferenceType {
 }
 
 /** An `operator` that implements one of the `[replacement.functions]`. */
-abstract class CustomOperatorNewOrDelete extends Operator {
+abstract class OperatorNewOrDelete extends Operator {
+  OperatorNewOrDelete() {
+    this.getName().regexpMatch("operator new(\\[\\])?") or
+    this.getName().regexpMatch("operator delete(\\[\\])?")
+  }
+}
+
+/** An `operator` that implements one of the `[replacement.functions]`. */
+abstract class CustomOperatorNewOrDelete extends OperatorNewOrDelete {
   CustomOperatorNewOrDelete() {
     // Not in the standard library
     exists(getFile().getRelativePath()) and
     // Not in a file called `new`, which is likely to be a copy of the standard library
     // as it is in our tests
-    not forall(File file | file = this.getADeclarationLocation().getFile() |
-      file.getBaseName() = "new"
-    ) and
-    (
-      this.getName().regexpMatch("operator new(\\[\\])?") or
-      this.getName().regexpMatch("operator delete(\\[\\])?")
-    )
+    not getFile().getBaseName() = "new"
   }
 
   /**

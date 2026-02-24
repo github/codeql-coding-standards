@@ -35,7 +35,7 @@ class AdvancedMemoryManagementFunction extends Function {
   string describe() { result = description }
 }
 
-class NonStandardNewOrNewArrayOperator extends CustomOperatorNewOrDelete {
+class NonStandardNewOrNewArrayOperator extends OperatorNewOrDelete {
   NonStandardNewOrNewArrayOperator() {
     this.getName() in ["operator new", "operator new[]"] and
     not this instanceof CustomOperatorNew // `CustomOperatorNew` only detects replaceable allocation functions.
@@ -61,7 +61,7 @@ class UserDeclaredOperatorNewOrDelete extends FunctionDeclarationEntry {
   }
 }
 
-class NonStandardDeleteOrDeleteArrayOperator extends CustomOperatorNewOrDelete {
+class NonStandardDeleteOrDeleteArrayOperator extends OperatorNewOrDelete {
   NonStandardDeleteOrDeleteArrayOperator() {
     this.getName() in ["operator delete", "operator delete[]"] and
     not this instanceof CustomOperatorDelete // `CustomOperatorDelete` only detects replaceable deallocation functions.
