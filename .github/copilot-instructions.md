@@ -1,3 +1,11 @@
+---
+description: 'Code review guidelines for GitHub copilot in this project'
+applyTo: '**'
+excludeAgent: ["coding-agent"]
+---
+
+# Code Review Instructions
+
 A change note is required for any pull request which modifies:
 - The structure or layout of the release artifacts.
 - The evaluation performance (memory, execution time) of an existing query.
