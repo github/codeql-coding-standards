@@ -1,5 +1,5 @@
-#ifndef _GHLIBCPP_UTILITY
-#define _GHLIBCPP_UTILITY
+#ifndef _GHLIBCPP_TUPLE
+#define _GHLIBCPP_TUPLE
 
 namespace std {
 // Definition
@@ -14,4 +14,4 @@ struct ignore_t {
 inline const std::ignore_t ignore; // 'const' only until C++17
 } // namespace std
 
-#endif // _GHLIBCPP_UTILITY
+#endif // _GHLIBCPP_TUPLE
