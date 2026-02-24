@@ -3,6 +3,7 @@ import cpp
 import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
 import Allocations
+import Banned1
 import BannedAPIs
 import BannedFunctions
 import BannedLibraries
@@ -27,6 +28,7 @@ import Exceptions1
 import Exceptions2
 import Exceptions3
 import Expressions
+import Expressions2
 import FloatingPoint
 import Freed
 import Functions
@@ -77,6 +79,7 @@ import VirtualFunctions
 /** The TQuery type representing this language * */
 newtype TCPPQuery =
   TAllocationsPackageQuery(AllocationsQuery q) or
+  TBanned1PackageQuery(Banned1Query q) or
   TBannedAPIsPackageQuery(BannedAPIsQuery q) or
   TBannedFunctionsPackageQuery(BannedFunctionsQuery q) or
   TBannedLibrariesPackageQuery(BannedLibrariesQuery q) or
@@ -101,6 +104,7 @@ newtype TCPPQuery =
   TExceptions2PackageQuery(Exceptions2Query q) or
   TExceptions3PackageQuery(Exceptions3Query q) or
   TExpressionsPackageQuery(ExpressionsQuery q) or
+  TExpressions2PackageQuery(Expressions2Query q) or
   TFloatingPointPackageQuery(FloatingPointQuery q) or
   TFreedPackageQuery(FreedQuery q) or
   TFunctionsPackageQuery(FunctionsQuery q) or
@@ -151,6 +155,7 @@ newtype TCPPQuery =
 /** The metadata predicate * */
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
   isAllocationsQueryMetadata(query, queryId, ruleId, category) or
+  isBanned1QueryMetadata(query, queryId, ruleId, category) or
   isBannedAPIsQueryMetadata(query, queryId, ruleId, category) or
   isBannedFunctionsQueryMetadata(query, queryId, ruleId, category) or
   isBannedLibrariesQueryMetadata(query, queryId, ruleId, category) or
@@ -175,6 +180,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isExceptions2QueryMetadata(query, queryId, ruleId, category) or
   isExceptions3QueryMetadata(query, queryId, ruleId, category) or
   isExpressionsQueryMetadata(query, queryId, ruleId, category) or
+  isExpressions2QueryMetadata(query, queryId, ruleId, category) or
   isFloatingPointQueryMetadata(query, queryId, ruleId, category) or
   isFreedQueryMetadata(query, queryId, ruleId, category) or
   isFunctionsQueryMetadata(query, queryId, ruleId, category) or
