@@ -1,5 +1,5 @@
 name: codeql/autosar-cpp-coding-standards
-version: 2.55.0-dev
+version: 2.55.0
 description: AUTOSAR C++14 Guidelines R22-11, R21-11, R20-11, R19-11 and R19-03
 suites: codeql-suites
 license: MIT
