@@ -63,26 +63,26 @@
 | test.cpp:218:7:218:24 | operator delete | This expression takes address of `operator delete` which is an expression that dynamically deallocates memory. |
 | test.cpp:220:7:220:23 | operator delete | This expression takes address of `operator delete` which is an expression that dynamically deallocates memory. |
 | test.cpp:222:7:222:26 | operator delete[] | This expression takes address of `operator delete[]` which is an expression that dynamically deallocates memory. |
-| test.cpp:224:7:224:25 | operator delete[] | This expression takes address of `operator delete[]` which is an expression that dynamically deallocates memory. |
-| test.cpp:228:7:228:24 | operator delete | This expression takes address of `operator delete` which is an expression that dynamically deallocates memory. |
-| test.cpp:230:7:230:26 | operator delete[] | This expression takes address of `operator delete[]` which is an expression that dynamically deallocates memory. |
-| test.cpp:234:7:234:24 | operator delete | This expression takes address of `operator delete` which is an expression that dynamically deallocates memory. |
-| test.cpp:236:7:236:26 | operator delete[] | This expression takes address of `operator delete[]` which is an expression that dynamically deallocates memory. |
-| test.cpp:245:7:245:35 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
-| test.cpp:248:7:248:37 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
-| test.cpp:254:7:254:23 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
-| test.cpp:257:8:257:25 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
-| test.cpp:262:7:262:42 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
-| test.cpp:265:7:265:44 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
-| test.cpp:270:7:271:23 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
-| test.cpp:274:7:275:25 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
-| test.cpp:280:7:281:18 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
-| test.cpp:284:7:285:20 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
-| test.cpp:290:7:291:18 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
-| test.cpp:294:7:295:20 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
-| test.cpp:300:7:301:18 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
-| test.cpp:304:7:305:20 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
-| test.cpp:311:7:311:28 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
-| test.cpp:314:7:314:30 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
-| test.cpp:322:7:322:35 | release | This expression takes address of `release` which is `std::unique_ptr::release`. |
-| test.cpp:325:7:325:37 | release | This expression takes address of `release` which is `std::unique_ptr::release`. |
+| test.cpp:223:24:223:42 | operator delete[] | This expression takes address of `operator delete[]` which is an expression that dynamically deallocates memory. |
+| test.cpp:227:7:227:24 | operator delete | This expression takes address of `operator delete` which is an expression that dynamically deallocates memory. |
+| test.cpp:229:7:229:26 | operator delete[] | This expression takes address of `operator delete[]` which is an expression that dynamically deallocates memory. |
+| test.cpp:233:7:233:24 | operator delete | This expression takes address of `operator delete` which is an expression that dynamically deallocates memory. |
+| test.cpp:235:7:235:26 | operator delete[] | This expression takes address of `operator delete[]` which is an expression that dynamically deallocates memory. |
+| test.cpp:243:13:243:41 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:245:13:245:43 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:251:7:251:23 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:254:8:254:25 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:258:13:258:48 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:261:7:261:44 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:265:13:266:19 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:268:13:269:21 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:273:13:274:24 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:276:14:277:27 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:281:14:282:25 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:284:14:285:27 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:289:14:290:25 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:292:14:293:27 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:299:7:299:28 | allocate | This expression takes address of `allocate` which is a standard library function that manages memory manually. |
+| test.cpp:302:7:302:30 | deallocate | This expression takes address of `deallocate` which is a standard library function that manages memory manually. |
+| test.cpp:309:13:309:41 | release | This expression takes address of `release` which is `std::unique_ptr::release`. |
+| test.cpp:312:7:312:37 | release | This expression takes address of `release` which is `std::unique_ptr::release`. |
