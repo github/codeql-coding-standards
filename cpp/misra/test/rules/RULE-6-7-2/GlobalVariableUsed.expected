@@ -1,0 +1,8 @@
+| test.cpp:7:14:7:15 | g1 | Global variable g1 declared as non-const | test.cpp:7:14:7:15 | g1 |  |
+| test.cpp:8:20:8:21 | g2 | Global variable g2 declared as const, but is not constant initialized because it $@ | test.cpp:9:5:9:6 | g1 | uses a non-constant element in the initialization |
+| test.cpp:14:14:14:15 | g5 | Global variable g5 declared as non-const | test.cpp:14:14:14:15 | g5 |  |
+| test.cpp:26:19:26:20 | g9 | Global variable g9 declared as const, but is not constant initialized because it $@ | test.cpp:26:22:26:22 | call to ComplexInit | calls the ComplexInit(..) constructor which is not marked as constexpr |
+| test.cpp:27:14:27:16 | g10 | Global variable g10 declared as non-const | test.cpp:27:14:27:16 | g10 |  |
+| test.cpp:28:20:28:22 | g11 | Global variable g11 declared as const, but is not constant initialized because it $@ | test.cpp:28:24:28:25 | call to f1 | uses a non-constant element in the initialization |
+| test.cpp:32:23:32:24 | m2 | Global variable m2 declared as non-const | test.cpp:32:23:32:24 | m2 |  |
+| test.cpp:38:14:38:29 | m3 | Global variable m3 declared as non-const | test.cpp:38:14:38:29 | m3 |  |
