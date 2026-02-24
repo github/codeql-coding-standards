@@ -1,0 +1,200 @@
+edges
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | test.cpp:153:52:153:69 | call to forward |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | test.cpp:153:52:153:69 | call to forward |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | test.cpp:153:52:153:69 | call to forward |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | test.cpp:153:52:153:69 | call to forward |  |  |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | test.cpp:158:46:158:63 | call to forward |  |  |
+| test.cpp:8:59:8:59 | f | test.cpp:10:12:10:12 | f |  |  |
+| test.cpp:8:59:8:59 | f | test.cpp:10:12:10:12 | f |  |  |
+| test.cpp:8:59:8:59 | f | test.cpp:10:12:10:12 | f |  |  |
+| test.cpp:10:12:10:12 | f | test.cpp:10:8:10:8 | l |  |  |
+| test.cpp:10:12:10:12 | f | test.cpp:10:8:10:8 | l |  |  |
+| test.cpp:10:12:10:12 | f | test.cpp:10:8:10:8 | l |  |  |
+| test.cpp:36:13:36:33 | [...](...){...} | test.cpp:36:8:36:10 | la3 |  |  |
+| test.cpp:37:13:37:33 | [...](...){...} | test.cpp:37:8:37:10 | la4 |  |  |
+| test.cpp:40:13:40:42 | [...](...){...} | test.cpp:40:8:40:10 | la7 |  |  |
+| test.cpp:54:26:54:45 | [...](...){...} | test.cpp:8:59:8:59 | f |  |  |
+| test.cpp:55:26:55:45 | [...](...){...} | test.cpp:8:59:8:59 | f |  |  |
+| test.cpp:58:26:58:54 | [...](...){...} | test.cpp:8:59:8:59 | f |  |  |
+| test.cpp:86:37:86:56 | [...](...){...} | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f |  |  |
+| test.cpp:87:37:87:56 | [...](...){...} | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f |  |  |
+| test.cpp:92:26:92:45 | [...](...){...} | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f |  |  |
+| test.cpp:93:26:93:45 | [...](...){...} | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f |  |  |
+| test.cpp:119:13:119:33 | [...](...){...} | test.cpp:119:8:119:10 | la7 |  |  |
+| test.cpp:120:13:120:33 | [...](...){...} | test.cpp:120:8:120:10 | la8 |  |  |
+| test.cpp:127:15:127:36 | ... , ... | test.cpp:127:8:127:10 | lb2 |  |  |
+| test.cpp:127:18:127:36 | [...](...){...} | test.cpp:127:15:127:36 | ... , ... |  |  |
+| test.cpp:130:14:130:17 | ... ? ... : ... | test.cpp:130:8:130:10 | lb4 |  |  |
+| test.cpp:130:21:130:39 | [...](...){...} | test.cpp:130:14:130:17 | ... ? ... : ... |  |  |
+| test.cpp:133:14:133:17 | ... ? ... : ... | test.cpp:133:8:133:10 | lb6 |  |  |
+| test.cpp:133:37:133:55 | [...](...){...} | test.cpp:133:14:133:17 | ... ? ... : ... |  |  |
+| test.cpp:143:37:143:56 | [...](...){...} | test.cpp:136:31:136:63 | function_outside_translation_unit |  |  |
+| test.cpp:144:37:144:56 | [...](...){...} | test.cpp:136:31:136:63 | function_outside_translation_unit |  |  |
+| test.cpp:148:7:148:35 | [...](...){...} | test.cpp:136:31:136:63 | function_outside_translation_unit |  |  |
+| test.cpp:153:38:153:38 | f | test.cpp:153:71:153:71 | f |  |  |
+| test.cpp:153:38:153:38 | f | test.cpp:153:71:153:71 | f |  |  |
+| test.cpp:153:38:153:38 | f | test.cpp:153:71:153:71 | f |  |  |
+| test.cpp:153:38:153:38 | f | test.cpp:153:71:153:71 | f |  |  |
+| test.cpp:153:52:153:69 | call to forward | test.cpp:153:43:153:73 | new |  |  |
+| test.cpp:153:52:153:69 | call to forward | test.cpp:153:43:153:73 | new |  |  |
+| test.cpp:153:52:153:69 | call to forward | test.cpp:153:43:153:73 | new |  |  |
+| test.cpp:153:52:153:69 | call to forward | test.cpp:153:43:153:73 | new |  |  |
+| test.cpp:153:71:153:71 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t |  |  |
+| test.cpp:153:71:153:71 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t |  |  |
+| test.cpp:153:71:153:71 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t |  |  |
+| test.cpp:153:71:153:71 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t |  |  |
+| test.cpp:158:38:158:38 | f | test.cpp:158:65:158:65 | f |  |  |
+| test.cpp:158:46:158:63 | call to forward | test.cpp:153:38:153:38 | f |  |  |
+| test.cpp:158:65:158:65 | f | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t |  |  |
+| test.cpp:171:9:171:28 | [...](...){...} | test.cpp:153:38:153:38 | f |  |  |
+| test.cpp:172:9:172:28 | [...](...){...} | test.cpp:153:38:153:38 | f |  |  |
+| test.cpp:175:9:175:37 | [...](...){...} | test.cpp:153:38:153:38 | f |  |  |
+| test.cpp:178:10:178:29 | [...](...){...} | test.cpp:158:38:158:38 | f |  |  |
+| test.cpp:181:10:181:29 | [...](...){...} | test.cpp:163:28:163:29 | C3 |  |  |
+nodes
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f | semmle.label | f |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f | semmle.label | f |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f | semmle.label | f |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:92:35:92:35 | f | semmle.label | f |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new | semmle.label | new |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new | semmle.label | new |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new | semmle.label | new |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new | semmle.label | new |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward | semmle.label | call to forward |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward | semmle.label | call to forward |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward | semmle.label | call to forward |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:23:93:37 | call to forward | semmle.label | call to forward |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f | semmle.label | f |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f | semmle.label | f |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f | semmle.label | f |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:39:93:39 | f | semmle.label | f |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:6:65:6:65 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | semmle.label | t |
+| file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/utility.h:7:29:7:29 | t | semmle.label | t |
+| test.cpp:8:59:8:59 | f | semmle.label | f |
+| test.cpp:8:59:8:59 | f | semmle.label | f |
+| test.cpp:8:59:8:59 | f | semmle.label | f |
+| test.cpp:10:8:10:8 | l | semmle.label | l |
+| test.cpp:10:8:10:8 | l | semmle.label | l |
+| test.cpp:10:8:10:8 | l | semmle.label | l |
+| test.cpp:10:12:10:12 | f | semmle.label | f |
+| test.cpp:10:12:10:12 | f | semmle.label | f |
+| test.cpp:10:12:10:12 | f | semmle.label | f |
+| test.cpp:36:8:36:10 | la3 | semmle.label | la3 |
+| test.cpp:36:13:36:33 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:37:8:37:10 | la4 | semmle.label | la4 |
+| test.cpp:37:13:37:33 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:40:8:40:10 | la7 | semmle.label | la7 |
+| test.cpp:40:13:40:42 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:54:26:54:45 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:55:26:55:45 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:58:26:58:54 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:86:37:86:56 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:87:37:87:56 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:92:26:92:45 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:93:26:93:45 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:119:8:119:10 | la7 | semmle.label | la7 |
+| test.cpp:119:13:119:33 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:120:8:120:10 | la8 | semmle.label | la8 |
+| test.cpp:120:13:120:33 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:127:8:127:10 | lb2 | semmle.label | lb2 |
+| test.cpp:127:15:127:36 | ... , ... | semmle.label | ... , ... |
+| test.cpp:127:18:127:36 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:130:8:130:10 | lb4 | semmle.label | lb4 |
+| test.cpp:130:14:130:17 | ... ? ... : ... | semmle.label | ... ? ... : ... |
+| test.cpp:130:21:130:39 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:133:8:133:10 | lb6 | semmle.label | lb6 |
+| test.cpp:133:14:133:17 | ... ? ... : ... | semmle.label | ... ? ... : ... |
+| test.cpp:133:37:133:55 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:136:31:136:63 | function_outside_translation_unit | semmle.label | function_outside_translation_unit |
+| test.cpp:136:31:136:63 | function_outside_translation_unit | semmle.label | function_outside_translation_unit |
+| test.cpp:136:31:136:63 | function_outside_translation_unit | semmle.label | function_outside_translation_unit |
+| test.cpp:143:37:143:56 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:144:37:144:56 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:148:7:148:35 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:153:38:153:38 | f | semmle.label | f |
+| test.cpp:153:38:153:38 | f | semmle.label | f |
+| test.cpp:153:38:153:38 | f | semmle.label | f |
+| test.cpp:153:38:153:38 | f | semmle.label | f |
+| test.cpp:153:43:153:73 | new | semmle.label | new |
+| test.cpp:153:43:153:73 | new | semmle.label | new |
+| test.cpp:153:43:153:73 | new | semmle.label | new |
+| test.cpp:153:43:153:73 | new | semmle.label | new |
+| test.cpp:153:52:153:69 | call to forward | semmle.label | call to forward |
+| test.cpp:153:52:153:69 | call to forward | semmle.label | call to forward |
+| test.cpp:153:52:153:69 | call to forward | semmle.label | call to forward |
+| test.cpp:153:52:153:69 | call to forward | semmle.label | call to forward |
+| test.cpp:153:71:153:71 | f | semmle.label | f |
+| test.cpp:153:71:153:71 | f | semmle.label | f |
+| test.cpp:153:71:153:71 | f | semmle.label | f |
+| test.cpp:153:71:153:71 | f | semmle.label | f |
+| test.cpp:158:38:158:38 | f | semmle.label | f |
+| test.cpp:158:46:158:63 | call to forward | semmle.label | call to forward |
+| test.cpp:158:65:158:65 | f | semmle.label | f |
+| test.cpp:163:28:163:29 | C3 | semmle.label | C3 |
+| test.cpp:171:9:171:28 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:172:9:172:28 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:175:9:175:37 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:178:10:178:29 | [...](...){...} | semmle.label | [...](...){...} |
+| test.cpp:181:10:181:29 | [...](...){...} | semmle.label | [...](...){...} |
+#select
+| test.cpp:36:13:36:33 | [...](...){...} | test.cpp:36:13:36:33 | [...](...){...} | test.cpp:36:8:36:10 | la3 | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:36:29:36:29 | l1 | l1 |
+| test.cpp:37:13:37:33 | [...](...){...} | test.cpp:37:13:37:33 | [...](...){...} | test.cpp:37:8:37:10 | la4 | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:37:29:37:29 | l1 | l1 |
+| test.cpp:40:13:40:42 | [...](...){...} | test.cpp:40:13:40:42 | [...](...){...} | test.cpp:40:8:40:10 | la7 | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:40:38:40:38 | l2 | l2 |
+| test.cpp:54:26:54:45 | [...](...){...} | test.cpp:54:26:54:45 | [...](...){...} | test.cpp:10:8:10:8 | l | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:54:41:54:41 | l1 | l1 |
+| test.cpp:55:26:55:45 | [...](...){...} | test.cpp:55:26:55:45 | [...](...){...} | test.cpp:10:8:10:8 | l | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:55:41:55:41 | l1 | l1 |
+| test.cpp:58:26:58:54 | [...](...){...} | test.cpp:58:26:58:54 | [...](...){...} | test.cpp:10:8:10:8 | l | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:58:50:58:50 | l2 | l2 |
+| test.cpp:86:37:86:56 | [...](...){...} | test.cpp:86:37:86:56 | [...](...){...} | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:86:52:86:52 | l1 | l1 |
+| test.cpp:87:37:87:56 | [...](...){...} | test.cpp:87:37:87:56 | [...](...){...} | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:87:52:87:52 | l1 | l1 |
+| test.cpp:92:26:92:45 | [...](...){...} | test.cpp:92:26:92:45 | [...](...){...} | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:92:41:92:41 | l1 | l1 |
+| test.cpp:93:26:93:45 | [...](...){...} | test.cpp:93:26:93:45 | [...](...){...} | file:///home/runner/work/codeql-coding-standards/codeql-coding-standards/cpp/common/test/includes/standard-library/functional.h:93:17:93:41 | new | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:93:41:93:41 | l1 | l1 |
+| test.cpp:119:13:119:33 | [...](...){...} | test.cpp:119:13:119:33 | [...](...){...} | test.cpp:119:8:119:10 | la7 | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:119:29:119:29 | l1 | l1 |
+| test.cpp:120:13:120:33 | [...](...){...} | test.cpp:120:13:120:33 | [...](...){...} | test.cpp:120:8:120:10 | la8 | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:120:29:120:29 | l1 | l1 |
+| test.cpp:127:18:127:36 | [...](...){...} | test.cpp:127:18:127:36 | [...](...){...} | test.cpp:127:8:127:10 | lb2 | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:127:33:127:33 | x | x |
+| test.cpp:130:21:130:39 | [...](...){...} | test.cpp:130:21:130:39 | [...](...){...} | test.cpp:130:8:130:10 | lb4 | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:130:36:130:36 | x | x |
+| test.cpp:133:37:133:55 | [...](...){...} | test.cpp:133:37:133:55 | [...](...){...} | test.cpp:133:8:133:10 | lb6 | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:133:52:133:52 | x | x |
+| test.cpp:143:37:143:56 | [...](...){...} | test.cpp:143:37:143:56 | [...](...){...} | test.cpp:136:31:136:63 | function_outside_translation_unit | Lambda implicitly captures $@ but is not considered a transient lambda because it is passed to a different translation unit, resulting in obfuscated lifetimes. | test.cpp:143:52:143:52 | l1 | l1 |
+| test.cpp:144:37:144:56 | [...](...){...} | test.cpp:144:37:144:56 | [...](...){...} | test.cpp:136:31:136:63 | function_outside_translation_unit | Lambda implicitly captures $@ but is not considered a transient lambda because it is passed to a different translation unit, resulting in obfuscated lifetimes. | test.cpp:144:52:144:52 | l1 | l1 |
+| test.cpp:148:7:148:35 | [...](...){...} | test.cpp:148:7:148:35 | [...](...){...} | test.cpp:136:31:136:63 | function_outside_translation_unit | Lambda implicitly captures $@ but is not considered a transient lambda because it is passed to a different translation unit, resulting in obfuscated lifetimes. | test.cpp:148:31:148:31 | l2 | l2 |
+| test.cpp:171:9:171:28 | [...](...){...} | test.cpp:171:9:171:28 | [...](...){...} | test.cpp:153:43:153:73 | new | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:171:24:171:24 | l1 | l1 |
+| test.cpp:172:9:172:28 | [...](...){...} | test.cpp:172:9:172:28 | [...](...){...} | test.cpp:153:43:153:73 | new | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:172:24:172:24 | l1 | l1 |
+| test.cpp:175:9:175:37 | [...](...){...} | test.cpp:175:9:175:37 | [...](...){...} | test.cpp:153:43:153:73 | new | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:175:33:175:33 | l2 | l2 |
+| test.cpp:178:10:178:29 | [...](...){...} | test.cpp:178:10:178:29 | [...](...){...} | test.cpp:153:43:153:73 | new | Lambda implicitly captures $@ but is not considered a transient lambda because it is copied or moved, resulting in obfuscated lifetimes. | test.cpp:178:25:178:25 | l1 | l1 |
+| test.cpp:181:10:181:29 | [...](...){...} | test.cpp:181:10:181:29 | [...](...){...} | test.cpp:163:28:163:29 | C3 | Lambda implicitly captures $@ but is not considered a transient lambda because it is passed to a different translation unit, resulting in obfuscated lifetimes. | test.cpp:181:25:181:25 | l1 | l1 |

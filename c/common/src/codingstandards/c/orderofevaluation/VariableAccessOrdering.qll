@@ -1,10 +1,11 @@
 import cpp
 import codingstandards.c.Ordering
+import codingstandards.c.SideEffects
 
-class VariableAccessInFullExpressionOrdering extends Ordering::Configuration {
-  VariableAccessInFullExpressionOrdering() { this = "VariableAccessInFullExpressionOrdering" }
+module VariableAccessInFullExpressionOrdering implements Ordering::ConfigSig {
+  import Ordering::CConfigBase
 
-  override predicate isCandidate(Expr e1, Expr e2) { isCandidate(_, e1, e2) }
+  predicate isCandidate(Expr e1, Expr e2) { isCandidate(_, e1, e2) }
 }
 
 pragma[noinline]
