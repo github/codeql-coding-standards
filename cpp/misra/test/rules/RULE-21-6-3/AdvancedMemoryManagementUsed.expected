@@ -46,43 +46,43 @@
 | test.cpp:168:6:168:20 | declaration of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
 | test.cpp:171:6:171:22 | declaration of operator delete[] | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
 | test.cpp:174:6:174:20 | definition of operator delete | This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`. |
-| test.cpp:184:12:184:26 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:185:12:186:10 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:190:7:190:31 | call to operator new[] | This expression is a call to `operator new[]` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:193:12:193:23 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:200:12:200:22 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:202:7:202:22 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:224:7:224:21 | operator new | This expression takes address of `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:226:7:226:20 | operator new | This expression takes address of `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:228:7:228:23 | operator new[] | This expression takes address of `operator new[]` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:230:7:230:22 | operator new[] | This expression takes address of `operator new[]` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:257:7:257:24 | operator delete | This expression takes address of `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
-| test.cpp:259:7:259:23 | operator delete | This expression takes address of `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
-| test.cpp:261:7:261:26 | operator delete[] | This expression takes address of `operator delete[]` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
-| test.cpp:263:7:263:25 | operator delete[] | This expression takes address of `operator delete[]` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
-| test.cpp:281:7:281:23 | operator new | This expression takes address of `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:284:7:284:23 | operator new | This expression takes address of `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:298:7:298:26 | operator delete | This expression takes address of `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
-| test.cpp:301:7:301:28 | operator delete[] | This expression takes address of `operator delete[]` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
-| test.cpp:304:7:304:26 | operator delete | This expression takes address of `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
-| test.cpp:318:3:318:38 | call to uninitialized_default_construct | This expression is a call to `uninitialized_default_construct` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:319:3:319:40 | call to uninitialized_default_construct_n | This expression is a call to `uninitialized_default_construct_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:332:3:332:36 | call to uninitialized_value_construct | This expression is a call to `uninitialized_value_construct` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:333:3:333:38 | call to uninitialized_value_construct_n | This expression is a call to `uninitialized_value_construct_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:345:3:345:25 | call to uninitialized_copy | This expression is a call to `uninitialized_copy` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:346:3:346:27 | call to uninitialized_copy_n | This expression is a call to `uninitialized_copy_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:358:3:358:25 | call to uninitialized_move | This expression is a call to `uninitialized_move` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:359:3:359:27 | call to uninitialized_move_n | This expression is a call to `uninitialized_move_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:372:3:372:25 | call to uninitialized_fill | This expression is a call to `uninitialized_fill` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:373:3:373:27 | call to uninitialized_fill_n | This expression is a call to `uninitialized_fill_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:385:3:385:38 | call to uninitialized_default_construct | This expression is a call to `uninitialized_default_construct` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:387:3:387:14 | call to destroy | This expression is a call to `destroy` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:388:3:388:16 | call to destroy_n | This expression is a call to `destroy_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:389:3:389:17 | call to destroy_at | This expression is a call to `destroy_at` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:397:12:397:26 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:398:3:398:11 | (vacuous destructor call) | This expression is a call to a destructor. |
-| test.cpp:399:12:399:26 | call to operator new | This expression is a call to `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
-| test.cpp:401:12:401:23 | call to launder | This expression is a call to `launder` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:411:3:411:10 | (vacuous destructor call) | This expression is a call to a destructor. |
-| test.cpp:421:3:421:11 | (vacuous destructor call) | This expression is a call to a destructor. |
-| test.cpp:432:5:432:16 | (vacuous destructor call) | This expression is a call to a destructor. |
+| test.cpp:184:12:184:26 | call to operator new | Call to banned function `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:185:12:186:10 | call to operator new | Call to banned function `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:190:7:190:31 | call to operator new[] | Call to banned function `operator new[]` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:193:12:193:23 | call to operator new | Call to banned function `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:200:12:200:22 | call to operator new | Call to banned function `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:202:7:202:22 | call to operator new | Call to banned function `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:224:7:224:21 | operator new | This expression takes address of a banned function `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:226:7:226:20 | operator new | This expression takes address of a banned function `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:228:7:228:23 | operator new[] | This expression takes address of a banned function `operator new[]` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:230:7:230:22 | operator new[] | This expression takes address of a banned function `operator new[]` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:257:7:257:24 | operator delete | This expression takes address of a banned function `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:259:7:259:23 | operator delete | This expression takes address of a banned function `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:261:7:261:26 | operator delete[] | This expression takes address of a banned function `operator delete[]` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:263:7:263:25 | operator delete[] | This expression takes address of a banned function `operator delete[]` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:281:7:281:23 | operator new | This expression takes address of a banned function `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:284:7:284:23 | operator new | This expression takes address of a banned function `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:298:7:298:26 | operator delete | This expression takes address of a banned function `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:301:7:301:28 | operator delete[] | This expression takes address of a banned function `operator delete[]` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:304:7:304:26 | operator delete | This expression takes address of a banned function `operator delete` which is a non-replaceable deallocation function as operator `delete` / `delete[]`. |
+| test.cpp:318:3:318:38 | call to uninitialized_default_construct | Call to banned function `uninitialized_default_construct` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:319:3:319:40 | call to uninitialized_default_construct_n | Call to banned function `uninitialized_default_construct_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:332:3:332:36 | call to uninitialized_value_construct | Call to banned function `uninitialized_value_construct` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:333:3:333:38 | call to uninitialized_value_construct_n | Call to banned function `uninitialized_value_construct_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:345:3:345:25 | call to uninitialized_copy | Call to banned function `uninitialized_copy` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:346:3:346:27 | call to uninitialized_copy_n | Call to banned function `uninitialized_copy_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:358:3:358:25 | call to uninitialized_move | Call to banned function `uninitialized_move` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:359:3:359:27 | call to uninitialized_move_n | Call to banned function `uninitialized_move_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:372:3:372:25 | call to uninitialized_fill | Call to banned function `uninitialized_fill` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:373:3:373:27 | call to uninitialized_fill_n | Call to banned function `uninitialized_fill_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:385:3:385:38 | call to uninitialized_default_construct | Call to banned function `uninitialized_default_construct` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:387:3:387:14 | call to destroy | Call to banned function `destroy` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:388:3:388:16 | call to destroy_n | Call to banned function `destroy_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:389:3:389:17 | call to destroy_at | Call to banned function `destroy_at` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:397:12:397:26 | call to operator new | Call to banned function `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:398:3:398:11 | (vacuous destructor call) | This expression is a manual call to a destructor. |
+| test.cpp:399:12:399:26 | call to operator new | Call to banned function `operator new` which is a non-replaceable allocation function as operator `new` / `new[]`. |
+| test.cpp:401:12:401:23 | call to launder | Call to banned function `launder` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:411:3:411:10 | (vacuous destructor call) | This expression is a manual call to a destructor. |
+| test.cpp:421:3:421:11 | (vacuous destructor call) | This expression is a manual call to a destructor. |
+| test.cpp:432:5:432:16 | (vacuous destructor call) | This expression is a manual call to a destructor. |

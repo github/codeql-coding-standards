@@ -76,13 +76,13 @@ where
     /* 1. The element is a call to one of the advanced management functions. */
     element = advancedMemoryManagementFunction.getACallToThisFunction() and
     message =
-      "This expression is a call to `" + advancedMemoryManagementFunction.getName() + "` which is " +
+      "Call to banned function `" + advancedMemoryManagementFunction.getName() + "` which is " +
         advancedMemoryManagementFunction.describe() + "."
     or
     /* 2. The element takes address of the advanced memory management functions. */
     element = advancedMemoryManagementFunction.getAnAccess() and
     message =
-      "This expression takes address of `" + advancedMemoryManagementFunction.getName() +
+      "This expression takes address of a banned function `" + advancedMemoryManagementFunction.getName() +
         "` which is " + advancedMemoryManagementFunction.describe() + "."
   )
   or
@@ -90,7 +90,7 @@ where
     element instanceof VacuousDestructorCall or
     element instanceof ExplicitDestructorCall
   ) and
-  message = "This expression is a call to a destructor."
+  message = "This expression is a manual call to a destructor."
   or
   element instanceof UserDeclaredOperatorNewOrDelete and
   message = "This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`."
