@@ -23,10 +23,10 @@ class AdvancedMemoryManagementFunction extends Function {
 
   AdvancedMemoryManagementFunction() {
     this instanceof NonStandardNewOrNewArrayOperator and
-    description = "a non-replaceable allocation function as operator `new` / `new[]`"
+    description = "a non-replaceable allocation function"
     or
     this instanceof NonStandardDeleteOrDeleteArrayOperator and
-    description = "a non-replaceable deallocation function as operator `delete` / `delete[]`"
+    description = "a non-replaceable deallocation function"
     or
     this instanceof UninitializedMemoryManagementFunction and
     description = "a function from <memory> that manages uninitialized memory"
@@ -76,22 +76,26 @@ where
     /* 1. The element is a call to one of the advanced management functions. */
     element = advancedMemoryManagementFunction.getACallToThisFunction() and
     message =
-      "Call to banned function `" + advancedMemoryManagementFunction.getName() + "` which is " +
-        advancedMemoryManagementFunction.describe() + "."
+      "Call to banned function `" + advancedMemoryManagementFunction.getName() +
+        //"."
+        "` which is " + advancedMemoryManagementFunction.describe() + "."
     or
     /* 2. The element takes address of the advanced memory management functions. */
     element = advancedMemoryManagementFunction.getAnAccess() and
     message =
-      "This expression takes address of a banned function `" + advancedMemoryManagementFunction.getName() +
+      "Taking the address of a banned function `" + advancedMemoryManagementFunction.getName() +
         "` which is " + advancedMemoryManagementFunction.describe() + "."
+    //  "`."
   )
   or
   (
     element instanceof VacuousDestructorCall or
     element instanceof ExplicitDestructorCall
   ) and
-  message = "This expression is a manual call to a destructor."
+  message = "Manual call to a destructor."
   or
   element instanceof UserDeclaredOperatorNewOrDelete and
-  message = "This is a user-provided declaration of `new` / `new[]` / `delete` / `delete[]`."
+  message =
+    "User-provided declaration of `" +
+      element.(UserDeclaredOperatorNewOrDelete).getFunction().getName() + "`."
 select element, message
