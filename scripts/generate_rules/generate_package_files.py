@@ -120,7 +120,7 @@ else:
 repo_root = Path(__file__).parent.parent.parent
 rule_packages_file_path = repo_root.joinpath("rule_packages")
 env = Environment(loader=FileSystemLoader(Path(__file__).parent.joinpath(
-    "templates")), trim_blocks=True, lstrip_blocks=True)
+    "templates")), trim_blocks=True, lstrip_blocks=True, keep_trailing_newline=True)
 
 def write_shared_implementation(package_name, rule_id, query, language_name, ql_language_name, common_src_pack_dir, common_test_pack_dir, test_src_dir, skip_tests=False):
 
@@ -164,6 +164,7 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
     # Write out the test. Test are always stored under the `language_name`
     # directory.
     if not skip_tests:
+
         shared_impl_test_dir = common_test_pack_dir.joinpath(
             "rules",
             shared_impl_dir_name
@@ -176,31 +177,17 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
             f"{query['shared_implementation_short_name']}.ql"
         )
 
-        with open(shared_impl_test_query_path, "w", newline="\n") as f:
-            f.write("// GENERATED FILE - DO NOT MODIFY\n")
-            f.write(
-                "import "
-                + str(shared_impl_query_library_path.relative_to(common_src_pack_dir).with_suffix(''))
-                .replace("\\", "/")
-                .replace("/", ".")
-                + "\n"
+        shared_library_test_template = env.get_template(
+            "shared_library_test.ql.template"
+        )
+
+        if not shared_impl_test_query_path.exists():
+            write_template(
+                shared_library_test_template,
+                query,
+                package_name,
+                shared_impl_test_query_path
             )
-            f.write("\n")
-            class_name = str(query["shared_implementation_short_name"]) + "SharedQuery"
-            f.write("class TestFileQuery extends " + class_name + ",")
-            # ql formatting of this line depends on the line length
-            if len(class_name) > 61:
-                # Line break required after comma
-                f.write("\n  TestQuery\n{ }\n")
-            elif len(class_name) == 61:
-                # Line break required before `{`
-                f.write(" TestQuery\n{ }\n")
-            elif len(class_name) > 57:
-                # Line break required after `{`
-                f.write(" TestQuery {\n}\n")
-            else:
-                # Under 100 characters, can be formatted on the same line
-                f.write(" TestQuery { }\n")
 
         # Create an empty test file, if one doesn't already exist
         shared_impl_test_dir.joinpath(
