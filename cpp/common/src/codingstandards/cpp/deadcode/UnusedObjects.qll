@@ -17,18 +17,16 @@ import codingstandards.cpp.alertreporting.DeduplicateMacroResults
 class UnusedObjectDefinition extends VariableDeclarationEntry {
   UnusedObjectDefinition() {
     (
-      getVariable() instanceof BasePotentiallyUnusedLocalVariable
+      getVariable() instanceof FirstPass::UnusedLocalVariable
       or
-      getVariable() instanceof BasePotentiallyUnusedGlobalOrNamespaceVariable
+      getVariable() instanceof FirstPass::UnusedGlobalOrNamespaceVariable
     ) and
-    not exists(VariableAccess access | access.getTarget() = getVariable()) and
-    getVariable().getDefinition() = this
+    getVariable().getDefinition() = this and
+    not exists(getVariable().getAnAccess())
   }
 
   /* Dead objects with these attributes are reported in the "strict" queries. */
-  predicate hasAttrUnused() {
-    getVariable().getAnAttribute().hasName(["unused", "used", "maybe_unused", "cleanup"])
-  }
+  predicate hasAttrUnused() { hasAttrUnused(getVariable()) }
 }
 
 /* Configuration to use the `DedupMacroResults` module to reduce alert noise */

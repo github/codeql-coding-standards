@@ -1,0 +1,28 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-4-6-1": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Code behavior should not have unsequenced or indeterminately sequenced operations on the same memory location.",
+          "kind": "problem",
+          "name": "Operations on a memory location shall be sequenced appropriately",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MemoryUsageNotSequenced",
+          "shared_implementation_short_name": "ExpressionWithUnsequencedSideEffects",
+          "tags": [
+            "scope/system",
+            "portability",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Operations on a memory location shall be sequenced appropriately"
+    }
+  }
+}
