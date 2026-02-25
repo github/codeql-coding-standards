@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.UnintializedMemoryAllocation
+import codingstandards.cpp.standardlibrary.Memory
 import codingstandards.cpp.allocations.CustomOperatorNewDelete
 
 class AdvancedMemoryManagementFunction extends Function {
@@ -54,10 +54,7 @@ class UserDeclaredOperatorNewOrDelete extends FunctionDeclarationEntry {
     exists(this.getFile().getRelativePath()) and
     /* Not in a file called `new`, which is likely to be a stub of the standard library */
     not this.getFile().getBaseName() = "new" and
-    (
-      this.getName() in ["operator new", "operator new[]"] or
-      this.getName() in ["operator delete", "operator delete[]"]
-    )
+    this.getFunction() instanceof OperatorNewOrDelete
   }
 }
 
