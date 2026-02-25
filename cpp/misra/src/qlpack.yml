@@ -1,5 +1,5 @@
 name: codeql/misra-cpp-coding-standards
-version: 2.55.0-dev
+version: 2.55.0
 description: MISRA C++ 2023
 default-suite: codeql-suites/misra-cpp-default.qls
 license: MIT

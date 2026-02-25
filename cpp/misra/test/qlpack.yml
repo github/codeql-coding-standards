@@ -1,5 +1,5 @@
 name: codeql/misra-cpp-coding-standards-tests
-version: 2.55.0-dev
+version: 2.55.0
 extractor: cpp
 license: MIT
 dependencies:
