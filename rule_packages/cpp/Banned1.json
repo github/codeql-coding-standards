@@ -1,0 +1,25 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-6-7-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Global variables can be accessed and modified from distant and unclear points in the code, creating a risk of data races and unexpected behavior.",
+          "kind": "problem",
+          "name": "Global variables shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "GlobalVariableUsed",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Global variables shall not be used"
+    }
+  }
+}

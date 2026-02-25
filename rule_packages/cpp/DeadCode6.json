@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-0-1-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The result of a non-void function shall be used if called with function call syntax.",
+          "kind": "problem",
+          "name": "The value returned by a function shall be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnusedReturnValueMisraCpp",
+          "shared_implementation_short_name": "UnusedReturnValueShared",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The value returned by a function shall be used"
+    }
+  }
+}
