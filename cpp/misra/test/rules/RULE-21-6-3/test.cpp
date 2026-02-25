@@ -176,6 +176,28 @@ void operator delete(void *ptr, int hint) noexcept {
 } // NON_COMPLIANT: custom parameter
 
 /**
+ * Test replaceable new / delete expressions.
+ */
+void use_standard_new_delete() {
+  // Compliant: new expressions that call the global `operator new`s.
+  struct S {};
+  S *p1 = new S;     // COMPLIANT
+  S *p2 = new S[10]; // COMPLIANT
+  void *p3 = ::operator new(sizeof(S));
+  void *p4 = ::operator new[](sizeof(S));
+  S *p5 = new (std::nothrow) S;     // COMPLIANT
+  S *p6 = new (std::nothrow) S[10]; // COMPLIANT
+
+  // Compliant: delete expressions that call the global `operator delete`s.
+  delete p1;                             // COMPLIANT
+  delete[] p2;                           // COMPLIANT
+  ::operator delete(p3);                 // COMPLIANT
+  ::operator delete[](p4);               // COMPLIANT
+  ::operator delete(p5, std::nothrow);   // COMPLIANT
+  ::operator delete[](p6, std::nothrow); // COMPLIANT
+}
+
+/**
  * Test placement new expressions.
  */
 void use_placement_new() {
