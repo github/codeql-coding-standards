@@ -18,9 +18,8 @@ struct S1 {
 };
 
 void f4(S1 *p1) {
-  p1->m1(p1++); // NON_COMPLIANT in C++14 and COMPLIANT since C++17 the
-                // expression that names the function is sequenced before every
-                // argument expression and every default argument
+  p1->m1(p1++); // C++14: NON_COMPLIANT
+                // C++17: COMPLIANT
 }
 
 int addc(int *n, int c) { return *n += c; }
@@ -30,7 +29,8 @@ void f6() {
   int l1 = 0;
   int l2;
 
-  l2 = l1 = l1++; // NON_COMPLIANT
+  l2 = l1 = l1++; // C++14: NON_COMPLIANT
+                  // C++17: COMPLIANT
 }
 
 void f7() {
@@ -56,4 +56,18 @@ void f10(int *p1) {
   *p1++ = 1; // COMPLIANT
   *p1++ = 2; // COMPLIANT
   *p1++ = 3; // COMPLIANT
+}
+
+void f11(S1 *p1) {
+  (p1++)->m1(p1); // C++14: NON_COMPLIANT
+                  // C++17: COMPLIANT
+}
+
+void f12(int *p1) {
+  (*p1++) >> (*p1++); // C++14: NON_COMPLIANT
+                      // C++17: COMPLIANT
+  // This case should be non-compliant in C++14, but `isCandidate` only holds
+  // for operations and calls, while the subscript operator is neither.
+  (p1++)[*p1++]; // C++14: NON_COMPLIANT[False negative]
+                 // C++17: COMPLIANT
 }
