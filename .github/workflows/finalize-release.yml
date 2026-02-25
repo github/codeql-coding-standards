@@ -1,4 +1,9 @@
 name: Finalize Release
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
 on:
   pull_request:
     types:
@@ -52,7 +57,7 @@ jobs:
           path: tooling 
       
       - name: Install Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.9"
 

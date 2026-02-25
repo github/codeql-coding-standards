@@ -16,6 +16,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "ExpressionShouldNotRelyOnOrderOfEvaluation",
+          "shared_implementation_short_name": "ExpressionWithUnsequencedSideEffects",
           "tags": [
             "correctness"
           ]

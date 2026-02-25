@@ -6,7 +6,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 newtype RepresentationQuery =
   TBitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsQuery() or
   TAuditPossibleHardwareInterfaceDueToBitFieldUsageInDataTypeDefinitionQuery() or
-  TObjectAssignedToAnOverlappingObjectQuery() or
+  TObjectAssignedToAnOverlappingObjectAutosarCppQuery() or
   TDoNotPassAliasedPointerToParamQuery() or
   TUnderlyingBitRepresentationsOfFloatingPointValuesUsedQuery() or
   TNamedBitFieldsWithSignedIntegerTypeShallHaveALengthOfMoreThanOneBitQuery() or
@@ -34,11 +34,11 @@ predicate isRepresentationQueryMetadata(Query query, string queryId, string rule
   category = "required"
   or
   query =
-    // `Query` instance for the `objectAssignedToAnOverlappingObject` query
-    RepresentationPackage::objectAssignedToAnOverlappingObjectQuery() and
+    // `Query` instance for the `objectAssignedToAnOverlappingObjectAutosarCpp` query
+    RepresentationPackage::objectAssignedToAnOverlappingObjectAutosarCppQuery() and
   queryId =
-    // `@id` for the `objectAssignedToAnOverlappingObject` query
-    "cpp/autosar/object-assigned-to-an-overlapping-object" and
+    // `@id` for the `objectAssignedToAnOverlappingObjectAutosarCpp` query
+    "cpp/autosar/object-assigned-to-an-overlapping-object-autosar-cpp" and
   ruleId = "M0-2-1" and
   category = "required"
   or
@@ -112,11 +112,11 @@ module RepresentationPackage {
       TQueryCPP(TRepresentationPackageQuery(TAuditPossibleHardwareInterfaceDueToBitFieldUsageInDataTypeDefinitionQuery()))
   }
 
-  Query objectAssignedToAnOverlappingObjectQuery() {
+  Query objectAssignedToAnOverlappingObjectAutosarCppQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `objectAssignedToAnOverlappingObject` query
-      TQueryCPP(TRepresentationPackageQuery(TObjectAssignedToAnOverlappingObjectQuery()))
+      // `Query` type for `objectAssignedToAnOverlappingObjectAutosarCpp` query
+      TQueryCPP(TRepresentationPackageQuery(TObjectAssignedToAnOverlappingObjectAutosarCppQuery()))
   }
 
   Query doNotPassAliasedPointerToParamQuery() {

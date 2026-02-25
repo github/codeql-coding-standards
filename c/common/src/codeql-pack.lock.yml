@@ -4,23 +4,25 @@ dependencies:
   advanced-security/qtil:
     version: 0.0.3
   codeql/cpp-all:
-    version: 4.0.3
+    version: 5.0.0
   codeql/dataflow:
-    version: 2.0.3
+    version: 2.0.8
   codeql/mad:
-    version: 1.0.19
+    version: 1.0.24
+  codeql/quantum:
+    version: 0.0.2
   codeql/rangeanalysis:
-    version: 1.0.19
+    version: 1.0.24
   codeql/ssa:
-    version: 1.0.19
+    version: 2.0.0
   codeql/tutorial:
-    version: 1.0.19
+    version: 1.0.24
   codeql/typeflow:
-    version: 1.0.19
+    version: 1.0.24
   codeql/typetracking:
-    version: 2.0.3
+    version: 2.0.8
   codeql/util:
-    version: 2.0.6
+    version: 2.0.11
   codeql/xml:
-    version: 1.0.19
+    version: 1.0.24
 compiled: false

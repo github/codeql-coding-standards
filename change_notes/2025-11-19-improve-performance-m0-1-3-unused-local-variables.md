@@ -1,0 +1,2 @@
+ - `M0-1-3` - `UnusedLocalVariable.ql`:
+   - Improved performance of the unused local variable analysis by moving constant expression value extraction to a separate pass, eliminating certain expensive joins.

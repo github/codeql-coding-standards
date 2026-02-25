@@ -1,10 +1,26 @@
 import cpp
 import codingstandards.cpp.Ordering
 
-class VariableAccessInFullExpressionOrdering extends Ordering::Configuration {
-  VariableAccessInFullExpressionOrdering() { this = "VariableAccessInFullExpressionOrdering" }
+module Cpp14VariableAccessInFullExpressionOrdering implements Ordering::ConfigSig {
+  import Ordering::CppConfigBase
 
-  override predicate isCandidate(Expr e1, Expr e2) { isCandidate(_, e1, e2) }
+  predicate isCandidate(Expr e1, Expr e2) { isCandidate(_, e1, e2) }
+
+  pragma[inline]
+  predicate sequencingEdge(Ordering::ExprEvaluationNode n1, Ordering::ExprEvaluationNode n2) {
+    Ordering::cpp14Edge(n1, n2)
+  }
+}
+
+module Cpp17VariableAccessInFullExpressionOrdering implements Ordering::ConfigSig {
+  import Ordering::CppConfigBase
+
+  predicate isCandidate(Expr e1, Expr e2) { isCandidate(_, e1, e2) }
+
+  pragma[inline]
+  predicate sequencingEdge(Ordering::ExprEvaluationNode n1, Ordering::ExprEvaluationNode n2) {
+    Ordering::cpp17Edge(n1, n2)
+  }
 }
 
 pragma[noinline]
@@ -30,6 +46,9 @@ predicate isCandidatePair(
  * an other full expression that is sequenced after the value computation (and therefore cannot influence them at that point in the evaluation).
  */
 predicate isCandidate(FullExpr e, VariableAccess va1, VariableAccess va2) {
+  // Ensure va1 and va2 are reciprocal candidates.
+  isCandidate(e, va2, va1)
+  or
   exists(Variable v, VariableEffect ve |
     isCandidatePair(e, va1, va2, v, v) and
     ve.getAnAccess() = va1 and
