@@ -95,7 +95,6 @@ where
     /* ===== 2. The expression takes address of the dynamic memory management functions. ===== */
     expr = dynamicMemoryManagementFunction.getAnAccess() and
     message =
-      "Taking the address of banned `" +
-        dynamicMemoryManagementFunction.getQualifiedName() + "`."
+      "Taking the address of banned `" + dynamicMemoryManagementFunction.getQualifiedName() + "`."
   )
 select expr, message
