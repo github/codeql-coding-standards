@@ -19,12 +19,7 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.Iterators
 
 predicate isRemoveOrUniqueCall(FunctionCall fc) {
-  exists(string name | name = fc.getTarget().getName() |
-    name = "remove" or
-    name = "remove_if" or
-    name = "unique"
-  ) and
-  fc.getTarget().hasQualifiedName("std", _) and
+  fc.getTarget().hasQualifiedName("std", ["remove", "remove_if", "unique"]) and
   fc.getAnArgument().getUnderlyingType() instanceof IteratorType
 }
 
