@@ -94,3 +94,33 @@ int getPrecision(IntegralType type) {
   or
   type.isExplicitlySigned() and result = type.getSize() * 8 - 1
 }
+
+/**
+ * Determines the lower and upper bounds of an integral type.
+ */
+predicate integralTypeBounds(IntegralType integralType, QlBuiltins::BigInt lb, QlBuiltins::BigInt ub) {
+  exists(QlBuiltins::BigInt limit | limit = 2.toBigInt().pow(8 * integralType.getSize()) |
+    if integralType instanceof BoolType
+    then lb = 0.toBigInt() and ub = 1.toBigInt()
+    else
+      if integralType.isSigned()
+      then (
+        lb = -(limit / 2.toBigInt()) and ub = (limit / 2.toBigInt()) - 1.toBigInt()
+      ) else (
+        lb = 0.toBigInt() and ub = limit - 1.toBigInt()
+      )
+  )
+}
+
+/**
+ * The size of the smallest `int` type in the database in bytes.
+ */
+int sizeOfInt() {
+  // The size of int is implementation-defined
+  result =
+    min(int size |
+      size = any(IntType i | i.isSigned()).getCanonicalArithmeticType().getSize()
+    |
+      size
+    )
+}

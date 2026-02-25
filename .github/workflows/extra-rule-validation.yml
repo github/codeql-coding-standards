@@ -1,4 +1,6 @@
 name: ⚙️ Extra Rule Validation
+permissions:
+  contents: read
 
 on:
   merge_group:
@@ -21,7 +23,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Check Rules 
         shell: pwsh
@@ -33,7 +35,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Ensure CPP Shared Rules Have Valid Structure  
         shell: pwsh
@@ -44,13 +46,13 @@ jobs:
         run: scripts/util/Test-SharedImplementationsHaveTestCases.ps1 -Language c -CIMode
 
         
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: failure()
         with:
           name: missing-test-report.csv
           path: MissingTestReport*.csv
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: failure()
         with:
           name: test-report.csv

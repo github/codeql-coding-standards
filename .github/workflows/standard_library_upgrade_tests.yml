@@ -1,4 +1,6 @@
 name: CodeQL Standard Library Upgrade tests
+permissions:
+  contents: read
 
 # Run this workflow every time the "supported_codeql_configs.json" file is changed
 on:
@@ -19,7 +21,7 @@ jobs:
       matrix: ${{ steps.export-unit-test-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Export unit test matrix
         id: export-unit-test-matrix
@@ -41,16 +43,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Python 3
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.x"
 
       - name: Cache CodeQL
         id: cache-codeql
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           # A list of files, directories, and wildcard patterns to cache and restore
           path: ${{github.workspace}}/codeql_home
@@ -143,7 +145,7 @@ jobs:
               }, test_summary_file)
 
       - name: Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: test-results-${{runner.os}}-${{matrix.codeql_cli}}-${{matrix.codeql_standard_library_ident}}
           path: |
@@ -157,12 +159,12 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Install Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.9"
 
       - name: Collect test results
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
 
       - name: Validate test results
         shell: python

@@ -1,0 +1,69 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-18-3-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The main function should have a catch-all exception handler (catch(...)) to catch all otherwise unhandled exceptions.",
+          "kind": "problem",
+          "name": "There should be at least one exception handler to catch all otherwise unhandled exceptions",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "MissingCatchAllExceptionHandlerInMain",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "There should be at least one exception handler to catch all otherwise unhandled exceptions"
+    },
+    "RULE-18-3-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Catching exception classes by value can lead to slicing, which can result in unexpected behavior.",
+          "kind": "problem",
+          "name": "An exception of class type shall be caught by const reference or reference",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ClassExceptionCaughtByValue",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "An exception of class type shall be caught by const reference or reference"
+    },
+    "RULE-18-4-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Throwing exceptions in constructors, destructors, copy-constructors, move constructors, assignments, and functions named swap, may result in implementation-defined behavior.",
+          "kind": "problem",
+          "name": "Exception-unfriendly functions shall be noexcept",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ExceptionUnfriendlyFunctionMustBeNoexcept",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Exception-unfriendly functions shall be noexcept"
+    }
+  }
+}

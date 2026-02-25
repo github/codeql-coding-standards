@@ -1,9 +1,8 @@
-| invalid1.h:0:0:0:0 | invalid1.h | File does not have a well formatted include guard. |
-| invalid2.h:0:0:0:0 | invalid2.h | File does not have a well formatted include guard. |
-| invalid3.h:0:0:0:0 | invalid3.h | File does not have a well formatted include guard. |
-| invalid4.h:0:0:0:0 | invalid4.h | File does not have a well formatted include guard. |
-| invalid5_file2.h:0:0:0:0 | invalid5_file2.h | File does not have a well formatted include guard. |
-| invalid6_b.h:0:0:0:0 | invalid6_b.h | File does not have a well formatted include guard. |
-| invalid7.h:0:0:0:0 | invalid7.h | File does not have a well formatted include guard. |
-| invalid8.h:0:0:0:0 | invalid8.h | File does not have a well formatted include guard. |
-| invalid9.h:0:0:0:0 | invalid9.h | File does not have a well formatted include guard. |
+| invalid1.h:0:0:0:0 | invalid1.h | Header file invalid1.h is missing expected include guard. | invalid1.h:0:0:0:0 | invalid1.h |  |
+| invalid2.h:0:0:0:0 | invalid2.h | Header file invalid2.h is missing expected include guard. | invalid2.h:0:0:0:0 | invalid2.h |  |
+| invalid3.h:0:0:0:0 | invalid3.h | Header file invalid3.h is missing expected include guard. | invalid3.h:0:0:0:0 | invalid3.h |  |
+| invalid4.h:0:0:0:0 | invalid4.h | Header file invalid4.h is missing expected include guard. | invalid4.h:0:0:0:0 | invalid4.h |  |
+| invalid5_file2.h:0:0:0:0 | invalid5_file2.h | Header file invalid5_file2.h is missing expected include guard. | invalid5_file2.h:0:0:0:0 | invalid5_file2.h |  |
+| invalid6_b.h:0:0:0:0 | invalid6_b.h | Header file invalid6_b.h is never included by reusing the include guard used by $@. | invalid6_a.h:0:0:0:0 | invalid6_a.h | include guard |
+| invalid7.h:0:0:0:0 | invalid7.h | Header file invalid7.h is missing expected include guard. | invalid7.h:0:0:0:0 | invalid7.h |  |
+| invalid9.h:0:0:0:0 | invalid9.h | Header file invalid9.h is missing expected include guard. | invalid9.h:0:0:0:0 | invalid9.h |  |

@@ -1,6 +1,7 @@
 import cpp
 import codeql.util.Boolean
 import codingstandards.cpp.types.Graph
+import codingstandards.cpp.types.Type
 import codingstandards.cpp.types.FunctionType
 
 module TypeNamesMatchConfig implements TypeEquivalenceSig {
@@ -526,7 +527,6 @@ module FunctionDeclarationTypeEquivalence<
 private class LeafType extends Type {
   LeafType() {
     not this instanceof DerivedType and
-    not this instanceof FunctionType and
     not this instanceof FunctionType
   }
 }

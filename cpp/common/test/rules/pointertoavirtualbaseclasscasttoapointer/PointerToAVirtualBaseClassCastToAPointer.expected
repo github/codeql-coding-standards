@@ -1,0 +1,4 @@
+| test.cpp:41:12:41:37 | reinterpret_cast<C2 *>... | dynamic_cast not used for cast from pointer to base class C1 to derived class C2 which is  $@. | test.cpp:11:12:11:28 | derivation | derived through virtual base class C1 |
+| test.cpp:47:12:47:38 | reinterpret_cast<C2>... | dynamic_cast not used for cast from reference to base class C1 to derived class C2 which is  $@. | test.cpp:11:12:11:28 | derivation | derived through virtual base class C1 |
+| test.cpp:53:17:53:48 | reinterpret_cast<Derived>... | dynamic_cast not used for cast from reference to base class C1 to derived class C2 which is  $@. | test.cpp:11:12:11:28 | derivation | derived through virtual base class C1 |
+| test.cpp:86:12:86:37 | reinterpret_cast<C2 *>... | dynamic_cast not used for cast from pointer to base class C0 to derived class C2 which is  $@. | test.cpp:11:12:11:28 | derivation | derived through virtual base class C1 |

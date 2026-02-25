@@ -16,29 +16,8 @@
 
 import cpp
 import codingstandards.cpp.misra
-import semmle.code.cpp.headers.MultipleInclusion
+import codingstandards.cpp.rules.includeguardsnotused.IncludeGuardsNotUsed
 
-predicate isOutside(CorrectIncludeGuard includeGuard, Location location) {
-  location.getFile() = includeGuard.getFile() and
-  (
-    location.isBefore(includeGuard.getIfndef().getLocation())
-    or
-    includeGuard.getEndif().getLocation().isBefore(location)
-  )
+class NoValidIfdefGuardInHeaderQuery extends IncludeGuardsNotUsedSharedQuery {
+  NoValidIfdefGuardInHeaderQuery() { this = PreprocessorPackage::noValidIfdefGuardInHeaderQuery() }
 }
-
-from File included
-where
-  not isExcluded(included, PreprocessorPackage::noValidIfdefGuardInHeaderQuery()) and
-  included = any(Compilation c).getAFileCompiled().getAnIncludedFile+() and
-  not exists(CorrectIncludeGuard includeGuard |
-    includeGuard.getFile() = included and
-    // Stricter: define is before all other contents
-    not included
-        .getATopLevelDeclaration()
-        .getLocation()
-        .isBefore(includeGuard.getDefine().getLocation()) and
-    // Stricter: do not allow includes outside of the inclusion guard
-    not exists(Include include | isOutside(includeGuard, include.getLocation()))
-  )
-select included, "File does not have a well formatted include guard."

@@ -70,6 +70,20 @@
           "precision": "very-high",
           "severity": "error",
           "short_name": "NoValidIfdefGuardInHeader",
+          "shared_implementation_short_name": "IncludeGuardsNotUsed",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability",
+            "correctness"
+          ]
+        },
+        {
+          "description": "Include directives shall be within the scope of an include guard.",
+          "kind": "problem",
+          "name": "Comments are the only content permitted outside of the scope of an include guard in a header file",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IncludeOutsideGuard",
           "tags": [
             "scope/single-translation-unit",
             "maintainability",

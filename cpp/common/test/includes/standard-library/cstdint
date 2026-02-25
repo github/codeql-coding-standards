@@ -1,6 +1,23 @@
-#ifndef _CPP_CSTDINT
-#define _CPP_CSTDINT
+#ifndef _GHLIBCPP_CSTDINT
+#define _GHLIBCPP_CSTDINT
+#include "stdint.h"
+namespace std {
+using ::int16_t;
+using ::int32_t;
+using ::int64_t;
+using ::int8_t;
+using ::intmax_t;
+using ::uint16_t;
+using ::uint32_t;
+using ::uint64_t;
+using ::uint8_t;
+using ::uint_fast16_t;
+using ::uint_fast32_t;
+using ::uint_fast64_t;
+using ::uint_fast8_t;
+using ::uintmax_t;
 
-#define MAX_INT
-#include <cstdint.h>
-#endif
+using ::intptr_t;
+using ::uintptr_t;
+} // namespace std
+#endif // _GHLIBCPP_CSTDINT

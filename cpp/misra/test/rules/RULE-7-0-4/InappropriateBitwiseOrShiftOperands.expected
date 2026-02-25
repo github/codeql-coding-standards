@@ -1,0 +1,49 @@
+| test.cpp:14:3:14:6 | s32a | Bitwise operator '&' requires unsigned numeric operands, but the left operand has type 'int32_t'. |
+| test.cpp:14:9:14:12 | s32b | Bitwise operator '&' requires unsigned numeric operands, but the right operand has type 'int32_t'. |
+| test.cpp:15:3:15:6 | s32a | Bitwise operator '\|' requires unsigned numeric operands, but the left operand has type 'int32_t'. |
+| test.cpp:15:10:15:13 | s32b | Bitwise operator '\|' requires unsigned numeric operands, but the right operand has type 'int32_t'. |
+| test.cpp:16:3:16:6 | s32a | Bitwise operator '^' requires unsigned numeric operands, but the left operand has type 'int32_t'. |
+| test.cpp:16:10:16:13 | s32b | Bitwise operator '^' requires unsigned numeric operands, but the right operand has type 'int32_t'. |
+| test.cpp:18:3:18:6 | s32a | Bitwise operator '&' requires unsigned numeric operands, but the left operand has type 'int32_t'. |
+| test.cpp:19:10:19:13 | s32b | Bitwise operator '\|' requires unsigned numeric operands, but the right operand has type 'int32_t'. |
+| test.cpp:30:3:30:5 | s32 | Bitwise operator '&=' requires unsigned numeric operands, but the left operand has type 'int32_t'. |
+| test.cpp:30:10:30:15 | 65535 | Bitwise operator '&=' requires unsigned numeric operands, but the right operand has type 'int'. |
+| test.cpp:31:3:31:5 | s32 | Bitwise operator '\|=' requires unsigned numeric operands, but the left operand has type 'int32_t'. |
+| test.cpp:31:10:31:15 | 4096 | Bitwise operator '\|=' requires unsigned numeric operands, but the right operand has type 'int'. |
+| test.cpp:32:3:32:5 | s32 | Bitwise operator '^=' requires unsigned numeric operands, but the left operand has type 'int32_t'. |
+| test.cpp:32:10:32:15 | 21845 | Bitwise operator '^=' requires unsigned numeric operands, but the right operand has type 'int'. |
+| test.cpp:42:4:42:6 | s32 | Bit complement operator '~' requires unsigned operand, but has type 'int32_t'. |
+| test.cpp:54:3:54:3 | 1 | Shift operator '<<' requires unsigned left operand, but has type 'int'. |
+| test.cpp:55:3:55:5 | s32 | Shift operator '<<' requires unsigned left operand, but has type 'int32_t'. |
+| test.cpp:63:4:63:11 | ... + ... | Shift operator '<<' requires unsigned left operand, but has type 'int'. |
+| test.cpp:74:10:74:11 | s8 | Shift operator '<<' requires unsigned right operand, but has type 'int8_t'. |
+| test.cpp:75:10:75:11 | s8 | Shift operator '>>' requires unsigned right operand, but has type 'int8_t'. |
+| test.cpp:85:10:85:11 | 32 | Shift operator '<<' shifts by 32 which is not within the valid range 0..31. |
+| test.cpp:86:10:86:11 | 64 | Shift operator '<<' shifts by 64 which is not within the valid range 0..31. |
+| test.cpp:87:10:87:11 | 32 | Shift operator '>>' shifts by 32 which is not within the valid range 0..31. |
+| test.cpp:93:10:93:11 | - ... | Shift operator '<<' shifts by -1 which is not within the valid range 0..31. |
+| test.cpp:94:10:94:11 | - ... | Shift operator '<<' shifts by -5 which is not within the valid range 0..31. |
+| test.cpp:95:10:95:11 | - ... | Shift operator '>>' shifts by -1 which is not within the valid range 0..31. |
+| test.cpp:96:10:96:11 | - ... | Shift operator '>>' shifts by -3 which is not within the valid range 0..31. |
+| test.cpp:115:3:115:5 | s32 | Shift operator '<<=' requires unsigned left operand, but has type 'int32_t'. |
+| test.cpp:116:3:116:5 | s32 | Shift operator '>>=' requires unsigned left operand, but has type 'int32_t'. |
+| test.cpp:117:3:117:5 | s32 | Shift operator '<<=' requires unsigned left operand, but has type 'int32_t'. |
+| test.cpp:118:3:118:5 | s32 | Shift operator '>>=' requires unsigned left operand, but has type 'int32_t'. |
+| test.cpp:121:11:121:12 | s8 | Shift operator '<<=' requires unsigned right operand, but has type 'int8_t'. |
+| test.cpp:122:11:122:12 | s8 | Shift operator '>>=' requires unsigned right operand, but has type 'int8_t'. |
+| test.cpp:125:11:125:12 | 32 | Shift operator '<<=' shifts by 32 which is not within the valid range 0..31. |
+| test.cpp:126:11:126:12 | 64 | Shift operator '<<=' shifts by 64 which is not within the valid range 0..31. |
+| test.cpp:127:11:127:12 | 32 | Shift operator '>>=' shifts by 32 which is not within the valid range 0..31. |
+| test.cpp:130:11:130:12 | - ... | Shift operator '<<=' shifts by -1 which is not within the valid range 0..31. |
+| test.cpp:131:11:131:12 | - ... | Shift operator '<<=' shifts by -5 which is not within the valid range 0..31. |
+| test.cpp:132:11:132:12 | - ... | Shift operator '>>=' shifts by -1 which is not within the valid range 0..31. |
+| test.cpp:133:11:133:12 | - ... | Shift operator '>>=' shifts by -3 which is not within the valid range 0..31. |
+| test.cpp:143:3:143:3 | 1 | Shift operator '<<' requires unsigned left operand, but has type 'int'. |
+| test.cpp:144:3:144:3 | 2 | Shift operator '<<' requires unsigned left operand, but has type 'int'. |
+| test.cpp:145:3:145:3 | 4 | Shift operator '<<' requires unsigned left operand, but has type 'int'. |
+| test.cpp:146:3:146:3 | 8 | Shift operator '<<' requires unsigned left operand, but has type 'int'. |
+| test.cpp:150:3:150:5 | 1 | Shift operator '<<' requires unsigned left operand, but has type 'long long'. |
+| test.cpp:154:3:154:25 | 4611686018427387904 | Shift operator '<<' requires unsigned left operand, but has type 'long long'. |
+| test.cpp:156:3:156:12 | 1073741824 | Shift operator '<<' requires unsigned left operand, but has type 'int'. |
+| test.cpp:162:3:162:5 | s32 | Shift operator '<<' requires unsigned left operand, but has type 'int32_t'. |
+| test.cpp:170:3:170:5 | s32 | Shift operator '>>' requires unsigned left operand, but has type 'int32_t'. |
