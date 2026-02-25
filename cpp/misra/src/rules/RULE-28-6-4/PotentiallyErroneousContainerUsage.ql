@@ -39,12 +39,7 @@ predicate isEmptyCall(FunctionCall fc) {
 from FunctionCall fc, string message
 where
   not isExcluded(fc, DeadCode11Package::potentiallyErroneousContainerUsageQuery()) and
-  exists(ExprStmt es | es.getExpr() = fc) and
-  (
-    isRemoveOrUniqueCall(fc) and
-    message = "Result of call to '" + fc.getTarget().getName() + "' is not used."
-    or
-    isEmptyCall(fc) and
-    message = "Result of call to 'empty' is not used."
-  )
+  fc = any(ExprStmt es).getExpr() and
+  (isRemoveOrUniqueCall(fc) or isEmptyCall(fc)) and
+  message = "Result of call to '" + fc.getTarget().getName() + "' is not used."
 select fc, message
