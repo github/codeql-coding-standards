@@ -21,7 +21,12 @@ std::int16_t test_type_alias_maybe_unused() {
 namespace {
 struct A1 {
   A1 f();
-}; // COMPLIANT - A1 is used below
+}; // COMPLIANT[False Positive] - A1 is used in uninstantiated template
+
+void f1() {
+  A1 l1; // Use of A1
+  l1.f();
+}
 
 struct A2 {
   A2 f();
@@ -30,12 +35,6 @@ struct A2 {
 struct A2; // Not a use of A2
 
 A2 A2::f() { return *this; } // Not a use of A2
-
-template <typename T> // COMPLIANT - Exception #2 (template parameter)
-void foo() {
-  A1 l1; // Use of A1
-  l1.f();
-}
 } // namespace
 
 // Test case 3: Struct in constexpr if
@@ -158,7 +157,9 @@ void test_alias_template() { AliasTemplate2<int> l1; }
 
 // Test case 13: Primary class template usage
 namespace {
-template <typename T> struct D1 { T m1; }; // COMPLIANT - D1<int> is used
+template <typename T> struct D1 {
+  T m1;
+}; // COMPLIANT - D1<int> is used
 
 void test_class_template_usage() { D1<int> l1{42}; }
 } // namespace

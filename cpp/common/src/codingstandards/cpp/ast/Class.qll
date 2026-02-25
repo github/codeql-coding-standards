@@ -10,12 +10,19 @@ class LastClassDeclaration extends Declaration {
 
   pragma[nomagic]
   LastClassDeclaration() {
-    this =
-      max(Declaration decl, Location l |
-        decl = cls.getADeclaration() and
-        l = decl.getLocation()
-      |
-        decl order by l.getEndLine(), l.getEndColumn()
-      )
+    cls.getADeclaration() = this and
+    getLocation().getEndLine() = getLastLineOfClassDeclaration(cls)
   }
+}
+
+/**
+ * Gets the line number of the last line of the declaration of `cls`.
+ *
+ * This is often more performant to use than `LastClassDeclaration.getLocation().getEndLine()`.
+ */
+int getLastLineOfClassDeclaration(Class cls) {
+  result =
+    max(int endLine |
+      endLine = pragma[only_bind_out](cls).getADeclaration().getLocation().getEndLine()
+    )
 }

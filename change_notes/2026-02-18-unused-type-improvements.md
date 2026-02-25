@@ -4,3 +4,4 @@
      - Usages of a template type inside a specialization of that template are no longer considered usages of the template type.
      - Hidden friend declarations are no longer considered usages of the class they are declaring friendship for.
      - Improved exclusions generally, for cases such as nested types and functions within functions. These previously were a source of incorrectly identified type uses.
+     - Additional case added to detect `template <Enum = Enum::Value>` as a usage of `Enum`, without an explicit `tpl<Enum::Value>` usage.

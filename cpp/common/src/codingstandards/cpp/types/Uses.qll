@@ -89,15 +89,6 @@ predicate isWithinTypeDefinition(Locatable loc, Type type) {
     tpl = spec.getPrimaryTemplate() and
     isWithinTypeDefinition(loc, spec)
   )
-  //exists(TemplateClass tpl, ClassTemplateSpecialization spec |
-  //  tpl.getAnInstantiation() = type and
-  //  tpl = spec.getPrimaryTemplate() and
-  //  isWithinTypeDefinition(loc, spec)
-  //)
-  //exists(ClassTemplateSpecialization spec |
-  //  specializationSharesType(type, spec) and
-  //  isWithinTypeDefinition(loc, spec)
-  //)
 }
 
 private Locatable getATypeUse_i(Type type, string reason) {
@@ -181,6 +172,10 @@ private Locatable getATypeUse_i(Type type, string reason) {
     // Temporary object creation of type `type`
     exists(TemporaryObjectExpr toe | result = toe | type = toe.getType()) and
     reason = "used in temporary object expr"
+    or
+    // template<Type t> ...
+    exists(Declaration decl | result = decl | type = decl.getATemplateArgumentKind()) and
+    reason = "used as a non-type template parameter"
   )
   or
   // Recursive case - used by a used type
