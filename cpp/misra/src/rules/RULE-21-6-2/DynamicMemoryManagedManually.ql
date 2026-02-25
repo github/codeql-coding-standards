@@ -102,13 +102,13 @@ where
     /* ===== 1. The expression calls one of the dynamic memory management functions. ===== */
     expr = dynamicMemoryManagementFunction.getACallToThisFunction() and
     message =
-      "This expression is a call to `" + dynamicMemoryManagementFunction.getName() + "` which is " +
+      "Banned call to `" + dynamicMemoryManagementFunction.getName() + "` which is " +
         dynamicMemoryManagementFunction.describe() + "."
     or
     /* ===== 2. The expression takes address of the dynamic memory management functions. ===== */
     expr = dynamicMemoryManagementFunction.getAnAccess() and
     message =
-      "This expression takes address of `" + dynamicMemoryManagementFunction.getName() +
+      "Taking the address of a banned function `" + dynamicMemoryManagementFunction.getName() +
         "` which is " + dynamicMemoryManagementFunction.describe() + "."
   )
 select expr, message
