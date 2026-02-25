@@ -16,9 +16,10 @@ class A {
   void b(int x) {}           // NON_COMPLIANT
   void c(int) {}             // COMPLIANT
 
-  // This is a violation of A0-1-4, but not a violation of Rule 0-2-2, so it's
-  // accepted by the default shared logic. See A0-1-4 tests for coverage.
-  virtual void d(int x, int y) {} // COMPLIANT
+  // This is a violation of Rule 0-2-2, and therefore flagged by the default
+  // logic. However, this allowed by additional exception in A0-1-4. See A0-1-4
+  // and Rule 0-2-2 tests for full coverage.
+  virtual void d(int x, int y) {} // NON_COMPLIANT
 };
 
 void f(
