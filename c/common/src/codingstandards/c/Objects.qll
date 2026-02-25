@@ -1,5 +1,5 @@
 import cpp
-import codingstandards.c.StorageDuration
+import codingstandards.cpp.lifetimes.StorageDuration
 import codingstandards.c.IdentifierLinkage
 import semmle.code.cpp.valuenumbering.HashCons
 import codingstandards.cpp.Clvalues

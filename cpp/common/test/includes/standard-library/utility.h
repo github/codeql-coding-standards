@@ -1,6 +1,7 @@
 #ifndef _GHLIBCPP_UTILITY
 #define _GHLIBCPP_UTILITY
 #include "type_traits.h"
+#include "tuple.h"
 
 namespace std {
 template <class T> constexpr T &&forward(remove_reference_t<T> &t) noexcept {
@@ -15,9 +16,6 @@ template <class T> constexpr remove_reference_t<T> &&move(T &&t) noexcept;
 template <class T> typename add_rvalue_reference<T>::type declval() noexcept;
 
 template <class T> void swap(T &a, T &b) noexcept;
-
-template<class... Types>
-struct tuple {};
 
 template <class T, class U> struct pair : tuple<T, U> {
     T first;
@@ -36,5 +34,7 @@ constexpr auto get(const std::pair<T, U> &p) noexcept {
         static_assert(N < 2, "Index out of bounds for pair");
     }
 }
+
 } // namespace std
-#endif
+
+#endif // _GHLIBCPP_UTILITY

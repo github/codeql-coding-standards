@@ -66,6 +66,8 @@ public:
   const_reference front() const;
   reference back();
   const_reference back() const;
+
+  ~vector();
 };
 } // namespace std
 
