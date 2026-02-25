@@ -6,11 +6,11 @@ import codingstandards.{{ language_name }}.{{ standard_short_name }}
 {% if shared_implementation_short_name is defined %}
 import codingstandards.{{ ql_language_name }}.rules.{{ shared_implementation_short_name.lower() }}.{{ shared_implementation_short_name }}
 
-class {{short_name}}Query extends {{shared_implementation_short_name}}SharedQuery {
-  {{short_name}}Query() {
-    this = {{package_name}}Package::{{shortname_camelcase}}Query()
-  }
+module {{short_name}}Config implements {{shared_implementation_short_name}}ConfigSig {
+  Query getQuery() { result = {{package_name}}Package::{{shortname_camelcase}}Query() }
 }
+
+import {{shared_implementation_short_name}}<{{short_name}}Config>
 {% else %}
 
 from

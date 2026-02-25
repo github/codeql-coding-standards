@@ -1,8 +1,9 @@
 name: codeql/common-cpp-coding-standards
-version: 2.52.0-dev
+version: 2.55.0-dev
 license: MIT
 dependencies:
-  codeql/cpp-all: 4.0.3
+  codeql/cpp-all: 5.0.0
   advanced-security/qtil: "0.0.3"
 dataExtensions:
 - ext/*.model.yml
+- ext/unicode.yml

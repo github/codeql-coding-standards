@@ -1,4 +1,8 @@
 name: 🏁 Run Release Performance Check
+permissions:
+  contents: read
+  actions: write
+  pull-requests: write
 
 on:
   issue_comment:
@@ -40,7 +44,7 @@ jobs:
           --json \
           -R github/codeql-coding-standards-release-engineering
 
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v8
         if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test-performance') && steps.check-write-permission.outputs.has-permission }}
         with:
           script: |
