@@ -34,14 +34,21 @@ class DynamicMemoryManagementFunction extends Function {
 
   DynamicMemoryManagementFunction() {
     (
-      (this instanceof AllocationFunction or this instanceof AlignedAlloc) and
+      (this instanceof AllocationFunction or this instanceof AlignedAllocFunction) and
+      /* Avoid duplicate alerts on `realloc` which is both an `AllocationFunction` and a `DeallocationFunction`. */
+      not this instanceof ReallocFunction and
       /* Placement-new expressions are not prohibited by this rule, but by Rule 21.6.3. */
       not this instanceof PlacementNewOrNewArrayAllocationFunction
     ) and
     description = "an expression that dynamically allocates memory"
     or
     this instanceof DeallocationFunction and
+    /* Avoid duplicate alerts on `realloc` which is both an `AllocationFunction` and a `DeallocationFunction`. */
+    not this instanceof ReallocFunction and
     description = "an expression that dynamically deallocates memory"
+    or
+    this instanceof ReallocFunction and
+    description = "an expression that dynamically reallocates memory"
     or
     this instanceof AllocateOrDeallocateStdlibMemberFunction and
     description = "a standard library function that manages memory manually"
@@ -68,10 +75,17 @@ class AllocateOrDeallocateStdlibMemberFunction extends MemberFunction {
 }
 
 /**
+ * The `std::realloc` (`<cstdlib>`) or `::realloc` (`<stdlib.h>`) function.
+ */
+class ReallocFunction extends Function {
+  ReallocFunction() { this.hasGlobalOrStdName("realloc") }
+}
+
+/**
  * The `std::aligned_alloc` (`<cstdlib>`) or `::aligned_alloc` (`<stdlib.h>`) function.
  */
-class AlignedAlloc extends Function {
-  AlignedAlloc() { this.hasGlobalOrStdName("aligned_alloc") }
+class AlignedAllocFunction extends Function {
+  AlignedAllocFunction() { this.hasGlobalOrStdName("aligned_alloc") }
 }
 
 /**
