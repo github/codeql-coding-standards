@@ -30,34 +30,23 @@ class PlacementNewOrNewArrayAllocationFunction extends AllocationFunction {
 }
 
 class DynamicMemoryManagementFunction extends Function {
-  string description;
-
   DynamicMemoryManagementFunction() {
-    (
-      (this instanceof AllocationFunction or this instanceof AlignedAllocFunction) and
-      /* Avoid duplicate alerts on `realloc` which is both an `AllocationFunction` and a `DeallocationFunction`. */
-      not this instanceof ReallocFunction and
-      /* Placement-new expressions are not prohibited by this rule, but by Rule 21.6.3. */
-      not this instanceof PlacementNewOrNewArrayAllocationFunction
-    ) and
-    description = "an expression that dynamically allocates memory"
+    (this instanceof AllocationFunction or this instanceof AlignedAllocFunction) and
+    /* Avoid duplicate alerts on `realloc` which is both an `AllocationFunction` and a `DeallocationFunction`. */
+    not this instanceof ReallocFunction and
+    /* Placement-new expressions are not prohibited by this rule, but by Rule 21.6.3. */
+    not this instanceof PlacementNewOrNewArrayAllocationFunction
     or
     this instanceof DeallocationFunction and
     /* Avoid duplicate alerts on `realloc` which is both an `AllocationFunction` and a `DeallocationFunction`. */
-    not this instanceof ReallocFunction and
-    description = "an expression that dynamically deallocates memory"
+    not this instanceof ReallocFunction
     or
-    this instanceof ReallocFunction and
-    description = "an expression that dynamically reallocates memory"
+    this instanceof ReallocFunction
     or
-    this instanceof AllocateOrDeallocateStdlibMemberFunction and
-    description = "a standard library function that manages memory manually"
+    this instanceof AllocateOrDeallocateStdlibMemberFunction
     or
-    this instanceof UniquePointerReleaseFunction and
-    description = "`std::unique_ptr::release`"
+    this instanceof UniquePointerReleaseFunction
   }
-
-  string describe() { result = description }
 }
 
 /**
@@ -65,7 +54,7 @@ class DynamicMemoryManagementFunction extends Function {
  * - `std::allocator<T>::allocate(std::size_t)`
  * - `std::allocator<T>::dellocate(T*, std::size_t)`
  * - `std::pmr::memory_resource::allocate(std::size_t, std::size_t)`
- * - `std::pmr::memory_resource::allocate(std::size_t, std::size_t)`
+ * - `std::pmr::memory_resource::deallocate(void*, std::size_t, std::size_t)`
  */
 class AllocateOrDeallocateStdlibMemberFunction extends MemberFunction {
   AllocateOrDeallocateStdlibMemberFunction() {
@@ -101,14 +90,12 @@ where
   exists(DynamicMemoryManagementFunction dynamicMemoryManagementFunction |
     /* ===== 1. The expression calls one of the dynamic memory management functions. ===== */
     expr = dynamicMemoryManagementFunction.getACallToThisFunction() and
-    message =
-      "Banned call to `" + dynamicMemoryManagementFunction.getName() + "` which is " +
-        dynamicMemoryManagementFunction.describe() + "."
+    message = "Banned call to `" + dynamicMemoryManagementFunction.getQualifiedName() + "`."
     or
     /* ===== 2. The expression takes address of the dynamic memory management functions. ===== */
     expr = dynamicMemoryManagementFunction.getAnAccess() and
     message =
-      "Taking the address of a banned function `" + dynamicMemoryManagementFunction.getName() +
-        "` which is " + dynamicMemoryManagementFunction.describe() + "."
+      "Taking the address of a banned function `" +
+        dynamicMemoryManagementFunction.getQualifiedName() + "`."
   )
 select expr, message
