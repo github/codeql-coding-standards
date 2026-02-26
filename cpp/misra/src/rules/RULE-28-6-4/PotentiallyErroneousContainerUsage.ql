@@ -16,7 +16,7 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.Iterators
+import codingstandards.cpp.standardlibrary.Iterators
 
 predicate isRemoveOrUniqueCall(FunctionCall fc) {
   fc.getTarget().hasQualifiedName("std", ["remove", "remove_if", "unique"]) and
