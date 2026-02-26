@@ -1,0 +1,1 @@
+| invalid8.h:1:1:1:19 | #include "valid1.h" | Include is outside of its header file's $@. | invalid8.h:3:1:3:18 | #ifndef INVALID8_H | include guard |
