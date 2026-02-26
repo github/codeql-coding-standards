@@ -98,9 +98,24 @@ struct less {
   typedef T second_argument_type;
   typedef bool result_type;
 };
+template <typename T>
+struct less_equal {
+  bool operator()(const T &x, const T &y) const;
+  typedef T first_argument_type;
+  typedef T second_argument_type;
+  typedef bool result_type;
+};
 
 template <typename T>
 struct greater {
+  bool operator()(const T &x, const T &y) const;
+  typedef T first_argument_type;
+  typedef T second_argument_type;
+  typedef bool result_type;
+};
+
+template <typename T>
+struct greater_equal {
   bool operator()(const T &x, const T &y) const;
   typedef T first_argument_type;
   typedef T second_argument_type;
