@@ -33,10 +33,10 @@ predicate partOfFullExpr(VariableEffectOrAccess e, FullExpr fe) {
   )
 }
 
-class ConstituentExprOrdering extends Ordering::Configuration {
-  ConstituentExprOrdering() { this = "ConstituentExprOrdering" }
+module ConstituentExprOrderingConfig implements Ordering::ConfigSig {
+  import Ordering::CConfigBase
 
-  override predicate isCandidate(Expr e1, Expr e2) {
+  predicate isCandidate(Expr e1, Expr e2) {
     exists(FullExpr fe |
       partOfFullExpr(e1, fe) and
       partOfFullExpr(e2, fe)
@@ -172,9 +172,11 @@ predicate inConditionalElse(ConditionalExpr ce, Expr e) {
   )
 }
 
+import Ordering::Make<ConstituentExprOrderingConfig> as ConstituentExprOrdering
+
 predicate isUnsequencedEffect(
-  ConstituentExprOrdering orderingConfig, FullExpr fullExpr, VariableEffect variableEffect1,
-  VariableAccess va1, VariableAccess va2, Locatable placeHolder, string label
+  FullExpr fullExpr, VariableEffect variableEffect1, VariableAccess va1, VariableAccess va2,
+  Locatable placeHolder, string label
 ) {
   // The two access are scoped to the same full expression.
   sameFullExpr(fullExpr, va1, va2) and
@@ -190,14 +192,14 @@ predicate isUnsequencedEffect(
       (
         va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
         va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
-        orderingConfig.isUnsequenced(variableEffect1, variableEffect2)
+        ConstituentExprOrdering::isUnsequenced(variableEffect1, variableEffect2)
         or
         va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
         not va2.getEnclosingStmt() = variableEffect2.getEnclosingStmt() and
         exists(Call call |
           call.getAnArgument() = va2 and call.getEnclosingStmt() = va1.getEnclosingStmt()
         |
-          orderingConfig.isUnsequenced(variableEffect1, call)
+          ConstituentExprOrdering::isUnsequenced(variableEffect1, call)
         )
         or
         not va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
@@ -205,7 +207,7 @@ predicate isUnsequencedEffect(
         exists(Call call |
           call.getAnArgument() = va1 and call.getEnclosingStmt() = va2.getEnclosingStmt()
         |
-          orderingConfig.isUnsequenced(call, variableEffect2)
+          ConstituentExprOrdering::isUnsequenced(call, variableEffect2)
         )
       ) and
       // Break the symmetry of the ordering relation by requiring that the first expression is located before the second.
@@ -222,13 +224,13 @@ predicate isUnsequencedEffect(
     ) and
     (
       va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
-      orderingConfig.isUnsequenced(variableEffect1, va2)
+      ConstituentExprOrdering::isUnsequenced(variableEffect1, va2)
       or
       not va1.getEnclosingStmt() = variableEffect1.getEnclosingStmt() and
       exists(Call call |
         call.getAnArgument() = va1 and call.getEnclosingStmt() = va2.getEnclosingStmt()
       |
-        orderingConfig.isUnsequenced(call, va2)
+        ConstituentExprOrdering::isUnsequenced(call, va2)
       )
     ) and
     // The read is not used to compute the effect on the variable.
@@ -240,10 +242,10 @@ predicate isUnsequencedEffect(
 }
 
 from
-  ConstituentExprOrdering orderingConfig, FullExpr fullExpr, VariableEffect variableEffect1,
-  VariableAccess va1, VariableAccess va2, Locatable placeHolder, string label
+  FullExpr fullExpr, VariableEffect variableEffect1, VariableAccess va1, VariableAccess va2,
+  Locatable placeHolder, string label
 where
   not isExcluded(fullExpr, SideEffects3Package::unsequencedSideEffectsQuery()) and
-  isUnsequencedEffect(orderingConfig, fullExpr, variableEffect1, va1, va2, placeHolder, label)
+  isUnsequencedEffect(fullExpr, variableEffect1, va1, va2, placeHolder, label)
 select fullExpr, "The expression contains unsequenced $@ to $@ and $@ to $@.", variableEffect1,
   "side effect", va1, va1.getTarget().getName(), placeHolder, label, va2, va2.getTarget().getName()
