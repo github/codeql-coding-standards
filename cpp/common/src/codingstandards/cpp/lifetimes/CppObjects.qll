@@ -1,11 +1,14 @@
 import cpp
 import codingstandards.cpp.lifetimes.StorageDuration
-import codingstandards.c.IdentifierLinkage
 import semmle.code.cpp.valuenumbering.HashCons
 import codingstandards.cpp.Clvalues
 
 /**
- * A libary for handling "Objects" in C.
+ * A library for handling "Objects" in C++.
+ *
+ * See `codingstandards.c.Objects` for the C equivalent. Changes specific to C++ are:
+ * - refactored class hierarchy with final extension to simplify overridden predicates
+ * - handling of references as non-objects
  *
  * Objects may be stored in registers or memory, they have an address, a type, a storage duration,
  * and a lifetime (which is different than storage duration). Objects which are structs or arrays
@@ -53,9 +56,9 @@ import codingstandards.cpp.Clvalues
 final class ObjectIdentity = ObjectIdentityBase;
 
 /**
- * A base class for objects in C, along with the source location where the object can be identified
- * in the project code (thus, this class extends `Element`), which may be variable, or may be an
- * expression such as a literal or a malloc call.
+ * A base class for objects in C++, along with the source location where the object can be
+ * identified in the project code (thus, this class extends `Element`), which may be variable, or
+ * may be an expression such as a literal or a malloc call.
  *
  * Extend this class to define a new type of object identity. To create a class which filters the
  * set of object identities, users of this library should extend the final subclass
@@ -121,10 +124,15 @@ abstract class ObjectIdentityBase extends Element {
   }
 
   /**
-   * Holds if the object has temporary lifetime. This is not a storage duration, but only objects
-   * with automatic storage duration have temporary lifetime.
+   * Finds cases such as a subobject such as `x.y` is taken as a reference.
+   *
+   * This is useful for alias analysis, as references create aliases that can invalidate certain
+   * assumptions about object accesses.
    */
-  abstract predicate hasTemporaryLifetime();
+  Expr getASubobjectTakenAsReference() {
+    result = getASubobjectAccess() and
+    result.getFullyConverted().getUnderlyingType() instanceof ReferenceType
+  }
 }
 
 /**
@@ -162,30 +170,37 @@ Type getADirectSubobjectType(Type type) {
  * This may be a local variable, a global variable, or a parameter, etc. However, it cannot be a
  * member of a struct or union, as these do not have storage duration.
  */
-class VariableObjectIdentity extends Variable, ObjectIdentityBase {
+class VariableObjectIdentity extends ObjectIdentityBase instanceof Variable {
   VariableObjectIdentity() {
     // Exclude members; member definitions does not allocate storage and thus do not have a storage
     // duration. They are therefore not objects. To get the storage duration of members, use one of
     // the predicates related to sub objects, e.g. `getASubObjectType()`.
-    not isMember()
+    not this.(Variable).isMember() and
+    // The C++ is deliberately vague on the object properties of references. Technically, references
+    // are implemented as pointers, which are objects and have storage duration and lifetime.
+    // However, the underlying pointer is opaque, and only the referent is accessible. Therefore,
+    // a reference itself is not considered an object here.
+    not this.(Variable).getType() instanceof ReferenceType
   }
 
   override StorageDuration getStorageDuration() {
-    // 6.2.4.4, objects declared _Thread_local have thread storage duration.
-    isThreadLocal() and result.isThread()
-    or
-    // 6.2.4.3, Non _ThreadLocal objects with internal or external linkage or declared static have
-    // static storage duration.
-    not isThreadLocal() and
-    (hasLinkage() or isStatic()) and
-    result.isStatic()
-    or
-    // 6.2.4.3, Non _ThreadLocal objects no linkage that are not static have automatic storage
-    // duration.
-    not isThreadLocal() and
-    not hasLinkage() and
-    not isStatic() and
-    result.isAutomatic()
+    exists(Variable v | v = this |
+      // 6.2.4.4, objects declared _Thread_local have thread storage duration.
+      v.isThreadLocal() and result.isThread()
+      or
+      // 6.2.4.3, Non _ThreadLocal objects with internal or external linkage or declared static have
+      // static storage duration.
+      not v.isThreadLocal() and
+      (v.isStatic() or v.isTopLevel()) and
+      result.isStatic()
+      or
+      // 6.2.4.3, Non _ThreadLocal objects no linkage that are not static have automatic storage
+      // duration.
+      not v.isThreadLocal() and
+      not v.isStatic() and
+      not v.isTopLevel() and
+      result.isAutomatic()
+    )
   }
 
   override Type getType() {
@@ -197,16 +212,7 @@ class VariableObjectIdentity extends Variable, ObjectIdentityBase {
     result = this.(Variable).getType()
   }
 
-  /* The storage duration of a variable depends on its linkage. */
-  IdentifierLinkage getLinkage() { result = linkageOfVariable(this) }
-
-  predicate hasLinkage() { not getLinkage().isNone() }
-
   override VariableAccess getAnAccess() { result = Variable.super.getAnAccess() }
-
-  override predicate hasTemporaryLifetime() {
-    none() // Objects identified by a variable do not have temporary lifetime.
-  }
 }
 
 /**
@@ -220,10 +226,6 @@ class LiteralObjectIdentity extends Literal, ObjectIdentityBase {
   override Type getType() { result = Literal.super.getType() }
 
   override Expr getAnAccess() { result = this }
-
-  override predicate hasTemporaryLifetime() {
-    none() // String literal objects do not have temporary lifetime.
-  }
 }
 
 /**
@@ -241,11 +243,6 @@ class AggregateLiteralObjectIdentity extends AggregateLiteral, ObjectIdentityBas
   override Type getType() { result = AggregateLiteral.super.getType() }
 
   override Expr getAnAccess() { result = this }
-
-  override predicate hasTemporaryLifetime() {
-    // Confusing; a struct literal is an lvalue, and therefore does not have temporary lifetime.
-    none()
-  }
 }
 
 /**
@@ -339,10 +336,6 @@ class AllocatedObjectIdentity extends AllocationExpr, ObjectIdentityBase {
       result = v.getAnAccess()
     )
   }
-
-  override predicate hasTemporaryLifetime() {
-    none() // Allocated objects do not have "temporary lifetime."
-  }
 }
 
 /**
@@ -393,6 +386,4 @@ class TemporaryObjectIdentity extends ObjectIdentityBase instanceof TemporaryObj
   override Type getType() { result = this.(Expr).getType() }
 
   override Expr getAnAccess() { result = this }
-
-  override predicate hasTemporaryLifetime() { any() }
 }
