@@ -999,6 +999,6 @@ cpp,MISRA-C++-2023,RULE-28-3-1,Yes,Required,Undecidable,System,Predicates shall 
 cpp,MISRA-C++-2023,RULE-28-6-1,Yes,Required,Decidable,Single Translation Unit,The argument to std::move shall be a non-const lvalue,A18-9-3,Preconditions,Easy,
 cpp,MISRA-C++-2023,RULE-28-6-2,Yes,Required,Decidable,Single Translation Unit,Forwarding references and std::forward shall be used together,A18-9-2,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-28-6-3,Yes,Required,Decidable,Single Translation Unit,An object shall not be used while in a potentially moved-from state,A12-8-3,ImportMisra23,Import,
-cpp,MISRA-C++-2023,RULE-28-6-4,Yes,Required,Decidable,Single Translation Unit,"The result of std::remove, std::remove_if, std::unique and empty shall be used",,DeadCode2,Easy,
+cpp,MISRA-C++-2023,RULE-28-6-4,Yes,Required,Decidable,Single Translation Unit,"The result of std::remove, std::remove_if, std::unique and empty shall be used",,DeadCode11,Easy,
 cpp,MISRA-C++-2023,RULE-30-0-1,Yes,Required,Decidable,Single Translation Unit,The C Library input/output functions shall not be used,M27-0-1,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-30-0-2,Yes,Required,Undecidable,System,Reads and writes on the same file stream shall be separated by a positioning operation,A27-0-3,ImportMisra23,Import,

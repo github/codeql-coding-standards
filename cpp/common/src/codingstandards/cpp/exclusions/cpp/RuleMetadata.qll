@@ -18,6 +18,7 @@ import Const
 import Conversions
 import Conversions2
 import DeadCode
+import DeadCode11
 import DeadCode3
 import DeadCode4
 import DeadCode5
@@ -96,6 +97,7 @@ newtype TCPPQuery =
   TConversionsPackageQuery(ConversionsQuery q) or
   TConversions2PackageQuery(Conversions2Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
+  TDeadCode11PackageQuery(DeadCode11Query q) or
   TDeadCode3PackageQuery(DeadCode3Query q) or
   TDeadCode4PackageQuery(DeadCode4Query q) or
   TDeadCode5PackageQuery(DeadCode5Query q) or
@@ -174,6 +176,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConversionsQueryMetadata(query, queryId, ruleId, category) or
   isConversions2QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode11QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode3QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode4QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode5QueryMetadata(query, queryId, ruleId, category) or
