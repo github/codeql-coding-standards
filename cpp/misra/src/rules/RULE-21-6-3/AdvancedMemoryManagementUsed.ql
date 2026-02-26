@@ -76,16 +76,14 @@ where
     /* 1. The element is a call to one of the advanced management functions. */
     element = advancedMemoryManagementFunction.getACallToThisFunction() and
     message =
-      "Call to banned function `" + advancedMemoryManagementFunction.getName() +
-        //"."
-        "` which is " + advancedMemoryManagementFunction.describe() + "."
+      "Call to banned function `" + advancedMemoryManagementFunction.getName() + "` which is " +
+        advancedMemoryManagementFunction.describe() + "."
     or
     /* 2. The element takes address of the advanced memory management functions. */
     element = advancedMemoryManagementFunction.getAnAccess() and
     message =
       "Taking the address of a banned function `" + advancedMemoryManagementFunction.getName() +
         "` which is " + advancedMemoryManagementFunction.describe() + "."
-    //  "`."
   )
   or
   (

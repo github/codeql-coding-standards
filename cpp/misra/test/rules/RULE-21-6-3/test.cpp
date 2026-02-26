@@ -287,44 +287,55 @@ void take_address_of_placement_delete() {
 }
 
 /**
- * Test taking address of class-specific operator new.
+ * Test taking address of class-specific `operator new`s.
+ * These are non-compliant overloads of the operator, but
+ * These depend on the non-compliant operators being defined
+ * in the first place (note that member functions need to be
+ * implemented, beyond declared, to have an address).
  */
 void take_address_of_class_specific_new() {
   void *(*p1)(std::size_t) =
-      &C1::operator new; // COMPLIANT: address of class-specific replaceable
-                         // allocation function
+      &C1::operator new; // NON_COMPLIANT[FALSE_NEGATIVE]: address of
+                         // class-specific replaceable allocation function
   void *(*p2)(std::size_t) =
-      &C1::operator new[]; // COMPLIANT: address of class-specific replaceable
-                           // allocation function
+      &C1::operator new[]; // NON_COMPLIANT[FALSE_NEGATIVE]: address of
+                           // class-specific replaceable allocation function
   void *(*p3)(std::size_t, const std::nothrow_t &) =
-      &C1::operator new; // COMPLIANT: address of class-specific replaceable
-                         // non-throwing allocation function
+      &C1::operator new; // NON_COMPLIANT[FALSE_NEGATIVE]: address of
+                         // class-specific replaceable non-throwing allocation
+                         // function
   void *(*p4)(std::size_t, void *) =
-      &C1::operator new; // NON_COMPLIANT: address of class-specific placement
-                         // new
+      &C1::operator new; // NON_COMPLIANT[FALSE_NEGATIVE]: address of
+                         // class-specific placement new
   void *(*p5)(std::size_t, int) =
-      &C1::operator new; // NON_COMPLIANT: address of class-specific custom new
+      &C1::operator new; // NON_COMPLIANT[FALSE_NEGATIVE]: address of
+                         // class-specific custom new
 }
 
 /**
- * Test taking address of class-specific operator delete.
+ * Test taking address of class-specific `operator delete`s.
+ * These are non-compliant overloads of the operator, but
+ * These depend on the non-compliant operators being defined
+ * in the first place (note that member functions need to be
+ * implemented, beyond declared, to have an address).
  */
 void take_address_of_class_specific_delete() {
   void (*p1)(void *) =
-      &C1::operator delete; // COMPLIANT: address of class-specific
-                            // replaceable deallocation function
+      &C1::operator delete; // NON_COMPLIANT[FALSE_NEGATIVE]: address of
+                            // class-specific replaceable deallocation function
   void (*p2)(void *) =
-      &C1::operator delete[]; // COMPLIANT: address of class-specific
-                              // replaceable deallocation function
+      &C1::operator delete[]; // NON_COMPLIANT[FALSE_NEGATIVE]: address of
+                              // class-specific replaceable deallocation
+                              // function
   void (*p3)(void *, void *) =
-      &C1::operator delete; // NON_COMPLIANT: address of class-specific
-                            // placement delete
+      &C1::operator delete; // NON_COMPLIANT[FALSE_NEGATIVE]: address of
+                            // class-specific placement delete
   void (*p4)(void *, void *) =
-      &C1::operator delete[]; // NON_COMPLIANT: address of class-specific
-                              // placement delete[]
+      &C1::operator delete[]; // NON_COMPLIANT[FALSE_NEGATIVE]: address of
+                              // class-specific placement delete[]
   void (*p5)(void *, int) =
-      &C1::operator delete; // NON_COMPLIANT: address of class-specific custom
-                            // delete
+      &C1::operator delete; // NON_COMPLIANT[FALSE_NEGATIVE]: address of
+                            // class-specific custom delete
 }
 
 /**

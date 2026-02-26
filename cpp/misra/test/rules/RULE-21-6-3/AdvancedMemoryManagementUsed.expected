@@ -60,29 +60,29 @@
 | test.cpp:281:7:281:23 | operator delete | Taking the address of a banned function `operator delete` which is a non-replaceable deallocation function. |
 | test.cpp:283:7:283:26 | operator delete[] | Taking the address of a banned function `operator delete[]` which is a non-replaceable deallocation function. |
 | test.cpp:285:7:285:25 | operator delete[] | Taking the address of a banned function `operator delete[]` which is a non-replaceable deallocation function. |
-| test.cpp:303:7:303:23 | operator new | Taking the address of a banned function `operator new` which is a non-replaceable allocation function. |
-| test.cpp:306:7:306:23 | operator new | Taking the address of a banned function `operator new` which is a non-replaceable allocation function. |
-| test.cpp:320:7:320:26 | operator delete | Taking the address of a banned function `operator delete` which is a non-replaceable deallocation function. |
-| test.cpp:323:7:323:28 | operator delete[] | Taking the address of a banned function `operator delete[]` which is a non-replaceable deallocation function. |
-| test.cpp:326:7:326:26 | operator delete | Taking the address of a banned function `operator delete` which is a non-replaceable deallocation function. |
-| test.cpp:340:3:340:38 | call to uninitialized_default_construct | Call to banned function `uninitialized_default_construct` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:341:3:341:40 | call to uninitialized_default_construct_n | Call to banned function `uninitialized_default_construct_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:354:3:354:36 | call to uninitialized_value_construct | Call to banned function `uninitialized_value_construct` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:355:3:355:38 | call to uninitialized_value_construct_n | Call to banned function `uninitialized_value_construct_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:367:3:367:25 | call to uninitialized_copy | Call to banned function `uninitialized_copy` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:368:3:368:27 | call to uninitialized_copy_n | Call to banned function `uninitialized_copy_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:380:3:380:25 | call to uninitialized_move | Call to banned function `uninitialized_move` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:381:3:381:27 | call to uninitialized_move_n | Call to banned function `uninitialized_move_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:394:3:394:25 | call to uninitialized_fill | Call to banned function `uninitialized_fill` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:395:3:395:27 | call to uninitialized_fill_n | Call to banned function `uninitialized_fill_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:407:3:407:38 | call to uninitialized_default_construct | Call to banned function `uninitialized_default_construct` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:409:3:409:14 | call to destroy | Call to banned function `destroy` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:410:3:410:16 | call to destroy_n | Call to banned function `destroy_n` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:411:3:411:17 | call to destroy_at | Call to banned function `destroy_at` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:419:12:419:26 | call to operator new | Call to banned function `operator new` which is a non-replaceable allocation function. |
-| test.cpp:420:3:420:11 | (vacuous destructor call) | Manual call to a destructor. |
-| test.cpp:421:12:421:26 | call to operator new | Call to banned function `operator new` which is a non-replaceable allocation function. |
-| test.cpp:423:12:423:23 | call to launder | Call to banned function `launder` which is a function from <memory> that manages uninitialized memory. |
-| test.cpp:433:3:433:10 | (vacuous destructor call) | Manual call to a destructor. |
-| test.cpp:443:3:443:11 | (vacuous destructor call) | Manual call to a destructor. |
-| test.cpp:454:5:454:16 | (vacuous destructor call) | Manual call to a destructor. |
+| test.cpp:308:7:308:23 | operator new | Taking the address of a banned function `operator new` which is a non-replaceable allocation function. |
+| test.cpp:311:7:311:23 | operator new | Taking the address of a banned function `operator new` which is a non-replaceable allocation function. |
+| test.cpp:331:7:331:26 | operator delete | Taking the address of a banned function `operator delete` which is a non-replaceable deallocation function. |
+| test.cpp:334:7:334:28 | operator delete[] | Taking the address of a banned function `operator delete[]` which is a non-replaceable deallocation function. |
+| test.cpp:337:7:337:26 | operator delete | Taking the address of a banned function `operator delete` which is a non-replaceable deallocation function. |
+| test.cpp:351:3:351:38 | call to uninitialized_default_construct | Call to banned function `uninitialized_default_construct` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:352:3:352:40 | call to uninitialized_default_construct_n | Call to banned function `uninitialized_default_construct_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:365:3:365:36 | call to uninitialized_value_construct | Call to banned function `uninitialized_value_construct` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:366:3:366:38 | call to uninitialized_value_construct_n | Call to banned function `uninitialized_value_construct_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:378:3:378:25 | call to uninitialized_copy | Call to banned function `uninitialized_copy` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:379:3:379:27 | call to uninitialized_copy_n | Call to banned function `uninitialized_copy_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:391:3:391:25 | call to uninitialized_move | Call to banned function `uninitialized_move` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:392:3:392:27 | call to uninitialized_move_n | Call to banned function `uninitialized_move_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:405:3:405:25 | call to uninitialized_fill | Call to banned function `uninitialized_fill` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:406:3:406:27 | call to uninitialized_fill_n | Call to banned function `uninitialized_fill_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:418:3:418:38 | call to uninitialized_default_construct | Call to banned function `uninitialized_default_construct` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:420:3:420:14 | call to destroy | Call to banned function `destroy` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:421:3:421:16 | call to destroy_n | Call to banned function `destroy_n` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:422:3:422:17 | call to destroy_at | Call to banned function `destroy_at` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:430:12:430:26 | call to operator new | Call to banned function `operator new` which is a non-replaceable allocation function. |
+| test.cpp:431:3:431:11 | (vacuous destructor call) | Manual call to a destructor. |
+| test.cpp:432:12:432:26 | call to operator new | Call to banned function `operator new` which is a non-replaceable allocation function. |
+| test.cpp:434:12:434:23 | call to launder | Call to banned function `launder` which is a function from <memory> that manages uninitialized memory. |
+| test.cpp:444:3:444:10 | (vacuous destructor call) | Manual call to a destructor. |
+| test.cpp:454:3:454:11 | (vacuous destructor call) | Manual call to a destructor. |
+| test.cpp:465:5:465:16 | (vacuous destructor call) | Manual call to a destructor. |
