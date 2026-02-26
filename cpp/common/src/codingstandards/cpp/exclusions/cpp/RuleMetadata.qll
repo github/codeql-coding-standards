@@ -18,11 +18,13 @@ import Const
 import Conversions
 import Conversions2
 import DeadCode
+import DeadCode11
 import DeadCode3
 import DeadCode4
 import DeadCode5
 import DeadCode6
 import DeadCode7
+import DeadCode8
 import DeadCode9
 import Declarations
 import ExceptionSafety
@@ -97,11 +99,13 @@ newtype TCPPQuery =
   TConversionsPackageQuery(ConversionsQuery q) or
   TConversions2PackageQuery(Conversions2Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
+  TDeadCode11PackageQuery(DeadCode11Query q) or
   TDeadCode3PackageQuery(DeadCode3Query q) or
   TDeadCode4PackageQuery(DeadCode4Query q) or
   TDeadCode5PackageQuery(DeadCode5Query q) or
   TDeadCode6PackageQuery(DeadCode6Query q) or
   TDeadCode7PackageQuery(DeadCode7Query q) or
+  TDeadCode8PackageQuery(DeadCode8Query q) or
   TDeadCode9PackageQuery(DeadCode9Query q) or
   TDeclarationsPackageQuery(DeclarationsQuery q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
@@ -176,11 +180,13 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConversionsQueryMetadata(query, queryId, ruleId, category) or
   isConversions2QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode11QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode3QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode4QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode5QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode6QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode7QueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode8QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode9QueryMetadata(query, queryId, ruleId, category) or
   isDeclarationsQueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or

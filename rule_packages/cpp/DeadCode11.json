@@ -1,0 +1,25 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-28-6-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "The `empty` method may be confused with `clear`, and the family of algorithms similar to `std::remove` require the resulting iterator to be used in order to properly handle the modifications performed.",
+          "kind": "problem",
+          "name": "The result of std::remove, std::remove_if, std::unique and empty shall be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PotentiallyErroneousContainerUsage",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The result of std::remove, std::remove_if, std::unique and empty shall be used"
+    }
+  }
+}
