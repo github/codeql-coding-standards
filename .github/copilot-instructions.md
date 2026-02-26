@@ -55,5 +55,6 @@ When reviewing tests, it is critical to:
 - Check that there are no `.expected` rows that refer to test code cases marked as `COMPLIANT`, or with no comment
 - Note that it is OK if the locations of the comment are not precisely aligned with the alert 
 - Check that the alert message and placeholders are accurate and understandable.
+- Check that the locations do not refer to files in the standard library, as these have issues in GitHub's Code Scanning UI and complicate our compiler compatibility tests.
 - Consider the "test coverage" of the query, are each of its logical statements effectively exercised  individually, collectively? The test should neither be overly bloated nor under specified.
 - Consider the edge cases of the language itself, will the analysis work in non-trivial cases, are all relevant language concepts tested here? This doesn't need to be exhaustive, but it should be thoughfully thorough.
