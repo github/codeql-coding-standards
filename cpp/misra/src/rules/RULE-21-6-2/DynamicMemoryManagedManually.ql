@@ -1,7 +1,8 @@
 /**
  * @id cpp/misra/dynamic-memory-managed-manually
  * @name RULE-21-6-2: Dynamic memory shall be managed automatically
- * @description Dynamically allocated memory must not be managed manually.
+ * @description Manually allocating and deallocating is error prone and may cause memory safety bugs
+ *              such as memory leaks, use-after-frees, or double frees.
  * @kind problem
  * @precision very-high
  * @problem.severity error

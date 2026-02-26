@@ -7,7 +7,7 @@
       },
       "queries": [
         {
-          "description": "Dynamically allocated memory must not be managed manually.",
+          "description": "Manually allocating and deallocating is error prone and may cause memory safety bugs such as memory leaks, use-after-frees, or double frees.",
           "kind": "problem",
           "name": "Dynamic memory shall be managed automatically",
           "precision": "very-high",

@@ -1,9 +1,8 @@
 /**
  * @id cpp/misra/advanced-memory-management-used
  * @name RULE-21-6-3: Advanced memory management shall not be used
- * @description Using advanced memory management that either alters allocation and deallocation or
- *              constructs object construction on uninitalized memory may result in undefined
- *              behavior.
+ * @description Advanced memory management may introduce subtle bugs related to lifetime and
+ *              alignment, which may cause undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error
