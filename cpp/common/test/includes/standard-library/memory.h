@@ -6,6 +6,12 @@
 
 namespace std {
 
+template <class T> class allocator {
+public:
+  allocator() throw();
+  typedef size_t size_type;
+};
+
 template <class T> T *addressof(T &arg) noexcept;
 
 template <typename T> struct default_delete {

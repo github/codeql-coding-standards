@@ -2,6 +2,7 @@
 #define _GHLIBCPP_UTILITY
 
 #include "type_traits.h"
+#include "tuple.h"
 
 namespace std {
 template <class T> constexpr T &&forward(remove_reference_t<T> &t) noexcept {
@@ -37,6 +38,7 @@ constexpr auto get(const std::pair<T, U> &p) noexcept {
     static_assert(N < 2, "Index out of bounds for pair");
   }
 }
+
 } // namespace std
 
 #endif // _GHLIBCPP_UTILITY

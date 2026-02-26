@@ -6,6 +6,8 @@
 #include "iosfwd.h"
 #include "iterator.h"
 #include "stddef.h"
+#include "memory.h"
+#include "empty.h"
 
 namespace std {
 template <class charT> struct char_traits {
@@ -86,26 +88,6 @@ template <> struct char_traits<wchar_t> {
   static int_type to_int_type(const char_type &c);
   static bool eq_int_type(const int_type &c1, const int_type &c2);
   static int_type eof();
-};
-
-template <typename T1> struct allocator {
-  using value_type = T1;
-  using size_type = std::size_t;
-  using difference_type = std::ptrdiff_t;
-
-  constexpr allocator() noexcept = default;
-  constexpr allocator(const allocator &) noexcept = default;
-
-  template <typename T2> constexpr allocator(const allocator<T2> &) noexcept;
-
-  ~allocator() = default;
-
-  T1 *allocate(std::size_t);
-  void deallocate(T1 *, std::size_t);
-};
-
-template <> struct allocator<void> {
-  using value_type = void;
 };
 
 template <class charT, class traits = char_traits<charT>,
