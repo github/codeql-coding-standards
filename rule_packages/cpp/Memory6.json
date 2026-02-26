@@ -18,7 +18,7 @@
           ]
         }
       ],
-      "title": "Advanced memory management may introduce subtle bugs related to lifetime and alignment, which may cause undefined behavior."
+      "title": "Using advanced memory management that either alters allocation and deallocation or constructs object construction on uninitalized memory may result in undefined behavior."
     }
   }
 }
