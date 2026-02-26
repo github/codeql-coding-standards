@@ -1,0 +1,4 @@
+- `A-23-0-1`, `A-23-0-2`, `CTR-51-CPP`, `CTR-52-CPP`, `CTR-53-CPP`, `CTR-54-CPP`, `CTR-55-CPP`, `STR-52-CPP` - `IteratorImplicitlyConvertedToConstIterator.ql`, `ValidContainerElementAccess.ql`, `UsesValidContainerElementAccess.ql`, `GuaranteeGenericCppLibraryFunctionsDoNotOverflow.ql`, `UseValidIteratorRanges.ql`, `DoNotSubtractIteratorsForDifferentContainers.ql`, `DoNotUseAnAdditiveOperatorOnAnIterator.ql`, `UseValidReferencesForElementsOfString.ql`:
+  - Iterator access methods `rbegin`, `rend`, `crbegin`, `crend` are now recognized on containers.
+  - Shared library `Iterators.qll` has been refactored by splitting out container type logic into a separate library and add logic to differentiate types of containers, such as associative, indexed, and strings.
+  - Shared library `Iterators.qll`, used by many queries, has been moved.
