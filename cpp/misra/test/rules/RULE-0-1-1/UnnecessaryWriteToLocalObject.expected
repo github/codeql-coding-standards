@@ -1,0 +1,47 @@
+| test.cpp:10:11:10:12 | 0 | Unnecessary write to object $@ is never observed. | test.cpp:10:7:10:8 | l0 | l0 |
+| test.cpp:60:12:60:13 | 0 | Unnecessary write to object $@ is never observed. | test.cpp:60:7:60:9 | l13 | l13 |
+| test.cpp:61:3:61:5 | l13 | Unnecessary write to object $@ is never observed. | test.cpp:60:7:60:9 | l13 | l13 |
+| test.cpp:116:6:116:9 | ... -- | Unnecessary write to object $@ is never observed. | test.cpp:115:7:115:8 | l2 | l2 |
+| test.cpp:118:6:118:9 | ... ++ | Unnecessary write to object $@ is never observed. | test.cpp:117:7:117:8 | l3 | l3 |
+| test.cpp:126:11:126:12 | 0 | Unnecessary write to object $@ is not read before subsequent writes. | test.cpp:126:7:126:8 | l0 | l0 |
+| test.cpp:141:20:141:20 | second | Unnecessary write to object $@ is never observed. | test.cpp:141:13:141:13 | l1 | l1 |
+| test.cpp:149:18:149:18 | call to operator* | Unnecessary write to object $@ is never observed. | test.cpp:149:13:149:14 | l3 | l3 |
+| test.cpp:167:13:167:22 | new | Unnecessary write to object $@ is never observed. | test.cpp:167:8:167:9 | l3 | l3 |
+| test.cpp:172:11:172:12 | 1 | Unnecessary write to object $@ is never observed. | test.cpp:172:7:172:8 | l1 | l1 |
+| test.cpp:178:11:178:12 | 1 | Unnecessary write to object $@ is never observed. | test.cpp:178:7:178:8 | l1 | l1 |
+| test.cpp:199:15:199:24 | 0 | Unnecessary write to object $@ is never observed. | test.cpp:199:11:199:12 | t0 | t0 |
+| test.cpp:218:15:218:24 | 0 | Unnecessary write to object $@ is never observed. | test.cpp:218:11:218:12 | t4 | t4 |
+| test.cpp:219:17:219:29 | new | Unnecessary write to object $@ is never observed. | test.cpp:219:12:219:13 | t5 | t5 |
+| test.cpp:222:6:222:6 | a | Unnecessary write to object $@ is never observed. | test.cpp:221:11:221:12 | t6 | t6 |
+| test.cpp:235:16:235:25 | 0 | Unnecessary write to object $@ is never observed. | test.cpp:235:11:235:13 | t10 | t10 |
+| test.cpp:238:18:238:30 | new | Unnecessary write to object $@ is never observed. | test.cpp:238:12:238:14 | t11 | t11 |
+| test.cpp:241:18:241:40 | {...} | Unnecessary write to object $@ is never observed. | test.cpp:241:11:241:13 | t12 | t12 |
+| test.cpp:255:13:255:14 | l0 | Unnecessary write to object $@ is never observed. | test.cpp:255:8:255:9 | l1 | l1 |
+| test.cpp:265:4:265:7 | ... ++ | Unnecessary write to object $@ is never observed. | test.cpp:264:8:264:9 | l4 | l4 |
+| test.cpp:280:6:280:6 | a | Unnecessary write to object $@ is not read before subsequent writes. | test.cpp:275:11:275:12 | t0 | t0 |
+| test.cpp:284:6:284:6 | a | Unnecessary write to object $@ is not read before subsequent writes. | test.cpp:275:11:275:12 | t0 | t0 |
+| test.cpp:300:8:300:8 | a | Unnecessary write to object $@ is not read before subsequent writes. | test.cpp:299:5:299:6 | t2 | t2 |
+| test.cpp:311:24:311:33 | call to vector | Unnecessary write to object $@ is never observed. | test.cpp:311:20:311:21 | v1 | v1 |
+| test.cpp:317:20:317:21 | call to vector | Unnecessary write to object $@ is never observed. | test.cpp:317:20:317:21 | v3 | v3 |
+| test.cpp:318:5:318:5 | call to operator[] | Unnecessary write to object $@ is never observed. | test.cpp:317:20:317:21 | v3 | v3 |
+| test.cpp:326:5:326:5 | call to operator[] | Unnecessary write to object $@ is not read before subsequent writes. | test.cpp:325:20:325:21 | v5 | v5 |
+| test.cpp:345:29:345:51 | call to vector | Unnecessary write to object $@ is never observed. | test.cpp:345:24:345:26 | v10 | v10 |
+| test.cpp:355:3:355:4 | p1 | Unnecessary write to object $@ is never observed. | test.cpp:351:22:351:23 | p1 | p1 |
+| test.cpp:362:6:362:6 | a | Unnecessary write to object $@ is never observed. | test.cpp:358:30:358:31 | t1 | t1 |
+| test.cpp:372:5:372:5 | call to operator[] | Unnecessary write to object $@ is never observed. | test.cpp:367:56:367:57 | v1 | v1 |
+| test.cpp:387:3:387:4 | p1 | Unnecessary write to object $@ is never observed. | test.cpp:377:24:377:25 | p1 | p1 |
+| test.cpp:388:3:388:4 | p2 | Unnecessary write to object $@ is never observed. | test.cpp:377:37:377:38 | p2 | p2 |
+| test.cpp:389:3:389:4 | p3 | Unnecessary write to object $@ is never observed. | test.cpp:377:53:377:54 | p3 | p3 |
+| test.cpp:390:3:390:4 | p4 | Unnecessary write to object $@ is never observed. | test.cpp:378:32:378:33 | p4 | p4 |
+| test.cpp:404:13:404:22 | {...} | Unnecessary write to object $@ is never observed. | test.cpp:404:7:404:8 | l1 | l1 |
+| test.cpp:409:17:409:39 | {...} | Unnecessary write to object $@ is never observed. | test.cpp:409:11:409:12 | l3 | l3 |
+| test.cpp:420:3:420:7 | access to array | Unnecessary write to object $@ is not read before subsequent writes. | test.cpp:419:7:419:8 | l6 | l6 |
+| test.cpp:425:3:425:9 | access to array | Unnecessary write to object $@ is not read before subsequent writes. | test.cpp:424:7:424:10 | l6_1 | l6_1 |
+| test.cpp:441:3:441:7 | access to array | Unnecessary write to object $@ is never observed. | test.cpp:440:7:440:8 | l9 | l9 |
+| test.cpp:442:3:442:7 | access to array | Unnecessary write to object $@ is never observed. | test.cpp:440:7:440:8 | l9 | l9 |
+| test.cpp:443:3:443:7 | access to array | Unnecessary write to object $@ is never observed. | test.cpp:440:7:440:8 | l9 | l9 |
+| test.cpp:451:3:451:8 | access to array | Unnecessary write to object $@ is never observed. | test.cpp:450:7:450:9 | l11 | l11 |
+| test.cpp:452:3:452:10 | ... ++ | Unnecessary write to object $@ is never observed. | test.cpp:450:7:450:9 | l11 | l11 |
+| test.cpp:516:7:516:7 | call to operator[] | Unnecessary write to object $@ is not read before subsequent writes. | test.cpp:515:22:515:23 | v7 | v7 |
+| test.cpp:558:13:558:19 | 0 | Unnecessary write to object $@ is never observed. | test.cpp:558:8:558:9 | l0 | l0 |
+| test.cpp:560:13:560:19 | 0 | Unnecessary write to object $@ is never observed. | test.cpp:560:8:560:9 | l1 | l1 |
