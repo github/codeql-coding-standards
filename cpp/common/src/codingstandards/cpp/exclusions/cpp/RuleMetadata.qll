@@ -20,6 +20,7 @@ import Conversions2
 import DeadCode
 import DeadCode3
 import DeadCode4
+import DeadCode5
 import DeadCode6
 import DeadCode7
 import DeadCode9
@@ -65,6 +66,7 @@ import Representation
 import Scope
 import SideEffects1
 import SideEffects2
+import SideEffects4
 import SmartPointers1
 import SmartPointers2
 import Statements
@@ -97,6 +99,7 @@ newtype TCPPQuery =
   TDeadCodePackageQuery(DeadCodeQuery q) or
   TDeadCode3PackageQuery(DeadCode3Query q) or
   TDeadCode4PackageQuery(DeadCode4Query q) or
+  TDeadCode5PackageQuery(DeadCode5Query q) or
   TDeadCode6PackageQuery(DeadCode6Query q) or
   TDeadCode7PackageQuery(DeadCode7Query q) or
   TDeadCode9PackageQuery(DeadCode9Query q) or
@@ -142,6 +145,7 @@ newtype TCPPQuery =
   TScopePackageQuery(ScopeQuery q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
   TSideEffects2PackageQuery(SideEffects2Query q) or
+  TSideEffects4PackageQuery(SideEffects4Query q) or
   TSmartPointers1PackageQuery(SmartPointers1Query q) or
   TSmartPointers2PackageQuery(SmartPointers2Query q) or
   TStatementsPackageQuery(StatementsQuery q) or
@@ -174,6 +178,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
   isDeadCode3QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode4QueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode5QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode6QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode7QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode9QueryMetadata(query, queryId, ruleId, category) or
@@ -219,6 +224,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isScopeQueryMetadata(query, queryId, ruleId, category) or
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or
   isSideEffects2QueryMetadata(query, queryId, ruleId, category) or
+  isSideEffects4QueryMetadata(query, queryId, ruleId, category) or
   isSmartPointers1QueryMetadata(query, queryId, ruleId, category) or
   isSmartPointers2QueryMetadata(query, queryId, ruleId, category) or
   isStatementsQueryMetadata(query, queryId, ruleId, category) or
