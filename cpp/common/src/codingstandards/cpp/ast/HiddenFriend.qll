@@ -82,7 +82,7 @@ private class ClassCandidate extends Class {
    */
   Declaration getNextOrphanedDeclaration() {
     result =
-      min(OrphanedDeclaration decl, int startLine, int startColumn | // Location locDecl | // Location locLast, Location locDecl |
+      min(OrphanedDeclaration decl, int startLine, int startColumn |
         orphanHasLocation(decl, this.getFile(), startLine, startColumn) and
         startLine > getLastLineOfClassDeclaration(this)
       |
@@ -109,11 +109,11 @@ private class ClassCandidate extends Class {
  */
 pragma[nomagic]
 private predicate orphanHasLocation(
-  OrphanedDeclaration orphan, FileCandidate file, int endLine, int endColumn
+  OrphanedDeclaration orphan, FileCandidate file, int startLine, int startColumn
 ) {
   orphan.getFile() = file and
-  orphan.getLocation().getEndLine() = endLine and
-  orphan.getLocation().getEndColumn() = endColumn
+  orphan.getLocation().getEndLine() = startLine and
+  orphan.getLocation().getEndColumn() = startColumn
 }
 
 /**

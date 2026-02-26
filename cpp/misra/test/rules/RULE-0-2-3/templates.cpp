@@ -86,7 +86,7 @@ namespace use_as_template_parameter_type {
 } // namespace use_as_template_parameter_type
 
 /**
- * Test case 6: A type that is used as the default value of a non-type template
+ * Test case 7: A type that is used as the default value of a non-type template
  * parameter
  */
 namespace use_as_template_parameter_default_value {
