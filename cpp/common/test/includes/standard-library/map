@@ -1,6 +1,7 @@
 #include "iterator.h"
 #include "utility.h"
 #include "functional.h"
+#include "memory.h"
 
 namespace std {
 
