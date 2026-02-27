@@ -14,7 +14,9 @@
           "severity": "error",
           "short_name": "DynamicMemoryManagedManually",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
           ]
         }
       ],
