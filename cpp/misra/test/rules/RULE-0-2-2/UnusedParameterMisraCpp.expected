@@ -1,0 +1,8 @@
+| test.cpp:1:13:1:13 | x | Unused parameter 'x' for function $@. | test.cpp:1:6:1:7 | f0 | f0 |
+| test.cpp:9:13:9:13 | x | Unused parameter 'x' for function $@. | test.cpp:9:6:9:7 | f4 | f4 |
+| test.cpp:18:13:18:13 | y | Unused parameter 'y' for function $@. | test.cpp:18:6:18:7 | f7 | f7 |
+| test.cpp:21:13:21:13 | y | Unused parameter 'y' for function $@. | test.cpp:21:6:21:7 | f8 | f8 |
+| test.cpp:24:23:24:23 | x | Unused parameter 'x' for function $@. | test.cpp:24:16:24:17 | m0 | C1::m0 |
+| test.cpp:36:15:36:15 | x | Unused parameter 'x' for function $@. | test.cpp:36:8:36:9 | m0 | C3::m0 |
+| test.cpp:37:15:37:15 | x | Unused parameter 'x' for function $@. | test.cpp:37:8:37:9 | m1 | C3::m1 |
+| test.cpp:38:15:38:15 | x | Unused parameter 'x' for function $@. | test.cpp:38:8:38:9 | m2 | C3::m2 |
