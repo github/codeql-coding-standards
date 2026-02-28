@@ -1,0 +1,2 @@
+| test.cpp:1:1:1:41 | #pragma GCC diagnostic warning "-Wformat" | Non-compliant #pragma directive 'GCC diagnostic warning "-Wformat"'. |
+| test.cpp:2:1:2:36 | #define TODO(X) _Pragma("TODO: " #X) | Non-compliant _Pragma operator used: '_Pragma("TODO: " #X)'. |

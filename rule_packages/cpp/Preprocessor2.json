@@ -1,0 +1,72 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-19-2-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Include directives shall only use the <filename> or \"filename\" forms.",
+          "kind": "problem",
+          "name": "The #include directive shall be followed by either a <filename> or \"filename\" sequence",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "InvalidIncludeDirective",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The #include directive shall be followed by either a <filename> or \"filename\" sequence"
+    },
+    "RULE-19-3-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Expanded macro arguments shall be enclosed in parentheses to ensure the resulting expressions have the expected precedence and order of operations.",
+          "kind": "problem",
+          "name": "Parentheses shall be used to ensure macro arguments are expanded appropriately",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UnparenthesizedMacroArgument",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ],
+          "implementation_scope": {
+            "description": "A mixture of textual and syntactic analysis is used to identify the problem, with positional cues being required to infer unary *, &, +, or - and semantic clues suggesting when <, >, * may refer to a type. The presence of string literals and non-critical operators ++, --, -> or unmatched parenthesis may abort the analysis. Safe cases not exempted in the rule text such as comma-separated arguments or brackets are not exempted by this query."
+          }
+        }
+      ],
+      "title": "Parentheses shall be used to ensure macro arguments are expanded appropriately"
+    },
+    "RULE-19-6-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Preprocessor pragma directives are implementation-defined, and should not be used to maintain code portability.",
+          "kind": "problem",
+          "name": "The #pragma directive and the _Pragma operator should not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DisallowedUseOfPragma",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The #pragma directive and the _Pragma operator should not be used"
+    }
+  }
+}
