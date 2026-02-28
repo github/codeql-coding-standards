@@ -25,7 +25,7 @@ jobs:
       matrix: ${{ steps.export-unit-test-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Export unit test matrix
         id: export-unit-test-matrix
@@ -34,7 +34,7 @@ jobs:
           python scripts/create_language_matrix.py
           echo "matrix=$(
             python scripts/create_language_matrix.py | \
-            jq --compact-output 'map([.+{os: "ubuntu-latest-xl", codeql_standard_library_ident : .codeql_standard_library | sub("\/"; "_")}]) | flatten | {include: .}')" >> $GITHUB_OUTPUT
+            jq --compact-output 'map([.+{os: "ubuntu-22.04", codeql_standard_library_ident : .codeql_standard_library | sub("\/"; "_")}]) | flatten | {include: .}')" >> $GITHUB_OUTPUT
 
   run-test-suites:
     name: Run unit tests
@@ -47,7 +47,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install Python
         uses: actions/setup-python@v6
@@ -187,3 +187,4 @@ jobs:
             echo $FAILING_TESTS | jq .
             exit 1
           fi
+
