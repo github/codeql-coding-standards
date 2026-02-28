@@ -12,6 +12,7 @@
  */
 
 import cpp
+import codingstandards.cpp.ast.HiddenFriend
 
 /**
  * Gets a typedef with the same qualified name and declared at the same location.
@@ -35,7 +36,8 @@ private TypedefType getAnEquivalentTypeDef(TypedefType type) {
  * is from within the function signature or field declaration of the type itself.
  */
 Locatable getATypeUse(Type type) {
-  result = getATypeUse_i(type, _)
+  result = getATypeUse_i(type, _) and
+  not isWithinTypeDefinition(result, type)
   or
   // Identify `TypeMention`s of typedef types, where the underlying type is used.
   //
@@ -65,6 +67,30 @@ Locatable getATypeUse(Type type) {
   )
 }
 
+predicate isWithinTypeDefinition(Locatable loc, Type type) {
+  loc = type
+  or
+  loc.getEnclosingElement*() = type
+  or
+  isWithinTypeDefinition(loc.(Function).getDeclaringType(), type)
+  or
+  isWithinTypeDefinition(loc.(MemberVariable).getDeclaringType(), type)
+  or
+  isWithinTypeDefinition(loc.(PossibleHiddenFriend).getFriendClass(), type)
+  or
+  isWithinTypeDefinition(loc.(Parameter).getFunction(), type)
+  or
+  isWithinTypeDefinition(loc.(Expr).getEnclosingFunction(), type)
+  or
+  isWithinTypeDefinition(loc.(LocalVariable).getFunction(), type)
+  or
+  exists(TemplateClass tpl, ClassTemplateSpecialization spec |
+    tpl = type and
+    tpl = spec.getPrimaryTemplate() and
+    isWithinTypeDefinition(loc, spec)
+  )
+}
+
 private Locatable getATypeUse_i(Type type, string reason) {
   (
     // Restrict to uses within the source checkout root
@@ -81,6 +107,7 @@ private Locatable getATypeUse_i(Type type, string reason) {
       type = v.getType() and
       // Ignore self referential variables and parameters
       not v.getDeclaringType().refersTo(type) and
+      not type.(UserType).isAnonymous() and
       not type = v.(Parameter).getFunction().getDeclaringType()
     ) and
     reason = "used as a variable type"
@@ -145,6 +172,10 @@ private Locatable getATypeUse_i(Type type, string reason) {
     // Temporary object creation of type `type`
     exists(TemporaryObjectExpr toe | result = toe | type = toe.getType()) and
     reason = "used in temporary object expr"
+    or
+    // template<Type t> ...
+    exists(Declaration decl | result = decl | type = decl.getATemplateArgumentKind()) and
+    reason = "used as a non-type template parameter"
   )
   or
   // Recursive case - used by a used type
