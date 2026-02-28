@@ -72,6 +72,7 @@ import Scope
 import SideEffects1
 import SideEffects2
 import SideEffects4
+import SideEffects5
 import SmartPointers1
 import SmartPointers2
 import Statements
@@ -156,6 +157,7 @@ newtype TCPPQuery =
   TSideEffects1PackageQuery(SideEffects1Query q) or
   TSideEffects2PackageQuery(SideEffects2Query q) or
   TSideEffects4PackageQuery(SideEffects4Query q) or
+  TSideEffects5PackageQuery(SideEffects5Query q) or
   TSmartPointers1PackageQuery(SmartPointers1Query q) or
   TSmartPointers2PackageQuery(SmartPointers2Query q) or
   TStatementsPackageQuery(StatementsQuery q) or
@@ -240,6 +242,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or
   isSideEffects2QueryMetadata(query, queryId, ruleId, category) or
   isSideEffects4QueryMetadata(query, queryId, ruleId, category) or
+  isSideEffects5QueryMetadata(query, queryId, ruleId, category) or
   isSmartPointers1QueryMetadata(query, queryId, ruleId, category) or
   isSmartPointers2QueryMetadata(query, queryId, ruleId, category) or
   isStatementsQueryMetadata(query, queryId, ruleId, category) or

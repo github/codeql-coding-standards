@@ -1,0 +1,27 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-8-14-1": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The right-hand operand of a logical && or || operator should not contain persistent side effects, as such side effects will only conditionally occur, which may violate developer intent and/or expectations.",
+          "kind": "problem",
+          "name": "The right-hand operand of a logical && or || operator should not contain persistent side effects",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ShortCircuitedPersistentSideEffect",
+          "shared_implementation_short_name": "ShortCircuitedPersistentSideEffectShared",
+          "tags": [
+            "scope/system",
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The right-hand operand of a logical && or || operator should not contain persistent side effects"
+    }
+  }
+}
