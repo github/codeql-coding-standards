@@ -124,3 +124,74 @@ void test_non_default_init() {
   _Atomic int ai;
   use(ai); // COMPLIANT - atomics are special and not covered by this rule
 }
+
+namespace {
+int i; // COMPLIANT
+}
+
+void extra_test() {
+  int i;
+  int j = i + 1; // NON_COMPLIANT
+
+  int *i1 = new int;
+  int i2 = *i1; // NON_COMPLIANT
+
+  int *i3;
+
+  if (i3 = i1) { // NON_COMPLIANT
+  }
+}
+
+void extra_conditionals(bool b) {
+  if (b) {
+    goto L;
+  }
+  int i;
+  i = 1;
+L:
+  i = i + 1; // NON_COMPLIANT[FALSE_NEGATIVE]
+}
+
+struct S {
+  int m1;
+  int m2;
+};
+
+void struct_test() {
+  S s1;
+  S s2 = {1};
+
+  auto i1 = s1.m1; // NON_COMPLIANT[FALSE_NEGATIVE] - rule currently is not
+                   // field sensitive
+  auto i2 = s2.m2; // COMPLIANT
+
+  int a1[10] = {1, 1, 1};
+  int a2[10];
+
+  auto a3 = a1[5]; // COMPLIANT
+  auto a4 = a2[5]; // NON_COMPLIANT[FALSE_NEGATIVE]
+}
+
+class C {
+private:
+  int m1;
+  int m2;
+
+public:
+  C() : m1(1), m2(1) {}
+
+  C(int a) : m1(a) {}
+
+  int getm2() { return m2; }
+};
+
+void test_class() {
+  C c1;
+  if (c1.getm2() > 0) { // COMPLIANT
+  }
+
+  C c2(5);
+  if (c2.getm2() > 0) { // NON_COMPLIANT[FALSE_NEGATIVE] - rule currently is not
+                        // field sensitive
+  }
+}
