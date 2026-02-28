@@ -15,7 +15,7 @@ abstract class ThrowingOperatorNewThrowsInvalidExceptionSharedQuery extends Quer
 Query getQuery() { result instanceof ThrowingOperatorNewThrowsInvalidExceptionSharedQuery }
 
 class ThrowingCustomOperatorNew extends ExceptionThrowingFunction {
-  CustomOperatorNew op;
+  CustomReplaceableOperatorNew op;
 
   ThrowingCustomOperatorNew() {
     this = op and

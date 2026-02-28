@@ -36,7 +36,7 @@ Query getQuery() { result instanceof OperatorDeleteMissingPartnerSharedQuery }
  * void operator delete[](void*, std::size_t, const std::nothrow_t&)
  */
 
-query predicate problems(CustomOperatorDelete cd, string message) {
+query predicate problems(CustomReplaceableOperatorDelete cd, string message) {
   not isExcluded(cd, getQuery()) and
   not exists(cd.getPartner()) and
   if cd.getAParameter().getType() instanceof Size_t
