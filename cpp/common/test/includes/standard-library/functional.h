@@ -1,6 +1,8 @@
 #ifndef _GHLIBCPP_FUNCTIONAL
 #define _GHLIBCPP_FUNCTIONAL
 
+#include <utility>
+
 namespace std {
 typedef unsigned long size_t;
 
@@ -87,7 +89,7 @@ template <class> class function;
 template <class R, class... Args> class function<R(Args...)> {
 public:
   function();
-  template <class F> function(F &&);
+  template <class F> function(F&& f);
   template <class F> function &operator=(F &&);
 };
 } // namespace std

@@ -122,3 +122,30 @@ void test_temporary_object_creation() {
     return C1{p1};
   };
 }
+
+class Nested { // NON_COMPLIANT - only used within itself
+public:
+  class NestedNested { // COMPLIANT - used by class `Nested`
+  public:
+    Nested f();
+  };
+
+  NestedNested g();
+
+  class UnusedNested {}; // NON_COMPLIANT - never used by class `Nested`
+};
+
+class NestedBlockScope { // NON_COMPLIANT - only used within itself
+public:
+  void f() {
+    class NestedFunction { // COMPLIANT - used in function below
+      void g() {
+        NestedBlockScope l1; // Doesn't count as use of `NestedBlockScope`.
+      }
+    };
+
+    NestedFunction l1;
+
+    class Unused {}; // NON_COMPLIANT - never used by function `f`
+  }
+};

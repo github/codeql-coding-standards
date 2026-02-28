@@ -40,6 +40,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "UnusedReturnValue",
+          "shared_implementation_short_name": "UnusedReturnValueShared",
           "tags": [
             "readability",
             "maintainability"
