@@ -12,10 +12,14 @@ void test_unnamed(
 }
 
 class A {
-  int a(int x) { return x; }      // COMPLIANT
-  void b(int x) {}                // NON_COMPLIANT
-  void c(int) {}                  // COMPLIANT
-  virtual void d(int x, int y) {} // virtual, not covered by this rule
+  int a(int x) { return x; } // COMPLIANT
+  void b(int x) {}           // NON_COMPLIANT
+  void c(int) {}             // COMPLIANT
+
+  // This is a violation of Rule 0-2-2, and therefore flagged by the default
+  // logic. However, this is allowed by additional exception in A0-1-4. See
+  // A0-1-4 and Rule 0-2-2 tests for full coverage.
+  virtual void d(int x, int y) {} // NON_COMPLIANT
 };
 
 void f(
