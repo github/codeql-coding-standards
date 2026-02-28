@@ -2,14 +2,9 @@
 #define _GHLIBCPP_MEMORY
 #include "exception.h"
 #include "stddef.h"
+#include "utility.h"
 
 namespace std {
-
-template <class T> class allocator {
-public:
-  allocator() throw();
-  typedef size_t size_type;
-};
 
 template <class T> T *addressof(T &arg) noexcept;
 
@@ -134,6 +129,136 @@ public:
   bad_alloc &operator=(const bad_alloc &) noexcept;
   virtual const char *what() const noexcept;
 };
+
+template <typename T1> struct allocator {
+  using value_type = T1;
+  using size_type = std::size_t;
+  using difference_type = std::ptrdiff_t;
+
+  constexpr allocator() noexcept = default;
+  constexpr allocator(const allocator &) noexcept = default;
+
+  template <typename T2> constexpr allocator(const allocator<T2> &) noexcept;
+
+  ~allocator() = default;
+
+  T1 *allocate(std::size_t);
+  void deallocate(T1 *, std::size_t);
+};
+
+template <> struct allocator<void> {
+  using value_type = void;
+};
+
+template <typename T1> struct allocator_traits {
+  using allocator_type = T1;
+  using value_type = typename T1::value_type;
+  using pointer = value_type *;
+  using const_pointer = const value_type *;
+  using void_pointer = void *;
+  using const_void_pointer = const void *;
+  using size_type = typename T1::size_type;
+  using difference_type = typename T1::difference_type;
+
+  template <typename T2> using rebind_alloc = allocator<T2>;
+
+  static pointer allocate(T1 &, size_type);
+  static pointer allocate(T1 &, size_type, const_void_pointer);
+  static void deallocate(T1 &, pointer, size_type);
+};
+
+// uninitialized_default_construct
+template <class T1>
+void uninitialized_default_construct(T1, T1);
+
+template <class T1, class T2>
+void uninitialized_default_construct(T1&&, T2, T2);
+
+// uninitialized_default_construct_n
+template <class T1, class T2>
+T1 uninitialized_default_construct_n(T1, T2);
+
+template <class T1, class T2, class T3>
+T2 uninitialized_default_construct_n(T1&&, T2, T3);
+
+// uninitialized_value_construct
+template <class T1>
+void uninitialized_value_construct(T1, T1);
+
+template <class T1, class T2>
+void uninitialized_value_construct(T1&&, T2, T2);
+
+// uninitialized_value_construct_n
+template <class T1, class T2>
+T1 uninitialized_value_construct_n(T1, T2);
+
+template <class T1, class T2, class T3>
+T2 uninitialized_value_construct_n(T1&&, T2, T3);
+
+// uninitialized_copy
+template <class T1, class T2>
+T2 uninitialized_copy(T1, T1, T2);
+
+template <class T1, class T2, class T3>
+T3 uninitialized_copy(T1&&, T2, T2, T3);
+
+// uninitialized_copy_n
+template <class T1, class T2, class T3>
+T3 uninitialized_copy_n(T1, T2, T3);
+
+template <class T1, class T2, class T3, class T4>
+T4 uninitialized_copy_n(T1&&, T2, T3, T4);
+
+// uninitialized_move
+template <class T1, class T2>
+T2 uninitialized_move(T1, T1, T2);
+
+template <class T1, class T2, class T3>
+T3 uninitialized_move(T1&&, T2, T2, T3);
+
+// uninitialized_move_n
+template <class T1, class T2, class T3>
+pair<T1, T3> uninitialized_move_n(T1, T2, T3);
+
+template <class T1, class T2, class T3, class T4>
+pair<T2, T4> uninitialized_move_n(T1&&, T2, T3, T4);
+
+// uninitialized_fill
+template <class T1, class T2>
+void uninitialized_fill(T1, T1, const T2&);
+
+template <class T1, class T2, class T3>
+void uninitialized_fill(T1&&, T2, T2, const T3&);
+
+// uninitialized_fill_n
+template <class T1, class T2, class T3>
+T1 uninitialized_fill_n(T1, T2, const T3&);
+
+template <class T1, class T2, class T3, class T4>
+T2 uninitialized_fill_n(T1&&, T2, T3, const T4&);
+
+// destroy_at
+template <class T1>
+void destroy_at(T1*);
+
+// destroy
+template <class T1>
+void destroy(T1, T1);
+
+template <class T1, class T2>
+void destroy(T1&&, T2, T2);
+
+// destroy_n
+template <class T1, class T2>
+T1 destroy_n(T1, T2);
+
+template <class T1, class T2, class T3>
+T2 destroy_n(T1&&, T2, T3);
+
+// launder
+template <class T1>
+constexpr T1* launder(T1*) noexcept;
+
 } // namespace std
 
 #endif // _GHLIBCPP_MEMORY
