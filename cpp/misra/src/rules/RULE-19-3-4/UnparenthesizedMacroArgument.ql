@@ -18,7 +18,6 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.Macro
 import codingstandards.cpp.MatchingParenthesis
-import codeql.util.Boolean
 
 /**
  * This regex is used to find macro arguments that appear to have critical operators in them, before
@@ -129,8 +128,7 @@ class RiskyMacroInvocation extends MacroInvocation {
    * - the operator cannot be the first character in the string (i.e. it should not look like a
    *   unary - or +)
    * - the operator cannot exist inside a generated string literal
-   * - the operator existence of the operator should not be as a substring of "->", "++", or "--"
-   *   operators.
+   * - the operator should not be found inside a "->", "++", or "--" operator.
    *
    * The results of this predicate should be flagged by the query.
    */
@@ -141,7 +139,7 @@ class RiskyMacroInvocation extends MacroInvocation {
       int opIndex
     |
       parsedRoot.getInputString() = value and
-      (topLevelText.getParent() = parsedRoot or topLevelText = parsedRoot) and
+      parsedRoot = topLevelText.getParent() and
       text = topLevelText.getText().trim() and
       opExpr = getAGeneratedElement() and
       operator = opExpr.getOperator() and

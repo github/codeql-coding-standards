@@ -61,7 +61,7 @@ class FunctionLikeMacro extends Macro {
         noAfterParen = "(?!\\s*\\))" and
         // Parameter at word boundary in optional whitespace
         paramMatch = "\\s*\\b" + parameter + "\\b\\s*" and
-        // A parameter is ##'d if it is preceded or followed by the # operator.
+        // A parameter is #'d if it is preceded or followed by the # or ## operators.
         notHashed = "(?<!#)" + paramMatch and
         // Parameter is used without a leading or trailing parenthesis, and without #.
         getBody()

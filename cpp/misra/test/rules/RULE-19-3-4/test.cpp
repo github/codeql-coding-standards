@@ -241,7 +241,7 @@ void f6() {
           // compliant, though an argument could be made the other way.
           // Regardless, this case is difficult for us to detect.
 #define M14(X) M1(X *X)
-  M14(1); // NON-COMPLIANT[False negative] -- The definition of M13 is
+  M14(1); // NON-COMPLIANT[False negative] -- The definition of M14 is
           // non-compliant, but we don't detect the generated elements.
 
   // Trickier case of # operator to handle. In this case, we do not produce a
@@ -258,6 +258,6 @@ void f6() {
 #define M18(X) ( X )
   M18(1 * 1);     // COMPLIANT
 #define M19(X) M15(( X ), # X)
-  M16(1 * 1); // COMPLIANT -- all expansions of X are precedence protected.
+  M19(1 * 1); // COMPLIANT -- all expansions of X are precedence protected.
   /* clang-format on */
 }
