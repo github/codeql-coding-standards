@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-8-7-2": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Pointer difference should be taken from pointers that belong to a same array.",
+          "kind": "path-problem",
+          "name": "Subtraction between pointers shall only be applied to ones that address elements of the same array",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PointerDifferenceTakenBetweenDifferentArrays",
+          "shared_implementation_short_name": "DoNotSubtractPointersAddressingDifferentArrays",
+          "tags": [
+            "scope/system",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Pointer difference should be taken from pointers that belong to a same array."
+    }
+  }
+}

@@ -1,4 +1,8 @@
 // GENERATED FILE - DO NOT MODIFY
 import codingstandards.cpp.rules.unusedparameter.UnusedParameter
 
-class TestFileQuery extends UnusedParameterSharedQuery, TestQuery { }
+module UnusedParameterTestConfig implements UnusedParameterSharedConfigSig {
+  Query getQuery() { result instanceof TestQuery }
+}
+
+import UnusedParameterShared<UnusedParameterTestConfig>

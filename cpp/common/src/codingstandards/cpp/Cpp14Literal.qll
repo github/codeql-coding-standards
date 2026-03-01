@@ -12,11 +12,33 @@ module Cpp14Literal {
   /** Convenience for implementing class `UnrecognizedNumericLiteral` */
   abstract private class RecognizedNumericLiteral extends StandardLibrary::Literal { }
 
+  /** An integer literal suffix (e.g. 'u', 'll', etc, or even an empty string). */
+  class IntegerLiteralSuffix extends string {
+    string uPart;
+    string lPart;
+
+    IntegerLiteralSuffix() {
+      uPart = ["", "u", "U"] and
+      lPart = ["", "l", "L"] + ["", "l", "L"] and
+      this = uPart + lPart
+    }
+
+    predicate isSigned() { uPart = "" }
+
+    predicate isUnsigned() { uPart != "" }
+
+    int getLCount() { result = lPart.length() }
+  }
+
   /** An integer literal. */
   abstract class IntegerLiteral extends NumericLiteral {
     predicate isSigned() { not isUnsigned() }
 
-    predicate isUnsigned() { getValueText().regexpMatch(".*[uU][lL]?$") }
+    predicate isUnsigned() { getSuffix().isUnsigned() }
+
+    IntegerLiteralSuffix getSuffix() {
+      result = getValueText().regexpCapture("[^uUlL]*([uU]?[lL]*)\\s*$", 1)
+    }
   }
 
   /**

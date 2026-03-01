@@ -253,78 +253,6 @@ class AdditiveOperatorFunctionCall extends FunctionCall {
 }
 
 /**
- * Models a collection of STL container classes.
- */
-class STLContainer extends Class {
-  STLContainer() {
-    getNamespace() instanceof StdNS and
-    getSimpleName() in [
-        "vector", "list", "deque", "set", "multiset", "map", "multimap", "stack", "queue",
-        "priority_queue", "string", "forward_list", "unordered_set", "unordered_multiset",
-        "unordered_map", "unordered_multimap", "valarray", "string", "basic_string"
-      ]
-    or
-    getSimpleName() = "string"
-    or
-    getSimpleName() = "basic_string"
-  }
-
-  /**
-   * Get a call to a named function of this class.
-   */
-  FunctionCall getACallTo(string name) {
-    exists(Function f |
-      f = getAMemberFunction() and
-      f.hasName(name) and
-      result = f.getACallToThisFunction()
-    )
-  }
-
-  /**
-   * Gets all calls to all functions of this class.
-   */
-  FunctionCall getACallToAFunction() {
-    exists(Function f |
-      f = getAMemberFunction() and
-      result = f.getACallToThisFunction()
-    )
-  }
-
-  FunctionCall getACallToSize() { result = getACallTo("size") }
-
-  FunctionCall getANonConstIteratorBeginFunctionCall() { result = getACallTo("begin") }
-
-  IteratorSource getAConstIteratorBeginFunctionCall() { result = getACallTo("cbegin") }
-
-  IteratorSource getANonConstIteratorEndFunctionCall() { result = getACallTo("end") }
-
-  IteratorSource getAConstIteratorEndFunctionCall() { result = getACallTo("cend") }
-
-  IteratorSource getANonConstIteratorFunctionCall() {
-    result = getACallToAFunction() and
-    result.getTarget().getType() instanceof NonConstIteratorType
-  }
-
-  IteratorSource getAConstIteratorFunctionCall() {
-    result = getACallToAFunction() and
-    result.getTarget().getType() instanceof ConstIteratorType
-  }
-
-  IteratorSource getAnIteratorFunctionCall() {
-    result = getANonConstIteratorFunctionCall() or result = getAConstIteratorFunctionCall()
-  }
-
-  IteratorSource getAnIteratorBeginFunctionCall() {
-    result = getANonConstIteratorBeginFunctionCall() or
-    result = getAConstIteratorBeginFunctionCall()
-  }
-
-  IteratorSource getAnIteratorEndFunctionCall() {
-    result = getANonConstIteratorEndFunctionCall() or result = getAConstIteratorEndFunctionCall()
-  }
-}
-
-/**
  * Models the set of iterator sources. Useful for encapsulating dataflow coming
  * from a function call producing an iterator.
  */
@@ -336,13 +264,6 @@ class IteratorSource extends FunctionCall {
   }
 
   Variable getOwner() { result = getQualifier().(VariableAccess).getTarget() }
-}
-
-/**
- * Models a variable that is a `STLContainer`
- */
-class STLContainerVariable extends Variable {
-  STLContainerVariable() { getType() instanceof STLContainer }
 }
 
 /**

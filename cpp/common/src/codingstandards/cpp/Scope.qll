@@ -307,6 +307,15 @@ predicate inSameTranslationUnitLate(File f1, File f2) {
   )
 }
 
+bindingset[f, tu]
+pragma[inline_late]
+predicate functionDefinedInTranslationUnit(Function f, TranslationUnit tu) {
+  exists(FunctionDeclarationEntry fde |
+    fde = f.getDefinition() and
+    fde.getFile() = tu.getATransitivelyIncludedFile()
+  )
+}
+
 /** A file that is a C/C++ source file */
 class SourceFile extends File {
   SourceFile() {

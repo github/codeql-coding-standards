@@ -243,6 +243,28 @@ predicate isCompileTimeEvaluatedExpression(Expr expression) {
   )
 }
 
+/**
+ * Find expressions that defer their value directly to an inner expression
+ * value -- how temporary object can flow without being copied or having their
+ * address taken.
+ *
+ * Full flow analysis with localFlowStep is often not necessary for certain
+ * rules related to temporary objects, and may cast a wider net than needed for
+ * those queries.
+ *
+ * When an array is on the rhs of a comma expr, or in the then/else branch of a
+ * ternary expr, and the result us used as a pointer, then the ArrayToPointer
+ * conversion is marked inside comma expr/ternary expr, on the operands. These
+ * conversions are only non-compliant if they flow into an operation or store.
+ */
+predicate temporaryObjectFlowStep(Expr source, Expr sink) {
+  source = sink.(CommaExpr).getRightOperand()
+  or
+  source = sink.(ConditionalExpr).getThen()
+  or
+  source = sink.(ConditionalExpr).getElse()
+}
+
 predicate isDirectCompileTimeEvaluatedExpression(Expr expression) {
   expression instanceof Literal
   or

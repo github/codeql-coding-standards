@@ -50,3 +50,12 @@ void test_nested_struct() {
   s.f3;
   s.f5;
 }
+
+typedef struct {
+  int m1;
+} T2; // NON_COMPLIANT
+typedef struct {
+  int m1;
+} T1; // COMPLIANT - used in function below
+
+void test_typedef() { T1 t1; }

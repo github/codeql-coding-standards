@@ -1,0 +1,84 @@
+| test.cpp:19:12:19:17 | call to operator new | Banned call to `operator new`. |
+| test.cpp:25:12:25:17 | call to operator new | Banned call to `operator new`. |
+| test.cpp:26:3:26:11 | call to operator delete | Banned call to `operator delete`. |
+| test.cpp:33:7:33:17 | call to malloc | Banned call to `malloc`. |
+| test.cpp:35:7:35:12 | call to malloc | Banned call to `malloc`. |
+| test.cpp:40:7:40:17 | call to calloc | Banned call to `calloc`. |
+| test.cpp:41:30:41:35 | call to calloc | Banned call to `calloc`. |
+| test.cpp:46:13:46:23 | call to malloc | Banned call to `malloc`. |
+| test.cpp:47:14:47:25 | call to realloc | Banned call to `realloc`. |
+| test.cpp:48:14:48:20 | call to realloc | Banned call to `realloc`. |
+| test.cpp:53:14:53:31 | call to aligned_alloc | Banned call to `aligned_alloc`. |
+| test.cpp:55:14:55:26 | call to aligned_alloc | Banned call to `aligned_alloc`. |
+| test.cpp:62:7:62:17 | call to malloc | Banned call to `malloc`. |
+| test.cpp:63:3:63:11 | call to free | Banned call to `free`. |
+| test.cpp:64:3:64:6 | call to free | Banned call to `free`. |
+| test.cpp:72:18:72:25 | call to allocate | Banned call to `std::allocator<C1>::allocate`. |
+| test.cpp:73:9:73:18 | call to deallocate | Banned call to `std::allocator<C1>::deallocate`. |
+| test.cpp:80:12:80:27 | call to allocate | Banned call to `std::allocator_traits<allocator<C1>>::allocate`. |
+| test.cpp:82:3:82:20 | call to deallocate | Banned call to `std::allocator_traits<allocator<C1>>::deallocate`. |
+| test.cpp:88:10:88:17 | call to allocate | Banned call to `std::pmr::memory_resource::allocate`. |
+| test.cpp:89:6:89:15 | call to deallocate | Banned call to `std::pmr::memory_resource::deallocate`. |
+| test.cpp:91:17:91:24 | call to allocate | Banned call to `std::pmr::memory_resource::allocate`. |
+| test.cpp:94:6:94:15 | call to deallocate | Banned call to `std::pmr::memory_resource::deallocate`. |
+| test.cpp:102:18:102:25 | call to allocate | Banned call to `std::pmr::polymorphic_allocator<C1>::allocate`. |
+| test.cpp:103:9:103:18 | call to deallocate | Banned call to `std::pmr::polymorphic_allocator<C1>::deallocate`. |
+| test.cpp:110:17:110:24 | call to allocate | Banned call to `std::pmr::memory_resource::allocate`. |
+| test.cpp:112:6:112:15 | call to deallocate | Banned call to `std::pmr::memory_resource::deallocate`. |
+| test.cpp:118:26:118:33 | call to allocate | Banned call to `std::pmr::memory_resource::allocate`. |
+| test.cpp:120:15:120:24 | call to deallocate | Banned call to `std::pmr::memory_resource::deallocate`. |
+| test.cpp:125:24:125:31 | call to allocate | Banned call to `std::pmr::memory_resource::allocate`. |
+| test.cpp:127:13:127:22 | call to deallocate | Banned call to `std::pmr::memory_resource::deallocate`. |
+| test.cpp:136:13:136:20 | call to allocate | Banned call to `std::scoped_allocator_adaptor<allocator<C1>>::allocate`. |
+| test.cpp:137:9:137:18 | call to deallocate | Banned call to `std::scoped_allocator_adaptor<allocator<C1>>::deallocate`. |
+| test.cpp:145:17:145:23 | call to release | Banned call to `std::unique_ptr<C1, default_delete<C1>>::release`. |
+| test.cpp:146:3:146:13 | call to operator delete | Banned call to `operator delete`. |
+| test.cpp:151:10:151:16 | call to release | Banned call to `std::unique_ptr<C1[], default_delete<C1[]>>::release`. |
+| test.cpp:152:3:152:15 | call to operator delete[] | Banned call to `operator delete[]`. |
+| test.cpp:158:3:158:12 | call to operator delete | Banned call to `operator delete`. |
+| test.cpp:165:7:165:17 | malloc | Taking the address of banned `malloc`. |
+| test.cpp:167:8:167:18 | malloc | Taking the address of banned `malloc`. |
+| test.cpp:169:7:169:14 | malloc | Taking the address of banned `malloc`. |
+| test.cpp:171:8:171:15 | malloc | Taking the address of banned `malloc`. |
+| test.cpp:174:7:174:17 | calloc | Taking the address of banned `calloc`. |
+| test.cpp:176:8:176:18 | calloc | Taking the address of banned `calloc`. |
+| test.cpp:179:7:179:18 | realloc | Taking the address of banned `realloc`. |
+| test.cpp:181:8:181:19 | realloc | Taking the address of banned `realloc`. |
+| test.cpp:184:7:184:24 | aligned_alloc | Taking the address of banned `aligned_alloc`. |
+| test.cpp:186:8:186:25 | aligned_alloc | Taking the address of banned `aligned_alloc`. |
+| test.cpp:189:7:189:15 | free | Taking the address of banned `free`. |
+| test.cpp:191:8:191:16 | free | Taking the address of banned `free`. |
+| test.cpp:193:7:193:12 | free | Taking the address of banned `free`. |
+| test.cpp:195:8:195:13 | free | Taking the address of banned `free`. |
+| test.cpp:202:7:202:21 | operator new | Taking the address of banned `operator new`. |
+| test.cpp:204:7:204:20 | operator new | Taking the address of banned `operator new`. |
+| test.cpp:206:7:206:23 | operator new[] | Taking the address of banned `operator new[]`. |
+| test.cpp:208:7:208:22 | operator new[] | Taking the address of banned `operator new[]`. |
+| test.cpp:211:7:211:21 | operator new | Taking the address of banned `operator new`. |
+| test.cpp:213:7:213:23 | operator new[] | Taking the address of banned `operator new[]`. |
+| test.cpp:218:7:218:24 | operator delete | Taking the address of banned `operator delete`. |
+| test.cpp:220:7:220:23 | operator delete | Taking the address of banned `operator delete`. |
+| test.cpp:222:7:222:26 | operator delete[] | Taking the address of banned `operator delete[]`. |
+| test.cpp:223:24:223:42 | operator delete[] | Taking the address of banned `operator delete[]`. |
+| test.cpp:227:7:227:24 | operator delete | Taking the address of banned `operator delete`. |
+| test.cpp:229:7:229:26 | operator delete[] | Taking the address of banned `operator delete[]`. |
+| test.cpp:233:7:233:24 | operator delete | Taking the address of banned `operator delete`. |
+| test.cpp:235:7:235:26 | operator delete[] | Taking the address of banned `operator delete[]`. |
+| test.cpp:243:13:243:41 | allocate | Taking the address of banned `std::allocator<C1>::allocate`. |
+| test.cpp:245:13:245:43 | deallocate | Taking the address of banned `std::allocator<C1>::deallocate`. |
+| test.cpp:251:7:251:23 | allocate | Taking the address of banned `std::allocator_traits<allocator<C1>>::allocate`. |
+| test.cpp:254:8:254:25 | deallocate | Taking the address of banned `std::allocator_traits<allocator<C1>>::deallocate`. |
+| test.cpp:258:13:258:48 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
+| test.cpp:261:7:261:44 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
+| test.cpp:265:13:266:19 | allocate | Taking the address of banned `std::pmr::polymorphic_allocator<C1>::allocate`. |
+| test.cpp:268:13:269:21 | deallocate | Taking the address of banned `std::pmr::polymorphic_allocator<C1>::deallocate`. |
+| test.cpp:273:13:274:24 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
+| test.cpp:276:14:277:27 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
+| test.cpp:281:14:282:25 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
+| test.cpp:284:14:285:27 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
+| test.cpp:289:14:290:25 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
+| test.cpp:292:14:293:27 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
+| test.cpp:299:7:299:28 | allocate | Taking the address of banned `std::scoped_allocator_adaptor<allocator<C1>>::allocate`. |
+| test.cpp:302:7:302:30 | deallocate | Taking the address of banned `std::scoped_allocator_adaptor<allocator<C1>>::deallocate`. |
+| test.cpp:309:13:309:41 | release | Taking the address of banned `std::unique_ptr<C1, default_delete<C1>>::release`. |
+| test.cpp:312:7:312:37 | release | Taking the address of banned `std::unique_ptr<C1[], default_delete<C1[]>>::release`. |

@@ -2,6 +2,7 @@
 #define _GHLIBCPP_ARRAY
 #include <iterator>
 #include <string>
+#include <empty.h>
 
 // Note: a few features currently unused by tests are commented out
 namespace std {

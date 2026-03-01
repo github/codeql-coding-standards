@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-0-2-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Variables that do not affect the runtime of a program indicate potential errors and interfere with code readability.",
+          "kind": "problem",
+          "name": "Variables with limited visibility should be used at least once",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UnusedLimitedVisibilityVariable",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Variables with limited visibility should be used at least once"
+    }
+  }
+}

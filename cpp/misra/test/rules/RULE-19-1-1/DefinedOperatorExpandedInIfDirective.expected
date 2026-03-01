@@ -1,0 +1,3 @@
+| test.cpp:39:1:39:6 | #if M1 | If directive contains macro expansion including the token 'defined' from macro $@, which results in undefined behavior. | test.cpp:34:1:34:18 | #define M1 defined | M1 |
+| test.cpp:41:1:41:6 | #if M2 | If directive contains macro expansion including the token 'defined' from macro $@, which results in undefined behavior. | test.cpp:35:1:35:30 | #define M2 1 + 2 + defined + 3 | M2 |
+| test.cpp:43:1:43:6 | #if M3 | If directive contains macro expansion including the token 'defined' from macro $@, which results in undefined behavior. | test.cpp:35:1:35:30 | #define M2 1 + 2 + defined + 3 | M2 |

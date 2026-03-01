@@ -14,69 +14,80 @@ class ConstNoThrowTReferenceType extends ReferenceType {
 }
 
 /** An `operator` that implements one of the `[replacement.functions]`. */
-abstract class CustomOperatorNewOrDelete extends Operator {
+abstract class OperatorNewOrDelete extends Operator {
+  OperatorNewOrDelete() {
+    this.getName().regexpMatch("operator new(\\[\\])?") or
+    this.getName().regexpMatch("operator delete(\\[\\])?")
+  }
+}
+
+class ReplaceableOperatorNew extends OperatorNewOrDelete {
+  ReplaceableOperatorNew() {
+    this.getName().regexpMatch("operator new(\\[\\])?") and
+    this.getParameter(0).getType() instanceof Size_t and
+    (
+      this.getNumberOfParameters() = 1
+      or
+      this.getNumberOfParameters() = 2 and
+      this.getParameter(1).getType() instanceof ConstNoThrowTReferenceType
+    )
+  }
+}
+
+class CustomOperatorNewOrDelete extends OperatorNewOrDelete {
   CustomOperatorNewOrDelete() {
+    this.hasDefinition() and
     // Not in the standard library
-    exists(getFile().getRelativePath()) and
+    exists(this.getFile().getRelativePath()) and
     // Not in a file called `new`, which is likely to be a copy of the standard library
     // as it is in our tests
-    not getFile().getBaseName() = "new"
+    not this.getFile().getBaseName() = "new"
   }
 
   /**
    * Holds if this is a an allocation function that takes a `const std::nothrow_t&`.
    */
   predicate isNoThrowAllocation() {
-    getAParameter().getType() instanceof ConstNoThrowTReferenceType
+    this.getAParameter().getType() instanceof ConstNoThrowTReferenceType
   }
 
   /** Get the description of this custom allocator. */
   string getAllocDescription() {
     result =
-      getName() + "(" +
-        concat(Parameter p, int i | p = getParameter(i) | p.getType().getName(), "," order by i) +
-        ")"
+      this.getName() + "(" +
+        concat(Parameter p, int i | p = this.getParameter(i) | p.getType().getName(), "," order by i)
+        + ")"
   }
 }
 
-class CustomOperatorNew extends CustomOperatorNewOrDelete {
-  CustomOperatorNew() {
-    hasDefinition() and
-    getName().regexpMatch("operator new(\\[\\])?") and
-    getParameter(0).getType() instanceof Size_t and
-    (
-      getNumberOfParameters() = 1
-      or
-      getNumberOfParameters() = 2 and
-      getParameter(1).getType() instanceof ConstNoThrowTReferenceType
-    )
-  }
-}
+class CustomReplaceableOperatorNew extends CustomOperatorNewOrDelete, ReplaceableOperatorNew { }
 
-class CustomOperatorDelete extends CustomOperatorNewOrDelete {
-  CustomOperatorDelete() {
-    getName().regexpMatch("operator delete(\\[\\])?") and
-    getParameter(0).getType() instanceof VoidPointerType and
+class ReplaceableOperatorDelete extends OperatorNewOrDelete {
+  ReplaceableOperatorDelete() {
+    this.getName().regexpMatch("operator delete(\\[\\])?") and
+    this.getParameter(0).getType() instanceof VoidPointerType and
     (
-      getNumberOfParameters() = 1
+      this.getNumberOfParameters() = 1
       or
-      getNumberOfParameters() = 2 and
+      this.getNumberOfParameters() = 2 and
       (
-        getParameter(1).getType() instanceof ConstNoThrowTReferenceType
+        this.getParameter(1).getType() instanceof ConstNoThrowTReferenceType
         or
-        getParameter(1).getType() instanceof Size_t
+        this.getParameter(1).getType() instanceof Size_t
       )
       or
-      getNumberOfParameters() = 3 and
+      this.getNumberOfParameters() = 3 and
       (
-        getParameter(1).getType() instanceof Size_t and
-        getParameter(2).getType() instanceof ConstNoThrowTReferenceType
+        this.getParameter(1).getType() instanceof Size_t and
+        this.getParameter(2).getType() instanceof ConstNoThrowTReferenceType
       )
     )
   }
+}
 
-  CustomOperatorDelete getPartner() {
-    if getAParameter().getType() instanceof Size_t
+class CustomReplaceableOperatorDelete extends CustomOperatorNewOrDelete, ReplaceableOperatorDelete {
+  CustomReplaceableOperatorDelete getPartner() {
+    if this.getAParameter().getType() instanceof Size_t
     then
       result.getAllocDescription() = this.getAllocDescription().replaceAll(",size_t", "") and
       // Linked together in the same target

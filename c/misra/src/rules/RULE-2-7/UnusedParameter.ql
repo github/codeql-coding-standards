@@ -16,6 +16,8 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.rules.unusedparameter.UnusedParameter
 
-class UnusedParameterQuery extends UnusedParameterSharedQuery {
-  UnusedParameterQuery() { this = DeadCodePackage::unusedParameterQuery() }
+module UnusedParameterQueryConfig implements UnusedParameterSharedConfigSig {
+  Query getQuery() { result = DeadCodePackage::unusedParameterQuery() }
 }
+
+import UnusedParameterShared<UnusedParameterQueryConfig>

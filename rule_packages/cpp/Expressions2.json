@@ -1,0 +1,104 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-5-13-6": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Declaring a long long integer literal with a single L or l in the suffix is misleading and can cause confusion.",
+          "kind": "problem",
+          "name": "An integer-literal of type long long shall not use a single L or l in any suffix",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LongLongLiteralWithSingleLSuffix",
+          "tags": [
+            "scope/single-translation-unit",
+            "readability"
+          ]
+        }
+      ],
+      "title": "An integer-literal of type long long shall not use a single L or l in any suffix"
+    },
+    "RULE-8-0-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Usage of parentheses improve program clarity when using multiple operators of different precedences.",
+          "kind": "problem",
+          "name": "Parentheses should be used to make the meaning of an expression appropriately explicit",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MissingPrecedenceClarifyingParenthesis",
+          "tags": [
+            "scope/single-translation-unit",
+            "readability",
+            "correctness"
+          ]
+        },
+        {
+          "description": "Usage of parentheses improve program clarity when using the sizeof() operator.",
+          "kind": "problem",
+          "name": "Parentheses should be used to make the meaning of an expression appropriately explicit",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "MissingSizeofOperatorParenthesis",
+          "tags": [
+            "scope/single-translation-unit",
+            "readability"
+          ]
+        }
+      ],
+      "title": "Parentheses should be used to make the meaning of an expression appropriately explicit"
+    },
+    "RULE-8-1-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using implicit capture for a lambda declared in a class will capture the `this` pointer and not the instance members, which can be suprising and result in undefined behavior past the object's lifetime.",
+          "kind": "path-problem",
+          "name": "A non-transient lambda shall not implicitly capture this",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NonTransientLambdaImplicitlyCapturesThis",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "A non-transient lambda shall not implicitly capture this"
+    },
+    "RULE-8-1-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Explicit captures in lambdas which are \"stored\" clarifies dependencies that must be managed for memory management and safety.",
+          "kind": "path-problem",
+          "name": "Variables should be captured explicitly in a non-transient lambda",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "ImplicitCapturesDisallowedInNonTransientLambda",
+          "tags": [
+            "scope/single-translation-unit",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Variables should be captured explicitly in a non-transient lambda"
+    }
+  }
+}

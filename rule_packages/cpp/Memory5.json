@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-21-6-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Manually allocating and deallocating is error prone and may cause memory safety bugs such as memory leaks, use-after-frees, or double frees.",
+          "kind": "problem",
+          "name": "Dynamic memory shall be managed automatically",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DynamicMemoryManagedManually",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Dynamically allocated memory must not be managed manually."
+    }
+  }
+}

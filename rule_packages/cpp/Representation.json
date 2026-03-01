@@ -49,7 +49,8 @@
           "name": "An object shall not be assigned to an overlapping object",
           "precision": "high",
           "severity": "error",
-          "short_name": "ObjectAssignedToAnOverlappingObject",
+          "short_name": "ObjectAssignedToAnOverlappingObjectAutosarCpp",
+          "shared_implementation_short_name": "ObjectAssignedToAnOverlappingObject",
           "tags": [
             "correctness"
           ]

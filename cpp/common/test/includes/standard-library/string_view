@@ -3,6 +3,7 @@
 #define _GHLIBCPP_STRING_VIEW
 
 #include "stddef.h"
+#include <empty.h>
 
 namespace std {
 

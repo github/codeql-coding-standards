@@ -1,5 +1,5 @@
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (UnsequencedAtomicReads.ql:112,31-39)
-WARNING: module 'DataFlow' has been deprecated and may be removed in future (UnsequencedAtomicReads.ql:112,67-75)
-WARNING: module 'TaintTracking' has been deprecated and may be removed in future (UnsequencedAtomicReads.ql:112,5-18)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UnsequencedAtomicReads.ql:114,31-39)
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (UnsequencedAtomicReads.ql:114,67-75)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (UnsequencedAtomicReads.ql:114,5-18)
 | test.c:44:12:44:18 | ... + ... | Atomic variable $@ has a $@ that is unsequenced with $@. | test.c:42:15:42:16 | a1 | a1 | test.c:44:12:44:13 | a1 | previous read | test.c:44:17:44:18 | a1 | another read |
 | test.c:46:3:46:37 | ... + ... | Atomic variable $@ has a $@ that is unsequenced with $@. | test.c:42:15:42:16 | a1 | a1 | test.c:46:16:46:17 | a1 | previous read | test.c:46:35:46:36 | a1 | another read |

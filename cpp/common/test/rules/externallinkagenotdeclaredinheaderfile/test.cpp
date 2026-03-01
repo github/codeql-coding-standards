@@ -3,7 +3,7 @@
 int g1;                  // NON_COMPLIANT
 extern int g2;           // NON_COMPLIANT
 const int g3 = 0;        // COMPLIANT
-extern const int g4 = 0; // COMPLIANT
+extern const int g4 = 0; // NON_COMPLIANT
 static int g5;           // COMPLIANT
 
 namespace n1 { // named namespace as external linkage

@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-5-10-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Identifiers shall not conflict with keywords, reserved names, or otherwise be poorly formed.",
+          "kind": "problem",
+          "name": "User-defined identifiers shall have an appropriate form",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "PoorlyFormedIdentifier",
+          "tags": [
+            "scope/single-translation-unit",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "User-defined identifiers shall have an appropriate form"
+    }
+  }
+}

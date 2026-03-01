@@ -1,0 +1,3 @@
+ - `A3-3-2` - `StaticOrThreadLocalObjectsNonConstantInit`:
+   - The checks for non-constant initialization have been moved to be usable in other queries, such as MISRA C++23 Rule 6.7.2.
+   - No visible changes in query results expected.

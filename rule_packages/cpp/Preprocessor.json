@@ -1,0 +1,97 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-19-0-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using #undef to undefine a macro that is not defined in the same file can lead to confusion.",
+          "kind": "problem",
+          "name": "#undef should only be used for macros defined previously in the same file",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "UndefOfMacroNotDefinedInFile",
+          "tags": [
+            "scope/single-translation-unit",
+            "readability",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "#undef should only be used for macros defined previously in the same file"
+    },
+    "RULE-19-1-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using the defined operator without an immediately following optionally parenthesized identifier results in undefined behavior.",
+          "kind": "problem",
+          "name": "The defined preprocessor operator shall be used appropriately",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InvalidTokenInDefinedOperator",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        },
+        {
+          "description": "Macro expansions that produce the token 'defined' inside of an if directive result in undefined behavior.",
+          "kind": "problem",
+          "name": "The defined preprocessor operator shall be used appropriately",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DefinedOperatorExpandedInIfDirective",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The defined preprocessor operator shall be used appropriately"
+    },
+    "RULE-19-2-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Precautions shall be taken in order to prevent the contents of a header file being included more than once.",
+          "kind": "problem",
+          "name": "Precautions shall be taken in order to prevent a header file being included more than once",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "NoValidIfdefGuardInHeader",
+          "shared_implementation_short_name": "IncludeGuardsNotUsed",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability",
+            "correctness"
+          ]
+        },
+        {
+          "description": "Include directives shall be within the scope of an include guard.",
+          "kind": "problem",
+          "name": "Comments are the only content permitted outside of the scope of an include guard in a header file",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "IncludeOutsideGuard",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Precautions shall be taken in order to prevent the contents of a header file being included more than once"
+    }
+  }
+}
