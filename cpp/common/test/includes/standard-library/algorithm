@@ -9,9 +9,34 @@ template <class T> constexpr const T &min(const T &a, const T &b);
 template <class InputIterator, class Function>
 Function for_each(InputIterator first, InputIterator last, Function f);
 
+/** std::remove */
 template <class ForwardIterator, class T>
 ForwardIterator remove(ForwardIterator first, ForwardIterator last,
                        const T &value);
+template <class ExecutionPolicy, class ForwardIterator, class T>
+ForwardIterator remove(ExecutionPolicy &&policy, ForwardIterator first,
+    ForwardIterator last, const T &value);
+
+/** std::remove_if */
+template <class ForwardIterator, class Predicate>
+ForwardIterator remove_if(ForwardIterator first, ForwardIterator last,
+                          Predicate pred);
+template <class ExecutionPolicy, class ForwardIterator, class Predicate>
+ForwardIterator remove_if(ExecutionPolicy &&policy, ForwardIterator first,
+    ForwardIterator last, Predicate pred);
+
+/** std::unique */
+template <class ForwardIterator>
+ForwardIterator unique(ForwardIterator first, ForwardIterator last);
+template <class ExecutionPolicy, class ForwardIterator>
+ForwardIterator unique(ExecutionPolicy &&policy, ForwardIterator first,
+    ForwardIterator last);
+template <class ForwardIterator, class BinaryPredicate>
+ForwardIterator unique(ForwardIterator first, ForwardIterator last,
+    BinaryPredicate pred);
+template <class ExecutionPolicy, class ForwardIterator, class BinaryPredicate>
+ForwardIterator unique(ExecutionPolicy &&policy, ForwardIterator first,
+    ForwardIterator last, BinaryPredicate pred);
 
 template <class InputIterator, class OutputIterator>
 OutputIterator copy(InputIterator first, InputIterator last,

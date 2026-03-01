@@ -18,11 +18,14 @@ import Const
 import Conversions
 import Conversions2
 import DeadCode
+import DeadCode11
 import DeadCode3
 import DeadCode4
 import DeadCode5
 import DeadCode6
 import DeadCode7
+import DeadCode8
+import DeadCode9
 import Declarations
 import ExceptionSafety
 import Exceptions1
@@ -50,6 +53,8 @@ import Macros
 import Memory2
 import Memory3
 import Memory4
+import Memory5
+import Memory6
 import MoveForward
 import Naming
 import Naming2
@@ -61,6 +66,7 @@ import OutOfBounds
 import Pointers
 import Preconditions1
 import Preconditions4
+import Preprocessor
 import Representation
 import Scope
 import SideEffects1
@@ -97,11 +103,14 @@ newtype TCPPQuery =
   TConversionsPackageQuery(ConversionsQuery q) or
   TConversions2PackageQuery(Conversions2Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
+  TDeadCode11PackageQuery(DeadCode11Query q) or
   TDeadCode3PackageQuery(DeadCode3Query q) or
   TDeadCode4PackageQuery(DeadCode4Query q) or
   TDeadCode5PackageQuery(DeadCode5Query q) or
   TDeadCode6PackageQuery(DeadCode6Query q) or
   TDeadCode7PackageQuery(DeadCode7Query q) or
+  TDeadCode8PackageQuery(DeadCode8Query q) or
+  TDeadCode9PackageQuery(DeadCode9Query q) or
   TDeclarationsPackageQuery(DeclarationsQuery q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
@@ -129,6 +138,8 @@ newtype TCPPQuery =
   TMemory2PackageQuery(Memory2Query q) or
   TMemory3PackageQuery(Memory3Query q) or
   TMemory4PackageQuery(Memory4Query q) or
+  TMemory5PackageQuery(Memory5Query q) or
+  TMemory6PackageQuery(Memory6Query q) or
   TMoveForwardPackageQuery(MoveForwardQuery q) or
   TNamingPackageQuery(NamingQuery q) or
   TNaming2PackageQuery(Naming2Query q) or
@@ -140,6 +151,7 @@ newtype TCPPQuery =
   TPointersPackageQuery(PointersQuery q) or
   TPreconditions1PackageQuery(Preconditions1Query q) or
   TPreconditions4PackageQuery(Preconditions4Query q) or
+  TPreprocessorPackageQuery(PreprocessorQuery q) or
   TRepresentationPackageQuery(RepresentationQuery q) or
   TScopePackageQuery(ScopeQuery q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
@@ -176,11 +188,14 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConversionsQueryMetadata(query, queryId, ruleId, category) or
   isConversions2QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode11QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode3QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode4QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode5QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode6QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode7QueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode8QueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode9QueryMetadata(query, queryId, ruleId, category) or
   isDeclarationsQueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
@@ -208,6 +223,8 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isMemory2QueryMetadata(query, queryId, ruleId, category) or
   isMemory3QueryMetadata(query, queryId, ruleId, category) or
   isMemory4QueryMetadata(query, queryId, ruleId, category) or
+  isMemory5QueryMetadata(query, queryId, ruleId, category) or
+  isMemory6QueryMetadata(query, queryId, ruleId, category) or
   isMoveForwardQueryMetadata(query, queryId, ruleId, category) or
   isNamingQueryMetadata(query, queryId, ruleId, category) or
   isNaming2QueryMetadata(query, queryId, ruleId, category) or
@@ -219,6 +236,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isPointersQueryMetadata(query, queryId, ruleId, category) or
   isPreconditions1QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions4QueryMetadata(query, queryId, ruleId, category) or
+  isPreprocessorQueryMetadata(query, queryId, ruleId, category) or
   isRepresentationQueryMetadata(query, queryId, ruleId, category) or
   isScopeQueryMetadata(query, queryId, ruleId, category) or
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or

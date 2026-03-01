@@ -89,9 +89,7 @@ template <class> class function;
 template <class R, class... Args> class function<R(Args...)> {
 public:
   function();
-  template <class F> function(F&& f) {
-    auto fptr = new F(std::forward<F>(f));
-  }
+  template <class F> function(F&& f);
   template <class F> function &operator=(F &&);
 };
 

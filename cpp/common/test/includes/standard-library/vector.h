@@ -3,6 +3,7 @@
 #include <iterator>
 #include <string>
 #include "memory.h"
+#include "empty.h"
 
 namespace std {
 
@@ -52,6 +53,11 @@ public:
   iterator insert(const_iterator position, InputIterator first,
                   InputIterator last);
   iterator insert(const_iterator position, initializer_list<T> il);
+
+  iterator erase(iterator position);
+  iterator erase(const_iterator position);
+  iterator erase(iterator first, iterator last);
+  iterator erase(const_iterator first, const_iterator last);
 
   reference operator[](size_type n);
   const_reference operator[](size_type n) const;

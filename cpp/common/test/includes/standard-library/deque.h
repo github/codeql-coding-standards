@@ -3,6 +3,8 @@
 #include <iterator>
 #include <string>
 #include "memory.h"
+#include <initializer_list>
+#include <empty.h>
 
 namespace std {
 template <class T, class Allocator = std::allocator<T>> class deque {
@@ -11,6 +13,9 @@ public:
   typedef T value_type;
   typedef value_type &reference;
   typedef const value_type &const_reference;
+
+  deque() = default;
+  deque(std::initializer_list<T>, const Allocator & = Allocator());
 
   typedef __iterator<T> iterator;
   typedef __iterator<T> const_iterator;
