@@ -30,4 +30,4 @@ where
   not callOperator instanceof ConstMemberFunction
 select usageSite, "Predicate usage of $@ has $@", callOperator.getDeclaringType(),
   "callable object " + callOperator.getDeclaringType().getName(), callOperator,
-  "non const operator()."
+  "non-const operator()."

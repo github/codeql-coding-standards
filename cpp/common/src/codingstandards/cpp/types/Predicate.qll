@@ -18,8 +18,8 @@ private import semmle.code.cpp.dataflow.new.DataFlow
  *
  * To be more widely useful, we match more flexibly on the name, as `_Compare` is also common, etc.
  *
- * To get a particular `Type` that is _used_ as a predicate type, see `getASubstitutedType()`,
- * rather than the type parameter itself, see `getASubstitutedType()`.
+ * To get a particular `Type` that is _used_ as a predicate type, rather than the type parameter
+ * itself, see `getASubstitutedType()`.
  */
 class PredicateType extends TypeTemplateParameter {
   PredicateType() {

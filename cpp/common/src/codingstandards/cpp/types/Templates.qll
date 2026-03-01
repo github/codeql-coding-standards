@@ -10,7 +10,7 @@ private newtype TSubstitution =
  * `TemplateClass`, `TemplateFunction`, or `TemplateVariable`, which complicates their usage.
  *
  * A `Substitution` in particular refers to an instantiation of that template of some kind, and
- * allows analysis of which parameters were substituted with which types in that instatiation.
+ * allows analysis of which parameters were substituted with which types in that instantiation.
  */
 class Substitution extends TSubstitution {
   ClassTemplateInstantiation asClassSubstitution() { this = TClassSubstitution(result) }
@@ -61,7 +61,7 @@ class Substitution extends TSubstitution {
   }
 
   /**
-   * Get a `Locatable` that represents a where this substitution was declared in the source code.
+   * Get a `Locatable` that represents where this substitution was declared in the source code.
    *
    * The result may be a `TypeMention`, `Call`, etc. depending on the kind of template and how it is
    * being used, but it handles the various template cases for you.
