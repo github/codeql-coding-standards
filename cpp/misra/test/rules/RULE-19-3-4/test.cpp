@@ -239,7 +239,7 @@ void f6() {
   M13(1 * 1,
       1); // NON-COMPLIANT -- the rule text suggests that this is non
           // compliant, though an argument could be made the other way.
-          // Regardless, this case is diffucult for us to detect.
+          // Regardless, this case is difficult for us to detect.
 #define M14(X) M1(X *X)
   M14(1); // NON-COMPLIANT[False negative] -- The definition of M13 is
           // non-compliant, but we don't detect the generated elements.
