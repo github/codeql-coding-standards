@@ -2,6 +2,7 @@
 #define _GHLIBCPP_DEQUE
 #include <iterator>
 #include <string>
+#include "memory.h"
 #include <initializer_list>
 #include <empty.h>
 

@@ -1,6 +1,7 @@
 #ifndef _GHLIBCPP_STRING
 #define _GHLIBCPP_STRING
 #include "cwchar"
+#include "memory.h"
 #include "initializer_list"
 #include "ios.h"
 #include "iosfwd.h"
