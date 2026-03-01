@@ -68,7 +68,7 @@ class CriticalOperatorExpr extends Expr {
  *
  * This class is used in two passes. Firstly, with `hasRiskyParameter`, to find the macro parameters
  * that should be parsed for parenthesis. Secondly, with `hasNonCompliantParameter`, to parse the
- * risky parameters and attempt to match the produced AST to an unparenthesized occurence of that
+ * risky parameters and attempt to match the produced AST to an unparenthesized occurrence of that
  * operator in the argument text.
  *
  * For a given macro invocation to be considered risky, it must
