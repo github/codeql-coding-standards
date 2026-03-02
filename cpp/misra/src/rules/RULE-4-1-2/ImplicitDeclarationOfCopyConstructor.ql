@@ -22,7 +22,7 @@ import codingstandards.cpp.types.ImplicitSpecialMemberFunctions
 
 from Class c, string specialMemberName
 where
-  not isExcluded(c, Toolchain3Package::implicitDeclarationOfCopyConstructorAuditQuery()) and
+  not isExcluded(c, Toolchain3Package::implicitDeclarationOfCopyConstructorQuery()) and
   (
     c instanceof MustHaveDeprecatedCopyConstructor and
     specialMemberName = "copy constructor"

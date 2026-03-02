@@ -4,14 +4,14 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Toolchain3Query =
-  TRedeclarationOfStaticConstexprDataMemberAuditQuery() or
+  TRedeclarationOfStaticConstexprDataMemberQuery() or
   TImplicitDeclarationOfCopyConstructorQuery() or
   TImplicitDeclarationOfCopyConstructorAuditQuery() or
-  TNoexceptSpecifierThrowAuditQuery() or
+  TNoexceptSpecifierThrowQuery() or
   TUseOfDeprecatedCHeadersQuery() or
   TUseOfDeprecatedStrStreamClassQuery() or
   TUseOfUncaughtExceptionQuery() or
-  TUseOfDeprecatedFunctionBinderTypedefMemberAuditQuery() or
+  TUseOfDeprecatedFunctionBinderTypedefMemberQuery() or
   TUseOfDeprecatedUnaryOrBinaryNegateQuery() or
   TUseOfDeprecatedAllocatorVoidQuery() or
   TUseOfDeprecatedStdAllocatorMemberQuery() or
@@ -23,11 +23,11 @@ newtype Toolchain3Query =
 
 predicate isToolchain3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
-    // `Query` instance for the `redeclarationOfStaticConstexprDataMemberAudit` query
-    Toolchain3Package::redeclarationOfStaticConstexprDataMemberAuditQuery() and
+    // `Query` instance for the `redeclarationOfStaticConstexprDataMember` query
+    Toolchain3Package::redeclarationOfStaticConstexprDataMemberQuery() and
   queryId =
-    // `@id` for the `redeclarationOfStaticConstexprDataMemberAudit` query
-    "cpp/misra/redeclaration-of-static-constexpr-data-member-audit" and
+    // `@id` for the `redeclarationOfStaticConstexprDataMember` query
+    "cpp/misra/redeclaration-of-static-constexpr-data-member" and
   ruleId = "RULE-4-1-2" and
   category = "advisory"
   or
@@ -50,11 +50,11 @@ predicate isToolchain3QueryMetadata(Query query, string queryId, string ruleId, 
   category = "advisory"
   or
   query =
-    // `Query` instance for the `noexceptSpecifierThrowAudit` query
-    Toolchain3Package::noexceptSpecifierThrowAuditQuery() and
+    // `Query` instance for the `noexceptSpecifierThrow` query
+    Toolchain3Package::noexceptSpecifierThrowQuery() and
   queryId =
-    // `@id` for the `noexceptSpecifierThrowAudit` query
-    "cpp/misra/noexcept-specifier-throw-audit" and
+    // `@id` for the `noexceptSpecifierThrow` query
+    "cpp/misra/noexcept-specifier-throw" and
   ruleId = "RULE-4-1-2" and
   category = "advisory"
   or
@@ -86,11 +86,11 @@ predicate isToolchain3QueryMetadata(Query query, string queryId, string ruleId, 
   category = "advisory"
   or
   query =
-    // `Query` instance for the `useOfDeprecatedFunctionBinderTypedefMemberAudit` query
-    Toolchain3Package::useOfDeprecatedFunctionBinderTypedefMemberAuditQuery() and
+    // `Query` instance for the `useOfDeprecatedFunctionBinderTypedefMember` query
+    Toolchain3Package::useOfDeprecatedFunctionBinderTypedefMemberQuery() and
   queryId =
-    // `@id` for the `useOfDeprecatedFunctionBinderTypedefMemberAudit` query
-    "cpp/misra/use-of-deprecated-function-binder-typedef-member-audit" and
+    // `@id` for the `useOfDeprecatedFunctionBinderTypedefMember` query
+    "cpp/misra/use-of-deprecated-function-binder-typedef-member" and
   ruleId = "RULE-4-1-2" and
   category = "advisory"
   or
@@ -168,11 +168,11 @@ predicate isToolchain3QueryMetadata(Query query, string queryId, string ruleId, 
 }
 
 module Toolchain3Package {
-  Query redeclarationOfStaticConstexprDataMemberAuditQuery() {
+  Query redeclarationOfStaticConstexprDataMemberQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `redeclarationOfStaticConstexprDataMemberAudit` query
-      TQueryCPP(TToolchain3PackageQuery(TRedeclarationOfStaticConstexprDataMemberAuditQuery()))
+      // `Query` type for `redeclarationOfStaticConstexprDataMember` query
+      TQueryCPP(TToolchain3PackageQuery(TRedeclarationOfStaticConstexprDataMemberQuery()))
   }
 
   Query implicitDeclarationOfCopyConstructorQuery() {
@@ -189,11 +189,11 @@ module Toolchain3Package {
       TQueryCPP(TToolchain3PackageQuery(TImplicitDeclarationOfCopyConstructorAuditQuery()))
   }
 
-  Query noexceptSpecifierThrowAuditQuery() {
+  Query noexceptSpecifierThrowQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `noexceptSpecifierThrowAudit` query
-      TQueryCPP(TToolchain3PackageQuery(TNoexceptSpecifierThrowAuditQuery()))
+      // `Query` type for `noexceptSpecifierThrow` query
+      TQueryCPP(TToolchain3PackageQuery(TNoexceptSpecifierThrowQuery()))
   }
 
   Query useOfDeprecatedCHeadersQuery() {
@@ -217,11 +217,11 @@ module Toolchain3Package {
       TQueryCPP(TToolchain3PackageQuery(TUseOfUncaughtExceptionQuery()))
   }
 
-  Query useOfDeprecatedFunctionBinderTypedefMemberAuditQuery() {
+  Query useOfDeprecatedFunctionBinderTypedefMemberQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `useOfDeprecatedFunctionBinderTypedefMemberAudit` query
-      TQueryCPP(TToolchain3PackageQuery(TUseOfDeprecatedFunctionBinderTypedefMemberAuditQuery()))
+      // `Query` type for `useOfDeprecatedFunctionBinderTypedefMember` query
+      TQueryCPP(TToolchain3PackageQuery(TUseOfDeprecatedFunctionBinderTypedefMemberQuery()))
   }
 
   Query useOfDeprecatedUnaryOrBinaryNegateQuery() {

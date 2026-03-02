@@ -1,16 +1,15 @@
 /**
- * @id cpp/misra/redeclaration-of-static-constexpr-data-member-audit
+ * @id cpp/misra/redeclaration-of-static-constexpr-data-member
  * @name RULE-4-1-2: Redeclaration of static constexpr data members is a deprecated language feature should not be used
  * @description Deprecated language features such as redeclaration of static constexpr data members
  *              are only supported for backwards compatibility; these are considered bad practice,
  *              or have been superceded by better alternatives.
  * @kind problem
- * @precision low
+ * @precision high
  * @problem.severity warning
  * @tags external/misra/id/rule-4-1-2
  *       scope/single-translation-unit
  *       maintainability
- *       audit
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/advisory
  */
@@ -20,7 +19,7 @@ import codingstandards.cpp.misra
 
 from Variable v, Initializer i
 where
-  not isExcluded(v, Toolchain3Package::redeclarationOfStaticConstexprDataMemberAuditQuery()) and
+  not isExcluded(v, Toolchain3Package::redeclarationOfStaticConstexprDataMemberQuery()) and
   v.isStatic() and
   i.getDeclaration() = v and
   v.isConstexpr() and
