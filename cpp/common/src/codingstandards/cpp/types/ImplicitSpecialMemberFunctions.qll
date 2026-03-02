@@ -49,6 +49,11 @@ private signature predicate constraint(Function mf);
  * - C_cannotHave{X} = set of all classes T for which "class T cannot have a {X}"
  * - C_mayHave{X} = not C_cannotHave{X}
  *
+ * Note: We can find UDEF with certainty, just not IDEF.
+ * - C_cannotHave{UDEC X} = not C_mustHave{UDEC X}, and
+ * - C_mayHave{UDEC X} = C_mustHave{UDEC X}.
+ * - This affects step 8 below.
+ *
  * then we can find all cases we know to be deprecated via:
  * - Step 1: find C_mustHave{IDEF CC}, C_mustHave{IDEF CA}
  * - Step 2: find C_mustHave{UDEC CC}, C_mustHave{UDEC CA}, C_mustHave{UDEC D}
@@ -59,11 +64,16 @@ private signature predicate constraint(Function mf);
  * - Step 5: find C_cannotHave{IDEF CC}, C_cannotHave{IDEF CA}
  * - Step 6: find C_mayHave{IDEF CC}, C_mayHave{IDEF CA} (by negating the cannot sets)
  * - Step 7: find C_cannotHave{UDEC CC}, C_cannotHave{UDEC CA}, C_cannotHave{UDEC D}
- * - Step 8: find C_mayHave{UDEC CC}, C_mayHave{UDEC CA}, C_mayHave{UDEC D} (by negating the cannot sets)
+ * - Step 8: find C_mayHave{UDEC CC}, C_mayHave{UDEC CA}, C_mayHave{UDEC D} -- these are actually known with certainty
  * - Step 9: All C' may be deprecated where C' in C_mayHave{IDEF CC} and (C' in C_mayHave{UDEC CA} or C' in C_mayHave{UDEC D})
  * - Step 10: All C' may be deprecated where C' in C_mayHave{IDEF CA} and (C' in C_mayHave{UDEC CC} or C' in C_mayHave{UDEC D})
  *
  * This is performed through the various instantiations of this module.
+ *
+ * This module assumes that a missing SpecialMember is neither `mustHave` or `cannotHave`. This is
+ * the correct behavior for IDEF, but for UDEC, if no special member exists it should be part of the
+ * `cannotHave` set. This is handled by later defining `C_mayHave{UDEC X} = C_mustHave{UDEC X}`,
+ * which correctly handled the case where no X exists for that class.
  */
 private module ClassesWhere<constraint/1 pred, SpecialMember Member> {
   final class FinalClass = Class;
@@ -121,15 +131,9 @@ private class CMayHaveIdefCA =
  * Step 7: find C_cannotHave{UDEC CC}, C_cannotHave{UDEC CA}, C_cannotHave{UDEC D}
  * Step 8: find C_mayHave{UDEC CC}, C_mayHave{UDEC CA}, C_mayHave{UDEC D} (by negating the cannot sets)
  *
- * In our case, `ClassesWhere<...>` performs steps 7 and 8 together via `NotMatching`.
+ * As noted earlier, we know C_mayHave{UDEC X} with certainty. If there is no X in the database, then
+ * it is not user-declared.
  */
-//private class CMayHaveUdecCC = ClassesWhere<mustNotBeUserDeclared/1, CopyConstructor>::NotMatching;
-//
-//private class CMayHaveUdecCA =
-//  ClassesWhere<mustNotBeUserDeclared/1, CopyAssignmentOperator>::NotMatching;
-//
-//private class CMayHaveUdecD = ClassesWhere<mustBeUserDeclared/1, Destructor>::Matching;
-// These are actually 100% known. If there is no dtor, it is not user declared.
 private class CMayHaveUdecCC = CMustHaveUdecCC;
 
 private class CMayHaveUdecCA = CMustHaveUdecCA;
