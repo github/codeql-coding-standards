@@ -29,11 +29,9 @@
             "scope/single-translation-unit",
             "maintainability"
           ],
-          "implementation_scope": [
-            {
-              "description": "CodeQL does not have all trivial implicit special member functions in its database. This query aims to catch all knowably deprecated cases."
-            }
-          ]
+          "implementation_scope": {
+            "description": "CodeQL does not have all trivial implicit special member functions in its database. This query aims to catch all knowably deprecated cases."
+          }
         },
         {
           "description": "Deprecated language features such as implicit declarations of copy constructors are only supported for backwards compatibility; these are considered bad practice, or have been superceded by better alternatives.",
@@ -47,11 +45,9 @@
             "external/misra/audit",
             "maintainability"
           ],
-          "implementation_scope": [
-            {
-              "description": "CodeQL does not have all trivial implicit special member functions in its database. This query aims to catch all cases that couldn't be proven not to be deprecated."
-            }
-          ]
+          "implementation_scope": {
+            "description": "CodeQL does not have all trivial implicit special member functions in its database. This query aims to catch all cases that couldn't be proven not to be deprecated."
+          }
         },
         {
           "description": "Deprecated language features such as the noexcept specifier throw() are only supported for backwards compatibility; these are considered bad practice, or have been superceded by better alternatives.",
