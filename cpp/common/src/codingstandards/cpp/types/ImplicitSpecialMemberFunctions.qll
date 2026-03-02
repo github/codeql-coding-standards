@@ -17,13 +17,11 @@ predicate mustNotBeImplicitlyDefined(Function mf) {
   )
 }
 
-predicate mustBeUserDeclared(Function mf) {
-  exists(FunctionDeclarationEntry fde | fde.getFunction() = mf and not fde.isImplicit())
-}
+predicate mustBeUserDeclared(Function mf) { not mf.isCompilerGenerated() }
 
 predicate mustNotBeUserDeclared(Function mf) {
   // use forex: at least one declaration must exist, and all declarations must be implicit
-  forex(FunctionDeclarationEntry fde | fde.getFunction() = mf | fde.isImplicit())
+  mf.isCompilerGenerated()
 }
 
 private signature class SpecialMember extends Function;
@@ -125,12 +123,18 @@ private class CMayHaveIdefCA =
  *
  * In our case, `ClassesWhere<...>` performs steps 7 and 8 together via `NotMatching`.
  */
-private class CMayHaveUdecCC = ClassesWhere<mustNotBeUserDeclared/1, CopyConstructor>::NotMatching;
+//private class CMayHaveUdecCC = ClassesWhere<mustNotBeUserDeclared/1, CopyConstructor>::NotMatching;
+//
+//private class CMayHaveUdecCA =
+//  ClassesWhere<mustNotBeUserDeclared/1, CopyAssignmentOperator>::NotMatching;
+//
+//private class CMayHaveUdecD = ClassesWhere<mustBeUserDeclared/1, Destructor>::Matching;
+// These are actually 100% known. If there is no dtor, it is not user declared.
+private class CMayHaveUdecCC = CMustHaveUdecCC;
 
-private class CMayHaveUdecCA =
-  ClassesWhere<mustNotBeUserDeclared/1, CopyAssignmentOperator>::NotMatching;
+private class CMayHaveUdecCA = CMustHaveUdecCA;
 
-private class CMayHaveUdecD = ClassesWhere<mustNotBeUserDeclared/1, Destructor>::NotMatching;
+private class CMayHaveUdecD = CMustHaveUdecD;
 
 /* - Step 9: All C' may be deprecated where C' in C_mayHave{IDEF CC} and (C' in C_mayHave{UDEC CA} or C' in C_mayHave{UDEC D}) */
 class MayHaveDeprecatedCopyConstructor extends CMayHaveIdefCC {

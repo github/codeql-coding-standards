@@ -154,3 +154,103 @@ void n1() throw() {} // NON_COMPLIANT - deprecated throw() specifier
 // void n2() throw(std::exception) {} invalid in C++17
 void n3() noexcept {} // COMPLIANT - noexcept is the correct specifier
 void n4() {}          // COMPLIANT - no exception specifier
+
+class NonTrivial {
+public:
+  NonTrivial() {}
+  NonTrivial(const NonTrivial &) {}
+  NonTrivial &operator=(const NonTrivial &) { return *this; }
+  ~NonTrivial() {}
+};
+
+// User declared destructor, deprecated CC and assignment.
+class C1 { // NON_COMPLIANT
+  NonTrivial m1;
+public:
+  ~C1()=default;
+};
+
+// User declared CC results in deprecated 
+class C2 { // NON_COMPLIANT
+  NonTrivial m1;
+public:
+  C2(const C2 &)=default;
+};
+
+// User declared assignment results in deprecated
+class C3 { // NON_COMPLIANT
+  NonTrivial m1;
+public:
+  C3 &operator=(const C3 &)=default;
+};
+
+// Explicitly defaulted CC and assignment
+class C4 { // NON_COMPLIANT
+  NonTrivial m1;
+public:
+  C4(const C4 &) = default;
+  C4 &operator=(const C4 &) = default;
+};
+
+// Explicitly defaulted CC and assignment, user declared dtor
+class C5 { // NON_COMPLIANT
+  NonTrivial m1;
+public:
+  C5(const C5 &) = default;
+  C5 &operator=(const C5 &) = default;
+  ~C5() = default;
+};
+
+// User defined CC and assignment, user declared dtor
+class C6 { // COMPLIANT
+  NonTrivial m1;
+public:
+  C6(const C6 &) {}
+  C6 &operator=(const C6 &) { return *this; }
+  ~C6() = default;
+};
+
+// Trivial with explicitly defaulted CC and assignment, user declared dtor
+class C7 { // NON_COMPLIANT
+  int m1;
+public:
+  C7(const C7 &) = default;
+  C7 &operator=(const C7 &) = default;
+  ~C7() = default;
+};
+
+// Trivial with explicitly defaulted CC and assignment, implicit ctor
+class C8 { // NON_COMPLIANT
+  int m1;
+public:
+  C8(const C8 &) = default;
+  C8 &operator=(const C8 &) = default;
+};
+
+// Trivial with user declared dtor
+class C9 { // NON_COMPLIANT
+  int m1;
+public:
+  ~C9() = default;
+};
+
+// Trivial with rule of zero
+class C10 { // COMPLIANT
+  int m1;
+};
+
+// Nontrivial with rule of zero
+class C11 { // COMPLIANT
+  NonTrivial m1;
+};
+
+class C12 {
+  static constexpr int m1 = 42; // COMPLIANT - static constexpr data member
+  static constexpr int m2 = 42; // NON_COMPLIANT - redeclaration of static constexpr data member
+  static const int m3 = 42; // COMPLIANT - static const data member
+  static const int m4 = 42; // COMPLIANT - static const data member
+  static const int m5; // COMPLIANT - static const data member
+};
+
+constexpr int C12::m2; // NON_COMPLIANT - definition of static constexpr data member
+const int C12::m4; // COMPLIANT - definition of static const data member

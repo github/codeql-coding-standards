@@ -18,7 +18,20 @@
 import cpp
 import codingstandards.cpp.misra
 
-from
+from Variable v, Initializer i
 where
-  not isExcluded(x, Toolchain3Package::redeclarationOfStaticConstexprDataMemberAuditQuery()) and
-select
+  not isExcluded(v, Toolchain3Package::redeclarationOfStaticConstexprDataMemberAuditQuery()) and
+  v.isStatic() and
+  i.getDeclaration() = v and
+  v.isConstexpr() and
+  (
+    // The initializer location is in the class, and the varibale location is outside.
+    // Detect if they're different files:
+    not v.getLocation().getFile() = i.getLocation().getFile()
+    or
+    // Or if the variable is declared after the initializer:
+    i.getLocation().getEndLine() < v.getLocation().getEndLine()
+  )
+select v,
+  "Static constexpr data member '" + v.getName() +
+    "' is redeclared, which is a deprecated language feature."

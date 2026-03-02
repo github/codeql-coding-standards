@@ -5,12 +5,12 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Toolchain3Query =
   TRedeclarationOfStaticConstexprDataMemberAuditQuery() or
+  TImplicitDeclarationOfCopyConstructorQuery() or
   TImplicitDeclarationOfCopyConstructorAuditQuery() or
   TNoexceptSpecifierThrowAuditQuery() or
   TUseOfDeprecatedCHeadersQuery() or
   TUseOfDeprecatedStrStreamClassQuery() or
   TUseOfUncaughtExceptionQuery() or
-  TUseOfWeakResultTypesAuditQuery() or
   TUseOfDeprecatedFunctionBinderTypedefMemberAuditQuery() or
   TUseOfDeprecatedUnaryOrBinaryNegateQuery() or
   TUseOfDeprecatedAllocatorVoidQuery() or
@@ -28,6 +28,15 @@ predicate isToolchain3QueryMetadata(Query query, string queryId, string ruleId, 
   queryId =
     // `@id` for the `redeclarationOfStaticConstexprDataMemberAudit` query
     "cpp/misra/redeclaration-of-static-constexpr-data-member-audit" and
+  ruleId = "RULE-4-1-2" and
+  category = "advisory"
+  or
+  query =
+    // `Query` instance for the `implicitDeclarationOfCopyConstructor` query
+    Toolchain3Package::implicitDeclarationOfCopyConstructorQuery() and
+  queryId =
+    // `@id` for the `implicitDeclarationOfCopyConstructor` query
+    "cpp/misra/implicit-declaration-of-copy-constructor" and
   ruleId = "RULE-4-1-2" and
   category = "advisory"
   or
@@ -73,15 +82,6 @@ predicate isToolchain3QueryMetadata(Query query, string queryId, string ruleId, 
   queryId =
     // `@id` for the `useOfUncaughtException` query
     "cpp/misra/use-of-uncaught-exception" and
-  ruleId = "RULE-4-1-2" and
-  category = "advisory"
-  or
-  query =
-    // `Query` instance for the `useOfWeakResultTypesAudit` query
-    Toolchain3Package::useOfWeakResultTypesAuditQuery() and
-  queryId =
-    // `@id` for the `useOfWeakResultTypesAudit` query
-    "cpp/misra/use-of-weak-result-types-audit" and
   ruleId = "RULE-4-1-2" and
   category = "advisory"
   or
@@ -175,6 +175,13 @@ module Toolchain3Package {
       TQueryCPP(TToolchain3PackageQuery(TRedeclarationOfStaticConstexprDataMemberAuditQuery()))
   }
 
+  Query implicitDeclarationOfCopyConstructorQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `implicitDeclarationOfCopyConstructor` query
+      TQueryCPP(TToolchain3PackageQuery(TImplicitDeclarationOfCopyConstructorQuery()))
+  }
+
   Query implicitDeclarationOfCopyConstructorAuditQuery() {
     //autogenerate `Query` type
     result =
@@ -208,13 +215,6 @@ module Toolchain3Package {
     result =
       // `Query` type for `useOfUncaughtException` query
       TQueryCPP(TToolchain3PackageQuery(TUseOfUncaughtExceptionQuery()))
-  }
-
-  Query useOfWeakResultTypesAuditQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `useOfWeakResultTypesAudit` query
-      TQueryCPP(TToolchain3PackageQuery(TUseOfWeakResultTypesAuditQuery()))
   }
 
   Query useOfDeprecatedFunctionBinderTypedefMemberAuditQuery() {

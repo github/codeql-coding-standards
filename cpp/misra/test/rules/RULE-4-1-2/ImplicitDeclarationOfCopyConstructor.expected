@@ -1,0 +1,13 @@
+| test.cpp:167:7:167:8 | C1 | Class 'C1' has a deprecated implicit copy assignment operator. |
+| test.cpp:167:7:167:8 | C1 | Class 'C1' has a deprecated implicit copy constructor. |
+| test.cpp:174:7:174:8 | C2 | Class 'C2' has a deprecated implicit copy assignment operator. |
+| test.cpp:181:7:181:8 | C3 | Class 'C3' has a deprecated implicit copy constructor. |
+| test.cpp:188:7:188:8 | C4 | Class 'C4' has a deprecated implicit copy assignment operator. |
+| test.cpp:188:7:188:8 | C4 | Class 'C4' has a deprecated implicit copy constructor. |
+| test.cpp:196:7:196:8 | C5 | Class 'C5' has a deprecated implicit copy assignment operator. |
+| test.cpp:196:7:196:8 | C5 | Class 'C5' has a deprecated implicit copy constructor. |
+| test.cpp:214:7:214:8 | C7 | Class 'C7' has a deprecated implicit copy assignment operator. |
+| test.cpp:214:7:214:8 | C7 | Class 'C7' has a deprecated implicit copy constructor. |
+| test.cpp:223:7:223:8 | C8 | Class 'C8' has a deprecated implicit copy assignment operator. |
+| test.cpp:223:7:223:8 | C8 | Class 'C8' has a deprecated implicit copy constructor. |
+| test.cpp:231:7:231:8 | C9 | Class 'C9' has a deprecated implicit copy assignment operator. |
