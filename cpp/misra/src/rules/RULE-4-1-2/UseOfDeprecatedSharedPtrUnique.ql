@@ -17,7 +17,10 @@
 import cpp
 import codingstandards.cpp.misra
 
-from
+from MemberFunction mf, FunctionCall fc
 where
-  not isExcluded(x, Toolchain3Package::useOfDeprecatedSharedPtrUniqueQuery()) and
-select
+  not isExcluded(fc, Toolchain3Package::useOfDeprecatedSharedPtrUniqueQuery()) and
+  mf = fc.getTarget() and
+  mf.hasName("unique") and
+  mf.getDeclaringType().(ClassTemplateInstantiation).hasQualifiedName("std", "shared_ptr")
+select fc, "Call to deprecated member function 'std::shared_ptr::unique'."

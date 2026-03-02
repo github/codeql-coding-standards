@@ -17,7 +17,19 @@
 import cpp
 import codingstandards.cpp.misra
 
-from
+predicate isUnaryOrBinaryNegate(ClassTemplateInstantiation c) {
+  c.hasQualifiedName("std", ["unary_negate", "binary_negate"])
+}
+
+predicate isUsingUnaryOrBinaryNegate(ClassTemplateInstantiation c) {
+  isUnaryOrBinaryNegate(c) or
+  isUsingUnaryOrBinaryNegate(c.getTemplateArgument(_))
+}
+
+from Variable v, ClassTemplateInstantiation c
 where
-  not isExcluded(x, Toolchain3Package::useOfDeprecatedUnaryOrBinaryNegateQuery()) and
-select
+  not isExcluded(v, Toolchain3Package::useOfDeprecatedUnaryOrBinaryNegateQuery()) and
+  v.getUnderlyingType() = c and
+  not v.isFromTemplateInstantiation(_) and
+  isUsingUnaryOrBinaryNegate(c)
+select v, "Use of deprecated type 'std::" + c.getSimpleName() + "'."

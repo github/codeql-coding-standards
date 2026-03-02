@@ -17,7 +17,8 @@
 import cpp
 import codingstandards.cpp.misra
 
-from
+from FunctionCall fc
 where
-  not isExcluded(x, Toolchain3Package::useOfUncaughtExceptionQuery()) and
-select
+  not isExcluded(fc, Toolchain3Package::useOfUncaughtExceptionQuery()) and
+  fc.getTarget().hasQualifiedName("std", "uncaught_exception")
+select fc, "Call to deprecated function 'std::uncaught_exception'."

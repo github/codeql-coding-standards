@@ -103,6 +103,7 @@ public:
   ~shared_ptr() {}
   T &operator*() const noexcept;
   T *operator->() const noexcept;
+  bool unique() const noexcept;
 
   shared_ptr<T> &operator=(const shared_ptr &) {}
   shared_ptr<T> &operator=(shared_ptr &&) { return *this; }

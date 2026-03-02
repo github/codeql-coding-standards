@@ -17,7 +17,44 @@
 import cpp
 import codingstandards.cpp.misra
 
-from
+class IsLiteralTypeTemplate extends TemplateClass {
+  IsLiteralTypeTemplate() { this.hasQualifiedName("std", "is_literal_type") }
+}
+
+class IsLiteralTypeVariable extends TemplateVariable {
+  IsLiteralTypeVariable() { this.hasQualifiedName("std", "is_literal_type") }
+}
+
+from Element usage, string type, string useKind
 where
-  not isExcluded(x, Toolchain3Package::useOfDeprecatedIsLiteralTypeTraitsQuery()) and
-select
+  not isExcluded(usage, Toolchain3Package::useOfDeprecatedIsLiteralTypeTraitsQuery()) and
+  (
+    exists(ClassTemplateInstantiation c |
+      c.getTemplate() instanceof IsLiteralTypeTemplate and
+      usage.(TypeMention).getMentionedType() = c and
+      type = "std::is_literal_type" and
+      useKind = "instantiation"
+    )
+    or
+    exists(VariableTemplateInstantiation v |
+      v.getTemplate() instanceof IsLiteralTypeVariable and
+      usage.(VariableAccess).getTarget() = v and
+      type = "std::is_literal_type" and
+      useKind = "instantiation"
+    )
+    or
+    exists(ClassTemplateSpecialization cti |
+      cti.getPrimaryTemplate() instanceof IsLiteralTypeTemplate and
+      usage.(TypeMention).getMentionedType() = cti and
+      type = "std::is_literal_type" and
+      useKind = "specialization"
+    )
+    or
+    exists(VariableTemplateSpecialization vts |
+      vts.getPrimaryTemplate() instanceof IsLiteralTypeVariable and
+      usage.(VariableAccess).getTarget() = vts and
+      type = "std::is_literal_type" and
+      useKind = "specialization"
+    )
+  )
+select usage, "Use of deprecated type trait '" + type + "' through " + useKind + "."

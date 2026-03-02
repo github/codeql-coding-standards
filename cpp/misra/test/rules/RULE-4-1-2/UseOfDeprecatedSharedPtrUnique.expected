@@ -1,1 +1,4 @@
-No expected results have yet been specified
+| test.cpp:36:6:36:11 | call to unique | Call to deprecated member function 'std::shared_ptr::unique'. |
+| test.cpp:38:12:38:17 | call to unique | Call to deprecated member function 'std::shared_ptr::unique'. |
+| test.cpp:39:15:39:20 | call to unique | Call to deprecated member function 'std::shared_ptr::unique'. |
+| test.cpp:43:6:43:11 | call to unique | Call to deprecated member function 'std::shared_ptr::unique'. |

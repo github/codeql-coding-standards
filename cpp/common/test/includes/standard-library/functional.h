@@ -85,6 +85,21 @@ template <class T> struct equal_to {
   typedef bool result_type;
 };
 
+template <class Predicate> class unary_negate {
+public:
+  unary_negate() = default;
+  explicit unary_negate(const Predicate &pred);
+  bool operator()(const typename Predicate::argument_type &x) const;
+};
+
+template <class Predicate> class binary_negate {
+public:
+  binary_negate() = default;
+  explicit binary_negate(const Predicate &pred);
+  bool operator()(const typename Predicate::first_argument_type &x,
+                  const typename Predicate::second_argument_type &y) const;
+};
+
 template <class> class function;
 template <class R, class... Args> class function<R(Args...)> {
 public:

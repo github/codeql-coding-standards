@@ -16,7 +16,9 @@
 import cpp
 import codingstandards.cpp.misra
 
-from
+from Include include, string includeText
 where
-  not isExcluded(x, Toolchain3Package::useOfDeprecatedCHeadersQuery()) and
-select
+  not isExcluded(include, Toolchain3Package::useOfDeprecatedCHeadersQuery()) and
+  includeText = include.getIncludeText() and
+  includeText = "<c" + ["complex", "stdalign", "stdbool", "tgmath"] + ">"
+select include, "Inclusion of deprecated C header '" + includeText + "'."
