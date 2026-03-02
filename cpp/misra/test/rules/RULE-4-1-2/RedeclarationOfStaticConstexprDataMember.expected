@@ -1,1 +1,1 @@
-| test.cpp:255:15:255:21 | m2 | Static constexpr data member 'm2' is redeclared, which is a deprecated language feature. |
+| test.cpp:266:5:266:11 | m2 | Static constexpr data member 'm2' is redeclared, which is a deprecated language feature. |

@@ -1,1 +1,1 @@
-| test.cpp:231:7:231:8 | C9 | Class 'C9' may have a deprecated implicit copy constructor. |
+| test.cpp:239:7:239:8 | C9 | Class 'C9' may have a deprecated implicit copy constructor. |
