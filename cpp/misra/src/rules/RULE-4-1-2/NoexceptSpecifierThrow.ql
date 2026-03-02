@@ -10,7 +10,6 @@
  * @tags external/misra/id/rule-4-1-2
  *       scope/single-translation-unit
  *       maintainability
- *       audit
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/advisory
  */
