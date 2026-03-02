@@ -1,1 +1,2 @@
-No expected results have yet been specified
+| test.cpp:72:14:72:43 | call to get_temporary_buffer | Call to deprecated function 'std::get_temporary_buffer'. |
+| test.cpp:73:3:73:30 | call to return_temporary_buffer | Call to deprecated function 'std::return_temporary_buffer'. |

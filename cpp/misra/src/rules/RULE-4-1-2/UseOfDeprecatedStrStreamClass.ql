@@ -17,7 +17,9 @@
 import cpp
 import codingstandards.cpp.misra
 
-from
+from TypeMention tm, Class c
 where
-  not isExcluded(x, Toolchain3Package::useOfDeprecatedStrStreamClassQuery()) and
-select
+  not isExcluded(tm, Toolchain3Package::useOfDeprecatedStrStreamClassQuery()) and
+  tm.getMentionedType() = c and
+  c.hasQualifiedName("std", ["strstreambuf", "istrstream", "ostrstream", "strstream"])
+select tm, "Use of deprecated type 'std::" + c.getName() + "'."

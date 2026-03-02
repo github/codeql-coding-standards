@@ -16,8 +16,12 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.StdNamespace
 
-from
+from TypeMention tm, ClassTemplateInstantiation c
 where
-  not isExcluded(x, Toolchain3Package::useOfDeprecatedStdIteratorBaseClassQuery()) and
-select
+  not isExcluded(tm, Toolchain3Package::useOfDeprecatedStdIteratorBaseClassQuery()) and
+  tm.getMentionedType() = c and
+  c.getNamespace() instanceof StdNS and
+  c.getSimpleName() = "iterator"
+select tm, "Use of deprecated base class 'std::iterator'."

@@ -22,7 +22,7 @@ class IsLiteralTypeTemplate extends TemplateClass {
 }
 
 class IsLiteralTypeVariable extends TemplateVariable {
-  IsLiteralTypeVariable() { this.hasQualifiedName("std", "is_literal_type") }
+  IsLiteralTypeVariable() { this.hasQualifiedName("std", "is_literal_type_v") }
 }
 
 from Element usage, string type, string useKind
@@ -45,15 +45,15 @@ where
     or
     exists(ClassTemplateSpecialization cti |
       cti.getPrimaryTemplate() instanceof IsLiteralTypeTemplate and
-      usage.(TypeMention).getMentionedType() = cti and
+      usage = cti and
       type = "std::is_literal_type" and
       useKind = "specialization"
     )
     or
     exists(VariableTemplateSpecialization vts |
       vts.getPrimaryTemplate() instanceof IsLiteralTypeVariable and
-      usage.(VariableAccess).getTarget() = vts and
-      type = "std::is_literal_type" and
+      usage = vts and
+      type = "std::is_literal_type_v" and
       useKind = "specialization"
     )
   )

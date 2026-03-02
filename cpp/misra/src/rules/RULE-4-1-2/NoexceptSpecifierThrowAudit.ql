@@ -18,7 +18,10 @@
 import cpp
 import codingstandards.cpp.misra
 
-from
+from Function f
 where
-  not isExcluded(x, Toolchain3Package::noexceptSpecifierThrowAuditQuery()) and
-select
+  not isExcluded(f, Toolchain3Package::noexceptSpecifierThrowAuditQuery()) and
+  f.isNoThrow() and
+  not f.isCompilerGenerated()
+select f,
+  "Function '" + f.getName() + "' is declared with the deprecated noexcept specifier 'throw()'."

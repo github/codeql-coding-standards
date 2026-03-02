@@ -1,1 +1,1 @@
-No expected results have yet been specified
+| test.cpp:153:6:153:7 | n1 | Function 'n1' is declared with the deprecated noexcept specifier 'throw()'. |

@@ -1,1 +1,1 @@
-No expected results have yet been specified
+| test.cpp:99:8:99:16 | type mention | Use of deprecated allocator specialization 'std::allocator<void>'. |

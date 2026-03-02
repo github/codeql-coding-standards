@@ -17,7 +17,9 @@
 import cpp
 import codingstandards.cpp.misra
 
-from
+from TypeMention tm, ClassTemplateInstantiation c
 where
-  not isExcluded(x, Toolchain3Package::useOfDeprecatedRawStorageIteratorQuery()) and
-select
+  not isExcluded(tm, Toolchain3Package::useOfDeprecatedRawStorageIteratorQuery()) and
+  tm.getMentionedType() = c and
+  c.hasQualifiedName("std", "raw_storage_iterator")
+select tm, "Use of deprecated type 'std::raw_storage_iterator'."

@@ -1,1 +1,10 @@
-No expected results have yet been specified
+| test.cpp:103:19:103:29 | type mention | Use of deprecated function binder typedef member result_type |
+| test.cpp:104:19:104:37 | type mention | Use of deprecated function binder typedef member first_argument_type |
+| test.cpp:105:19:105:38 | type mention | Use of deprecated function binder typedef member second_argument_type |
+| test.cpp:106:21:106:31 | type mention | Use of deprecated function binder typedef member result_type |
+| test.cpp:107:21:107:33 | type mention | Use of deprecated function binder typedef member argument_type |
+| test.cpp:108:28:108:38 | type mention | Use of deprecated function binder typedef member result_type |
+| test.cpp:145:19:145:29 | type mention | Use of deprecated function binder typedef member result_type |
+| test.cpp:146:19:146:31 | type mention | Use of deprecated function binder typedef member argument_type |
+| test.cpp:148:16:148:26 | type mention | Use of deprecated function binder typedef member result_type |
+| test.cpp:150:16:150:26 | type mention | Use of deprecated function binder typedef member result_type |

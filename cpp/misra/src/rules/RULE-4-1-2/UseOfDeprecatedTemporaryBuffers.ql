@@ -17,7 +17,8 @@
 import cpp
 import codingstandards.cpp.misra
 
-from
+from FunctionCall fc
 where
-  not isExcluded(x, Toolchain3Package::useOfDeprecatedTemporaryBuffersQuery()) and
-select
+  not isExcluded(fc, Toolchain3Package::useOfDeprecatedTemporaryBuffersQuery()) and
+  fc.getTarget().hasQualifiedName("std", ["get_temporary_buffer", "return_temporary_buffer"])
+select fc, "Call to deprecated function 'std::" + fc.getTarget().getName() + "'."

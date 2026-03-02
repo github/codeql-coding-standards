@@ -16,8 +16,17 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.standardlibrary.Memory
 
-from
+class DeprecatedDefaultAllocator extends ClassTemplateSpecialization {
+  DeprecatedDefaultAllocator() {
+    this.getPrimaryTemplate() instanceof DefaultAllocator and
+    this.getTemplateArgument(0) instanceof VoidType
+  }
+}
+
+from TypeMention tm, DeprecatedDefaultAllocator x
 where
-  not isExcluded(x, Toolchain3Package::useOfDeprecatedAllocatorVoidQuery()) and
-select
+  not isExcluded(tm, Toolchain3Package::useOfDeprecatedAllocatorVoidQuery()) and
+  tm.getMentionedType() = x
+select tm, "Use of deprecated allocator specialization 'std::allocator<void>'."

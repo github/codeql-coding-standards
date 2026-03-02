@@ -17,8 +17,16 @@
 
 import cpp
 import codingstandards.cpp.misra
+import codingstandards.cpp.types.ImplicitSpecialMemberFunctions
 
-from
+from Class c, string specialMemberName
 where
-  not isExcluded(x, Toolchain3Package::implicitDeclarationOfCopyConstructorAuditQuery()) and
-select
+  not isExcluded(c, Toolchain3Package::implicitDeclarationOfCopyConstructorAuditQuery()) and
+  (
+    c instanceof MayHaveDeprecatedCopyConstructor and
+    specialMemberName = "copy constructor"
+    or
+    c instanceof MayHaveDeprecatedCopyAssignmentOperator and
+    specialMemberName = "copy assignment operator"
+  )
+select c, "Class '" + c.getName() + "' may have a deprecated " + specialMemberName + "."

@@ -1,1 +1,1 @@
-No expected results have yet been specified
+| test.cpp:123:22:123:29 | type mention | Use of deprecated base class 'std::iterator'. |
