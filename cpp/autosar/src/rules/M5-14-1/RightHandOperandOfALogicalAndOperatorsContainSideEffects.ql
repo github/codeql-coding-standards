@@ -16,15 +16,14 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.SideEffect
-import codingstandards.cpp.sideeffect.DefaultEffects
-import codingstandards.cpp.Expr
+import codingstandards.cpp.rules.shortcircuitedpersistentsideeffectshared.ShortCircuitedPersistentSideEffectShared
 
-from BinaryLogicalOperation op, Expr rhs
-where
-  not isExcluded(op,
-    SideEffects1Package::rightHandOperandOfALogicalAndOperatorsContainSideEffectsQuery()) and
-  rhs = op.getRightOperand() and
-  hasSideEffect(rhs) and
-  not rhs instanceof UnevaluatedExprExtension
-select op, "The $@ may have a side effect that is not always evaluated.", rhs, "right-hand operand"
+module RightHandOperandOfALogicalAndOperatorsContainSideEffectsConfig implements
+  ShortCircuitedPersistentSideEffectSharedConfigSig
+{
+  Query getQuery() {
+    result = SideEffects1Package::rightHandOperandOfALogicalAndOperatorsContainSideEffectsQuery()
+  }
+}
+
+import ShortCircuitedPersistentSideEffectShared<RightHandOperandOfALogicalAndOperatorsContainSideEffectsConfig>
