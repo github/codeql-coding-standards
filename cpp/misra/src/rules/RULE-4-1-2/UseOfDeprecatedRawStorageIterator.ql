@@ -2,7 +2,7 @@
  * @id cpp/misra/use-of-deprecated-raw-storage-iterator
  * @name RULE-4-1-2: Class raw_storage_iterator is a deprecated language feature and should not be used
  * @description Deprecated language features such as raw_storage_iterator are only supported for
- *              backwards compatibility; these are considered bad practice, or have been superceded
+ *              backwards compatibility; these are considered bad practice, or have been superseded
  *              by better alternatives.
  * @kind problem
  * @precision high

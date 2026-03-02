@@ -3,7 +3,7 @@
  * @name RULE-4-1-2: Certain members of function binder typedefs are deprecated language features and should not be used
  * @description Deprecated language features such as certain function binder typedef members are
  *              only supported for backwards compatibility; these are considered bad practice, or
- *              have been superceded by better alternatives.
+ *              have been superseded by better alternatives.
  * @kind problem
  * @precision high
  * @problem.severity warning

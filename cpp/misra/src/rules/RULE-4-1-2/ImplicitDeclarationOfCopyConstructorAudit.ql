@@ -3,7 +3,7 @@
  * @name RULE-4-1-2: Implicit declaration of copy constructors is a deprecated language feature should not be used
  * @description Deprecated language features such as implicit declarations of copy constructors are
  *              only supported for backwards compatibility; these are considered bad practice, or
- *              have been superceded by better alternatives.
+ *              have been superseded by better alternatives.
  * @kind problem
  * @precision low
  * @problem.severity warning

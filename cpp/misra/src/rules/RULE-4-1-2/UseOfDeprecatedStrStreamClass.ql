@@ -1,8 +1,8 @@
 /**
  * @id cpp/misra/use-of-deprecated-str-stream-class
- * @name RULE-4-1-2: The char* stream classes strstreambuf, istreamstr, ostramstr, and strstream are deprecated and should not be used
+ * @name RULE-4-1-2: The char* stream classes strstreambuf, istrstream, ostrstream, and strstream are deprecated and should not be used
  * @description Deprecated language features such as the char* stream classes are only supported for
- *              backwards compatibility; these are considered bad practice, or have been superceded
+ *              backwards compatibility; these are considered bad practice, or have been superseded
  *              by better alternatives.
  * @kind problem
  * @precision very-high

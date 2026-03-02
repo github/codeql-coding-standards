@@ -3,7 +3,7 @@
  * @name RULE-4-1-2: Certain members of std::allocator are deprecated language features and should not be used
  * @description Deprecated language features such as certain members of std::allocator are only
  *              supported for backwards compatibility; these are considered bad practice, or have
- *              been superceded by better alternatives.
+ *              been superseded by better alternatives.
  * @kind problem
  * @precision very-high
  * @problem.severity warning
@@ -39,7 +39,7 @@ class DeprecatedAllocatorUsingMember extends UsingAliasTypedefType, DeprecatedUs
   override Locatable getAUseLocation() { result.(TypeMention).getMentionedType() = this }
 
   override string getAUseDescription() {
-    result = "Use of deprecated allocator member 'std::allocator<void>::pointer'."
+    result = "Use of deprecated allocator member 'std::allocator::" + this.getName() + "'."
   }
 }
 
@@ -59,7 +59,7 @@ class DeprecatedAllocatorMemberFunction extends MemberFunction, DeprecatedUse {
   override Locatable getAUseLocation() { result.(FunctionCall).getTarget() = this }
 
   override string getAUseDescription() {
-    result = "Use of deprecated allocator member 'std::allocator<void>::" + this.getName() + "'."
+    result = "Use of deprecated allocator member 'std::allocator::" + this.getName() + "'."
   }
 }
 

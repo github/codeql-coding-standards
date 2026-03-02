@@ -3,7 +3,7 @@
  * @name RULE-4-1-2: The noexcept specifier throw() is a deprecated language feature should not be used
  * @description Deprecated language features such as the noexcept specifier throw() are only
  *              supported for backwards compatibility; these are considered bad practice, or have
- *              been superceded by better alternatives.
+ *              been superseded by better alternatives.
  * @kind problem
  * @precision high
  * @problem.severity warning

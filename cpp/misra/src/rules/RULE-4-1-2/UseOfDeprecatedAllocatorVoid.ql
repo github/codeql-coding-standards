@@ -2,7 +2,7 @@
  * @id cpp/misra/use-of-deprecated-allocator-void
  * @name RULE-4-1-2: Specialization allocator<void> is a deprecated language feature and should not be used
  * @description Deprecated language features such as allocator<void> are only supported for
- *              backwards compatibility; these are considered bad practice, or have been superceded
+ *              backwards compatibility; these are considered bad practice, or have been superseded
  *              by better alternatives.
  * @kind problem
  * @precision very-high

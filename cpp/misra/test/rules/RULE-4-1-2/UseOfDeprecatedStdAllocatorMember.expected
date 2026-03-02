@@ -1,7 +1,7 @@
-| test.cpp:86:24:86:30 | type mention | Use of deprecated allocator member 'std::allocator<void>::pointer'. |
-| test.cpp:88:9:88:16 | call to allocate | Use of deprecated allocator member 'std::allocator<void>::allocate'. |
-| test.cpp:89:5:89:11 | call to address | Use of deprecated allocator member 'std::allocator<void>::address'. |
-| test.cpp:90:5:90:13 | call to construct | Use of deprecated allocator member 'std::allocator<void>::construct'. |
-| test.cpp:91:5:91:11 | call to destroy | Use of deprecated allocator member 'std::allocator<void>::destroy'. |
-| test.cpp:93:5:93:12 | call to max_size | Use of deprecated allocator member 'std::allocator<void>::max_size'. |
+| test.cpp:86:24:86:30 | type mention | Use of deprecated allocator member 'std::allocator::pointer'. |
+| test.cpp:88:9:88:16 | call to allocate | Use of deprecated allocator member 'std::allocator::allocate'. |
+| test.cpp:89:5:89:11 | call to address | Use of deprecated allocator member 'std::allocator::address'. |
+| test.cpp:90:5:90:13 | call to construct | Use of deprecated allocator member 'std::allocator::construct'. |
+| test.cpp:91:5:91:11 | call to destroy | Use of deprecated allocator member 'std::allocator::destroy'. |
+| test.cpp:93:5:93:12 | call to max_size | Use of deprecated allocator member 'std::allocator::max_size'. |
 | test.cpp:96:30:96:35 | type mention | Use of deprecated allocator member class 'std::allocator::rebind'. |

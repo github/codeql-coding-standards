@@ -2,7 +2,7 @@
  * @id cpp/misra/use-of-deprecated-c-headers
  * @name RULE-4-1-2: Use of <ccomplex>, <cstdalign>, and <cstdbool>, or <ctgmath> is deprecated and therefore these headers should not be used
  * @description These C standard library headers are only supported for backwards compatibility;
- *              these are considered bad practice, or have been superceded by better alternatives.
+ *              these are considered bad practice, or have been superseded by better alternatives.
  * @kind problem
  * @precision very-high
  * @problem.severity warning

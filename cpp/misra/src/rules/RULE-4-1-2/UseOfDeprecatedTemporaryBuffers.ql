@@ -2,7 +2,7 @@
  * @id cpp/misra/use-of-deprecated-temporary-buffers
  * @name RULE-4-1-2: Temporary buffers are deprecated language features and should not be used
  * @description Deprecated language features such as temporary buffers are only supported for
- *              backwards compatibility; these are considered bad practice, or have been superceded
+ *              backwards compatibility; these are considered bad practice, or have been superseded
  *              by better alternatives.
  * @kind problem
  * @precision very-high
