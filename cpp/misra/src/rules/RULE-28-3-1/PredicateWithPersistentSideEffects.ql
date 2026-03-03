@@ -40,4 +40,4 @@ where
       f = obj.getCallOperator()
     )
   )
-select usageSite, "Predicate $@ has a $@.", f, f.getName(), effect, "persistent side effect"
+select usageSite, "Predicate $@ has a $@.", f, f.getName(), effect, "persistent side effect."
