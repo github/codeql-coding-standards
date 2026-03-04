@@ -71,4 +71,4 @@ from TypeMention tm, DeprecatedFunctionBinderTypedefMember member
 where
   not isExcluded(tm, Toolchain3Package::useOfDeprecatedFunctionBinderTypedefMemberQuery()) and
   tm.getMentionedType() = member
-select tm, "Use of deprecated function binder typedef member " + member.toString()
+select tm, "Use of deprecated function binder typedef member " + member.toString() + "."
