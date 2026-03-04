@@ -996,7 +996,7 @@ cpp,MISRA-C++-2023,RULE-25-5-2,Yes,Mandatory,Decidable,Single Translation Unit,"
 cpp,MISRA-C++-2023,RULE-25-5-3,Yes,Mandatory,Undecidable,System,"The pointer returned by the C++ Standard Library functions asctime, ctime, gmtime, localtime, localeconv, getenv, setlocale or strerror must not be used following a subsequent call to the same function",RULE-21-20,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-26-3-1,Yes,Advisory,Decidable,Single Translation Unit,std::vector should not be specialized with bool,A18-1-2,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-28-3-1,Yes,Required,Undecidable,System,Predicates shall not have persistent side effects,A25-1-1,SideEffects3,Easy,
-cpp,MISRA-C++-2023,RULE-28-6-1,Yes,Required,Decidable,Single Translation Unit,The argument to std::move shall be a non-const lvalue,A18-9-3,Preconditions,Easy,
+cpp,MISRA-C++-2023,RULE-28-6-1,Yes,Required,Decidable,Single Translation Unit,The argument to std::move shall be a non-const lvalue,A18-9-3,Preconditions5,Easy,
 cpp,MISRA-C++-2023,RULE-28-6-2,Yes,Required,Decidable,Single Translation Unit,Forwarding references and std::forward shall be used together,A18-9-2,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-28-6-3,Yes,Required,Decidable,Single Translation Unit,An object shall not be used while in a potentially moved-from state,A12-8-3,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-28-6-4,Yes,Required,Decidable,Single Translation Unit,"The result of std::remove, std::remove_if, std::unique and empty shall be used",,DeadCode11,Easy,
