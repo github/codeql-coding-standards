@@ -44,14 +44,14 @@ jobs:
           fi
 
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ env.REF }}
           fetch-depth: 0
           path: release 
       
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ env.TOOL_REF }}
           path: tooling 
