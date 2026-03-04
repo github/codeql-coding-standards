@@ -17,6 +17,7 @@
 
 import cpp
 import codingstandards.c.cert
+import codingstandards.cpp.types.Resolve
 
 class LiteralZero extends Literal {
   LiteralZero() { this.getValue() = "0" }
@@ -37,21 +38,30 @@ class StdIntIntPtrType extends Type {
   }
 }
 
+class ResolvesToStdIntIntPtrType = ResolvesTo<StdIntIntPtrType>::IgnoringSpecifiers;
+
+class ResolvesToVoidPointerType = ResolvesTo<VoidPointerType>::IgnoringSpecifiers;
+
 /**
  * Casting a pointer value to integer, excluding literal 0.
  * Includes implicit conversions made during declarations or assignments.
  */
 predicate conversionBetweenPointerAndInteger(Cast cast, string message) {
   /* Ensure that `int` has different size than that of pointers */
-  exists(IntType intType, PointerType ptrType | intType.getSize() < ptrType.getSize() |
-    cast.getExpr().getUnderlyingType() = intType and
-    cast.getUnderlyingType() = ptrType and
+  exists(
+    ResolvesTo<IntType>::IgnoringSpecifiers intType,
+    ResolvesTo<PointerType>::IgnoringSpecifiers ptrType
+  |
+    intType.getSize() < ptrType.getSize()
+  |
+    cast.getExpr().getType() = intType and
+    cast.getType() = ptrType and
     if cast.isCompilerGenerated()
     then message = "Integer expression " + cast.getExpr() + " is implicitly cast to a pointer type."
     else message = "Integer expression " + cast.getExpr() + " is cast to a pointer type."
     or
-    cast.getExpr().getUnderlyingType() = ptrType and
-    cast.getUnderlyingType() = intType and
+    cast.getExpr().getType() = ptrType and
+    cast.getType() = intType and
     if cast.isCompilerGenerated()
     then
       message = "Pointer expression " + cast.getExpr() + " is implicitly cast to an integer type."
@@ -61,11 +71,11 @@ predicate conversionBetweenPointerAndInteger(Cast cast, string message) {
   not cast.getExpr() instanceof LiteralZero and
   /* Compliant exception 2: variable's declared type is (u)intptr_t */
   not (
-    cast.getType() instanceof StdIntIntPtrType and
-    cast.getExpr().getType() instanceof VoidPointerType
+    cast.getType() instanceof ResolvesToStdIntIntPtrType and
+    cast.getExpr().getType() instanceof ResolvesToVoidPointerType
     or
-    cast.getType() instanceof VoidPointerType and
-    cast.getExpr().getType() instanceof StdIntIntPtrType
+    cast.getType() instanceof ResolvesToVoidPointerType and
+    cast.getExpr().getType() instanceof ResolvesToStdIntIntPtrType
   )
 }
 
