@@ -4,6 +4,8 @@
 #include <streambuf>
 
 namespace std {
+typedef basic_iostream<char> iostream;
+
 class strstreambuf : public basic_streambuf<char> {};
 
 class istrstream : public istream {
@@ -17,5 +19,10 @@ public:
 class ostrstream : public ostream {
 public:
   ostrstream();
+};
+
+class strstream : public iostream {
+public:
+  strstream();
 };
 } // namespace std

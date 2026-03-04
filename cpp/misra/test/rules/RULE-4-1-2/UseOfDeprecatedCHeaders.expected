@@ -1,0 +1,4 @@
+| test.cpp:46:1:46:19 | #include <ccomplex> | Inclusion of deprecated C header '<ccomplex>'. |
+| test.cpp:48:1:48:20 | #include <cstdalign> | Inclusion of deprecated C header '<cstdalign>'. |
+| test.cpp:49:1:49:19 | #include <cstdbool> | Inclusion of deprecated C header '<cstdbool>'. |
+| test.cpp:50:1:50:18 | #include <ctgmath> | Inclusion of deprecated C header '<ctgmath>'. |
