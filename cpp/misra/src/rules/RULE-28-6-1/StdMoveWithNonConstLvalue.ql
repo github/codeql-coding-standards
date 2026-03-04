@@ -26,7 +26,7 @@ predicate isConstLvalue(Expr arg) {
 }
 
 Type typeOfArgument(Expr e) {
-  // An xvalue may be a constructor, which has no return type. However, these xvalues as act values
+  // An xvalue may be a constructor, which has no return type. However, these xvalues act as values
   // of the constructed type.
   if e instanceof ConstructorCall
   then result = e.(ConstructorCall).getTargetType()
