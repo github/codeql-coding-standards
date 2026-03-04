@@ -4,6 +4,10 @@
 
 import cpp
 
+class DefaultAllocator extends TemplateClass {
+  DefaultAllocator() { this.hasQualifiedName("std", "allocator") }
+}
+
 abstract class UninitializedMemoryManagementFunction extends Function {
   UninitializedMemoryManagementFunction() {
     this.getADeclarationLocation().getFile().getShortName() = "memory"
