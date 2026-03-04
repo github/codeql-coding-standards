@@ -15,6 +15,7 @@ extern const __ph<2> _2;
 } // namespace placeholders
 template <class Fn, class... Args> class binder {
 public:
+  using result_type = int; // deprecated in C++17
   template <class TFn, class... TArgs>
   constexpr binder(TFn &&f, TArgs &&...args) noexcept {}
 
@@ -57,7 +58,18 @@ template <class T> reference_wrapper<T> ref(T &t) noexcept;
 template <class T> void ref(const T &&t) = delete;
 template <class T> reference_wrapper<T> ref(reference_wrapper<T> t) noexcept;
 
-template <class Ty> struct hash { size_t operator()(Ty val) const; };
+template <class Ty> struct hash {
+  using result_type = size_t;  // deprecated in C++17
+  using argument_type = Ty;    // deprecated in C++17
+  size_t operator()(Ty val) const;
+};
+
+template <class F> class mem_fn_result {
+public:
+  using result_type = int; // deprecated in C++17
+};
+
+template <class F> mem_fn_result<F> mem_fn(F f);
 
 template <class Arg, class Result>
 class pointer_to_unary_function : public unary_function<Arg, Result> {
@@ -85,12 +97,42 @@ template <class T> struct equal_to {
   typedef bool result_type;
 };
 
+template <class Predicate> class unary_negate {
+public:
+  unary_negate() = default;
+  explicit unary_negate(const Predicate &pred);
+  bool operator()(const typename Predicate::argument_type &x) const;
+};
+
+template <class Predicate> class binary_negate {
+public:
+  binary_negate() = default;
+  explicit binary_negate(const Predicate &pred);
+  bool operator()(const typename Predicate::first_argument_type &x,
+                  const typename Predicate::second_argument_type &y) const;
+};
+
 template <class> class function;
 template <class R, class... Args> class function<R(Args...)> {
 public:
+  using result_type = R; // deprecated in C++17
   function();
   template <class F> function(F&& f);
   template <class F> function &operator=(F &&);
 };
+
+template <class T = void> struct plus {
+  using result_type = T;           // deprecated in C++17
+  using first_argument_type = T;   // deprecated in C++17
+  using second_argument_type = T;  // deprecated in C++17
+  T operator()(const T &x, const T &y) const;
+};
+
+template <class T = void> struct negate {
+  using result_type = T;      // deprecated in C++17
+  using argument_type = T;    // deprecated in C++17
+  T operator()(const T &x) const;
+};
+
 } // namespace std
 #endif
