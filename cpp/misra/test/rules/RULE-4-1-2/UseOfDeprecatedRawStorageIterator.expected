@@ -1,0 +1,2 @@
+| test.cpp:78:14:78:33 | type mention | Use of deprecated type 'std::raw_storage_iterator'. |
+| test.cpp:79:8:79:27 | type mention | Use of deprecated type 'std::raw_storage_iterator'. |

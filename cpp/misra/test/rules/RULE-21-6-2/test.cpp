@@ -240,7 +240,8 @@ void take_address_of_operator_delete() {
 
 void take_address_of_allocate_deallocate() {
   // std::allocator
-  auto p1 = &std::allocator<C1>::allocate;   // NON_COMPLIANT: address of
+  C1 *(std::allocator<C1>::*p1)(std::size_t) =
+      &std::allocator<C1>::allocate;         // NON_COMPLIANT: address of
                                              // std::allocator::allocate
   auto p2 = &std::allocator<C1>::deallocate; // NON_COMPLIANT: address of
                                              // std::allocator::deallocate
