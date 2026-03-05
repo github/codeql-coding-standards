@@ -1,0 +1,4 @@
+| test.cpp:57:8:57:22 | type mention | Use of deprecated type trait 'std::is_literal_type' through instantiation. |
+| test.cpp:58:17:58:31 | type mention | Use of deprecated type trait 'std::is_literal_type' through instantiation. |
+| test.cpp:64:8:64:36 | is_literal_type<my_type> | Use of deprecated type trait 'std::is_literal_type' through specialization. |
+| test.cpp:67:12:67:38 | is_literal_type_v | Use of deprecated type trait 'std::is_literal_type' through instantiation. |
