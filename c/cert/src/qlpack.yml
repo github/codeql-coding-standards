@@ -1,5 +1,5 @@
 name: codeql/cert-c-coding-standards
-version: 2.55.0-dev
+version: 2.55.0
 description: CERT C 2016
 suites: codeql-suites
 license: MIT
