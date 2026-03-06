@@ -1,0 +1,39 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-8-18-1": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+            "description": "Copying a member of a union to another member causes undefined behavior.",
+            "kind": "problem",
+            "name": "A member of a union must not be copied to its another member",
+            "precision": "high",
+            "severity": "error",
+            "short_name": "ObjectAssignedToAnOverlappingObjectMisraCpp",
+            "shared_implementation_short_name": "ObjectAssignedToAnOverlappingObject",
+            "tags": [
+              "scope/system",
+              "correctness"
+            ]
+        },
+        {
+          "description": "Copying a slice of an array to an overlapping region of the same array causes undefined behavior.",
+          "kind": "problem",
+          "name": "A slice of an array must not be copied to an overlapping region of itself",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "ObjectCopiedToAnOverlappingObjectMisraCpp",
+          "shared_implementation_short_name": "ObjectCopiedToAnOverlappingObject",
+          "tags": [
+            "scope/system",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Copying a member of a union to another, and copying a slice of an array to an overlapping one causes undefined behavior."
+    }
+  }
+}

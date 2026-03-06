@@ -13,6 +13,7 @@ typedef struct { // equivalent to that provided by clang and gcc
 typedef long ptrdiff_t;
 using nullptr_t = decltype(nullptr);
 using size_t = decltype(sizeof(char));
+enum class byte : unsigned char {};
 } // namespace std
 
 #define offsetof(t, d) __builtin_offsetof(t, d) /*implementation-defined*/

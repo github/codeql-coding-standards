@@ -336,6 +336,7 @@
                             "security",
                             "concurrency",
                             "performance",
+                            "portability",
                             "external/cert/audit",
                             "external/autosar/audit",
                             "external/autosar/default-disabled",

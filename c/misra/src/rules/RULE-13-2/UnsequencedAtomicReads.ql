@@ -19,10 +19,10 @@ import codingstandards.c.Ordering
 import codingstandards.c.orderofevaluation.VariableAccessOrdering
 import codingstandards.cpp.StdFunctionOrMacro
 
-class AtomicAccessInFullExpressionOrdering extends Ordering::Configuration {
-  AtomicAccessInFullExpressionOrdering() { this = "AtomicAccessInFullExpressionOrdering" }
+module AtomicAccessInFullExpressionOrdering implements Ordering::ConfigSig {
+  import Ordering::CConfigBase
 
-  override predicate isCandidate(Expr e1, Expr e2) {
+  predicate isCandidate(Expr e1, Expr e2) {
     exists(AtomicVariableAccess a, AtomicVariableAccess b, FullExpr e | a = e1 and b = e2 |
       a.getTarget() = b.getTarget() and
       a.getARead().(ConstituentExpr).getFullExpr() = e and
@@ -91,9 +91,11 @@ class AtomicVariableAccess extends VariableAccess {
   }
 }
 
+import Ordering::Make<AtomicAccessInFullExpressionOrdering> as AtomicOrdering
+
 from
-  AtomicAccessInFullExpressionOrdering config, FullExpr e, Variable v, AtomicVariableAccess va1,
-  AtomicVariableAccess va2, Expr va1Read, Expr va2Read
+  FullExpr e, Variable v, AtomicVariableAccess va1, AtomicVariableAccess va2, Expr va1Read,
+  Expr va2Read
 where
   not isExcluded(e, SideEffects3Package::unsequencedAtomicReadsQuery()) and
   va1Read = va1.getARead() and
@@ -103,7 +105,7 @@ where
   // for instance in gcc where atomic functions expand to StmtExprs, which have clear sequences.
   // In this case, the result of `getARead()` for a pair of atomic function calls may be
   // unsequenced even though the `VariableAccess`es within those calls are not.
-  config.isUnsequenced(va1Read, va2Read) and
+  AtomicOrdering::isUnsequenced(va1Read, va2Read) and
   v = va1.getTarget() and
   v = va2.getTarget() and
   // Exclude cases where the variable is assigned a value tainted by the other variable access.

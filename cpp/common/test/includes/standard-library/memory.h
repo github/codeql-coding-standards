@@ -1,7 +1,9 @@
 #ifndef _GHLIBCPP_MEMORY
 #define _GHLIBCPP_MEMORY
 #include "exception.h"
+#include "iterator.h"
 #include "stddef.h"
+#include "utility.h"
 
 namespace std {
 
@@ -102,6 +104,7 @@ public:
   ~shared_ptr() {}
   T &operator*() const noexcept;
   T *operator->() const noexcept;
+  bool unique() const noexcept;
 
   shared_ptr<T> &operator=(const shared_ptr &) {}
   shared_ptr<T> &operator=(shared_ptr &&) { return *this; }
@@ -128,6 +131,176 @@ public:
   bad_alloc &operator=(const bad_alloc &) noexcept;
   virtual const char *what() const noexcept;
 };
+
+template <typename T1> struct allocator {
+  using value_type = T1;
+  using size_type = std::size_t;
+  using difference_type = std::ptrdiff_t;
+  // deprecated in C++17:
+  using pointer = T1 *;
+  using const_pointer = const T1 *;
+  using reference = T1 &;
+  using const_reference = const T1 &;
+  template <class T2> struct rebind {
+    using other = allocator<T2>;
+  };
+
+  constexpr allocator() noexcept = default;
+  constexpr allocator(const allocator &) noexcept = default;
+
+  template <typename T2> constexpr allocator(const allocator<T2> &) noexcept;
+
+  ~allocator() = default;
+
+  T1 *allocate(std::size_t);
+  T1 *allocate(std::size_t, const void *);
+  void deallocate(T1 *, std::size_t);
+  // deprecated in C++17:
+  pointer address(reference r) const noexcept;
+  const_pointer address(const_reference r) const noexcept;
+  size_type max_size() const noexcept;
+  template <class U, class... Args> void construct(U *p, Args &&...args);
+  template <class U> void destroy(U *p);
+};
+
+template <> struct allocator<void> {
+  using value_type = void;
+};
+
+template <typename T1> struct allocator_traits {
+  using allocator_type = T1;
+  using value_type = typename T1::value_type;
+  using pointer = value_type *;
+  using const_pointer = const value_type *;
+  using void_pointer = void *;
+  using const_void_pointer = const void *;
+  using size_type = typename T1::size_type;
+  using difference_type = typename T1::difference_type;
+
+  template <typename T2> using rebind_alloc = allocator<T2>;
+
+  static pointer allocate(T1 &, size_type);
+  static pointer allocate(T1 &, size_type, const_void_pointer);
+  static void deallocate(T1 &, pointer, size_type);
+};
+
+// uninitialized_default_construct
+template <class T1>
+void uninitialized_default_construct(T1, T1);
+
+template <class T1, class T2>
+void uninitialized_default_construct(T1&&, T2, T2);
+
+// uninitialized_default_construct_n
+template <class T1, class T2>
+T1 uninitialized_default_construct_n(T1, T2);
+
+template <class T1, class T2, class T3>
+T2 uninitialized_default_construct_n(T1&&, T2, T3);
+
+// uninitialized_value_construct
+template <class T1>
+void uninitialized_value_construct(T1, T1);
+
+template <class T1, class T2>
+void uninitialized_value_construct(T1&&, T2, T2);
+
+// uninitialized_value_construct_n
+template <class T1, class T2>
+T1 uninitialized_value_construct_n(T1, T2);
+
+template <class T1, class T2, class T3>
+T2 uninitialized_value_construct_n(T1&&, T2, T3);
+
+// uninitialized_copy
+template <class T1, class T2>
+T2 uninitialized_copy(T1, T1, T2);
+
+template <class T1, class T2, class T3>
+T3 uninitialized_copy(T1&&, T2, T2, T3);
+
+// uninitialized_copy_n
+template <class T1, class T2, class T3>
+T3 uninitialized_copy_n(T1, T2, T3);
+
+template <class T1, class T2, class T3, class T4>
+T4 uninitialized_copy_n(T1&&, T2, T3, T4);
+
+// uninitialized_move
+template <class T1, class T2>
+T2 uninitialized_move(T1, T1, T2);
+
+template <class T1, class T2, class T3>
+T3 uninitialized_move(T1&&, T2, T2, T3);
+
+// uninitialized_move_n
+template <class T1, class T2, class T3>
+pair<T1, T3> uninitialized_move_n(T1, T2, T3);
+
+template <class T1, class T2, class T3, class T4>
+pair<T2, T4> uninitialized_move_n(T1&&, T2, T3, T4);
+
+// uninitialized_fill
+template <class T1, class T2>
+void uninitialized_fill(T1, T1, const T2&);
+
+template <class T1, class T2, class T3>
+void uninitialized_fill(T1&&, T2, T2, const T3&);
+
+// uninitialized_fill_n
+template <class T1, class T2, class T3>
+T1 uninitialized_fill_n(T1, T2, const T3&);
+
+template <class T1, class T2, class T3, class T4>
+T2 uninitialized_fill_n(T1&&, T2, T3, const T4&);
+
+// destroy_at
+template <class T1>
+void destroy_at(T1*);
+
+// destroy
+template <class T1>
+void destroy(T1, T1);
+
+template <class T1, class T2>
+void destroy(T1&&, T2, T2);
+
+// destroy_n
+template <class T1, class T2>
+T1 destroy_n(T1, T2);
+
+template <class T1, class T2, class T3>
+T2 destroy_n(T1&&, T2, T3);
+
+// launder
+template <class T1>
+constexpr T1* launder(T1*) noexcept;
+
+// get_temporary_buffer / return_temporary_buffer (deprecated in C++17)
+template <class T>
+pair<T *, ptrdiff_t> get_temporary_buffer(ptrdiff_t n) noexcept;
+
+template <class T>
+void return_temporary_buffer(T *p);
+
+// raw_storage_iterator (deprecated in C++17)
+template <class OutputIterator, class T>
+class raw_storage_iterator {
+public:
+  using iterator_category = output_iterator_tag;
+  using value_type = void;
+  using difference_type = void;
+  using pointer = void;
+  using reference = void;
+  explicit raw_storage_iterator(OutputIterator x);
+  raw_storage_iterator &operator*();
+  raw_storage_iterator &operator=(const T &element);
+  raw_storage_iterator &operator=(T &&element);
+  raw_storage_iterator &operator++();
+  raw_storage_iterator operator++(int);
+  OutputIterator base() const;
+};
+
 } // namespace std
 
 #endif // _GHLIBCPP_MEMORY

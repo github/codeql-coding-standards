@@ -2,3 +2,4 @@
 | test.c:7:18:7:18 | D | Type declaration D is not used. |
 | test.c:28:11:28:11 | R | Type declaration R is not used. |
 | test.c:41:12:41:12 | (unnamed class/struct/union) | Type declaration (unnamed class/struct/union) is not used. |
+| test.c:56:3:56:4 | T2 | Type declaration T2 is not used. |

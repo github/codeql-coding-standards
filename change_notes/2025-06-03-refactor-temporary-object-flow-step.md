@@ -1,0 +1,2 @@
+ - `RULE-18-9` - `ArraytoPointerConversionOfTemporaryObject.ql`
+   - The behavior for finding flow steps of temporary objects (for example, from ternary branches to the ternary expr result) has been extracted for reuse in other rules, no visible changes expected.

@@ -1,0 +1,8 @@
+// GENERATED FILE - DO NOT MODIFY
+import codingstandards.{{ ql_language_name }}.rules.{{ shared_implementation_short_name.lower() }}.{{ shared_implementation_short_name }}
+
+module TestFileConfig implements {{shared_implementation_short_name}}ConfigSig {
+  Query getQuery() { result instanceof TestQuery }
+}
+
+import {{shared_implementation_short_name}}<TestFileConfig>

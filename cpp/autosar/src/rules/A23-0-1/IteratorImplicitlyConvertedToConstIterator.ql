@@ -13,7 +13,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.Iterators
+import codingstandards.cpp.standardlibrary.Iterators
 
 /*
  *  Due to inconsistent typedefs across STL containers the way this is parsed

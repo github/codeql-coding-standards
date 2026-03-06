@@ -18,11 +18,6 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.deadcode.UnusedVariables
 
-from PotentiallyUnusedGlobalOrNamespaceVariable v
-where
-  not isExcluded(v, DeadCodePackage::unusedGlobalOrNamespaceVariableQuery()) and
-  // No variable access
-  not exists(v.getAnAccess()) and
-  // Exclude members whose value is compile time and is potentially used to inintialize a template
-  not maybeACompileTimeTemplateArgument(v)
+from FullyUnusedGlobalOrNamespaceVariable v
+where not isExcluded(v, DeadCodePackage::unusedGlobalOrNamespaceVariableQuery())
 select v, "Variable '" + v.getQualifiedName() + "' is unused."

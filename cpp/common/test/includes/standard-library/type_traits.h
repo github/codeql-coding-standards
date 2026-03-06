@@ -82,5 +82,20 @@ template <class T> struct is_trivially_move_assignable {
   constexpr operator bool() { return value; }
 };
 
+template <class T> struct is_literal_type {
+  const static bool value = true;
+  constexpr operator bool() { return value; }
+};
+
+template <class T> struct is_trivially_copyable {
+  const static bool value = true;
+  constexpr operator bool() { return value; }
+};
+
+template <class T> inline constexpr bool is_literal_type_v = is_literal_type<T>::value;
+
+template <class T>
+inline constexpr bool is_trivially_copyable_v = is_trivially_copyable<T>::value;
+
 } // namespace std
 #endif // _GHLIBCPP_TYPE_TRAITS
