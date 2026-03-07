@@ -67,6 +67,7 @@ import Pointers
 import Preconditions1
 import Preconditions4
 import Preprocessor
+import Preprocessor2
 import Representation
 import Scope
 import SideEffects1
@@ -80,6 +81,7 @@ import Statements
 import Strings
 import Templates
 import Toolchain
+import Toolchain3
 import Trigraph
 import TrustBoundaries
 import TypeRanges
@@ -153,6 +155,7 @@ newtype TCPPQuery =
   TPreconditions1PackageQuery(Preconditions1Query q) or
   TPreconditions4PackageQuery(Preconditions4Query q) or
   TPreprocessorPackageQuery(PreprocessorQuery q) or
+  TPreprocessor2PackageQuery(Preprocessor2Query q) or
   TRepresentationPackageQuery(RepresentationQuery q) or
   TScopePackageQuery(ScopeQuery q) or
   TSideEffects1PackageQuery(SideEffects1Query q) or
@@ -166,6 +169,7 @@ newtype TCPPQuery =
   TStringsPackageQuery(StringsQuery q) or
   TTemplatesPackageQuery(TemplatesQuery q) or
   TToolchainPackageQuery(ToolchainQuery q) or
+  TToolchain3PackageQuery(Toolchain3Query q) or
   TTrigraphPackageQuery(TrigraphQuery q) or
   TTrustBoundariesPackageQuery(TrustBoundariesQuery q) or
   TTypeRangesPackageQuery(TypeRangesQuery q) or
@@ -239,6 +243,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isPreconditions1QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions4QueryMetadata(query, queryId, ruleId, category) or
   isPreprocessorQueryMetadata(query, queryId, ruleId, category) or
+  isPreprocessor2QueryMetadata(query, queryId, ruleId, category) or
   isRepresentationQueryMetadata(query, queryId, ruleId, category) or
   isScopeQueryMetadata(query, queryId, ruleId, category) or
   isSideEffects1QueryMetadata(query, queryId, ruleId, category) or
@@ -252,6 +257,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isStringsQueryMetadata(query, queryId, ruleId, category) or
   isTemplatesQueryMetadata(query, queryId, ruleId, category) or
   isToolchainQueryMetadata(query, queryId, ruleId, category) or
+  isToolchain3QueryMetadata(query, queryId, ruleId, category) or
   isTrigraphQueryMetadata(query, queryId, ruleId, category) or
   isTrustBoundariesQueryMetadata(query, queryId, ruleId, category) or
   isTypeRangesQueryMetadata(query, queryId, ruleId, category) or
