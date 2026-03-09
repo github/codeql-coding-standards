@@ -325,6 +325,9 @@ where
   not isExcluded(sink.getNode().asExpr(),
     Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
   exists(FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int length |
+    src.getNode() = start.getNode() and
+    sink.getNode().asExpr() = end.getBasePointer()
+  |
     srcSinkLengthMap(start, end, srcOffset, sinkOffset, length) and
     (
       srcOffset + sinkOffset < 0 or // Underflow detection
