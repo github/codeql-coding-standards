@@ -333,6 +333,8 @@ where
       srcOffset + sinkOffset < 0 or // Underflow detection
       srcOffset + sinkOffset > length // Overflow detection
     ) and
-    message = "srcOffset: " + srcOffset + ", sinkOffset: " + sinkOffset + ", length: " + length
+    message =
+      "start: " + start + ", end: " + end + "srcOffset: " + srcOffset + ", sinkOffset: " + sinkOffset +
+        ", length: " + length
   )
 select sink, src, sink, message
