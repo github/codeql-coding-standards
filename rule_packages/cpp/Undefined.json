@@ -55,6 +55,20 @@
             "scope/system",
             "external/misra/audit"
           ]
+        },
+        {
+          "description": "Threads accessing the same memory location concurrently without utilization of thread synchronization objects results in undefined behavior.",
+          "kind": "problem",
+          "name": "Data races between threads lead to undefined behavior",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "PossibleDataRaceBetweenThreadsShared",
+          "short_name": "PossibleDataRaceBetweenThreads",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "scope/system"
+          ]
         }
       ],
       "title": "There shall be no occurrence of undefined or critical unspecified behaviour"
