@@ -282,24 +282,16 @@ class FatPointer extends TFatPointer {
 }
 
 predicate srcSinkLengthMap(
-  DataFlow::Node src, DataFlow::Node sink, // both `src` and `sink` are fat pointers
-  int srcOffset, int sinkOffset, int length
+  FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int length
 ) {
-  TrackArray::flow(src, sink) and
-  exists(FatPointer start, FatPointer end |
-    /* Reiterate the data flow configuration here. */
-    src = start.getNode() and
-    sink.asExpr() = end.getBasePointer()
-  |
-    srcOffset = start.getOffset() and
-    sinkOffset = end.getOffset() and
-    (
-      /* Base case: The object is allocated and a fat pointer created. */
-      length = start.getLength()
-      or
-      /* Recursive case: A fat pointer is derived from a fat pointer. */
-      srcSinkLengthMap(_, _, _, _, length)
-    )
+  srcOffset = start.getOffset() and
+  sinkOffset = end.getOffset() and
+  (
+    /* Base case: The object is allocated and a fat pointer created. */
+    length = start.getLength()
+    or
+    /* Recursive case: A fat pointer is derived from a fat pointer. */
+    srcSinkLengthMap(_, start, _, srcOffset, length)
   )
 }
 
@@ -321,13 +313,20 @@ module TrackArray = DataFlow::Global<TrackArrayConfig>;
 
 import TrackArray::PathGraph
 
-from TrackArray::PathNode source, TrackArray::PathNode sink, string message
+from TrackArray::PathNode src, TrackArray::PathNode sink, string message
 where
   not isExcluded(sink.getNode().asExpr(),
     Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
-  none() and // TODO
-  message =
-    // "This pointer has offset " + pointerOffset +
-    //   " when the minimum possible length of the object might be " + arrayLength + "."
-    "TODO"
-select sink, source, sink, message
+  exists(FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int length |
+    TrackArray::flowPath(src, sink) and
+    /* Reiterate the data flow configuration here. */
+    src.getNode() = start.getNode() and
+    sink.getNode().asExpr() = end.getBasePointer() and
+    srcSinkLengthMap(start, end, srcOffset, sinkOffset, length) and
+    (
+      srcOffset + sinkOffset < 0 or // Underflow detection
+      srcOffset + sinkOffset > length // Overflow detection
+    ) and
+    message = "srcOffset: " + srcOffset + ", sinkOffset: " + sinkOffset + ", length: " + length
+  )
+select sink, src, sink, message
