@@ -284,14 +284,21 @@ class FatPointer extends TFatPointer {
 predicate srcSinkLengthMap(
   FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int length
 ) {
-  srcOffset = start.getOffset() and
-  sinkOffset = end.getOffset() and
-  (
-    /* Base case: The object is allocated and a fat pointer created. */
-    length = start.getLength()
-    or
-    /* Recursive case: A fat pointer is derived from a fat pointer. */
-    srcSinkLengthMap(_, start, _, srcOffset, length)
+  exists(TrackArray::PathNode src, TrackArray::PathNode sink |
+    TrackArray::flowPath(src, sink) and
+    /* Reiterate the data flow configuration here. */
+    src.getNode() = start.getNode() and
+    sink.getNode().asExpr() = end.getBasePointer()
+  |
+    srcOffset = start.getOffset() and
+    sinkOffset = end.getOffset() and
+    (
+      /* Base case: The object is allocated and a fat pointer created. */
+      length = start.getLength()
+      or
+      /* Recursive case: A fat pointer is derived from a fat pointer. */
+      srcSinkLengthMap(_, start, _, srcOffset, length)
+    )
   )
 }
 
@@ -318,10 +325,6 @@ where
   not isExcluded(sink.getNode().asExpr(),
     Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
   exists(FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int length |
-    TrackArray::flowPath(src, sink) and
-    /* Reiterate the data flow configuration here. */
-    src.getNode() = start.getNode() and
-    sink.getNode().asExpr() = end.getBasePointer() and
     srcSinkLengthMap(start, end, srcOffset, sinkOffset, length) and
     (
       srcOffset + sinkOffset < 0 or // Underflow detection
