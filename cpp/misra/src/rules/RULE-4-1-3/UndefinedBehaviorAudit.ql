@@ -18,7 +18,8 @@
 import cpp
 import codingstandards.cpp.misra
 
-from
+from Element e
 where
-  not isExcluded(x, UndefinedPackage::undefinedBehaviorAuditQuery()) and
-select
+  not isExcluded(e, UndefinedPackage::undefinedBehaviorAuditQuery()) and
+  none()
+select e, "no implementation"
