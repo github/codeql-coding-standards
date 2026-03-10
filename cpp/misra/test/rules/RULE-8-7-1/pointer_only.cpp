@@ -130,7 +130,7 @@ void stack_allocated_multi_dimensional_array_access(int array[2][3]) {
   int valid11 = array[0][0];  // COMPLIANT: pointer is within boundary
   int valid12 = array[0][1];  // COMPLIANT: pointer is within boundary
   int valid13 = array[0][2];  // COMPLIANT: pointer is within boundary
-  int valid13 = array[0][3];  // COMPLIANT: pointer points one beyond the last
+  int valid14 = array[0][3];  // COMPLIANT: pointer points one beyond the last
                               // element, but non-compliant to Rule 4.1.3
   int invalid1 = array[0][4]; // NON_COMPLIANT: pointer points more than one
                               // beyond the last element
@@ -138,7 +138,7 @@ void stack_allocated_multi_dimensional_array_access(int array[2][3]) {
   int valid21 = array[1][0];  // COMPLIANT: pointer is within boundary
   int valid22 = array[1][1];  // COMPLIANT: pointer is within boundary
   int valid23 = array[1][2];  // COMPLIANT: pointer is within boundary
-  int valid13 = array[1][3];  // COMPLIANT: pointer points one beyond the last
+  int valid24 = array[1][3];  // COMPLIANT: pointer points one beyond the last
                               // element, but non-compliant to Rule 4.1.3
   int invalid2 = array[1][4]; // NON_COMPLIANT: pointer points more than one
                               // beyond the last element
