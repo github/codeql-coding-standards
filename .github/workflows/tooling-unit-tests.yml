@@ -24,7 +24,7 @@ jobs:
       matrix: ${{ steps.export-supported-codeql-env-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Export supported CodeQL environment matrix
         id: export-supported-codeql-env-matrix
@@ -42,7 +42,7 @@ jobs:
       matrix: ${{ fromJSON(needs.prepare-supported-codeql-env-matrix.outputs.matrix) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install Python
         uses: actions/setup-python@v6
@@ -85,7 +85,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install Python
         uses: actions/setup-python@v6
@@ -104,7 +104,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install Python
         uses: actions/setup-python@v6
