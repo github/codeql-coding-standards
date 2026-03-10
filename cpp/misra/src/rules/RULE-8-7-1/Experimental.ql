@@ -14,6 +14,7 @@
 
 import cpp
 import codingstandards.cpp.misra
+import semmle.code.cpp.ir.IR
 import semmle.code.cpp.dataflow.new.DataFlow
 import semmle.code.cpp.ir.dataflow.internal.DataFlowUtil
 import semmle.code.cpp.security.BufferAccess
@@ -216,7 +217,9 @@ class PointerFormation extends TPointerFormation {
   /**
    * Gets the data-flow node associated with this pointer formation.
    */
-  DataFlow::Node getNode() { result.asExpr() = this.asExpr() }
+  DataFlow::Node getNode() {
+    result.asInstruction().(PointerAddInstruction).getAst() = this.asExpr()
+  }
 
   Location getLocation() {
     result = this.asArrayExpr().getLocation() or
@@ -279,6 +282,16 @@ class FatPointer extends TFatPointer {
     result = this.asAllocated().asExpr() or
     result = this.asIndexAdjusted().getBase()
   }
+
+  DataFlow::Node getBasePointerNode() {
+    exists(PointerAddInstruction ptrAdd |
+      result.asInstruction() = ptrAdd.getAnOperand().getDef() and
+      (
+        result.asInstruction().getAst() = this.asIndexAdjusted().getBase() or
+        result.asInstruction().getAst() = this.asAllocated().asExpr()
+      )
+    )
+  }
 }
 
 predicate srcSinkLengthMap(
@@ -288,7 +301,7 @@ predicate srcSinkLengthMap(
     TrackArray::flowPath(src, sink) and
     /* Reiterate the data flow configuration here. */
     src.getNode() = start.getNode() and
-    sink.getNode().asExpr() = end.getBasePointer()
+    sink.getNode() = end.getBasePointerNode()
   |
     srcOffset = start.getOffset() and
     sinkOffset = end.getOffset() and
@@ -312,7 +325,7 @@ module TrackArrayConfig implements DataFlow::ConfigSig {
   }
 
   predicate isSink(DataFlow::Node node) {
-    exists(FatPointer fatPointer | node.asExpr() = fatPointer.getBasePointer())
+    exists(FatPointer fatPointer | node = fatPointer.getBasePointerNode())
   }
 }
 
