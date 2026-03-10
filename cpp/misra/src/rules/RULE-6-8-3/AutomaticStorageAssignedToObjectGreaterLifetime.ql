@@ -18,8 +18,12 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.donotcopyaddressofautostorageobjecttootherobject.DoNotCopyAddressOfAutoStorageObjectToOtherObject
 
-module AutomaticStorageAssignedToObjectGreaterLifetimeConfig implements DoNotCopyAddressOfAutoStorageObjectToOtherObjectConfigSig {
-  Query getQuery() { result = LifetimePackage::automaticStorageAssignedToObjectGreaterLifetimeQuery() }
+module AutomaticStorageAssignedToObjectGreaterLifetimeConfig implements
+  DoNotCopyAddressOfAutoStorageObjectToOtherObjectConfigSig
+{
+  Query getQuery() {
+    result = LifetimePackage::automaticStorageAssignedToObjectGreaterLifetimeQuery()
+  }
 }
 
 import DoNotCopyAddressOfAutoStorageObjectToOtherObject<AutomaticStorageAssignedToObjectGreaterLifetimeConfig>
