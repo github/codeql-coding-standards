@@ -7,7 +7,6 @@ import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import semmle.code.cpp.controlflow.Guards
 import semmle.code.cpp.controlflow.SubBasicBlocks
-import codingstandards.cpp.enhancements.AggregateLiteralEnhancements
 import InitializationFunctions
 
 abstract class ReadOfUninitializedMemorySharedQuery extends Query { }
