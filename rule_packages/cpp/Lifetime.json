@@ -30,15 +30,21 @@
       },
       "queries": [
         {
-          "description": "An assignment operator shall not assign the address of an object with automatic storage duration to an object with a greater lifetime",
+          "description": "When storage durations are not compatible between assigned pointers it can lead to referring to objects outside of their lifetime, which is undefined behaviour.",
           "kind": "problem",
-          "name": "An assignment operator shall not assign the address of an object with automatic storage duration to",
+          "name": "Declare objects with appropriate storage durations",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "AssignmentOperatorAssignTheAddressOfAnObjectWithAutomaticStorageDurationToAnObjectWithAGreaterLifetime",
+          "short_name": "AutomaticStorageAssignedToObjectGreaterLifetime",
+          "shared_implementation_short_name": "DoNotCopyAddressOfAutoStorageObjectToOtherObject",
           "tags": [
+            "correctness",
+            "security",
             "scope/single-translation-unit"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The rule checks specifically for pointers to objects with automatic storage duration that are assigned to static storage duration variables."
+          }
         }
       ],
       "title": "An assignment operator shall not assign the address of an object with automatic storage duration to an object with a greater lifetime"
