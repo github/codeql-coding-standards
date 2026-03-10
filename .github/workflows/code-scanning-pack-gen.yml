@@ -10,6 +10,7 @@ on:
       - main
       - next
       - "rc/**"
+      - michaelrfairhurst/package-undefined-behavior
   push:
     branches:
       - main
