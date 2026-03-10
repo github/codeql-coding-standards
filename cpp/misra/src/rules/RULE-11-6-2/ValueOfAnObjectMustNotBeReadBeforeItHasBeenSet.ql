@@ -17,7 +17,8 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.readofuninitializedmemory.ReadOfUninitializedMemory
 
-class ValueOfAnObjectMustNotBeReadBeforeItHasBeenSetQuery extends ReadOfUninitializedMemorySharedQuery {
+class ValueOfAnObjectMustNotBeReadBeforeItHasBeenSetQuery extends ReadOfUninitializedMemorySharedQuery
+{
   ValueOfAnObjectMustNotBeReadBeforeItHasBeenSetQuery() {
     this = LifetimePackage::valueOfAnObjectMustNotBeReadBeforeItHasBeenSetQuery()
   }
