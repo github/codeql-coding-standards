@@ -2,7 +2,8 @@
 #define _GHLIBCPP_VECTOR
 #include <iterator>
 #include <string>
-#include <empty.h>
+#include "memory.h"
+#include "empty.h"
 
 namespace std {
 
