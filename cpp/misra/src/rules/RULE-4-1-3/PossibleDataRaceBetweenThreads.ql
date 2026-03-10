@@ -1,8 +1,8 @@
 /**
  * @id cpp/misra/possible-data-race-between-threads
- * @name RULE-4-1-3: There shall be no data races between threads
- * @description Threads shall not access the same memory location concurrently without utilization
- *              of thread synchronization objects.
+ * @name RULE-4-1-3: Data races between threads lead to undefined behavior
+ * @description Threads accessing the same memory location concurrently without utilization of
+ *              thread synchronization objects results in undefined behavior.
  * @kind problem
  * @precision medium
  * @problem.severity error
