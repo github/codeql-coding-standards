@@ -262,6 +262,8 @@ class AggregateLiteralObjectIdentity extends AggregateLiteral, ObjectIdentityBas
 class AllocatedObjectIdentity extends AllocationExpr, ObjectIdentityBase {
   AllocatedObjectIdentity() {
     this.(FunctionCall).getTarget().(AllocationFunction).requiresDealloc()
+    or
+    this = any(NewOrNewArrayExpr new | not exists(new.getPlacementPointer()))
   }
 
   override StorageDuration getStorageDuration() { result.isAllocated() }
