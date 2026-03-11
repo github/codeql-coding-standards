@@ -1,0 +1,77 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-4-1-3": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "It is not possible to reason about the behaviour of any program that contains instances of undefined behaviour, which can cause unpredictable results that are particularly difficult to detect during testing.",
+          "kind": "problem",
+          "name": "There shall be no occurrence of undefined behaviour",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UndefinedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Critical unspecified behaviour impacts the observable behaviour of the abstract machine and means a program is not guaranteed to behave predictably.",
+          "kind": "problem",
+          "name": "There shall be no occurrence of critical unspecified behaviour",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "CriticalUnspecifiedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "It is not possible to reason about the behaviour of any program that contains instances of undefined behaviour, which can cause unpredictable results that are particularly difficult to detect during testing.",
+          "kind": "problem",
+          "name": "Audit: there shall be no occurrence of undefined behaviour",
+          "precision": "low",
+          "severity": "error",
+          "short_name": "UndefinedBehaviorAudit",
+          "tags": [
+            "correctness",
+            "scope/system",
+            "external/misra/audit"
+          ]
+        },
+        {
+          "description": "Critical unspecified behaviour impacts the observable behaviour of the abstract machine and means a program is not guaranteed to behave predictably.",
+          "kind": "problem",
+          "name": "Audit: there shall be no occurrence of critical unspecified behaviour",
+          "precision": "low",
+          "severity": "error",
+          "short_name": "CriticalUnspecifiedBehaviorAudit",
+          "tags": [
+            "correctness",
+            "scope/system",
+            "external/misra/audit"
+          ]
+        },
+        {
+          "description": "Threads accessing the same memory location concurrently without utilization of thread synchronization objects results in undefined behavior.",
+          "kind": "problem",
+          "name": "Data races between threads lead to undefined behavior",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "PossibleDataRaceBetweenThreadsShared",
+          "short_name": "PossibleDataRaceBetweenThreads",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "There shall be no occurrence of undefined or critical unspecified behaviour"
+    }
+  }
+}
