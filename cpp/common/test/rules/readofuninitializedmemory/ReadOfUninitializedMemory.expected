@@ -7,7 +7,9 @@
 | test.cpp:137:13:137:14 | i1 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:136:8:136:9 | i1 | i1 |
 | test.cpp:141:7:141:8 | i3 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:139:8:139:9 | i3 | i3 |
 | test.cpp:141:13:141:14 | i1 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:136:8:136:9 | i1 | i1 |
-| test.cpp:205:4:205:5 | p1 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:204:8:204:9 | p1 | p1 |
-| test.cpp:207:4:207:5 | p1 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:204:8:204:9 | p1 | p1 |
-| test.cpp:215:10:215:11 | p2 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:209:8:209:9 | p2 | p2 |
-| test.cpp:221:4:221:5 | p4 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:219:8:219:9 | p4 | p4 |
+| test.cpp:201:7:201:8 | p0 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:200:8:200:9 | p0 | p0 |
+| test.cpp:204:4:204:5 | p1 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:203:8:203:9 | p1 | p1 |
+| test.cpp:206:7:206:8 | p1 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:203:8:203:9 | p1 | p1 |
+| test.cpp:211:7:211:8 | p2 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:209:8:209:9 | p2 | p2 |
+| test.cpp:214:10:214:11 | p2 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:209:8:209:9 | p2 | p2 |
+| test.cpp:221:7:221:8 | p4 | Local variable $@ is read here and may not be initialized on all paths. | test.cpp:219:8:219:9 | p4 | p4 |

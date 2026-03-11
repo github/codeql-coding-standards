@@ -198,26 +198,26 @@ void test_class() {
 
 void extra_extra_test() {
   int *p0 = new int;
-  p0; // COMPLIANT -- this is uninitialized but its access not a meaningful read
-      // to this rule
+  use(p0); // NON_COMPLIANT
 
   int *p1 = new int;
   *p1 = 0; // COMPLIANT[FALSE_POSITIVE] -- this is not found bc this is not an
            // lvalue access
-  *p1; // COMPLIANT[FALSE_POSITIVE] -- the pointee of p1 has been initialized
+  use(p1); // COMPLIANT[FALSE_POSITIVE] -- the pointee of p1 has been
+           // initialized
 
   int *p2 = new int;
   p2 = new int;
-  p2; // COMPLIANT -- this is uninitialized but its access not a meaningful read
-      // to this rule
+  use(p2); // NON_COMPLIANT
 
   int *p3 = new int(1);
   *p3 = *p2; // NON_COMPLIANT -- the pointee of p2 has not been
              // initialized
-  *p3; // NON_COMPLIANT[FALSE_NEGATIVE] -- the pointee of p3 has be overridden
+  use(p3);   // NON_COMPLIANT[FALSE_NEGATIVE] -- the pointee of p3 has be
+             // overridden
 
   int *p4;
   p4 = new int;
-  *p4; // NON_COMPLIANT -- the pointee of p4 has not been
-       // initialized
+  use(p4); // NON_COMPLIANT -- the pointee of p4 has not been
+           // initialized
 }
