@@ -1,0 +1,17 @@
+| test.cpp:35:7:35:8 | l1 | Object $@ is read here and may not be initialized on all paths. | l1 | l1 |
+| test.cpp:37:7:37:8 | l2 | Object $@ is read here and may not be initialized on all paths. | l2 | l2 |
+| test.cpp:39:7:39:8 | l3 | Object $@ is read here and may not be initialized on all paths. | l3 | l3 |
+| test.cpp:41:10:41:11 | m1 | Object $@ is read here and may not be initialized on all paths. | l4.m1 | l4.m1 |
+| test.cpp:43:7:43:11 | access to array | Object $@ is read here and may not be initialized on all paths. | l5 | l5 |
+| test.cpp:86:9:86:16 | arrayPtr | Object $@ is read here and may not be initialized on all paths. | arrayPtr | arrayPtr |
+| test.cpp:93:9:93:10 | l5 | Object $@ is read here and may not be initialized on all paths. | l5 | l5 |
+| test.cpp:134:11:134:11 | i | Object $@ is read here and may not be initialized on all paths. | i | i |
+| test.cpp:137:12:137:14 | * ... | Object $@ is read here and may not be initialized on all paths. | new | new |
+| test.cpp:141:7:141:8 | i3 | Object $@ is read here and may not be initialized on all paths. | i3 | i3 |
+| test.cpp:164:16:164:17 | m1 | Object $@ is read here and may not be initialized on all paths. | s1.m1 | s1.m1 |
+| test.cpp:166:16:166:17 | m2 | Object $@ is read here and may not be initialized on all paths. | s2.m2 | s2.m2 |
+| test.cpp:171:13:171:17 | access to array | Object $@ is read here and may not be initialized on all paths. | a1 | a1 |
+| test.cpp:172:13:172:17 | access to array | Object $@ is read here and may not be initialized on all paths. | a2 | a2 |
+| test.cpp:215:9:215:11 | * ... | Object $@ is read here and may not be initialized on all paths. | new | new |
+| test.cpp:215:9:215:11 | * ... | Object $@ is read here and may not be initialized on all paths. | new | new |
+| test.cpp:221:3:221:5 | * ... | Object $@ is read here and may not be initialized on all paths. | new | new |

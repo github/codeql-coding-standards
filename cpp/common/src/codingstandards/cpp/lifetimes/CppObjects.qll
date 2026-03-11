@@ -259,17 +259,22 @@ class AggregateLiteralObjectIdentity extends AggregateLiteral, ObjectIdentityBas
  *
  * Additionally, the type of this object is inferred based on its size and use.
  */
-class AllocatedObjectIdentity extends AllocationExpr, ObjectIdentityBase {
+class AllocatedObjectIdentity extends ObjectIdentityBase instanceof AllocationExpr {
+  AllocationExpr alloc;
+
   AllocatedObjectIdentity() {
-    this.(FunctionCall).getTarget().(AllocationFunction).requiresDealloc()
-    or
-    this = any(NewOrNewArrayExpr new | not exists(new.getPlacementPointer()))
+    alloc = this.(AllocationExpr) and
+    (
+      this.(FunctionCall).getTarget().(AllocationFunction).requiresDealloc()
+      or
+      this = any(NewOrNewArrayExpr new | not exists(new.getPlacementPointer()))
+    )
   }
 
   override StorageDuration getStorageDuration() { result.isAllocated() }
 
   /** Attempt to infer the type of the allocated memory */
-  override Type getType() { result = this.getAllocatedElementType() }
+  override Type getType() { result = alloc.getAllocatedElementType() }
 
   /** Find dereferences of direct aliases of this pointer result. */
   override Expr getAnAccess() { result.(PointerDereferenceExpr).getOperand() = getAnAlias() }
