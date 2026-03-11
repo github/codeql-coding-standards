@@ -1,0 +1,2 @@
+- `A8-5-0`, `EXP53-CPP`, `EXP33-C`, `RULE-9-1` - `MemoryNotInitializedBeforeItIsRead.ql`, `DoNotReadUninitializedMemory.ql`, `DoNotReadUninitializedMemory.ql`, `ObjectWithAutoStorageDurationReadBeforeInit.ql`:
+  - The queries listed now find uses of the operator 'new' where there is no value initialization provided.
