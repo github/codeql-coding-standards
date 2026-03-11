@@ -31,6 +31,17 @@ class ArrayDeclaration extends VariableDeclarationEntry {
    * Gets the declared length of this array.
    */
   int getLength() { result = length }
+
+  int getLength(int indirection) { result = getArrayType(indirection).getArraySize() }
+
+  private ArrayType getArrayType(int indirection) {
+    indirection = 0 and result = this.getType().getUnderlyingType()
+    or
+    exists(ArrayType at |
+      at = getArrayType(indirection - 1) and
+      result = at.getBaseType().getUnderlyingType()
+    )
+  }
 }
 
 /**
@@ -131,9 +142,18 @@ class ArrayAllocation extends TArrayAllocation {
    * Gets the number of the object that the array holds. This number is exact for a stack-allocated
    * array, and the minimum estimated value for a heap-allocated one.
    */
-  int getLength() {
-    result = this.asStackAllocation().getLength() or
-    result = this.asDynamicAllocation().getMinNumElements()
+  int getLength(DataFlow::Node node) {
+    exists(IndirectUninitializedNode inode |
+      inode = node and
+      inode.getLocalVariable() = this.asStackAllocation().getVariable() and
+      result = this.asStackAllocation().getLength(inode.getIndirection())
+    )
+    or
+    result = this.asStackAllocation().getLength() and
+    node.asUninitialized() = this.asStackAllocation().getVariable()
+    or
+    result = this.asDynamicAllocation().getMinNumElements() and
+    node.asConvertedExpr() = this.asDynamicAllocation()
   }
 
   Location getLocation() {
@@ -145,14 +165,85 @@ class ArrayAllocation extends TArrayAllocation {
    * Gets the node associated with this allocation.
    */
   DataFlow::Node getNode() {
-    result.asUninitialized() = this.asStackAllocation().getVariable() or
-    result.asConvertedExpr() = this.asDynamicAllocation()
+    exists(getLength(result))
   }
 
   Expr asExpr() {
     result = this.asStackAllocation().getVariable().getAnAccess() or
     result = this.asDynamicAllocation()
   }
+}
+
+import semmle.code.cpp.ir.dataflow.internal.SsaInternals as SsaImpl
+
+class IndirectUninitializedNode extends Node {
+  LocalVariable v;
+  int indirection;
+
+  IndirectUninitializedNode() {
+    exists(SsaImpl::Definition def, SsaImpl::SourceVariable sv |
+      def.getIndirectionIndex() = indirection and
+      indirection > 0 and
+      def.getValue().asInstruction() instanceof UninitializedInstruction and
+      SsaImpl::defToNode(this, def, sv) and
+      v = sv.getBaseVariable().(SsaImpl::BaseIRVariable).getIRVariable().getAst()
+    )
+  }
+
+  /** Gets the uninitialized local variable corresponding to this node. */
+  LocalVariable getLocalVariable() { result = v }
+
+  int getIndirection() { result = indirection }
+}
+
+predicate isAssociated(DataFlow::Node n, Element e, string method) {
+  method = strictconcat(string m | isAssociatedImpl(n, e, m) | m, ", ")
+}
+
+predicate isAssociatedImpl(DataFlow::Node n, Element e, string method) {
+  n.asExpr() = e and method = ".asExpr()"
+  or
+  n.asCertainDefinition() = e and method = ".asCertainDefinition()"
+  or
+  n.asConvertedExpr() = e and method = ".asConvertedExpr()"
+  or
+  n.asDefiningArgument() = e and method = ".asDefiningArgument()"
+  or
+  n.asDefinition() = e and method = ".asDefinition()"
+  or
+  n.asIndirectArgument() = e and method = ".asIndirectArgument()"
+  or
+  n.asIndirectConvertedExpr() = e and method = ".asIndirectConvertedExpr()"
+  or
+  n.asIndirectDefinition() = e and method = ".asIndirectDefinition()"
+  or
+  n.asIndirectExpr() = e and method = ".asIndirectExpr()"
+  or
+  n.asIndirectOperand(_).getUse().getAst() = e and method = ".asIndirectOperand().getUse()"
+  or
+  n.asIndirectOperand(_).getAnyDef().getAst() = e and method = ".asIndirectOperand().getAnyDef()"
+  or
+  n.asIndirectVariable() = e and method = ".asIndirectVariable()"
+  or
+  n.asInstruction().getAst() = e and method = ".asInstruction().getAst()[" + n.asInstruction().getDumpString() + "]"
+  or
+  n.asOperand().getUse().getAst() = e and method = ".asOperand().getUse()"
+  or
+  n.asOperand().getAnyDef().getAst() = e and method = ".asOperand().getAnyDef()"
+  or
+  n.asParameter() = e and method = ".asParameter()"
+  or
+  n.asPartialDefinition() = e and method = ".asPartialDefinition()"
+  or
+  n.asUncertainDefinition() = e and method = ".asUncertainDefinition()"
+  or
+  n.asUninitialized() = e and method = ".asUninitialized()"
+}
+
+predicate associatedFlowStep(DataFlow::Node n1, Element e1, string m1, DataFlow::Node n2, Element e2, string m2) {
+  isAssociated(n1, e1, m1) and
+  isAssociated(n2, e2, m2) and
+  localFlowStep(n1, n2)
 }
 
 /**
@@ -206,6 +297,10 @@ class PointerFormation extends TPointerFormation {
     )
   }
 
+  DataFlow::Node getBaseNode() {
+    result.asIndirectExpr() = this.getBase()
+  }
+
   /**
    * Gets the expression associated with this pointer formation.
    */
@@ -214,11 +309,15 @@ class PointerFormation extends TPointerFormation {
     result = this.asPointerArithmetic()
   }
 
+  private PointerAddInstruction getInstruction() {
+    result.getAst() = this.asExpr()
+  }
+
   /**
    * Gets the data-flow node associated with this pointer formation.
    */
   DataFlow::Node getNode() {
-    result.asInstruction().(PointerAddInstruction).getAst() = this.asExpr()
+    result.asInstruction() = getInstruction()
   }
 
   Location getLocation() {
@@ -243,19 +342,13 @@ newtype TFatPointer =
   TIndexAdjusted(PointerFormation pointerFormation)
 
 class FatPointer extends TFatPointer {
-  private ArrayAllocation asAllocated() { this = TAllocated(result) }
+  ArrayAllocation asAllocated() { this = TAllocated(result) }
 
   private PointerFormation asIndexAdjusted() { this = TIndexAdjusted(result) }
 
   predicate isAllocated() { exists(this.asAllocated()) }
 
   predicate isIndexAdjusted() { exists(this.asIndexAdjusted()) }
-
-  /**
-   * Gets the length of the underlying object, given that this fat pointer is
-   * an *allocated pointer*.
-   */
-  int getLength() { result = this.asAllocated().getLength() }
 
   string toString() {
     result = this.asAllocated().toString() or
@@ -284,6 +377,8 @@ class FatPointer extends TFatPointer {
   }
 
   DataFlow::Node getBasePointerNode() {
+    result = this.asIndexAdjusted().getBaseNode()
+    or
     exists(PointerAddInstruction ptrAdd |
       result.asInstruction() = ptrAdd.getAnOperand().getDef() and
       (
@@ -307,12 +402,24 @@ predicate srcSinkLengthMap(
     sinkOffset = end.getOffset() and
     (
       /* Base case: The object is allocated and a fat pointer created. */
-      length = start.getLength()
+      length = start.asAllocated().getLength(src.getNode())
       or
       /* Recursive case: A fat pointer is derived from a fat pointer. */
       srcSinkLengthMap(_, start, _, srcOffset, length)
     )
   )
+}
+
+module DebugConfig implements DataFlow::ConfigSig {
+  predicate isSource(DataFlow::Node node) {
+    any()
+  }
+
+  predicate isSink(DataFlow::Node node) {
+    exists(FatPointer fatPointer | node = fatPointer.getBasePointerNode())
+    or
+    isAssociated(node, any(PointerFormation pf).getBase(), _)
+  }
 }
 
 /**
@@ -329,17 +436,18 @@ module TrackArrayConfig implements DataFlow::ConfigSig {
   }
 }
 
+module DebugTrack = DataFlow::Global<DebugConfig>;
 module TrackArray = DataFlow::Global<TrackArrayConfig>;
 
 import TrackArray::PathGraph
 
-from TrackArray::PathNode src, TrackArray::PathNode sink, string message
+from TrackArray::PathNode src, TrackArray::PathNode sink, FatPointer end, string message
 where
   not isExcluded(sink.getNode().asExpr(),
     Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
-  exists(FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int length |
+  exists(FatPointer start, int srcOffset, int sinkOffset, int length |
     src.getNode() = start.getNode() and
-    sink.getNode().asExpr() = end.getBasePointer()
+    sink.getNode() = end.getBasePointerNode()
   |
     srcSinkLengthMap(start, end, srcOffset, sinkOffset, length) and
     (
@@ -348,4 +456,4 @@ where
     ) and
     message = "srcOffset: " + srcOffset + ", sinkOffset: " + sinkOffset + ", length: " + length
   )
-select sink, src, sink, message
+select end, src, sink, message
