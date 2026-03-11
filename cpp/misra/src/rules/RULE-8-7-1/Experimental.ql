@@ -294,6 +294,26 @@ class FatPointer extends TFatPointer {
   }
 }
 
+/**
+ * A table with headers (start pointer, end pointer, source offset, sink offset, length).
+ * Consider the following code:
+ * ``` C++
+ *   int buf[10];
+ *   int *p = buf;
+ *   int *p2 = p - 5;
+ *   int *p3 = p2 + 16;
+ * ```
+ * Then, this table is roughly populated with:
+ * |-------------+----------------+------------+-------------+----------------+------------------|
+ * | flow start  | flow end       | src offset | sink offset | length(exists) | valid?           |
+ * |-------------+----------------+------------+-------------+----------------+------------------|
+ * | int buf[10] | p  (∵ p - 5)   |          0 |          -5 |             10 | No,  0-5 < 10    |
+ * | p           | p2 (∵ p2 + 12) |         -5 |          12 |             10 | Yes, -5+12 < 10  |
+ * |-------------+----------------+------------+-------------+----------------+------------------|
+ *
+ * And then we can answer the question of whether the pointer is valid (last column `valid?`).
+ * NOTE: Consult the configuration `TrackArrayConfig` for the actual definition of `src` and `sink`.
+ */
 predicate srcSinkLengthMap(
   FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int length
 ) {
@@ -347,7 +367,7 @@ where
       srcOffset + sinkOffset > length // Overflow detection
     ) and
     message =
-      "start: " + start + ", end: " + end + "srcOffset: " + srcOffset + ", sinkOffset: " + sinkOffset +
-        ", length: " + length
+      "start: " + start + ", end: " + end + "srcOffset: " + srcOffset + ", sinkOffset: " +
+        sinkOffset + ", length: " + length
   )
 select sink, src, sink, message
