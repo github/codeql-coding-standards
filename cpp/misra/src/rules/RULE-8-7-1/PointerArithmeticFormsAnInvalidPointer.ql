@@ -14,7 +14,9 @@
 
 import cpp
 import codingstandards.cpp.misra
-import semmle.code.cpp.dataflow.new.TaintTracking
+import semmle.code.cpp.ir.IR
+import semmle.code.cpp.dataflow.new.DataFlow
+import semmle.code.cpp.ir.dataflow.internal.DataFlowUtil
 import semmle.code.cpp.security.BufferAccess
 
 /**
@@ -29,6 +31,17 @@ class ArrayDeclaration extends VariableDeclarationEntry {
    * Gets the declared length of this array.
    */
   int getLength() { result = length }
+
+  int getLength(int indirection) { result = getArrayType(indirection).getArraySize() }
+
+  private ArrayType getArrayType(int indirection) {
+    indirection = 0 and result = this.getType().getUnderlyingType()
+    or
+    exists(ArrayType at |
+      at = getArrayType(indirection - 1) and
+      result = at.getBaseType().getUnderlyingType()
+    )
+  }
 }
 
 /**
@@ -74,7 +87,7 @@ class ReallocFunctionCall extends HeapAllocationFunctionCall {
 /**
  * A cast that converts the pointer to an allocated byte array to that of a specialized type.
  * e.g.
- * 
+ *
  * ``` C++
  * int *x = (int*)malloc(SIZE * sizeof(int));
  * ```
@@ -129,9 +142,18 @@ class ArrayAllocation extends TArrayAllocation {
    * Gets the number of the object that the array holds. This number is exact for a stack-allocated
    * array, and the minimum estimated value for a heap-allocated one.
    */
-  int getLength() {
-    result = this.asStackAllocation().getLength() or
-    result = this.asDynamicAllocation().getMinNumElements()
+  int getLength(DataFlow::Node node) {
+    exists(IndirectUninitializedNode inode |
+      inode = node and
+      inode.getLocalVariable() = this.asStackAllocation().getVariable() and
+      result = this.asStackAllocation().getLength(inode.getIndirection())
+    )
+    or
+    result = this.asStackAllocation().getLength() and
+    node.asUninitialized() = this.asStackAllocation().getVariable()
+    or
+    result = this.asDynamicAllocation().getMinNumElements() and
+    node.asConvertedExpr() = this.asDynamicAllocation()
   }
 
   Location getLocation() {
@@ -142,10 +164,34 @@ class ArrayAllocation extends TArrayAllocation {
   /**
    * Gets the node associated with this allocation.
    */
-  DataFlow::Node getNode() {
-    result.asUninitialized() = this.asStackAllocation().getVariable() or
-    result.asConvertedExpr() = this.asDynamicAllocation()
+  DataFlow::Node getNode() { exists(getLength(result)) }
+
+  Expr asExpr() {
+    result = this.asStackAllocation().getVariable().getAnAccess() or
+    result = this.asDynamicAllocation()
   }
+}
+
+import semmle.code.cpp.ir.dataflow.internal.SsaInternals as SsaImpl
+
+class IndirectUninitializedNode extends Node {
+  LocalVariable v;
+  int indirection;
+
+  IndirectUninitializedNode() {
+    exists(SsaImpl::Definition def, SsaImpl::SourceVariable sv |
+      def.getIndirectionIndex() = indirection and
+      indirection > 0 and
+      def.getValue().asInstruction() instanceof UninitializedInstruction and
+      SsaImpl::defToNode(this, def, sv) and
+      v = sv.getBaseVariable().(SsaImpl::BaseIRVariable).getIRVariable().getAst()
+    )
+  }
+
+  /** Gets the uninitialized local variable corresponding to this node. */
+  LocalVariable getLocalVariable() { result = v }
+
+  int getIndirection() { result = indirection }
 }
 
 /**
@@ -163,19 +209,43 @@ class PointerFormation extends TPointerFormation {
   }
 
   /**
+   * Gets the sub-expression of this pointer formation that corresponds to the offset.
+   */
+  private Expr getOffsetExpr() {
+    result = this.asArrayExpr().getArrayOffset()
+    or
+    exists(PointerArithmeticOperation pointerArithmetic |
+      pointerArithmetic = this.asPointerArithmetic()
+    |
+      result = pointerArithmetic.getAnOperand() // TODO: only get the number being added
+    )
+  }
+
+  /**
    * Gets the offset of this pointer formation as calculated in relation to the base pointer.
    */
   int getOffset() {
-    result = this.asArrayExpr().getArrayOffset().getValue().toInt()
+    if this.asPointerArithmetic() instanceof PointerSubExpr
+    then result = -this.getOffsetExpr().getValue().toInt()
+    else result = this.getOffsetExpr().getValue().toInt()
+  }
+
+  /**
+   * Gets the base pointer to which the offset is applied.
+   */
+  Expr getBase() {
+    result = this.asArrayExpr().getArrayBase()
     or
     exists(PointerAddExpr pointerAddition | pointerAddition = this.asPointerArithmetic() |
-      result = pointerAddition.getAnOperand().getValue().toInt() // TODO: only get the number being added
+      result = pointerAddition.getAnOperand() and result != this.getOffsetExpr()
     )
     or
     exists(PointerSubExpr pointerSubtraction | pointerSubtraction = this.asPointerArithmetic() |
-      result = -pointerSubtraction.getAnOperand().getValue().toInt()
+      result = pointerSubtraction.getAnOperand() and result != this.getOffsetExpr()
     )
   }
+
+  DataFlow::Node getBaseNode() { result.asIndirectExpr() = this.getBase() }
 
   /**
    * Gets the expression associated with this pointer formation.
@@ -185,10 +255,12 @@ class PointerFormation extends TPointerFormation {
     result = this.asPointerArithmetic()
   }
 
+  private PointerAddInstruction getInstruction() { result.getAst() = this.asExpr() }
+
   /**
    * Gets the data-flow node associated with this pointer formation.
    */
-  DataFlow::Node getNode() { result.asExpr() = this.asExpr() }
+  DataFlow::Node getNode() { result.asInstruction() = getInstruction() }
 
   Location getLocation() {
     result = this.asArrayExpr().getLocation() or
@@ -197,58 +269,107 @@ class PointerFormation extends TPointerFormation {
 }
 
 /**
- * NOTE The code in the below module is copied from
- * `cpp/ql/lib/semmle/code/cpp/ir/dataflow/internal/TaintTrackingUtil.qll` in `github/codeql`, commit hash
- * `960e990`. This commit hash is the latest of the ones with tag  `codeql-cli-2.21.4` which is the CLI version
- * compatible with `codeql/cpp-all: 5.0.0` that this query depends on.
+ * A "fat pointer" is a pointer that is augmented with offset and length
+ * information of the underlying data.
+ *
+ * It is either a "declared pointer" or a "index-adjusted pointer":
+ * - *Allocated pointer*: a pointer is declared with a predetermined length.
+ * The offset is 0.
+ *   - This length info can be determined statically in some cases.
+ * - *Index-adjusted pointer*: a new pointer is derived from an existing
+ * fat pointer through pointer arithmetic.
  */
-module Copied {
-  import semmle.code.cpp.ir.IR
-  import semmle.code.cpp.ir.dataflow.internal.SsaInternals as Ssa
+newtype TFatPointer =
+  TAllocated(ArrayAllocation arrayDeclaration) or
+  TIndexAdjusted(PointerFormation pointerFormation)
 
-  predicate operandToInstructionTaintStep(Operand opFrom, Instruction instrTo) {
-    // Taint can flow through expressions that alter the value but preserve
-    // more than one bit of it _or_ expressions that follow data through
-    // pointer indirections.
-    instrTo.getAnOperand() = opFrom and
-    (
-      instrTo instanceof ArithmeticInstruction
-      or
-      instrTo instanceof BitwiseInstruction
-      or
-      instrTo instanceof PointerArithmeticInstruction
+class FatPointer extends TFatPointer {
+  ArrayAllocation asAllocated() { this = TAllocated(result) }
+
+  PointerFormation asIndexAdjusted() { this = TIndexAdjusted(result) }
+
+  string toString() {
+    result = this.asAllocated().toString() or
+    result = this.asIndexAdjusted().toString()
+  }
+
+  Location getLocation() {
+    result = this.asAllocated().getLocation() or
+    result = this.asIndexAdjusted().getLocation()
+  }
+
+  int getOffset() {
+    exists(this.asAllocated()) and result = 0
+    or
+    result = this.asIndexAdjusted().getOffset()
+  }
+
+  DataFlow::Node getNode() {
+    result = this.asAllocated().getNode() or
+    result = this.asIndexAdjusted().getNode()
+  }
+
+  DataFlow::Node getBasePointerNode() {
+    result = this.asIndexAdjusted().getBaseNode()
+    or
+    exists(PointerAddInstruction ptrAdd |
+      result.asInstruction() = ptrAdd.getAnOperand().getDef() and
+      (
+        result.asInstruction().getAst() = this.asIndexAdjusted().getBase() or
+        result.asInstruction().getAst() = this.asAllocated().asExpr()
+      )
     )
     or
-    // Taint flow from an address to its dereference.
-    Ssa::isDereference(instrTo, opFrom, _)
-    or
-    // Unary instructions tend to preserve enough information in practice that we
-    // want taint to flow through.
-    // The exception is `FieldAddressInstruction`. Together with the rules below for
-    // `LoadInstruction`s and `ChiInstruction`s, flow through `FieldAddressInstruction`
-    // could cause flow into one field to come out an unrelated field.
-    // This would happen across function boundaries, where the IR would not be able to
-    // match loads to stores.
-    instrTo.(UnaryInstruction).getUnaryOperand() = opFrom and
-    (
-      not instrTo instanceof FieldAddressInstruction
-      or
-      instrTo.(FieldAddressInstruction).getField().getDeclaringType() instanceof Union
-    )
-    or
-    // Taint from int to boolean casts. This ensures that we have flow to `!x` in:
-    // ```cpp
-    // x = integer_source();
-    // if(!x) { ... }
-    // ```
-    exists(Operand zero |
-      zero.getDef().(ConstantValueInstruction).getValue() = "0" and
-      instrTo.(CompareNEInstruction).hasOperands(opFrom, zero)
+    exists(PointerSubInstruction ptrSub |
+      result.asInstruction() = ptrSub.getAnOperand().getDef() and
+      (
+        result.asInstruction().getAst() = this.asIndexAdjusted().getBase() or
+        result.asInstruction().getAst() = this.asAllocated().asExpr()
+      )
     )
   }
 }
 
-import Copied
+/**
+ * A table with headers (start pointer, end pointer, source offset, sink offset, length).
+ * Consider the following code:
+ * ``` C++
+ *   int buf[10];
+ *   int *p = buf;
+ *   int *p2 = p - 5;
+ *   int *p3 = p2 + 16;
+ * ```
+ * Then, this table is roughly populated with:
+ * |-------------+----------------+------------+-------------+----------------+------------------|
+ * | flow start  | flow end       | src offset | sink offset | length(exists) | valid?           |
+ * |-------------+----------------+------------+-------------+----------------+------------------|
+ * | int buf[10] | p  (∵ p - 5)   |          0 |          -5 |             10 | No,  0-5 < 10    |
+ * | p           | p2 (∵ p2 + 12) |         -5 |          12 |             10 | Yes, -5+12 < 10  |
+ * |-------------+----------------+------------+-------------+----------------+------------------|
+ *
+ * And then we can answer the question of whether the pointer is valid (last column `valid?`).
+ * NOTE: Consult the configuration `TrackArrayConfig` for the actual definition of `src` and `sink`.
+ */
+predicate srcSinkLengthMap(
+  FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int length
+) {
+  exists(TrackArray::PathNode src, TrackArray::PathNode sink |
+    TrackArray::flowPath(src, sink) and
+    /* Reiterate the data flow configuration here. */
+    src.getNode() = start.getNode() and
+    sink.getNode() = end.getBasePointerNode()
+  |
+    srcOffset = start.getOffset() and
+    sinkOffset = end.getOffset() and
+    (
+      /* Base case: The object is allocated and a fat pointer created. */
+      length = start.asAllocated().getLength(src.getNode())
+      or
+      /* Recursive case: A fat pointer is derived from a fat pointer. */
+      srcSinkLengthMap(_, start, _, srcOffset, length)
+    )
+  )
+}
 
 /**
  * A data flow configuration that starts from the allocation of an array and ends at a
@@ -256,52 +377,31 @@ import Copied
  */
 module TrackArrayConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node node) {
-    exists(ArrayAllocation arrayAllocation | node = arrayAllocation.getNode())
+    exists(FatPointer fatPointer | node = fatPointer.getNode())
   }
 
   predicate isSink(DataFlow::Node node) {
-    exists(PointerFormation pointerFormation | node = pointerFormation.getNode())
-  }
-
-  predicate isAdditionalFlowStep(DataFlow::Node nodeFrom, DataFlow::Node nodeTo) {
-    operandToInstructionTaintStep(nodeFrom.asOperand(), nodeTo.asInstruction()) and
-    nodeTo.asInstruction() instanceof PointerArithmeticInstruction
+    exists(FatPointer fatPointer | node = fatPointer.getBasePointerNode())
   }
 }
 
 module TrackArray = DataFlow::Global<TrackArrayConfig>;
 
-/**
- * Holds if the offset of a pointer formation, as referred to by `pointerFormationNode`,
- * exceeds the length of the declared array, as represented by `arrayDeclarationNode`.
- */
-predicate arrayIndexExceedsBounds(
-  DataFlow::Node arrayDeclarationNode, DataFlow::Node pointerFormationNode, int pointerOffset,
-  int arrayLength
-) {
-  /* 1. Ensure the array access is reachable from the array declaration. */
-  TrackArray::flow(arrayDeclarationNode, pointerFormationNode) and
-  /* 2. The offset must be at most (number of elements) + 1 = (the declared length). */
-  exists(ArrayAllocation arrayAllocation, PointerFormation pointerFormation |
-    arrayDeclarationNode = arrayAllocation.getNode() and
-    pointerFormationNode = pointerFormation.getNode() and
-    pointerOffset = pointerFormation.getOffset() and
-    arrayLength = arrayAllocation.getLength()
-  |
-    arrayLength < pointerOffset
-  )
-}
-
 import TrackArray::PathGraph
 
-from TrackArray::PathNode source, TrackArray::PathNode sink, string message
+from TrackArray::PathNode src, TrackArray::PathNode sink, FatPointer end, string message
 where
   not isExcluded(sink.getNode().asExpr(),
     Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
-  exists(int pointerOffset, int arrayLength |
-    arrayIndexExceedsBounds(source.getNode(), sink.getNode(), pointerOffset, arrayLength) and
-    message =
-      "This pointer has offset " + pointerOffset +
-        " when the minimum possible length of the object might be " + arrayLength + "."
+  exists(FatPointer start, int srcOffset, int sinkOffset, int length |
+    src.getNode() = start.getNode() and
+    sink.getNode() = end.getBasePointerNode()
+  |
+    srcSinkLengthMap(start, end, srcOffset, sinkOffset, length) and
+    (
+      srcOffset + sinkOffset < 0 or // Underflow detection
+      srcOffset + sinkOffset > length // Overflow detection
+    ) and
+    message = "srcOffset: " + srcOffset + ", sinkOffset: " + sinkOffset + ", length: " + length
   )
-select sink, source, sink, message
+select end, src, sink, message
