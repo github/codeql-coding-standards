@@ -1,0 +1,25 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-10-2-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "An unscoped enumeration should not be used outside of a class/struct scope; use 'enum class' instead to prevent name clashes and implicit conversions to integral types.",
+          "kind": "problem",
+          "name": "Unscoped enumerations should not be declared",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnscopedEnumerationsShouldNotBeDeclared",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Unscoped enumerations should not be declared"
+    }
+  }
+}
