@@ -31,6 +31,17 @@ class ArrayDeclaration extends VariableDeclarationEntry {
    * Gets the declared length of this array.
    */
   int getLength() { result = length }
+
+  int getLength(int indirection) { result = getArrayType(indirection).getArraySize() }
+
+  private ArrayType getArrayType(int indirection) {
+    indirection = 0 and result = this.getType().getUnderlyingType()
+    or
+    exists(ArrayType at |
+      at = getArrayType(indirection - 1) and
+      result = at.getBaseType().getUnderlyingType()
+    )
+  }
 }
 
 /**
@@ -131,9 +142,18 @@ class ArrayAllocation extends TArrayAllocation {
    * Gets the number of the object that the array holds. This number is exact for a stack-allocated
    * array, and the minimum estimated value for a heap-allocated one.
    */
-  int getLength() {
-    result = this.asStackAllocation().getLength() or
-    result = this.asDynamicAllocation().getMinNumElements()
+  int getLength(DataFlow::Node node) {
+    exists(IndirectUninitializedNode inode |
+      inode = node and
+      inode.getLocalVariable() = this.asStackAllocation().getVariable() and
+      result = this.asStackAllocation().getLength(inode.getIndirection())
+    )
+    or
+    result = this.asStackAllocation().getLength() and
+    node.asUninitialized() = this.asStackAllocation().getVariable()
+    or
+    result = this.asDynamicAllocation().getMinNumElements() and
+    node.asConvertedExpr() = this.asDynamicAllocation()
   }
 
   Location getLocation() {
@@ -144,15 +164,34 @@ class ArrayAllocation extends TArrayAllocation {
   /**
    * Gets the node associated with this allocation.
    */
-  DataFlow::Node getNode() {
-    result.asUninitialized() = this.asStackAllocation().getVariable() or
-    result.asConvertedExpr() = this.asDynamicAllocation()
-  }
+  DataFlow::Node getNode() { exists(getLength(result)) }
 
   Expr asExpr() {
     result = this.asStackAllocation().getVariable().getAnAccess() or
     result = this.asDynamicAllocation()
   }
+}
+
+import semmle.code.cpp.ir.dataflow.internal.SsaInternals as SsaImpl
+
+class IndirectUninitializedNode extends Node {
+  LocalVariable v;
+  int indirection;
+
+  IndirectUninitializedNode() {
+    exists(SsaImpl::Definition def, SsaImpl::SourceVariable sv |
+      def.getIndirectionIndex() = indirection and
+      indirection > 0 and
+      def.getValue().asInstruction() instanceof UninitializedInstruction and
+      SsaImpl::defToNode(this, def, sv) and
+      v = sv.getBaseVariable().(SsaImpl::BaseIRVariable).getIRVariable().getAst()
+    )
+  }
+
+  /** Gets the uninitialized local variable corresponding to this node. */
+  LocalVariable getLocalVariable() { result = v }
+
+  int getIndirection() { result = indirection }
 }
 
 /**
@@ -206,6 +245,8 @@ class PointerFormation extends TPointerFormation {
     )
   }
 
+  DataFlow::Node getBaseNode() { result.asIndirectExpr() = this.getBase() }
+
   /**
    * Gets the expression associated with this pointer formation.
    */
@@ -214,12 +255,12 @@ class PointerFormation extends TPointerFormation {
     result = this.asPointerArithmetic()
   }
 
+  private PointerAddInstruction getInstruction() { result.getAst() = this.asExpr() }
+
   /**
    * Gets the data-flow node associated with this pointer formation.
    */
-  DataFlow::Node getNode() {
-    result.asInstruction().(PointerAddInstruction).getAst() = this.asExpr()
-  }
+  DataFlow::Node getNode() { result.asInstruction() = getInstruction() }
 
   Location getLocation() {
     result = this.asArrayExpr().getLocation() or
@@ -243,19 +284,9 @@ newtype TFatPointer =
   TIndexAdjusted(PointerFormation pointerFormation)
 
 class FatPointer extends TFatPointer {
-  private ArrayAllocation asAllocated() { this = TAllocated(result) }
+  ArrayAllocation asAllocated() { this = TAllocated(result) }
 
-  private PointerFormation asIndexAdjusted() { this = TIndexAdjusted(result) }
-
-  predicate isAllocated() { exists(this.asAllocated()) }
-
-  predicate isIndexAdjusted() { exists(this.asIndexAdjusted()) }
-
-  /**
-   * Gets the length of the underlying object, given that this fat pointer is
-   * an *allocated pointer*.
-   */
-  int getLength() { result = this.asAllocated().getLength() }
+  PointerFormation asIndexAdjusted() { this = TIndexAdjusted(result) }
 
   string toString() {
     result = this.asAllocated().toString() or
@@ -278,14 +309,19 @@ class FatPointer extends TFatPointer {
     result = this.asIndexAdjusted().getNode()
   }
 
-  Expr getBasePointer() {
-    result = this.asAllocated().asExpr() or
-    result = this.asIndexAdjusted().getBase()
-  }
-
   DataFlow::Node getBasePointerNode() {
+    result = this.asIndexAdjusted().getBaseNode()
+    or
     exists(PointerAddInstruction ptrAdd |
       result.asInstruction() = ptrAdd.getAnOperand().getDef() and
+      (
+        result.asInstruction().getAst() = this.asIndexAdjusted().getBase() or
+        result.asInstruction().getAst() = this.asAllocated().asExpr()
+      )
+    )
+    or
+    exists(PointerSubInstruction ptrSub |
+      result.asInstruction() = ptrSub.getAnOperand().getDef() and
       (
         result.asInstruction().getAst() = this.asIndexAdjusted().getBase() or
         result.asInstruction().getAst() = this.asAllocated().asExpr()
@@ -327,7 +363,7 @@ predicate srcSinkLengthMap(
     sinkOffset = end.getOffset() and
     (
       /* Base case: The object is allocated and a fat pointer created. */
-      length = start.getLength()
+      length = start.asAllocated().getLength(src.getNode())
       or
       /* Recursive case: A fat pointer is derived from a fat pointer. */
       srcSinkLengthMap(_, start, _, srcOffset, length)
@@ -353,21 +389,19 @@ module TrackArray = DataFlow::Global<TrackArrayConfig>;
 
 import TrackArray::PathGraph
 
-from TrackArray::PathNode src, TrackArray::PathNode sink, string message
+from TrackArray::PathNode src, TrackArray::PathNode sink, FatPointer end, string message
 where
   not isExcluded(sink.getNode().asExpr(),
     Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
-  exists(FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int length |
+  exists(FatPointer start, int srcOffset, int sinkOffset, int length |
     src.getNode() = start.getNode() and
-    sink.getNode().asExpr() = end.getBasePointer()
+    sink.getNode() = end.getBasePointerNode()
   |
     srcSinkLengthMap(start, end, srcOffset, sinkOffset, length) and
     (
       srcOffset + sinkOffset < 0 or // Underflow detection
       srcOffset + sinkOffset > length // Overflow detection
     ) and
-    message =
-      "start: " + start + ", end: " + end + "srcOffset: " + srcOffset + ", sinkOffset: " +
-        sinkOffset + ", length: " + length
+    message = "srcOffset: " + srcOffset + ", sinkOffset: " + sinkOffset + ", length: " + length
   )
-select sink, src, sink, message
+select end, src, sink, message
