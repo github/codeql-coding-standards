@@ -50,11 +50,7 @@ import Linkage2
 import Literals
 import Loops
 import Macros
-import Memory2
-import Memory3
-import Memory4
-import Memory5
-import Memory6
+import Memory1
 import MoveForward
 import Naming
 import Naming2
@@ -138,11 +134,7 @@ newtype TCPPQuery =
   TLiteralsPackageQuery(LiteralsQuery q) or
   TLoopsPackageQuery(LoopsQuery q) or
   TMacrosPackageQuery(MacrosQuery q) or
-  TMemory2PackageQuery(Memory2Query q) or
-  TMemory3PackageQuery(Memory3Query q) or
-  TMemory4PackageQuery(Memory4Query q) or
-  TMemory5PackageQuery(Memory5Query q) or
-  TMemory6PackageQuery(Memory6Query q) or
+  TMemory1PackageQuery(Memory1Query q) or
   TMoveForwardPackageQuery(MoveForwardQuery q) or
   TNamingPackageQuery(NamingQuery q) or
   TNaming2PackageQuery(Naming2Query q) or
@@ -226,11 +218,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isLiteralsQueryMetadata(query, queryId, ruleId, category) or
   isLoopsQueryMetadata(query, queryId, ruleId, category) or
   isMacrosQueryMetadata(query, queryId, ruleId, category) or
-  isMemory2QueryMetadata(query, queryId, ruleId, category) or
-  isMemory3QueryMetadata(query, queryId, ruleId, category) or
-  isMemory4QueryMetadata(query, queryId, ruleId, category) or
-  isMemory5QueryMetadata(query, queryId, ruleId, category) or
-  isMemory6QueryMetadata(query, queryId, ruleId, category) or
+  isMemory1QueryMetadata(query, queryId, ruleId, category) or
   isMoveForwardQueryMetadata(query, queryId, ruleId, category) or
   isNamingQueryMetadata(query, queryId, ruleId, category) or
   isNaming2QueryMetadata(query, queryId, ruleId, category) or
