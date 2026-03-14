@@ -69,6 +69,19 @@
             "concurrency",
             "scope/system"
           ]
+        },
+        {
+          "description": "Using a deallocation function that does not match the allocation function results in undefined behavior.",
+          "kind": "problem",
+          "name": "Deallocation type mismatch leads to undefined behavior",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "ProperlyDeallocateDynamicallyAllocatedResourcesShared",
+          "short_name": "DeallocationTypeMismatch",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
         }
       ],
       "title": "There shall be no occurrence of undefined or critical unspecified behaviour"
