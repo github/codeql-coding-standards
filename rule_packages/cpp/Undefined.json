@@ -69,6 +69,19 @@
             "concurrency",
             "scope/system"
           ]
+        },
+        {
+          "description": "Signed integer overflow or underflow from arithmetic operations results in critical unspecified behavior.",
+          "kind": "problem",
+          "name": "Signed integer overflow leads to critical unspecified behavior",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "SignedIntegerOverflowShared",
+          "short_name": "SignedIntegerOverflow",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
         }
       ],
       "title": "There shall be no occurrence of undefined or critical unspecified behaviour"
