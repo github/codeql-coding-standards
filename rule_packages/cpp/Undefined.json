@@ -69,6 +69,19 @@
             "concurrency",
             "scope/system"
           ]
+        },
+        {
+          "description": "Deleting an array through a pointer of an incorrect type leads to undefined behavior.",
+          "kind": "path-problem",
+          "name": "Array deleted through pointer of incorrect type leads to undefined behavior",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "DoNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeShared",
+          "short_name": "ArrayDeletedThroughPointerOfIncorrectType",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
         }
       ],
       "title": "There shall be no occurrence of undefined or critical unspecified behaviour"

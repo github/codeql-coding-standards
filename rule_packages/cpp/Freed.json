@@ -109,6 +109,7 @@
           "name": "Do not delete an array through a pointer of the incorrect type",
           "precision": "high",
           "severity": "error",
+          "shared_implementation_short_name": "DoNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeShared",
           "short_name": "DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType",
           "tags": [
             "correctness",

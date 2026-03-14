@@ -18,29 +18,18 @@
 
 import cpp
 import codingstandards.cpp.cert
-import semmle.code.cpp.dataflow.DataFlow
-import AllocationToDeleteFlow::PathGraph
+import codingstandards.cpp.rules.donotdeleteanarraythroughapointeroftheincorrecttypeshared.DoNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeShared
 
-module AllocationToDeleteConfig implements DataFlow::ConfigSig {
-  predicate isSource(DataFlow::Node source) { source.asExpr() instanceof NewArrayExpr }
-
-  predicate isSink(DataFlow::Node sink) {
-    exists(DeleteArrayExpr dae | dae.getExpr() = sink.asExpr())
+module DoNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeConfig implements
+  DoNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeSharedConfigSig
+{
+  Query getQuery() {
+    result = FreedPackage::doNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeQuery()
   }
 }
 
-module AllocationToDeleteFlow = DataFlow::Global<AllocationToDeleteConfig>;
+module Shared =
+  DoNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeShared<DoNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeConfig>;
 
-from
-  AllocationToDeleteFlow::PathNode source, AllocationToDeleteFlow::PathNode sink,
-  NewArrayExpr newArray, DeleteArrayExpr deleteArray
-where
-  not isExcluded(deleteArray.getExpr(),
-    FreedPackage::doNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeQuery()) and
-  AllocationToDeleteFlow::flowPath(source, sink) and
-  newArray = source.getNode().asExpr() and
-  deleteArray.getExpr() = sink.getNode().asExpr() and
-  not newArray.getType().getUnspecifiedType() = deleteArray.getExpr().getType().getUnspecifiedType()
-select sink, source, sink,
-  "Array of type " + newArray.getType() + " is deleted through a pointer of type " +
-    deleteArray.getExpr().getType() + "."
+import Shared::PathGraph
+import Shared
