@@ -226,7 +226,8 @@ void extra_extra_test() {
 
   int *p4;
   p4 = new int;
-  use(p4);  // COMPLIANT[FALSE_POSITIVE] -- the pointer is valid but new int isnt seen
+  use(p4); // COMPLIANT[FALSE_POSITIVE] -- the pointer is valid but new int isnt
+           // seen
   use(*p4); // COMPLIANT -- the value is not read and the pointer is valid
 
   int *p5;
@@ -234,7 +235,7 @@ void extra_extra_test() {
 
   int *p6 = new int;
   initialize(p6); // COMPLIANT
-  use(*p6); // COMPLIANT[FALSE_POSITIVE]
+  use(*p6);       // COMPLIANT[FALSE_POSITIVE]
 
   int p7;
   initialize(&p7); // COMPLIANT
