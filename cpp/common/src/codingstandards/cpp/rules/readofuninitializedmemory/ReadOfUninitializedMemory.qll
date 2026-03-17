@@ -122,6 +122,10 @@ class InitializationContext extends TInitializationContext {
   }
 }
 
+/**
+ * Catches `new int;` as an expression that doesn't initialize its value. Note that the pointer returned has been initialized (ie it is a valid pointer),
+ * but the pointee/value has not. In our analysis, we simply count `x` as uninitialized in `x = new int` for now, though a more thorough analysis might track the initialization of `x` and `*x` separately.
+ */
 class NewNotInit extends NewExpr {
   NewNotInit() {
     this.getAllocatedType() instanceof BuiltInType and
@@ -133,10 +137,6 @@ class NonInitAssignment extends Assignment {
   NonInitAssignment() { this.getRValue() instanceof NewNotInit }
 }
 
-class VariableAccessOnLHSOfNonInitAssignment extends VariableAccess {
-  VariableAccessOnLHSOfNonInitAssignment() { exists(NonInitAssignment a | this = a.getLValue()) }
-}
-
 /**
  * A local variable without an initializer which is amenable to initialization analysis.
  */
@@ -146,14 +146,7 @@ class UninitializedVariable extends LocalVariable {
     (
       not exists(getInitializer().getExpr())
       or
-      //or is a builtin type used with new operator but there is no value initialization as far as we can see
-      exists(Initializer i, NewExpr n |
-        i = getInitializer() and
-        n = i.getExpr() and
-        this.getUnspecifiedType().stripType() instanceof BuiltInType and
-        //ignore value init
-        not exists(n.getAChild())
-      )
+      getInitializer().getExpr() instanceof NewNotInit
     ) and
     // Not static or thread local, because they are not initialized with indeterminate values
     not isStatic() and
@@ -213,17 +206,32 @@ class UninitializedVariable extends LocalVariable {
     // Not a pointless read
     not result = any(ExprStmt es).getExpr() and
     // not involved in a new expr assignment since that does not define
-    not result instanceof VariableAccessOnLHSOfNonInitAssignment
+    not result = any(NonInitAssignment a).getLValue()
   }
 
   /**
-   * Gets an access of the variable `v` which is not used as an lvalue, and not used as an argument
+   * Gets an access of the this variable which is not used as an lvalue, and not used as an argument
    * to an initialization function.
    */
   VariableAccess getAUse() {
     result = this.getAnAccess() and
-    // Not used as an lvalue
-    not result = any(AssignExpr a).getLValue() and
+    (
+      //count rvalue x as a use if not new int
+      result.isRValue() and
+      not exists(PointerDereferenceExpr e | result = e.getAChild()) and
+      not this.getInitializer().getExpr() instanceof NewNotInit
+      or
+      //count lvalue x as a use if used in *x and not new int
+      result.isLValue() and
+      exists(PointerDereferenceExpr e | result = e.getAChild()) and
+      exists(this.getInitializer()) and
+      not this.getInitializer().getExpr() instanceof NewNotInit
+      or
+      //count rvalue *x as a use if has new int
+      result.isRValue() and
+      this.getInitializer().getExpr() instanceof NewNotInit and
+      exists(PointerDereferenceExpr e | result = e.getAChild())
+    ) and
     // Not passed to another initialization function
     not exists(Call c, int j | j = c.getTarget().(InitializationFunction).initializedParameter() |
       result = c.getArgument(j).(AddressOfExpr).getOperand()
@@ -234,6 +242,26 @@ class UninitializedVariable extends LocalVariable {
     not result.getParent+() instanceof SizeofOperator
   }
 
+  // /**
+  //  * Gets an access of the this variable which is not used as an lvalue, and not used as an argument
+  //  * to an initialization function.
+  //  */
+  // VariableAccess getAUse() {
+  //   result = this.getAnAccess() and
+  //   // Not used as an lvalue
+  //   not result = any(AssignExpr a).getLValue() and
+  //   //(result.isRValue() and not result.getType() instanceof PointerType and not this.getInitializer().getExpr() instanceof NewNotInit) and
+  //   // Not passed to another initialization function
+  //   not exists(Call c, int j | j = c.getTarget().(InitializationFunction).initializedParameter() |
+  //     result = c.getArgument(j).(AddressOfExpr).getOperand()
+  //     or
+  //     result.isRValue() and result = c.getArgument(j)
+  //   ) and
+  //   // Not a pointless read
+  //   not result = any(ExprStmt es).getExpr() and
+  //   // sizeof operators are not real uses
+  //   not result.getParent+() instanceof SizeofOperator
+  // }
   /** Get a read of the variable that may occur while the variable is uninitialized. */
   VariableAccess getAnUnitializedUse() {
     exists(SubBasicBlock useSbb |

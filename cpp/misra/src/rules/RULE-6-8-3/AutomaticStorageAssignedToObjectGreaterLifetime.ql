@@ -1,6 +1,6 @@
 /**
  * @id cpp/misra/automatic-storage-assigned-to-object-greater-lifetime
- * @name RULE-6-8-3: Declare objects with appropriate storage durations
+ * @name RULE-6-8-3: Do not assign the address of an object with automatic storage to an object that may persist after it's lifetime
  * @description When storage durations are not compatible between assigned pointers it can lead to
  *              referring to objects outside of their lifetime, which is undefined behaviour.
  * @kind problem

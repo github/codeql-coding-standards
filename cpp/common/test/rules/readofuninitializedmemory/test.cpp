@@ -196,28 +196,46 @@ void test_class() {
   }
 }
 
+void initialize(int *p) { *p = 0; }
+
 void extra_extra_test() {
   int *p0 = new int;
-  use(p0); // NON_COMPLIANT
+  use(p0);  // COMPLIANT -- the pointer is valid
+  use(*p0); // COMPLIANT[FALSE_POSITIVE] -- the pointer is valid
 
   int *p1 = new int;
-  *p1 = 0; // COMPLIANT[FALSE_POSITIVE] -- this is not found bc this is not an
-           // lvalue access
-  use(p1); // COMPLIANT[FALSE_POSITIVE] -- the pointee of p1 has been
-           // initialized
+  *p1 = 0;  // COMPLIANT[FALSE_POSITIVE] -- this is not found bc this is not an
+            // lvalue access
+  use(p1);  // COMPLIANT -- the pointee of p1 has been
+            // initialized
+  use(*p1); // COMPLIANT[FALSE_POSITIVE] -- the pointee of p1 has been
+            // initialized
 
   int *p2 = new int;
   p2 = new int;
-  use(p2); // NON_COMPLIANT
+  use(p2);  // COMPLIANT -- the pointer is valid
+  use(*p2); // NON_COMPLIANT -- the value may be read
 
   int *p3 = new int(1);
   *p3 = *p2; // NON_COMPLIANT -- the pointee of p2 has not been
              // initialized
-  use(p3);   // NON_COMPLIANT[FALSE_NEGATIVE] -- the pointee of p3 has be
+  use(p3);   // NON_COMPLIANT[FALSE_NEGATIVE] -- the pointee of p3 has been
+             // overridden
+  use(*p3);  // NON_COMPLIANT[FALSE_NEGATIVE] -- the pointee of p3 has been
              // overridden
 
   int *p4;
   p4 = new int;
-  use(p4); // NON_COMPLIANT -- the pointee of p4 has not been
-           // initialized
+  use(p4);  // COMPLIANT[FALSE_POSITIVE] -- the pointer is valid but new int isnt seen
+  use(*p4); // COMPLIANT -- the value is not read and the pointer is valid
+
+  int *p5;
+  initialize(p5); // NON_COMPLIANT
+
+  int *p6 = new int;
+  initialize(p6); // COMPLIANT
+  use(*p6); // COMPLIANT[FALSE_POSITIVE]
+
+  int p7;
+  initialize(&p7); // COMPLIANT
 }

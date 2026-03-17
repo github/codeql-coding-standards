@@ -1,2 +1,2 @@
 - `A8-5-0`, `EXP53-CPP`, `EXP33-C`, `RULE-9-1` - `MemoryNotInitializedBeforeItIsRead.ql`, `DoNotReadUninitializedMemory.ql`, `DoNotReadUninitializedMemory.ql`, `ObjectWithAutoStorageDurationReadBeforeInit.ql`:
-  - The queries listed now find uses of the operator 'new' where there is no value initialization provided.
+  - The queries listed now find uses of the operator 'new' where there is no value initialization provided. The queries listed now also uses an out of the box library to consider initialization within another function as valid initialization (`InitializationFunctions.qll`). We do not yet track finely track the initialization/use of `p` vs `*p`.
