@@ -8,7 +8,8 @@ newtype UndefinedQuery =
   TCriticalUnspecifiedBehaviorQuery() or
   TUndefinedBehaviorAuditQuery() or
   TCriticalUnspecifiedBehaviorAuditQuery() or
-  TPossibleDataRaceBetweenThreadsQuery()
+  TPossibleDataRaceBetweenThreadsQuery() or
+  TOutOfRangeEnumCastCriticalUnspecifiedBehaviorQuery()
 
 predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -55,6 +56,15 @@ predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, s
     "cpp/misra/possible-data-race-between-threads" and
   ruleId = "RULE-4-1-3" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `outOfRangeEnumCastCriticalUnspecifiedBehavior` query
+    UndefinedPackage::outOfRangeEnumCastCriticalUnspecifiedBehaviorQuery() and
+  queryId =
+    // `@id` for the `outOfRangeEnumCastCriticalUnspecifiedBehavior` query
+    "cpp/misra/out-of-range-enum-cast-critical-unspecified-behavior" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
 }
 
 module UndefinedPackage {
@@ -91,5 +101,12 @@ module UndefinedPackage {
     result =
       // `Query` type for `possibleDataRaceBetweenThreads` query
       TQueryCPP(TUndefinedPackageQuery(TPossibleDataRaceBetweenThreadsQuery()))
+  }
+
+  Query outOfRangeEnumCastCriticalUnspecifiedBehaviorQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `outOfRangeEnumCastCriticalUnspecifiedBehavior` query
+      TQueryCPP(TUndefinedPackageQuery(TOutOfRangeEnumCastCriticalUnspecifiedBehaviorQuery()))
   }
 }

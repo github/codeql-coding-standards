@@ -69,6 +69,19 @@
             "concurrency",
             "scope/system"
           ]
+        },
+        {
+          "description": "Casting to an enumeration value outside the range of the enumeration's values results in critical unspecified behavior.",
+          "kind": "problem",
+          "name": "Out-of-range enumeration cast leads to critical unspecified behavior",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "DoNotCastToAnOutOfRangeEnumerationValueShared",
+          "short_name": "OutOfRangeEnumCastCriticalUnspecifiedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
         }
       ],
       "title": "There shall be no occurrence of undefined or critical unspecified behaviour"
