@@ -103,8 +103,8 @@ private module Asserts {
   /**
    * Holds if the given conditional appears to assert its condition to be `isTrue`.
    *
-   * For example, `x || abort();` appears to assert `x` is true, while `if (!x) abort();`
-   * appears to assert `x` is false.
+   * For example, both `x || abort();` and `if (!x) abort();` effectively assert that `x`
+   * is true (in the second case, by asserting that `!x` is false).
    */
   predicate appearsToAssert(Conditional conditional, Boolean isTrue) {
     // Check if an aborting side is reachable via the given boolean value of the condition.
