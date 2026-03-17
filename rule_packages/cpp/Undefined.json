@@ -69,6 +69,19 @@
             "concurrency",
             "scope/system"
           ]
+        },
+        {
+          "description": "Division or remainder by zero results in undefined behavior.",
+          "kind": "problem",
+          "name": "Division or modulo by zero leads to undefined behavior",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "DivisorEqualToZeroShared",
+          "short_name": "DivisionByZeroUndefinedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
         }
       ],
       "title": "There shall be no occurrence of undefined or critical unspecified behaviour"
