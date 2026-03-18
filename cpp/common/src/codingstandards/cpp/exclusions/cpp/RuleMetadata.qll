@@ -5,6 +5,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 import Allocations
 import Banned1
 import Banned2
+import Banned3
 import BannedAPIs
 import BannedFunctions
 import BannedLibraries
@@ -94,6 +95,7 @@ newtype TCPPQuery =
   TAllocationsPackageQuery(AllocationsQuery q) or
   TBanned1PackageQuery(Banned1Query q) or
   TBanned2PackageQuery(Banned2Query q) or
+  TBanned3PackageQuery(Banned3Query q) or
   TBannedAPIsPackageQuery(BannedAPIsQuery q) or
   TBannedFunctionsPackageQuery(BannedFunctionsQuery q) or
   TBannedLibrariesPackageQuery(BannedLibrariesQuery q) or
@@ -183,6 +185,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isAllocationsQueryMetadata(query, queryId, ruleId, category) or
   isBanned1QueryMetadata(query, queryId, ruleId, category) or
   isBanned2QueryMetadata(query, queryId, ruleId, category) or
+  isBanned3QueryMetadata(query, queryId, ruleId, category) or
   isBannedAPIsQueryMetadata(query, queryId, ruleId, category) or
   isBannedFunctionsQueryMetadata(query, queryId, ruleId, category) or
   isBannedLibrariesQueryMetadata(query, queryId, ruleId, category) or
