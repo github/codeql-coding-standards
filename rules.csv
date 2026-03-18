@@ -986,7 +986,7 @@ cpp,MISRA-C++-2023,RULE-21-6-5,Yes,Required,Decidable,Single Translation Unit,A 
 cpp,MISRA-C++-2023,RULE-21-10-1,Yes,Required,Decidable,Single Translation Unit,The features of <cstdarg> shall not be used,DCL50-CPP,BannedAPIs,Easy,
 cpp,MISRA-C++-2023,RULE-21-10-2,Yes,Required,Decidable,Single Translation Unit,The standard header file <csetjmp> shall not be used,ERR52-CPP,BannedAPIs,Easy,
 cpp,MISRA-C++-2023,RULE-21-10-3,Yes,Required,Decidable,Single Translation Unit,The facilities provided by the standard header file <csignal> shall not be used,M18-7-1,ImportMisra23,Import,
-cpp,MISRA-C++-2023,RULE-22-3-1,Yes,Required,Decidable,Single Translation Unit,The assert macro shall not be used with a constant-expression,,Preconditions,Easy,
+cpp,MISRA-C++-2023,RULE-22-3-1,Yes,Required,Decidable,Single Translation Unit,The assert macro shall not be used with a constant-expression,,Preconditions3,Easy,
 cpp,MISRA-C++-2023,RULE-22-4-1,Yes,Required,Decidable,Single Translation Unit,The literal value zero shall be the only value assigned to errno,,Preconditions4,Easy,
 cpp,MISRA-C++-2023,RULE-23-11-1,Yes,Advisory,Decidable,Single Translation Unit,The raw pointer constructors of std::shared_ptr and std::unique_ptr should not be used,,BannedAPIs,Easy,
 cpp,MISRA-C++-2023,RULE-24-5-1,Yes,Required,Decidable,Single Translation Unit,The character handling functions from <cctype> and <cwctype> shall not be used,,BannedAPIs,Easy,
