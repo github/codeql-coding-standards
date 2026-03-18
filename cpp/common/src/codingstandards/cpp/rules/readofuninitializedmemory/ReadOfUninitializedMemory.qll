@@ -216,9 +216,8 @@ class UninitializedVariable extends LocalVariable {
   VariableAccess getAUse() {
     result = this.getAnAccess() and
     (
-      //count rvalue x as a use if not new int
+      //count rvalue x (or *x) as a use if not new int
       result.isRValue() and
-      not exists(PointerDereferenceExpr e | result = e.getAChild()) and
       not this.getInitializer().getExpr() instanceof NewNotInit
       or
       //count lvalue x as a use if used in *x and not new int
@@ -242,26 +241,6 @@ class UninitializedVariable extends LocalVariable {
     not result.getParent+() instanceof SizeofOperator
   }
 
-  // /**
-  //  * Gets an access of the this variable which is not used as an lvalue, and not used as an argument
-  //  * to an initialization function.
-  //  */
-  // VariableAccess getAUse() {
-  //   result = this.getAnAccess() and
-  //   // Not used as an lvalue
-  //   not result = any(AssignExpr a).getLValue() and
-  //   //(result.isRValue() and not result.getType() instanceof PointerType and not this.getInitializer().getExpr() instanceof NewNotInit) and
-  //   // Not passed to another initialization function
-  //   not exists(Call c, int j | j = c.getTarget().(InitializationFunction).initializedParameter() |
-  //     result = c.getArgument(j).(AddressOfExpr).getOperand()
-  //     or
-  //     result.isRValue() and result = c.getArgument(j)
-  //   ) and
-  //   // Not a pointless read
-  //   not result = any(ExprStmt es).getExpr() and
-  //   // sizeof operators are not real uses
-  //   not result.getParent+() instanceof SizeofOperator
-  // }
   /** Get a read of the variable that may occur while the variable is uninitialized. */
   VariableAccess getAnUnitializedUse() {
     exists(SubBasicBlock useSbb |

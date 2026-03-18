@@ -201,7 +201,7 @@ void initialize(int *p) { *p = 0; }
 void extra_extra_test() {
   int *p0 = new int;
   use(p0);  // COMPLIANT -- the pointer is valid
-  use(*p0); // COMPLIANT[FALSE_POSITIVE] -- the pointer is valid
+  use(*p0); // NON_COMPLIANT -- the pointer is valid but there is no value yet
 
   int *p1 = new int;
   *p1 = 0;  // COMPLIANT[FALSE_POSITIVE] -- this is not found bc this is not an
@@ -219,8 +219,7 @@ void extra_extra_test() {
   int *p3 = new int(1);
   *p3 = *p2; // NON_COMPLIANT -- the pointee of p2 has not been
              // initialized
-  use(p3);   // NON_COMPLIANT[FALSE_NEGATIVE] -- the pointee of p3 has been
-             // overridden
+  use(p3);   // COMPLIANT -- the pointer is valid
   use(*p3);  // NON_COMPLIANT[FALSE_NEGATIVE] -- the pointee of p3 has been
              // overridden
 
@@ -228,7 +227,7 @@ void extra_extra_test() {
   p4 = new int;
   use(p4); // COMPLIANT[FALSE_POSITIVE] -- the pointer is valid but new int isnt
            // seen
-  use(*p4); // COMPLIANT -- the value is not read and the pointer is valid
+  use(*p4); // NON_COMPLIANT -- the value may be read
 
   int *p5;
   initialize(p5); // NON_COMPLIANT
