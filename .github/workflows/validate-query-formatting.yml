@@ -9,6 +9,7 @@ on:
       - main
       - next
       - "rc/**"
+      - michaelrfairhurst/package-undefined-behavior
 
 env:
     XARGS_MAX_PROCS: 4
