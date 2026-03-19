@@ -208,14 +208,6 @@ class IncompleteAggregateNew extends NewOrNewArrayExpr, IncompleteInitialization
   override string getKindStr() { result = "Aggregate new expression" }
 }
 
-predicate test(IncompleteConstructor c, CheckedField f) {
-  c.getField() = f and
-  f.getName() = "num_polls" and
-  not exists(f.getInitializer()) and
-  not f.hasInitializer() and
-  not exists(f.getAnAssignment())
-}
-
 from IncompleteInitialization init, CheckedField f, int total, int ranked, string suffix
 where
   not isExcluded(init, Classes4Package::nonStaticMemberNotInitBeforeUseQuery()) and
