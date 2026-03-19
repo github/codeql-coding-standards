@@ -9,6 +9,7 @@ newtype UndefinedQuery =
   TUndefinedBehaviorAuditQuery() or
   TCriticalUnspecifiedBehaviorAuditQuery() or
   TPossibleDataRaceBetweenThreadsQuery() or
+  TDeallocationTypeMismatchQuery() or
   TStringLiteralPossiblyModifiedAuditQuery()
 
 predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, string category) {
@@ -58,6 +59,15 @@ predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, s
   category = "required"
   or
   query =
+    // `Query` instance for the `deallocationTypeMismatch` query
+    UndefinedPackage::deallocationTypeMismatchQuery() and
+  queryId =
+    // `@id` for the `deallocationTypeMismatch` query
+    "cpp/misra/deallocation-type-mismatch" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
     // `Query` instance for the `stringLiteralPossiblyModifiedAudit` query
     UndefinedPackage::stringLiteralPossiblyModifiedAuditQuery() and
   queryId =
@@ -101,6 +111,13 @@ module UndefinedPackage {
     result =
       // `Query` type for `possibleDataRaceBetweenThreads` query
       TQueryCPP(TUndefinedPackageQuery(TPossibleDataRaceBetweenThreadsQuery()))
+  }
+
+  Query deallocationTypeMismatchQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `deallocationTypeMismatch` query
+      TQueryCPP(TUndefinedPackageQuery(TDeallocationTypeMismatchQuery()))
   }
 
   Query stringLiteralPossiblyModifiedAuditQuery() {
