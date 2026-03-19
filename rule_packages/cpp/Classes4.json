@@ -16,7 +16,10 @@
           "tags": [
             "correctness",
             "scope/single-translation-unit"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "Some false positives may occur due to extraction errors involving initializer declarations on members."
+          }
         }
       ],
       "title": "All direct, non-static data members of a class should be initialized before the class object is accessible"
