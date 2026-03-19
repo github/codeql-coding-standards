@@ -52,6 +52,8 @@ class RelevantAggregate extends Class {
 /**
  * A field must be checked for initialization if its type needs initialization, is not static, and
  * it does not have a default member initializer.
+ *
+ * Note that `Field` excludes static data members.
  */
 class CheckedField extends Field {
   CheckedField() {
