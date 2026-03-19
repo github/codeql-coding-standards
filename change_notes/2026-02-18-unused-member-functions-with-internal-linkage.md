@@ -1,0 +1,2 @@
+ - `A0-1-3` - `UnusedLocalFunction.ql`:
+   - Query now reports unused public members of classes in anonymous namespaces, which have internal linkage.
