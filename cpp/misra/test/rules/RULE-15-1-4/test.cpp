@@ -275,7 +275,7 @@ struct Aggregate {
 } // namespace std
 void useStd() {
   // std::array is the only aggregate in the STL according to the spec, but
-  // we should categorically exclude
+  // we should categorically exclude types from `std`.
   std::array<int, 5> a; // COMPLIANT
   std::Aggregate a2;    // COMPLIANT
 }
@@ -286,7 +286,7 @@ void useUnionAggregate() {
     float m2;
   };
 
-  // Unions are aggregates, but we should not report on them.
+  // Unions are aggregates, we should still check for `{}`-initialization.
   UnionAggregate a;             // NON_COMPLIANT
   UnionAggregate a2{};          // COMPLIANT
   UnionAggregate a3 = {};       // COMPLIANT

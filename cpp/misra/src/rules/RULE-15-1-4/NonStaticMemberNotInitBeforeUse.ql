@@ -194,7 +194,7 @@ class IncompleteAggregateInit extends LocalVariable, IncompleteInitialization {
 /**
  * An aggregate created by a new or new[] expression that does not initialize necessary fields.
  *
- * For examyple, `new Aggregate;` does not zero-initialize members and may be non-compliant, while
+ * For example, `new Aggregate;` does not zero-initialize members and may be non-compliant, while
  * `new Aggregate{};` does zero-initialize members and is compliant.
  */
 class IncompleteAggregateNew extends NewOrNewArrayExpr, IncompleteInitialization {
