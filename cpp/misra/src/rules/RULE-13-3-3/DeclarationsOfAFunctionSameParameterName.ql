@@ -19,7 +19,7 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.types.Compatible
 
 predicate parameterNamesUnmatchedOverrides(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
-  pragma[only_bind_into](f1).getFunction().(MemberFunction).getAnOverridingFunction*() =
+  pragma[only_bind_into](f1).getFunction().(MemberFunction).getAnOverridingFunction+() =
     pragma[only_bind_into](f2).getFunction() and
   exists(string p1Name, string p2Name, int i |
     p1Name = f1.getParameterDeclarationEntry(i).getName() and
@@ -42,6 +42,5 @@ where
     parameterNamesUnmatchedOverrides(f1, f2) and
     case = "override"
   )
-select f1,
-  "The parameter names of " + case + " of $@ do" + " not use the same names as declaration $@", f1,
-  f1.getName(), f2, f2.getName()
+select f1, "The parameter names of " + case + " of $@ do not use the same names as declaration $@",
+  f1, f1.getName(), f2, f2.getName()
