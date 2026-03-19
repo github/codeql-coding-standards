@@ -27,6 +27,7 @@ import DeadCode7
 import DeadCode8
 import DeadCode9
 import Declarations
+import Declarations1
 import ExceptionSafety
 import Exceptions1
 import Exceptions2
@@ -116,6 +117,7 @@ newtype TCPPQuery =
   TDeadCode8PackageQuery(DeadCode8Query q) or
   TDeadCode9PackageQuery(DeadCode9Query q) or
   TDeclarationsPackageQuery(DeclarationsQuery q) or
+  TDeclarations1PackageQuery(Declarations1Query q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
   TExceptions2PackageQuery(Exceptions2Query q) or
@@ -205,6 +207,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeadCode8QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode9QueryMetadata(query, queryId, ruleId, category) or
   isDeclarationsQueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
   isExceptions2QueryMetadata(query, queryId, ruleId, category) or

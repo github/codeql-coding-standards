@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-13-3-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Parameters in some number of declarations or overrides of a function that do not have identical names can lead to developer confusion.",
+          "kind": "problem",
+          "name": "The parameters in all declarations or overrides of a function shall either be unnamed or have identical names",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DeclarationsOfAFunctionSameParameterName",
+          "tags": [
+            "maintainability", 
+            "readability",
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "The parameters in all declarations or overrides of a function shall either be unnamed or have identical names"
+    }
+  }
+}
