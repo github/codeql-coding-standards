@@ -3,7 +3,7 @@
  * for the following issue:
  * The type of string literal as of C++0x was changed from 'array of char' to array of
  * const char and therefore assignment to a non-const pointer is considered an error,
- * which is reported as a warning by some compliers.
+ * which is reported as a warning by some compilers.
  */
 
 import cpp
