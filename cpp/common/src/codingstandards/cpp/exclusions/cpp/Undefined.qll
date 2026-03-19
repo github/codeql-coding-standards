@@ -9,6 +9,7 @@ newtype UndefinedQuery =
   TUndefinedBehaviorAuditQuery() or
   TCriticalUnspecifiedBehaviorAuditQuery() or
   TPossibleDataRaceBetweenThreadsQuery() or
+  TDivisionByZeroUndefinedBehaviorQuery() or
   TDeallocationTypeMismatchQuery() or
   TStringLiteralPossiblyModifiedAuditQuery()
 
@@ -55,6 +56,15 @@ predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, s
   queryId =
     // `@id` for the `possibleDataRaceBetweenThreads` query
     "cpp/misra/possible-data-race-between-threads" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `divisionByZeroUndefinedBehavior` query
+    UndefinedPackage::divisionByZeroUndefinedBehaviorQuery() and
+  queryId =
+    // `@id` for the `divisionByZeroUndefinedBehavior` query
+    "cpp/misra/division-by-zero-undefined-behavior" and
   ruleId = "RULE-4-1-3" and
   category = "required"
   or
@@ -111,6 +121,13 @@ module UndefinedPackage {
     result =
       // `Query` type for `possibleDataRaceBetweenThreads` query
       TQueryCPP(TUndefinedPackageQuery(TPossibleDataRaceBetweenThreadsQuery()))
+  }
+
+  Query divisionByZeroUndefinedBehaviorQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `divisionByZeroUndefinedBehavior` query
+      TQueryCPP(TUndefinedPackageQuery(TDivisionByZeroUndefinedBehaviorQuery()))
   }
 
   Query deallocationTypeMismatchQuery() {
