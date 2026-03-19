@@ -39,7 +39,6 @@ where
     parameterNamesUnmatched(f1, f2) and
     case = "re-declaration"
     or
-    f1.getFunction().(MemberFunction).getAnOverridingFunction*() = f2.getFunction() and
     parameterNamesUnmatchedOverrides(f1, f2) and
     case = "override"
   )
