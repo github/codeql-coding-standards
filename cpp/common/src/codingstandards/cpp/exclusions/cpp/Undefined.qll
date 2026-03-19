@@ -9,9 +9,8 @@ newtype UndefinedQuery =
   TUndefinedBehaviorAuditQuery() or
   TCriticalUnspecifiedBehaviorAuditQuery() or
   TPossibleDataRaceBetweenThreadsQuery() or
-  TNullPointerToMemberAccessUndefinedBehaviorQuery() or
-  TUninitializedStaticPointerToMemberUndefinedBehaviorQuery() or
-  TNonExistentMemberAccessUndefinedBehaviorQuery()
+  TDeallocationTypeMismatchQuery() or
+  TStringLiteralPossiblyModifiedAuditQuery()
 
 predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -60,29 +59,20 @@ predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, s
   category = "required"
   or
   query =
-    // `Query` instance for the `nullPointerToMemberAccessUndefinedBehavior` query
-    UndefinedPackage::nullPointerToMemberAccessUndefinedBehaviorQuery() and
+    // `Query` instance for the `deallocationTypeMismatch` query
+    UndefinedPackage::deallocationTypeMismatchQuery() and
   queryId =
-    // `@id` for the `nullPointerToMemberAccessUndefinedBehavior` query
-    "cpp/misra/null-pointer-to-member-access-undefined-behavior" and
+    // `@id` for the `deallocationTypeMismatch` query
+    "cpp/misra/deallocation-type-mismatch" and
   ruleId = "RULE-4-1-3" and
   category = "required"
   or
   query =
-    // `Query` instance for the `uninitializedStaticPointerToMemberUndefinedBehavior` query
-    UndefinedPackage::uninitializedStaticPointerToMemberUndefinedBehaviorQuery() and
+    // `Query` instance for the `stringLiteralPossiblyModifiedAudit` query
+    UndefinedPackage::stringLiteralPossiblyModifiedAuditQuery() and
   queryId =
-    // `@id` for the `uninitializedStaticPointerToMemberUndefinedBehavior` query
-    "cpp/misra/uninitialized-static-pointer-to-member-undefined-behavior" and
-  ruleId = "RULE-4-1-3" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `nonExistentMemberAccessUndefinedBehavior` query
-    UndefinedPackage::nonExistentMemberAccessUndefinedBehaviorQuery() and
-  queryId =
-    // `@id` for the `nonExistentMemberAccessUndefinedBehavior` query
-    "cpp/misra/non-existent-member-access-undefined-behavior" and
+    // `@id` for the `stringLiteralPossiblyModifiedAudit` query
+    "cpp/misra/string-literal-possibly-modified-audit" and
   ruleId = "RULE-4-1-3" and
   category = "required"
 }
@@ -123,24 +113,17 @@ module UndefinedPackage {
       TQueryCPP(TUndefinedPackageQuery(TPossibleDataRaceBetweenThreadsQuery()))
   }
 
-  Query nullPointerToMemberAccessUndefinedBehaviorQuery() {
+  Query deallocationTypeMismatchQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `nullPointerToMemberAccessUndefinedBehavior` query
-      TQueryCPP(TUndefinedPackageQuery(TNullPointerToMemberAccessUndefinedBehaviorQuery()))
+      // `Query` type for `deallocationTypeMismatch` query
+      TQueryCPP(TUndefinedPackageQuery(TDeallocationTypeMismatchQuery()))
   }
 
-  Query uninitializedStaticPointerToMemberUndefinedBehaviorQuery() {
+  Query stringLiteralPossiblyModifiedAuditQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `uninitializedStaticPointerToMemberUndefinedBehavior` query
-      TQueryCPP(TUndefinedPackageQuery(TUninitializedStaticPointerToMemberUndefinedBehaviorQuery()))
-  }
-
-  Query nonExistentMemberAccessUndefinedBehaviorQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `nonExistentMemberAccessUndefinedBehavior` query
-      TQueryCPP(TUndefinedPackageQuery(TNonExistentMemberAccessUndefinedBehaviorQuery()))
+      // `Query` type for `stringLiteralPossiblyModifiedAudit` query
+      TQueryCPP(TUndefinedPackageQuery(TStringLiteralPossiblyModifiedAuditQuery()))
   }
 }
