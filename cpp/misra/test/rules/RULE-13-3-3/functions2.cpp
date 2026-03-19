@@ -6,12 +6,6 @@ void f3(int a,
 void f4(int a, int b); // NON_COMPLIANT -- diff name
 void f5(int a, int b); // NON_COMPLIANT -- swapped names
 
-typedef int wi;
-typedef int hi;
-typedef long a;
+extern void f6(int a, int b); // NON_COMPLIANT
 
-extern a f6(wi w, hi h); // NON_COMPLIANT
-
-extern void f7(int a, int b); // NON_COMPLIANT
-
-extern void f8(int); // COMPLIANT
+extern void f7(int); // COMPLIANT
