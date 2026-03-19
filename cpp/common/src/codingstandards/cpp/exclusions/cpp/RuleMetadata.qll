@@ -45,6 +45,7 @@ import IntegerConversion
 import Invariants
 import Iterators
 import Lambdas
+import Lifetime
 import Linkage1
 import Linkage2
 import Literals
@@ -134,6 +135,7 @@ newtype TCPPQuery =
   TInvariantsPackageQuery(InvariantsQuery q) or
   TIteratorsPackageQuery(IteratorsQuery q) or
   TLambdasPackageQuery(LambdasQuery q) or
+  TLifetimePackageQuery(LifetimeQuery q) or
   TLinkage1PackageQuery(Linkage1Query q) or
   TLinkage2PackageQuery(Linkage2Query q) or
   TLiteralsPackageQuery(LiteralsQuery q) or
@@ -223,6 +225,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isInvariantsQueryMetadata(query, queryId, ruleId, category) or
   isIteratorsQueryMetadata(query, queryId, ruleId, category) or
   isLambdasQueryMetadata(query, queryId, ruleId, category) or
+  isLifetimeQueryMetadata(query, queryId, ruleId, category) or
   isLinkage1QueryMetadata(query, queryId, ruleId, category) or
   isLinkage2QueryMetadata(query, queryId, ruleId, category) or
   isLiteralsQueryMetadata(query, queryId, ruleId, category) or

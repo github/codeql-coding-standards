@@ -7,6 +7,7 @@ import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 import semmle.code.cpp.controlflow.Guards
 import semmle.code.cpp.controlflow.SubBasicBlocks
+import InitializationFunctions
 
 abstract class ReadOfUninitializedMemorySharedQuery extends Query { }
 
@@ -122,12 +123,31 @@ class InitializationContext extends TInitializationContext {
 }
 
 /**
+ * Catches `new int;` as an expression that doesn't initialize its value. Note that the pointer returned has been initialized (ie it is a valid pointer),
+ * but the pointee/value has not. In our analysis, we simply count `x` as uninitialized in `x = new int` for now, though a more thorough analysis might track the initialization of `x` and `*x` separately.
+ */
+class NewNotInit extends NewExpr {
+  NewNotInit() {
+    this.getAllocatedType() instanceof BuiltInType and
+    not exists(this.getAChild())
+  }
+}
+
+class NonInitAssignment extends Assignment {
+  NonInitAssignment() { this.getRValue() instanceof NewNotInit }
+}
+
+/**
  * A local variable without an initializer which is amenable to initialization analysis.
  */
 class UninitializedVariable extends LocalVariable {
   UninitializedVariable() {
     // Not initialized at declaration
-    not exists(getInitializer()) and
+    (
+      not exists(getInitializer().getExpr())
+      or
+      getInitializer().getExpr() instanceof NewNotInit
+    ) and
     // Not static or thread local, because they are not initialized with indeterminate values
     not isStatic() and
     not isThreadLocal() and
@@ -176,16 +196,47 @@ class UninitializedVariable extends LocalVariable {
     )
   }
 
-  /** Get a access of the variable that is used to initialize the variable. */
+  /**
+   * Get a access of the variable that is assumed to initialize the variable.
+   * This approximates that any access in the lvalue category may be a definition.
+   */
   VariableAccess getADefinitionAccess() {
     result = getAnAccess() and
-    result.isLValueCategory()
+    result.isLValueCategory() and
+    // Not a pointless read
+    not result = any(ExprStmt es).getExpr() and
+    // not involved in a new expr assignment since that does not define
+    not result = any(NonInitAssignment a).getLValue()
   }
 
-  /** Get a read of the variable. */
+  /**
+   * Gets an access of the this variable which is not used as an lvalue, and not used as an argument
+   * to an initialization function.
+   */
   VariableAccess getAUse() {
-    result = getAnAccess() and
-    result.isRValueCategory() and
+    result = this.getAnAccess() and
+    (
+      //count rvalue x (or *x) as a use if not new int
+      result.isRValue() and
+      not this.getInitializer().getExpr() instanceof NewNotInit
+      or
+      //count lvalue x as a use if used in *x and not new int
+      result.isLValue() and
+      exists(PointerDereferenceExpr e | result = e.getAChild()) and
+      exists(this.getInitializer()) and
+      not this.getInitializer().getExpr() instanceof NewNotInit
+      or
+      //count rvalue *x as a use if has new int
+      result.isRValue() and
+      this.getInitializer().getExpr() instanceof NewNotInit and
+      exists(PointerDereferenceExpr e | result = e.getAChild())
+    ) and
+    // Not passed to another initialization function
+    not exists(Call c, int j | j = c.getTarget().(InitializationFunction).initializedParameter() |
+      result = c.getArgument(j).(AddressOfExpr).getOperand()
+    ) and
+    // Not a pointless read
+    not result = any(ExprStmt es).getExpr() and
     // sizeof operators are not real uses
     not result.getParent+() instanceof SizeofOperator
   }
