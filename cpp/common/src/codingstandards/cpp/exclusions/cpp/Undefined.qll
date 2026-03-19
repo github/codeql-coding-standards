@@ -9,7 +9,9 @@ newtype UndefinedQuery =
   TUndefinedBehaviorAuditQuery() or
   TCriticalUnspecifiedBehaviorAuditQuery() or
   TPossibleDataRaceBetweenThreadsQuery() or
-  TDivisionByZeroUndefinedBehaviorQuery()
+  TDivisionByZeroUndefinedBehaviorQuery() or
+  TDeallocationTypeMismatchQuery() or
+  TStringLiteralPossiblyModifiedAuditQuery()
 
 predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -65,6 +67,24 @@ predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, s
     "cpp/misra/division-by-zero-undefined-behavior" and
   ruleId = "RULE-4-1-3" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `deallocationTypeMismatch` query
+    UndefinedPackage::deallocationTypeMismatchQuery() and
+  queryId =
+    // `@id` for the `deallocationTypeMismatch` query
+    "cpp/misra/deallocation-type-mismatch" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `stringLiteralPossiblyModifiedAudit` query
+    UndefinedPackage::stringLiteralPossiblyModifiedAuditQuery() and
+  queryId =
+    // `@id` for the `stringLiteralPossiblyModifiedAudit` query
+    "cpp/misra/string-literal-possibly-modified-audit" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
 }
 
 module UndefinedPackage {
@@ -108,5 +128,19 @@ module UndefinedPackage {
     result =
       // `Query` type for `divisionByZeroUndefinedBehavior` query
       TQueryCPP(TUndefinedPackageQuery(TDivisionByZeroUndefinedBehaviorQuery()))
+  }
+
+  Query deallocationTypeMismatchQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `deallocationTypeMismatch` query
+      TQueryCPP(TUndefinedPackageQuery(TDeallocationTypeMismatchQuery()))
+  }
+
+  Query stringLiteralPossiblyModifiedAuditQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `stringLiteralPossiblyModifiedAudit` query
+      TQueryCPP(TUndefinedPackageQuery(TStringLiteralPossiblyModifiedAuditQuery()))
   }
 }

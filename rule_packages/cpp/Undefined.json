@@ -82,6 +82,33 @@
             "correctness",
             "scope/system"
           ]
+        },
+        {
+          "description": "Using a deallocation function that does not match the allocation function results in undefined behavior.",
+          "kind": "problem",
+          "name": "Deallocation type mismatch leads to undefined behavior",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "ProperlyDeallocateDynamicallyAllocatedResourcesShared",
+          "short_name": "DeallocationTypeMismatch",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Assigning a string literal to a non-const pointer may lead to undefined behaviour if the string is modified through that pointer.",
+          "kind": "problem",
+          "name": "Audit: string literal possibly modified through non-const pointer",
+          "precision": "low",
+          "severity": "error",
+          "shared_implementation_short_name": "StringLiteralsAssignedToNonConstantPointersShared",
+          "short_name": "StringLiteralPossiblyModifiedAudit",
+          "tags": [
+            "correctness",
+            "scope/system",
+            "external/misra/audit"
+          ]
         }
       ],
       "title": "There shall be no occurrence of undefined or critical unspecified behaviour"
