@@ -228,6 +228,10 @@ void test_aggregates() {
   new int *;  // COMPLIANT
 }
 
+// Static aggregates are zero-initialized even with the `x y;` syntax.
+AggregateFieldUninit g1;    // COMPLIANT
+AggregateFieldUninit g2[2]; // COMPLIANT
+
 class HasAggregateMemberCompliant {
   HasAggregateMemberCompliant() : m3{0}, m5{0} {}
   AggregateFieldCtor m1;
@@ -252,4 +256,50 @@ class HasAggregateMemberCompliantInit {
 class HasUninitArrayAggregateMemberNonCompliant {
   HasUninitArrayAggregateMemberNonCompliant() {} // NON_COMPLIANT
   AggregateFieldUninit m1[5];
+};
+
+struct NoisyAggregate {
+  int m1, m2, m3, m4, m5, m6, m7, m8, m9, m10;
+};
+
+void useNoisyAggregate() {
+  // This should not report 10 results, as that would be very noisy.
+  NoisyAggregate a; // NON_COMPLIANT
+}
+
+#include <array>
+namespace std {
+struct Aggregate {
+  int m1;
+};
+} // namespace std
+void useStd() {
+  // std::array is the only aggregate in the STL according to the spec, but
+  // we should categorically exclude
+  std::array<int, 5> a; // COMPLIANT
+  std::Aggregate a2;    // COMPLIANT
+}
+
+void useUnionAggregate() {
+  union UnionAggregate {
+    int m1;
+    float m2;
+  };
+
+  // Unions are aggregates, but we should not report on them.
+  UnionAggregate a;             // NON_COMPLIANT
+  UnionAggregate a2{};          // COMPLIANT
+  UnionAggregate a3 = {};       // COMPLIANT
+  UnionAggregate a4{.m1 = 0};   // COMPLIANT
+  UnionAggregate a5{.m2 = 0.0}; // COMPLIANT
+}
+
+union UnionWithConstructor {
+  int m1;
+  float m2;
+  // Union constructors can only initialize a single member.
+  UnionWithConstructor(int m1) : m1(m1) {} // COMPLIANT
+  // Union constructors should still be required to initialize one member, but
+  // this is not implemented.
+  UnionWithConstructor() {} // NON_COMPLIANT[False negative]
 };

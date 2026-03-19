@@ -14,6 +14,7 @@
  */
 
 import cpp
+import codingstandards.cpp.StdNamespace
 import codingstandards.cpp.misra
 import codingstandards.cpp.types.TrivialType
 
@@ -39,7 +40,10 @@ class RelevantAggregate extends Class {
 
   RelevantAggregate() {
     isAggregateClass(this) and
-    f = getAField()
+    f = getAField() and
+    not getNamespace() instanceof StdNS and
+    // Some aggregates, such as va_list, have no location
+    exists(getLocation())
   }
 
   CheckedField getField() { result = f }
@@ -100,6 +104,7 @@ class IncompleteConstructor extends Constructor, IncompleteInitialization {
     not ctorInitializesCheckedField(this, checkedField) and
     // aggregate classes are allowed and do not initialize members
     not isAggregateClass(getDeclaringType()) and
+    not getDeclaringType() instanceof Union and
     this.getDeclaringType().hasDefinition() and
     not this.isDeleted() and
     // Delegating constructors do not need to initialize members
@@ -170,15 +175,13 @@ predicate typeContainsAggregate(Type t, RelevantAggregate aggregate) {
  * Note that `aggregate agg;` as a member of an aggregate class is compliant, and as a member of a
  * non-aggregate class will be checked at the outer class constructor definition.
  */
-class IncompleteAggregateInit extends Variable, IncompleteInitialization {
+class IncompleteAggregateInit extends LocalVariable, IncompleteInitialization {
   RelevantAggregate aggregate;
 
   IncompleteAggregateInit() {
     typeContainsAggregate(getType(), aggregate) and
     // agg{} is allowed, and agg; is not.
-    not this.hasInitializer() and
-    // Aggregate members may be initialized by constructor or belong to another aggregate.
-    not this instanceof MemberVariable
+    not this.hasInitializer()
   }
 
   override CheckedField getField() { result = aggregate.getField() }
@@ -205,8 +208,25 @@ class IncompleteAggregateNew extends NewOrNewArrayExpr, IncompleteInitialization
   override string getKindStr() { result = "Aggregate new expression" }
 }
 
-from IncompleteInitialization init, CheckedField f
+predicate test(IncompleteConstructor c, CheckedField f) {
+  c.getField() = f and
+  f.getName() = "num_polls" and
+  not exists(f.getInitializer()) and
+  not f.hasInitializer() and
+  not exists(f.getAnAssignment())
+}
+
+from IncompleteInitialization init, CheckedField f, int total, int ranked, string suffix
 where
   not isExcluded(init, Classes4Package::nonStaticMemberNotInitBeforeUseQuery()) and
-  f = init.getField()
-select init, init.getKindStr() + " does not initialize non-static data member $@", f, f.getName()
+  total = count(init.getField()) and
+  f =
+    rank[ranked](Field candidate |
+      candidate = init.getField()
+    |
+      candidate order by candidate.getName()
+    ) and
+  ranked <= 3 and
+  if total > 1 then suffix = " (and " + (total - 1) + " more)" else suffix = ""
+select init, init.getKindStr() + " does not initialize non-static data member $@" + suffix + ".", f,
+  f.getName()

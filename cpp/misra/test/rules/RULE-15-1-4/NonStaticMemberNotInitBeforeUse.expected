@@ -1,21 +1,26 @@
-| test.cpp:35:3:35:14 | MemberUninit | Constructor does not initialize non-static data member $@ | test.cpp:36:16:36:17 | m1 | m1 |
-| test.cpp:45:3:45:19 | MemberUninitArray | Constructor does not initialize non-static data member $@ | test.cpp:46:16:46:17 | m1 | m1 |
-| test.cpp:50:3:50:21 | MemberUninitPointer | Constructor does not initialize non-static data member $@ | test.cpp:51:17:51:18 | m1 | m1 |
-| test.cpp:55:3:55:21 | MemberUninitAndInit | Constructor does not initialize non-static data member $@ | test.cpp:56:16:56:17 | m1 | m1 |
-| test.cpp:62:3:62:15 | MultipleCtors | Constructor does not initialize non-static data member $@ | test.cpp:65:16:65:17 | m1 | m1 |
-| test.cpp:74:3:74:21 | DefaultedCtorUninit | Constructor does not initialize non-static data member $@ | test.cpp:75:16:75:17 | m2 | m2 |
-| test.cpp:85:3:85:16 | CopyMoveUninit | Constructor does not initialize non-static data member $@ | test.cpp:87:16:87:17 | m1 | m1 |
-| test.cpp:86:3:86:16 | CopyMoveUninit | Constructor does not initialize non-static data member $@ | test.cpp:87:16:87:17 | m1 | m1 |
-| test.cpp:104:3:104:37 | DelegatingCtorSameClassNonCompliant | Constructor does not initialize non-static data member $@ | test.cpp:109:16:109:17 | m1 | m1 |
-| test.cpp:120:3:120:32 | DelegatingCtorBaseNonCompliant | Constructor does not initialize non-static data member $@ | test.cpp:121:16:121:17 | m1 | m1 |
-| test.cpp:147:3:147:62 | using DelegateToNonCompliantBase | Using declaration with base constructor does not initialize non-static data member $@ | test.cpp:148:16:148:17 | m1 | m1 |
-| test.cpp:202:24:202:25 | l4 | Aggregate variable does not initialize non-static data member $@ | test.cpp:177:16:177:17 | m1 | m1 |
-| test.cpp:207:24:207:25 | l9 | Aggregate variable does not initialize non-static data member $@ | test.cpp:177:16:177:17 | m1 | m1 |
-| test.cpp:210:3:210:26 | new | Aggregate new expression does not initialize non-static data member $@ | test.cpp:177:16:177:17 | m1 | m1 |
-| test.cpp:213:3:213:29 | new[] | Aggregate new expression does not initialize non-static data member $@ | test.cpp:177:16:177:17 | m1 | m1 |
-| test.cpp:217:36:217:38 | l12 | Aggregate variable does not initialize non-static data member $@ | test.cpp:186:24:186:25 | m1 | m1 |
-| test.cpp:220:36:220:38 | l15 | Aggregate variable does not initialize non-static data member $@ | test.cpp:186:24:186:25 | m1 | m1 |
-| test.cpp:222:3:222:38 | new | Aggregate new expression does not initialize non-static data member $@ | test.cpp:186:24:186:25 | m1 | m1 |
-| test.cpp:241:3:241:32 | HasAggregateMemberNonCompliant | Constructor does not initialize non-static data member $@ | test.cpp:242:24:242:25 | m1 | m1 |
-| test.cpp:241:3:241:32 | HasAggregateMemberNonCompliant | Constructor does not initialize non-static data member $@ | test.cpp:243:36:243:37 | m2 | m2 |
-| test.cpp:253:3:253:43 | HasUninitArrayAggregateMemberNonCompliant | Constructor does not initialize non-static data member $@ | test.cpp:254:24:254:25 | m1 | m1 |
+| test.cpp:35:3:35:14 | MemberUninit | Constructor does not initialize non-static data member $@. | test.cpp:36:16:36:17 | m1 | m1 |
+| test.cpp:45:3:45:19 | MemberUninitArray | Constructor does not initialize non-static data member $@. | test.cpp:46:16:46:17 | m1 | m1 |
+| test.cpp:50:3:50:21 | MemberUninitPointer | Constructor does not initialize non-static data member $@. | test.cpp:51:17:51:18 | m1 | m1 |
+| test.cpp:55:3:55:21 | MemberUninitAndInit | Constructor does not initialize non-static data member $@. | test.cpp:56:16:56:17 | m1 | m1 |
+| test.cpp:62:3:62:15 | MultipleCtors | Constructor does not initialize non-static data member $@. | test.cpp:65:16:65:17 | m1 | m1 |
+| test.cpp:74:3:74:21 | DefaultedCtorUninit | Constructor does not initialize non-static data member $@. | test.cpp:75:16:75:17 | m2 | m2 |
+| test.cpp:85:3:85:16 | CopyMoveUninit | Constructor does not initialize non-static data member $@. | test.cpp:87:16:87:17 | m1 | m1 |
+| test.cpp:86:3:86:16 | CopyMoveUninit | Constructor does not initialize non-static data member $@. | test.cpp:87:16:87:17 | m1 | m1 |
+| test.cpp:104:3:104:37 | DelegatingCtorSameClassNonCompliant | Constructor does not initialize non-static data member $@. | test.cpp:109:16:109:17 | m1 | m1 |
+| test.cpp:120:3:120:32 | DelegatingCtorBaseNonCompliant | Constructor does not initialize non-static data member $@. | test.cpp:121:16:121:17 | m1 | m1 |
+| test.cpp:147:3:147:62 | using DelegateToNonCompliantBase | Using declaration with base constructor does not initialize non-static data member $@. | test.cpp:148:16:148:17 | m1 | m1 |
+| test.cpp:202:24:202:25 | l4 | Aggregate variable does not initialize non-static data member $@. | test.cpp:177:16:177:17 | m1 | m1 |
+| test.cpp:207:24:207:25 | l9 | Aggregate variable does not initialize non-static data member $@. | test.cpp:177:16:177:17 | m1 | m1 |
+| test.cpp:210:3:210:26 | new | Aggregate new expression does not initialize non-static data member $@. | test.cpp:177:16:177:17 | m1 | m1 |
+| test.cpp:213:3:213:29 | new[] | Aggregate new expression does not initialize non-static data member $@. | test.cpp:177:16:177:17 | m1 | m1 |
+| test.cpp:217:36:217:38 | l12 | Aggregate variable does not initialize non-static data member $@. | test.cpp:186:24:186:25 | m1 | m1 |
+| test.cpp:220:36:220:38 | l15 | Aggregate variable does not initialize non-static data member $@. | test.cpp:186:24:186:25 | m1 | m1 |
+| test.cpp:222:3:222:38 | new | Aggregate new expression does not initialize non-static data member $@. | test.cpp:186:24:186:25 | m1 | m1 |
+| test.cpp:245:3:245:32 | HasAggregateMemberNonCompliant | Constructor does not initialize non-static data member $@ (and 1 more). | test.cpp:246:24:246:25 | m1 | m1 |
+| test.cpp:245:3:245:32 | HasAggregateMemberNonCompliant | Constructor does not initialize non-static data member $@ (and 1 more). | test.cpp:247:36:247:37 | m2 | m2 |
+| test.cpp:257:3:257:43 | HasUninitArrayAggregateMemberNonCompliant | Constructor does not initialize non-static data member $@. | test.cpp:258:24:258:25 | m1 | m1 |
+| test.cpp:267:18:267:18 | a | Aggregate variable does not initialize non-static data member $@ (and 9 more). | test.cpp:262:7:262:8 | m1 | m1 |
+| test.cpp:267:18:267:18 | a | Aggregate variable does not initialize non-static data member $@ (and 9 more). | test.cpp:262:11:262:12 | m2 | m2 |
+| test.cpp:267:18:267:18 | a | Aggregate variable does not initialize non-static data member $@ (and 9 more). | test.cpp:262:43:262:45 | m10 | m10 |
+| test.cpp:290:18:290:18 | a | Aggregate variable does not initialize non-static data member $@ (and 1 more). | test.cpp:285:9:285:10 | m1 | m1 |
+| test.cpp:290:18:290:18 | a | Aggregate variable does not initialize non-static data member $@ (and 1 more). | test.cpp:286:11:286:12 | m2 | m2 |
