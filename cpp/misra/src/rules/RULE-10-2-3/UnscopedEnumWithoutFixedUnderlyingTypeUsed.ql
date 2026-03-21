@@ -40,7 +40,7 @@ class ArithmeticBitwiseLogicalBinaryOperation extends BinaryOperation {
  * `binOp.getLeftOperand().getExplicitlyConverted()` gives `int`.
  */
 predicate arithmeticBitwiseLogicalOperationUsesUnscopedUnfixedEnum(
-  ArithmeticBitwiseLogicalBinaryOperation binOp
+  ArithmeticBitwiseLogicalBinaryOperation binOp, Enum enum
 ) {
   /*
    * We want to strip explicit casts and not implicit ones. Without the
@@ -52,14 +52,11 @@ predicate arithmeticBitwiseLogicalOperationUsesUnscopedUnfixedEnum(
    * ```
    */
 
-  isUnscopedEnumWithoutFixedUnderlyingType(binOp
-        .getLeftOperand()
-        .getExplicitlyConverted()
-        .getUnderlyingType()) or
-  isUnscopedEnumWithoutFixedUnderlyingType(binOp
-        .getRightOperand()
-        .getExplicitlyConverted()
-        .getUnderlyingType())
+  isUnscopedEnumWithoutFixedUnderlyingType(enum) and
+  (
+    enum = binOp.getLeftOperand().getExplicitlyConverted().getUnderlyingType() or
+    enum = binOp.getRightOperand().getExplicitlyConverted().getUnderlyingType()
+  )
 }
 
 class RelationalEqualityBinaryOperation extends BinaryOperation {
@@ -69,7 +66,9 @@ class RelationalEqualityBinaryOperation extends BinaryOperation {
   }
 }
 
-predicate relationalEqualityOperationUsesUnscopedUnfixedEnum(RelationalEqualityBinaryOperation binOp) {
+predicate relationalEqualityOperationUsesUnscopedUnfixedEnum(
+  RelationalEqualityBinaryOperation binOp, Enum enum
+) {
   exists(Type leftOperandType, Type rightOperandType |
     /*
      * We want to strip explicit casts and not implicit ones. Without the
@@ -84,10 +83,10 @@ predicate relationalEqualityOperationUsesUnscopedUnfixedEnum(RelationalEqualityB
     leftOperandType = binOp.getLeftOperand().getExplicitlyConverted().getUnderlyingType() and
     rightOperandType = binOp.getRightOperand().getExplicitlyConverted().getUnderlyingType()
   |
+    isUnscopedEnumWithoutFixedUnderlyingType(enum) and
     (
-      isUnscopedEnumWithoutFixedUnderlyingType(leftOperandType)
-      or
-      isUnscopedEnumWithoutFixedUnderlyingType(rightOperandType)
+      enum = leftOperandType or
+      enum = rightOperandType
     ) and
     leftOperandType != rightOperandType
   )
@@ -101,9 +100,10 @@ class ArithmeticBitwiseCompoundAssignment extends AssignOperation {
 }
 
 predicate compoundAssignmentUsesUnscopedUnfixedEnum(
-  ArithmeticBitwiseCompoundAssignment compoundAssignment
+  ArithmeticBitwiseCompoundAssignment compoundAssignment, Enum enum
 ) {
-  isUnscopedEnumWithoutFixedUnderlyingType(compoundAssignment.getAnOperand().getUnderlyingType())
+  isUnscopedEnumWithoutFixedUnderlyingType(enum) and
+  enum = compoundAssignment.getAnOperand().getUnderlyingType()
 }
 
 /**
@@ -164,58 +164,75 @@ predicate enumFitsInType(Enum e, IntegralType type) {
   )
 }
 
-predicate assignmentSourceIsUnscopedUnfixedEnum(AssignExpr assign) {
-  isUnscopedEnumWithoutFixedUnderlyingType(assign.getRValue().getUnderlyingType()) and
-  (
-    not enumFitsInType(assign.getRValue().getUnderlyingType(),
-      assign.getLValue().getUnderlyingType()) and
-    /* Exclude cases where the assignment's target type is the same enum. */
-    not assign.getRValue().getUnderlyingType() = assign.getLValue().getUnderlyingType()
-  )
+predicate assignmentSourceIsUnscopedUnfixedEnum(AssignExpr assign, Enum enum, Type targetType) {
+  isUnscopedEnumWithoutFixedUnderlyingType(enum) and
+  enum = assign.getRValue().getUnderlyingType() and
+  targetType = assign.getLValue().getUnderlyingType() and
+  not enumFitsInType(enum, targetType) and
+  not enum = targetType
 }
 
-predicate staticCastSourceIsUnscopedUnfixedEnumVariant(StaticCast cast) {
-  isUnscopedEnumWithoutFixedUnderlyingType(cast.getExpr().getUnderlyingType()) and
-  (
-    not enumFitsInType(cast.getExpr().getUnderlyingType(), cast.getUnderlyingType()) and
-    /* Exclude cases where the assignment's target type is the same enum. */
-    not cast.getExpr().getUnderlyingType() = cast.getUnderlyingType()
-  )
+predicate staticCastSourceIsUnscopedUnfixedEnumVariant(StaticCast cast, Enum enum, Type targetType) {
+  isUnscopedEnumWithoutFixedUnderlyingType(enum) and
+  enum = cast.getExpr().getUnderlyingType() and
+  targetType = cast.getUnderlyingType() and
+  not enumFitsInType(enum, targetType) and
+  not enum = targetType
 }
 
-predicate switchConditionIsAnUnfixedEnumVariant(SwitchStmt switch) {
-  exists(Enum e |
-    isUnscopedEnumWithoutFixedUnderlyingType(e) and
-    e = switch.getExpr().getType() and
-    exists(SwitchCase case | case = switch.getASwitchCase() |
-      not case.getExpr().getUnderlyingType() = e
-    )
-  )
+predicate switchConditionIsAnUnfixedEnumVariant(SwitchStmt switch, Enum enum, SwitchCase invalidCase) {
+  isUnscopedEnumWithoutFixedUnderlyingType(enum) and
+  enum = switch.getExpr().getType() and
+  invalidCase = switch.getASwitchCase() and
+  not invalidCase.getExpr().getUnderlyingType() = enum
 }
 
 /**
- * Holds if a `static_cast` expression has an enum with fixed underlying type but
- * the target type is not an unscoped enum.
+ * Holds if a `static_cast` expression has an unscoped enum without fixed
+ * underlying type as the target type.
  */
-predicate staticCastTargetIsUnscopedUnfixedEnumVariant(StaticCast cast) {
-  exists(Enum e |
-    e = cast.getType() and
-    isUnscopedEnumWithoutFixedUnderlyingType(e) and
-    /* Exclude cases where the assignment's target type is the same enum. */
-    not cast.getExpr().getType() = e
-  )
+predicate staticCastTargetIsUnscopedUnfixedEnumVariant(StaticCast cast, Enum enum) {
+  isUnscopedEnumWithoutFixedUnderlyingType(enum) and
+  enum = cast.getType() and
+  not cast.getExpr().getType() = enum
 }
 
-from Element x
+from Element x, Enum enum, string message
 where
   not isExcluded(x, Banned3Package::unscopedEnumWithoutFixedUnderlyingTypeUsedQuery()) and
   (
-    arithmeticBitwiseLogicalOperationUsesUnscopedUnfixedEnum(x) or
-    relationalEqualityOperationUsesUnscopedUnfixedEnum(x) or
-    compoundAssignmentUsesUnscopedUnfixedEnum(x) or
-    assignmentSourceIsUnscopedUnfixedEnum(x) or
-    staticCastSourceIsUnscopedUnfixedEnumVariant(x) or
-    switchConditionIsAnUnfixedEnumVariant(x) or
-    staticCastTargetIsUnscopedUnfixedEnumVariant(x)
+    arithmeticBitwiseLogicalOperationUsesUnscopedUnfixedEnum(x, enum) and
+    message =
+      "Arithmetic, bitwise, or logical operation uses unscoped enum $@ without fixed underlying type."
+    or
+    relationalEqualityOperationUsesUnscopedUnfixedEnum(x, enum) and
+    message =
+      "Relational or equality operation compares unscoped enum $@ without fixed underlying type to a different type."
+    or
+    compoundAssignmentUsesUnscopedUnfixedEnum(x, enum) and
+    message = "Compound assignment uses unscoped enum $@ without fixed underlying type."
+    or
+    exists(Type targetType |
+      assignmentSourceIsUnscopedUnfixedEnum(x, enum, targetType) and
+      message =
+        "Assignment from unscoped enum $@ without fixed underlying type to '" + targetType.getName()
+          + "' which may not be large enough."
+    )
+    or
+    exists(Type targetType |
+      staticCastSourceIsUnscopedUnfixedEnumVariant(x, enum, targetType) and
+      message =
+        "Static cast from unscoped enum $@ without fixed underlying type to '" +
+          targetType.getName() + "' which may not be large enough."
+    )
+    or
+    exists(SwitchStmt switch |
+      switchConditionIsAnUnfixedEnumVariant(switch, enum, x) and
+      message =
+        "Switch on unscoped enum $@ without fixed underlying type has case not of the same enum type."
+    )
+    or
+    staticCastTargetIsUnscopedUnfixedEnumVariant(x, enum) and
+    message = "Static cast to unscoped enum $@ without fixed underlying type."
   )
-select x, "TODO"
+select x, message, enum, enum.getName()
