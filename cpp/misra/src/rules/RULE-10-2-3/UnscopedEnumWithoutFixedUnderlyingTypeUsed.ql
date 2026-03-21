@@ -107,7 +107,8 @@ predicate compoundAssignmentUsesUnscopedUnfixedEnum(
 }
 
 predicate assignmentSourceIsUnscopedUnfixedEnum(AssignExpr assign) {
-  isUnscopedEnumWithoutFixedUnderlyingType(assign.getRValue().getUnderlyingType())
+  isUnscopedEnumWithoutFixedUnderlyingType(assign.getRValue().getUnderlyingType()) and
+  not enumFitsInType(assign.getRValue().getUnderlyingType(), assign.getLValue().getUnderlyingType())
 }
 
 /**
@@ -161,6 +162,8 @@ predicate enumFitsInType(Enum e, IntegralType type) {
       or
       signed = false and type.isUnsigned()
     )
+    or
+    type.getSize() * 8 > minBits
   )
 }
 
