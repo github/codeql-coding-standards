@@ -268,7 +268,7 @@ void static_cast_from_fixed() {
   static_cast<Fixed>(f);       // COMPLIANT: fixed underlying type
   static_cast<int>(f);         // COMPLIANT: fixed underlying type
   static_cast<std::int8_t>(f); // COMPLIANT: fixed underlying type
-  static_cast<Unfixed>(f); // NON_COMPLIANT: target is unfixed enum (TO rule)
+  static_cast<Unfixed>(f);     // NON_COMPLIANT: target is unfixed enum
 }
 
 /* ========== 12. static_cast TO unfixed enum ========== */
@@ -291,12 +291,12 @@ void static_cast_to_fixed() {
   int i = 0;
   Unfixed u = U0;
 
-  // Fixed enum as target is compliant (for the TO rule)
+  // Fixed enum as target is compliant
   static_cast<Fixed>(0);  // COMPLIANT: fixed enum as target
   static_cast<Fixed>(i);  // COMPLIANT: fixed enum as target
   static_cast<Fixed>(F0); // COMPLIANT: fixed enum as target
   static_cast<Fixed>(u);  // NON_COMPLIANT: source is unfixed enum, target is
-                          // different type (FROM rule)
+                          // different type
 }
 
 /* ========== 14. static_cast TO scoped enum ========== */
@@ -309,7 +309,7 @@ void static_cast_to_scoped() {
   static_cast<Scoped>(0); // COMPLIANT: scoped enum has fixed type
   static_cast<Scoped>(i); // COMPLIANT: scoped enum has fixed type
   static_cast<Scoped>(u); // NON_COMPLIANT: source is unfixed enum, target is
-                          // different type (FROM rule)
+                          // different type
 }
 
 /* ========== 15. static_cast FROM scoped enum ========== */
@@ -321,7 +321,7 @@ void static_cast_from_scoped() {
   static_cast<int>(s);         // COMPLIANT: scoped enum has fixed type
   static_cast<std::int8_t>(s); // COMPLIANT: scoped enum has fixed type
   static_cast<Scoped>(s);      // COMPLIANT: same type, fixed
-  static_cast<Unfixed>(s); // NON_COMPLIANT: target is unfixed enum (TO rule)
+  static_cast<Unfixed>(s);     // NON_COMPLIANT: target is unfixed enum
 }
 
 /* ========== 16. Cross-enum relational operators ========== */

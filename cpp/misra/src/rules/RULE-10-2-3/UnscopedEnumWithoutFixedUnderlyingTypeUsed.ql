@@ -201,7 +201,7 @@ predicate staticCastTargetIsUnscopedUnfixedEnumVariant(StaticCast cast) {
   exists(Enum e |
     e = cast.getType() and
     isUnscopedEnumWithoutFixedUnderlyingType(e) and
-    // Exclude same-type casts (allowed by the "from" rule)
+    /* Exclude cases where the assignment's target type is the same enum. */
     not cast.getExpr().getType() = e
   )
 }
