@@ -2,9 +2,19 @@
 
 /* ========== 1. Fixtures ========== */
 
-// Unscoped, no fixed type
+// Unscoped, no fixed type - narrowest possible: char
 enum Unfixed { U0, U1, U2 };
 enum Unfixed2 { V0 = 10, V1, V2 };
+
+// Unscoped, no fixed type - narrowest possible: std::int16_t (needs > 127
+// signed)
+enum UnfixedMedium { UM0 = -1, UM1 = 1000 };
+
+// Unscoped, no fixed type - narrowest possible: std::uint32_t
+enum UnfixedLargeU { ULU0 = 0x7FFFFFFF, ULU1 };
+
+// Unscoped, no fixed type - narrowest possible: std::int64_t
+enum UnfixedLargeS { ULS0 = -1, ULS1 = 0x80000000 };
 
 // Unscoped, with fixed type
 enum Fixed : std::int32_t { F0 = 20, F1, F2 };
@@ -15,9 +25,6 @@ enum class Scoped { S0, S1, S2 };
 
 // Scoped, with fixed type
 enum class ScopedFixed : std::int32_t { SF0, SF1, SF2 };
-
-// Unscoped, no fixed type, large values
-enum UnfixedLarge { UL0 = 0x7FFFFFFF, UL1 };
 
 /* ========== 2. Arithmetic operators ========== */
 
@@ -121,19 +128,47 @@ void relational() {
 /* ========== 8. Assignment ========== */
 
 void assignment() {
-  Unfixed u = U0;
+  Unfixed u = U0;           // Narrowest: char
+  UnfixedMedium um = UM0;   // Narrowest: std::int16_t
+  UnfixedLargeU ulu = ULU0; // Narrowest: std::uint32_t
+  UnfixedLargeS uls = ULS0; // Narrowest: std::int64_t
   Fixed f = F0;
 
-  std::int32_t i32;
   std::int8_t i8;
+  std::int16_t i16;
+  std::int32_t i32;
+  std::uint32_t u32;
   std::int64_t i64;
 
-  i32 = u; // COMPLIANT: std::int32_t large enough
-  i64 = u; // COMPLIANT: std::int64_t large enough
-  i8 = u;  // NON_COMPLIANT: std::int8_t might not hold all values
+  // Unfixed { U0, U1, U2 } - narrowest: char
+  i8 = u;  // COMPLIANT: std::int8_t >= char
+  i16 = u; // COMPLIANT: std::int16_t >= char
+  i32 = u; // COMPLIANT: std::int32_t >= char
+  i64 = u; // COMPLIANT: std::int64_t >= char
 
-  i32 = f; // COMPLIANT: fixed underlying type
+  // UnfixedMedium { UM0 = -1, UM1 = 1000 } - narrowest: std::int16_t
+  i8 = um;  // NON_COMPLIANT: std::int8_t < std::int16_t
+  i16 = um; // COMPLIANT: std::int16_t >= std::int16_t
+  i32 = um; // COMPLIANT: std::int32_t >= std::int16_t
+  i64 = um; // COMPLIANT: std::int64_t >= std::int16_t
+
+  // UnfixedLargeU { ULU0 = 0x7FFFFFFF, ULU1 } - narrowest: std::uint32_t
+  i8 = ulu;  // NON_COMPLIANT: std::int8_t < std::uint32_t
+  i16 = ulu; // NON_COMPLIANT: std::int16_t < std::uint32_t
+  i32 = ulu; // NON_COMPLIANT: std::int32_t < std::uint32_t (signed vs unsigned)
+  u32 = ulu; // COMPLIANT: std::uint32_t >= std::uint32_t
+  i64 = ulu; // COMPLIANT: std::int64_t >= std::uint32_t
+
+  // UnfixedLargeS { ULS0 = -1, ULS1 = 0x80000000 } - narrowest: std::int64_t
+  i8 = uls;  // NON_COMPLIANT: std::int8_t < std::int64_t
+  i16 = uls; // NON_COMPLIANT: std::int16_t < std::int64_t
+  i32 = uls; // NON_COMPLIANT: std::int32_t < std::int64_t
+  u32 = uls; // NON_COMPLIANT: std::uint32_t < std::int64_t
+  i64 = uls; // COMPLIANT: std::int64_t >= std::int64_t
+
+  // Fixed underlying type - rule doesn't apply
   i8 = f;  // COMPLIANT: fixed underlying type
+  i32 = f; // COMPLIANT: fixed underlying type
 
   Unfixed u2;
   u2 = u; // COMPLIANT: same enum type
@@ -179,25 +214,44 @@ void switch_statements() {
 /* ========== 10. static_cast FROM unfixed enum ========== */
 
 void static_cast_from_unfixed() {
-  Unfixed u = U0;
+  Unfixed u = U0;           // Narrowest: char
+  UnfixedMedium um = UM0;   // Narrowest: std::int16_t
+  UnfixedLargeU ulu = ULU0; // Narrowest: std::uint32_t
+  UnfixedLargeS uls = ULS0; // Narrowest: std::int64_t
 
   // Target is same enumeration type
   static_cast<Unfixed>(u); // COMPLIANT: same enum type
 
-  // Target is integer type large enough
-  static_cast<int>(u);          // COMPLIANT: int guaranteed large enough
-  static_cast<long>(u);         // COMPLIANT: long >= int
-  static_cast<std::int64_t>(u); // COMPLIANT: std::int64_t >= int
-  static_cast<unsigned int>(u); // COMPLIANT: unsigned int large enough
+  // Unfixed { U0, U1, U2 } - narrowest: char
+  static_cast<std::int8_t>(u);  // COMPLIANT: std::int8_t >= char
+  static_cast<std::int16_t>(u); // COMPLIANT: std::int16_t >= char
+  static_cast<std::int32_t>(u); // COMPLIANT: std::int32_t >= char
+  static_cast<std::int64_t>(u); // COMPLIANT: std::int64_t >= char
+  static_cast<int>(u);          // COMPLIANT: int >= char
+  static_cast<long>(u);         // COMPLIANT: long >= char
+  static_cast<unsigned int>(u); // COMPLIANT: unsigned int >= char
 
-  // Target is integer type that might not be large enough
-  static_cast<std::int8_t>(
-      u); // NON_COMPLIANT: std::int8_t might not hold all values
-  static_cast<std::uint8_t>(
-      u); // NON_COMPLIANT: std::uint8_t might not hold all values
-  static_cast<std::int16_t>(
-      u);               // NON_COMPLIANT: std::int16_t might not hold all values
-  static_cast<char>(u); // NON_COMPLIANT: char might not hold all values
+  // UnfixedMedium { UM0 = -1, UM1 = 1000 } - narrowest: std::int16_t
+  static_cast<std::int8_t>(um);  // NON_COMPLIANT: std::int8_t < std::int16_t
+  static_cast<char>(um);         // NON_COMPLIANT: char < std::int16_t
+  static_cast<std::int16_t>(um); // COMPLIANT: std::int16_t >= std::int16_t
+  static_cast<std::int32_t>(um); // COMPLIANT: std::int32_t >= std::int16_t
+  static_cast<std::int64_t>(um); // COMPLIANT: std::int64_t >= std::int16_t
+
+  // UnfixedLargeU { ULU0 = 0x7FFFFFFF, ULU1 } - narrowest: std::uint32_t
+  static_cast<std::int8_t>(ulu);  // NON_COMPLIANT: std::int8_t < std::uint32_t
+  static_cast<std::int16_t>(ulu); // NON_COMPLIANT: std::int16_t < std::uint32_t
+  static_cast<std::int32_t>(ulu); // NON_COMPLIANT: std::int32_t < std::uint32_t
+  static_cast<std::uint32_t>(ulu); // COMPLIANT: std::uint32_t >= std::uint32_t
+  static_cast<std::int64_t>(ulu);  // COMPLIANT: std::int64_t >= std::uint32_t
+
+  // UnfixedLargeS { ULS0 = -1, ULS1 = 0x80000000 } - narrowest: std::int64_t
+  static_cast<std::int8_t>(uls);  // NON_COMPLIANT: std::int8_t < std::int64_t
+  static_cast<std::int16_t>(uls); // NON_COMPLIANT: std::int16_t < std::int64_t
+  static_cast<std::int32_t>(uls); // NON_COMPLIANT: std::int32_t < std::int64_t
+  static_cast<std::uint32_t>(
+      uls);                       // NON_COMPLIANT: std::uint32_t < std::int64_t
+  static_cast<std::int64_t>(uls); // COMPLIANT: std::int64_t >= std::int64_t
 
   // Target is different enumeration type
   static_cast<Unfixed2>(u); // NON_COMPLIANT: different enum type
@@ -287,7 +341,6 @@ void cross_enum_relational() {
 
   // Unfixed vs Scoped - with cast
   u == static_cast<int>(s); // NON_COMPLIANT: unfixed enum compared to int
-
   static_cast<int>(u) == static_cast<int>(s); // COMPLIANT: comparing ints
 
   // Fixed vs Scoped - with cast

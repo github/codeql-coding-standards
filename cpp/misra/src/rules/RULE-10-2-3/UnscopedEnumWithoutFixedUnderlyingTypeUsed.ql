@@ -82,7 +82,8 @@ predicate relationalEqualityOperationUsesUnscopedUnfixedEnum(RelationalEqualityB
      */
 
     leftOperandType = binOp.getLeftOperand().getExplicitlyConverted().getUnderlyingType() and
-    rightOperandType = binOp.getRightOperand().getExplicitlyConverted().getUnderlyingType() and
+    rightOperandType = binOp.getRightOperand().getExplicitlyConverted().getUnderlyingType()
+  |
     (
       isUnscopedEnumWithoutFixedUnderlyingType(leftOperandType)
       or
@@ -105,7 +106,63 @@ predicate compoundAssignmentUsesUnscopedUnfixedEnum(
   isUnscopedEnumWithoutFixedUnderlyingType(compoundAssignment.getAnOperand().getUnderlyingType())
 }
 
-predicate assignmentSourceIsUnscopedUnfixedEnum(AssignExpr assign) { none() }
+predicate assignmentSourceIsUnscopedUnfixedEnum(AssignExpr assign) {
+  isUnscopedEnumWithoutFixedUnderlyingType(assign.getRValue().getUnderlyingType())
+}
+
+/**
+ * Gets the minimum number of bits required to hold all values of enum `e`.
+ */
+int enumMinBits(Enum e, boolean signed) {
+  exists(QlBuiltins::BigInt minVal, QlBuiltins::BigInt maxVal |
+    minVal = min(EnumConstant c | c.getDeclaringEnum() = e | c.getValue().toBigInt()) and
+    maxVal = max(EnumConstant c | c.getDeclaringEnum() = e | c.getValue().toBigInt())
+  |
+    // 8 bits: signed [-128, 127] or unsigned [0, 255]
+    if minVal >= "-128".toBigInt() and maxVal <= "127".toBigInt()
+    then result = 8 and signed = true
+    else
+      if minVal >= "0".toBigInt() and maxVal <= "255".toBigInt()
+      then (
+        result = 8 and signed = false
+      ) else
+        // 16 bits: signed [-32768, 32767] or unsigned [0, 65535]
+        if minVal >= "-32768".toBigInt() and maxVal <= "32767".toBigInt()
+        then (
+          result = 16 and signed = true
+        ) else
+          if minVal >= "0".toBigInt() and maxVal <= "65535".toBigInt()
+          then (
+            result = 16 and signed = false
+          ) else
+            // 32 bits: signed [-2147483648, 2147483647] or unsigned [0, 4294967295]
+            if minVal >= "-2147483648".toBigInt() and maxVal <= "2147483647".toBigInt()
+            then (
+              result = 32 and signed = true
+            ) else
+              if minVal >= "0".toBigInt() and maxVal <= "4294967295".toBigInt()
+              then (
+                result = 32 and signed = false
+              ) else (
+                // 64 bits: everything else
+                result = 64 and signed = true
+              )
+  )
+}
+
+/**
+ * Holds if the enum `e` can fit in an integral type `type`.
+ */
+predicate enumFitsInType(Enum e, IntegralType type) {
+  exists(int minBits, boolean signed | minBits = enumMinBits(e, signed) |
+    type.getSize() * 8 = minBits and
+    (
+      signed = true and type.isSigned()
+      or
+      signed = false and type.isUnsigned()
+    )
+  )
+}
 
 predicate staticCastSourceIsUnscopedUnfixedEnumVariant(StaticCast cast) { none() }
 
