@@ -17,15 +17,12 @@
 import cpp
 import codingstandards.cpp.misra
 
-class MemberUnscopedEnum extends Enum {
-  MemberUnscopedEnum() {
-    not this instanceof ScopedEnum and
-    exists(Class klass | klass = this.getEnclosingElement())
-  }
+class NestedUnscopedEnum extends Enum, NestedEnum {
+  NestedUnscopedEnum() { not this instanceof ScopedEnum }
 }
 
 from Enum enum
 where
   not isExcluded(enum, Banned2Package::unscopedEnumerationsShouldNotBeDeclaredQuery()) and
-  not (enum instanceof ScopedEnum or enum instanceof MemberUnscopedEnum)
+  not (enum instanceof ScopedEnum or enum instanceof NestedUnscopedEnum)
 select enum, "This enumeration is an unscoped enum not enclosed in a class or a struct."
