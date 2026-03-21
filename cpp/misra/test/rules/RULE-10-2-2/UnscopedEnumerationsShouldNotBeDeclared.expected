@@ -1,1 +1,20 @@
-No expected results have yet been specified
+| test.cpp:8:6:8:14 | E_Global1 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:9:6:9:6 | (unnamed enum) | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:16:8:16:9 | E1 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:17:8:17:8 | (unnamed enum) | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:23:10:23:11 | E3 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:24:10:24:11 | E4 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:31:8:31:14 | E_Anon1 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:32:8:32:8 | (unnamed enum) | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:41:10:41:11 | E1 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:76:8:76:9 | E1 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:89:8:89:9 | E1 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:90:8:90:8 | (unnamed enum) | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:101:10:101:11 | E1 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:102:10:102:11 | E2 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:105:12:105:13 | E3 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:125:8:125:9 | E1 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:126:8:126:8 | (unnamed enum) | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:133:10:133:11 | E1 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:136:12:136:13 | E2 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
+| test.cpp:145:10:145:11 | E1 | This enumeration is an unscoped enum not enclosed in a class or a struct. |
