@@ -106,11 +106,6 @@ predicate compoundAssignmentUsesUnscopedUnfixedEnum(
   isUnscopedEnumWithoutFixedUnderlyingType(compoundAssignment.getAnOperand().getUnderlyingType())
 }
 
-predicate assignmentSourceIsUnscopedUnfixedEnum(AssignExpr assign) {
-  isUnscopedEnumWithoutFixedUnderlyingType(assign.getRValue().getUnderlyingType()) and
-  not enumFitsInType(assign.getRValue().getUnderlyingType(), assign.getLValue().getUnderlyingType())
-}
-
 /**
  * Gets the minimum number of bits required to hold all values of enum `e`.
  */
@@ -156,6 +151,7 @@ int enumMinBits(Enum e, boolean signed) {
  */
 predicate enumFitsInType(Enum e, IntegralType type) {
   exists(int minBits, boolean signed | minBits = enumMinBits(e, signed) |
+    /* If it has exactly the minimum number of bits, then check its signedness. */
     type.getSize() * 8 = minBits and
     (
       signed = true and type.isSigned()
@@ -163,13 +159,52 @@ predicate enumFitsInType(Enum e, IntegralType type) {
       signed = false and type.isUnsigned()
     )
     or
+    /* If it exceeds the minimum number of bits, signedness doesn't matter. */
     type.getSize() * 8 > minBits
   )
 }
 
-predicate staticCastSourceIsUnscopedUnfixedEnumVariant(StaticCast cast) { none() }
+predicate assignmentSourceIsUnscopedUnfixedEnum(AssignExpr assign) {
+  isUnscopedEnumWithoutFixedUnderlyingType(assign.getRValue().getUnderlyingType()) and
+  (
+    not enumFitsInType(assign.getRValue().getUnderlyingType(),
+      assign.getLValue().getUnderlyingType()) and
+    /* Exclude cases where the assignment's target type is the same enum. */
+    not assign.getRValue().getUnderlyingType() = assign.getLValue().getUnderlyingType()
+  )
+}
 
-predicate switchCaseIsAnUnfixedEnumVariant(SwitchCase switchCase) { none() }
+predicate staticCastSourceIsUnscopedUnfixedEnumVariant(StaticCast cast) {
+  isUnscopedEnumWithoutFixedUnderlyingType(cast.getExpr().getUnderlyingType()) and
+  (
+    not enumFitsInType(cast.getExpr().getUnderlyingType(), cast.getUnderlyingType()) and
+    /* Exclude cases where the assignment's target type is the same enum. */
+    not cast.getExpr().getUnderlyingType() = cast.getUnderlyingType()
+  )
+}
+
+predicate switchConditionIsAnUnfixedEnumVariant(SwitchStmt switch) {
+  exists(Enum e |
+    isUnscopedEnumWithoutFixedUnderlyingType(e) and
+    e = switch.getExpr().getType() and
+    exists(SwitchCase case | case = switch.getASwitchCase() |
+      not case.getExpr().getUnderlyingType() = e
+    )
+  )
+}
+
+/**
+ * Holds if a `static_cast` expression has an enum with fixed underlying type but
+ * the target type is not an unscoped enum.
+ */
+predicate staticCastTargetIsUnscopedUnfixedEnumVariant(StaticCast cast) {
+  exists(Enum e |
+    e = cast.getType() and
+    isUnscopedEnumWithoutFixedUnderlyingType(e) and
+    // Exclude same-type casts (allowed by the "from" rule)
+    not cast.getExpr().getType() = e
+  )
+}
 
 from Element x
 where
@@ -180,6 +215,7 @@ where
     compoundAssignmentUsesUnscopedUnfixedEnum(x) or
     assignmentSourceIsUnscopedUnfixedEnum(x) or
     staticCastSourceIsUnscopedUnfixedEnumVariant(x) or
-    switchCaseIsAnUnfixedEnumVariant(x)
+    switchConditionIsAnUnfixedEnumVariant(x) or
+    staticCastTargetIsUnscopedUnfixedEnumVariant(x)
   )
 select x, "TODO"
