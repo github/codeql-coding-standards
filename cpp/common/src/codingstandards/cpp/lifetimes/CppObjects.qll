@@ -246,7 +246,7 @@ class AggregateLiteralObjectIdentity extends AggregateLiteral, ObjectIdentityBas
 }
 
 /**
- * An object identified by a call to `malloc`.
+ * An object identified by a call to `malloc` or allcoated with a `new` or `new[]` expression.
  *
  * Note: the malloc expression returns an address to this object, not the object itself. Therefore,
  * `getAnAccess()` returns cases where this malloc result is dereferenced, and not the malloc call
@@ -262,6 +262,8 @@ class AggregateLiteralObjectIdentity extends AggregateLiteral, ObjectIdentityBas
 class AllocatedObjectIdentity extends AllocationExpr, ObjectIdentityBase {
   AllocatedObjectIdentity() {
     this.(FunctionCall).getTarget().(AllocationFunction).requiresDealloc()
+    or
+    this = any(NewOrNewArrayExpr new | not exists(new.getPlacementPointer()))
   }
 
   override StorageDuration getStorageDuration() { result.isAllocated() }
