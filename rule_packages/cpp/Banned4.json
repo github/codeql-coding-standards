@@ -1,0 +1,25 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-10-3-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Anonymous namespaces in header files create separate entities in each translation unit, which may not be consistent with developer expectations.",
+          "kind": "problem",
+          "name": "There should be no unnamed namespaces in header files",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnnamedNamespacesInHeaderFiles",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "There should be no unnamed namespaces in header files"
+    }
+  }
+}
