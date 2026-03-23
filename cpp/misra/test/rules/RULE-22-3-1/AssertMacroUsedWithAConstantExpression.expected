@@ -1,0 +1,14 @@
+| test.cpp:21:3:21:26 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:21:10:21:25 | ... == ... | 1 |
+| test.cpp:22:3:22:14 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:22:10:22:13 | 1 | 1 |
+| test.cpp:23:3:23:20 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:23:10:23:19 | ... == ... | 1 |
+| test.cpp:24:3:24:16 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:24:10:24:15 | ... > ... | 1 |
+| test.cpp:28:3:28:42 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:28:10:28:41 | ... && ... | 1 |
+| test.cpp:29:3:29:31 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:29:10:29:30 | ... && ... | 1 |
+| test.cpp:30:3:30:38 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:30:10:30:37 | ... && ... | 1 |
+| test.cpp:63:3:63:18 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:63:10:63:17 | ... == ... | 1 |
+| test.cpp:68:3:68:21 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:68:10:68:20 | ... == ... | 1 |
+| test.cpp:76:5:76:19 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:76:12:76:18 | ... == ... | 1 |
+| test.cpp:77:5:77:29 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:77:12:77:28 | ... > ... | 1 |
+| test.cpp:82:3:82:28 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:82:10:82:27 | ... == ... | 1 |
+| test.cpp:86:3:86:19 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:86:10:86:18 | ... == ... | 1 |
+| test.cpp:87:3:87:19 | assert(e) | Call to 'assert' macro with constant expression value $@. | test.cpp:87:10:87:18 | ... < ... | 1 |
