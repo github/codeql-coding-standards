@@ -141,7 +141,7 @@ int enumMinBits(Enum e, boolean signed) {
                 result = 32 and signed = false
               ) else (
                 // 64 bits: everything else
-                result = 64 and signed = true
+                result = 64 and signed = [true, false]
               )
   )
 }
