@@ -1,3 +1,9 @@
+/*
+ * This module is a copy of `c/common/src/codingstandards/c/OutOfBounds.qll`. It
+ * is copied here as a workaround of the problem where the common libraries for
+ * C is not available for C++ queries; only the other way around is true.
+ */
+
 /**
  * This module provides classes and predicates for analyzing the size of buffers
  * or objects from their base or a byte-offset, and identifying the potential for
