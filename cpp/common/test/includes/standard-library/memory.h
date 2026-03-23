@@ -1,6 +1,7 @@
 #ifndef _GHLIBCPP_MEMORY
 #define _GHLIBCPP_MEMORY
 #include "exception.h"
+#include "iterator.h"
 #include "stddef.h"
 #include "utility.h"
 
@@ -103,6 +104,7 @@ public:
   ~shared_ptr() {}
   T &operator*() const noexcept;
   T *operator->() const noexcept;
+  bool unique() const noexcept;
 
   shared_ptr<T> &operator=(const shared_ptr &) {}
   shared_ptr<T> &operator=(shared_ptr &&) { return *this; }
@@ -134,6 +136,14 @@ template <typename T1> struct allocator {
   using value_type = T1;
   using size_type = std::size_t;
   using difference_type = std::ptrdiff_t;
+  // deprecated in C++17:
+  using pointer = T1 *;
+  using const_pointer = const T1 *;
+  using reference = T1 &;
+  using const_reference = const T1 &;
+  template <class T2> struct rebind {
+    using other = allocator<T2>;
+  };
 
   constexpr allocator() noexcept = default;
   constexpr allocator(const allocator &) noexcept = default;
@@ -143,7 +153,14 @@ template <typename T1> struct allocator {
   ~allocator() = default;
 
   T1 *allocate(std::size_t);
+  T1 *allocate(std::size_t, const void *);
   void deallocate(T1 *, std::size_t);
+  // deprecated in C++17:
+  pointer address(reference r) const noexcept;
+  const_pointer address(const_reference r) const noexcept;
+  size_type max_size() const noexcept;
+  template <class U, class... Args> void construct(U *p, Args &&...args);
+  template <class U> void destroy(U *p);
 };
 
 template <> struct allocator<void> {
@@ -258,6 +275,31 @@ T2 destroy_n(T1&&, T2, T3);
 // launder
 template <class T1>
 constexpr T1* launder(T1*) noexcept;
+
+// get_temporary_buffer / return_temporary_buffer (deprecated in C++17)
+template <class T>
+pair<T *, ptrdiff_t> get_temporary_buffer(ptrdiff_t n) noexcept;
+
+template <class T>
+void return_temporary_buffer(T *p);
+
+// raw_storage_iterator (deprecated in C++17)
+template <class OutputIterator, class T>
+class raw_storage_iterator {
+public:
+  using iterator_category = output_iterator_tag;
+  using value_type = void;
+  using difference_type = void;
+  using pointer = void;
+  using reference = void;
+  explicit raw_storage_iterator(OutputIterator x);
+  raw_storage_iterator &operator*();
+  raw_storage_iterator &operator=(const T &element);
+  raw_storage_iterator &operator=(T &&element);
+  raw_storage_iterator &operator++();
+  raw_storage_iterator operator++(int);
+  OutputIterator base() const;
+};
 
 } // namespace std
 

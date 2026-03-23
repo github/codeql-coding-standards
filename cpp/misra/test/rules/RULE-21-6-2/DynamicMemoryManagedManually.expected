@@ -64,21 +64,21 @@
 | test.cpp:229:7:229:26 | operator delete[] | Taking the address of banned `operator delete[]`. |
 | test.cpp:233:7:233:24 | operator delete | Taking the address of banned `operator delete`. |
 | test.cpp:235:7:235:26 | operator delete[] | Taking the address of banned `operator delete[]`. |
-| test.cpp:243:13:243:41 | allocate | Taking the address of banned `std::allocator<C1>::allocate`. |
-| test.cpp:245:13:245:43 | deallocate | Taking the address of banned `std::allocator<C1>::deallocate`. |
-| test.cpp:251:7:251:23 | allocate | Taking the address of banned `std::allocator_traits<allocator<C1>>::allocate`. |
-| test.cpp:254:8:254:25 | deallocate | Taking the address of banned `std::allocator_traits<allocator<C1>>::deallocate`. |
-| test.cpp:258:13:258:48 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
-| test.cpp:261:7:261:44 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
-| test.cpp:265:13:266:19 | allocate | Taking the address of banned `std::pmr::polymorphic_allocator<C1>::allocate`. |
-| test.cpp:268:13:269:21 | deallocate | Taking the address of banned `std::pmr::polymorphic_allocator<C1>::deallocate`. |
-| test.cpp:273:13:274:24 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
-| test.cpp:276:14:277:27 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
-| test.cpp:281:14:282:25 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
-| test.cpp:284:14:285:27 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
-| test.cpp:289:14:290:25 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
-| test.cpp:292:14:293:27 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
-| test.cpp:299:7:299:28 | allocate | Taking the address of banned `std::scoped_allocator_adaptor<allocator<C1>>::allocate`. |
-| test.cpp:302:7:302:30 | deallocate | Taking the address of banned `std::scoped_allocator_adaptor<allocator<C1>>::deallocate`. |
-| test.cpp:309:13:309:41 | release | Taking the address of banned `std::unique_ptr<C1, default_delete<C1>>::release`. |
-| test.cpp:312:7:312:37 | release | Taking the address of banned `std::unique_ptr<C1[], default_delete<C1[]>>::release`. |
+| test.cpp:244:7:244:35 | allocate | Taking the address of banned `std::allocator<C1>::allocate`. |
+| test.cpp:246:13:246:43 | deallocate | Taking the address of banned `std::allocator<C1>::deallocate`. |
+| test.cpp:252:7:252:23 | allocate | Taking the address of banned `std::allocator_traits<allocator<C1>>::allocate`. |
+| test.cpp:255:8:255:25 | deallocate | Taking the address of banned `std::allocator_traits<allocator<C1>>::deallocate`. |
+| test.cpp:259:13:259:48 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
+| test.cpp:262:7:262:44 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
+| test.cpp:266:13:267:19 | allocate | Taking the address of banned `std::pmr::polymorphic_allocator<C1>::allocate`. |
+| test.cpp:269:13:270:21 | deallocate | Taking the address of banned `std::pmr::polymorphic_allocator<C1>::deallocate`. |
+| test.cpp:274:13:275:24 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
+| test.cpp:277:14:278:27 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
+| test.cpp:282:14:283:25 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
+| test.cpp:285:14:286:27 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
+| test.cpp:290:14:291:25 | allocate | Taking the address of banned `std::pmr::memory_resource::allocate`. |
+| test.cpp:293:14:294:27 | deallocate | Taking the address of banned `std::pmr::memory_resource::deallocate`. |
+| test.cpp:300:7:300:28 | allocate | Taking the address of banned `std::scoped_allocator_adaptor<allocator<C1>>::allocate`. |
+| test.cpp:303:7:303:30 | deallocate | Taking the address of banned `std::scoped_allocator_adaptor<allocator<C1>>::deallocate`. |
+| test.cpp:310:13:310:41 | release | Taking the address of banned `std::unique_ptr<C1, default_delete<C1>>::release`. |
+| test.cpp:313:7:313:37 | release | Taking the address of banned `std::unique_ptr<C1[], default_delete<C1[]>>::release`. |

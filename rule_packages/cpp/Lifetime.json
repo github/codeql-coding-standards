@@ -1,0 +1,56 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-11-6-2": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "mandatory"
+      },
+      "queries": [
+        {
+          "description": "Reading from uninitialized indeterminate values may produce undefined behavior.",
+          "kind": "problem",
+          "name": "The value of an object must not be read before it has been set",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "ValueOfAnObjectMustNotBeReadBeforeItHasBeenSet",
+          "shared_implementation_short_name": "ReadOfUninitializedMemory",
+          "tags": [
+            "correctness",
+            "security",
+            "scope/system"
+          ],
+          "implementation_scope": {
+            "description": "The rule currently does not track member initialization or arrays at all (that have been declared with array types when they have not been assigned via pointers)."
+          }
+        }
+      ],
+      "title": "The value of an object must not be read before it has been set"
+    },
+    "RULE-6-8-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "When storage durations are not compatible between assigned pointers it can lead to referring to objects outside of their lifetime, which is undefined behaviour.",
+          "kind": "problem",
+          "name": "Do not assign the address of an object with automatic storage to an object that may persist after it's lifetime",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AutomaticStorageAssignedToObjectGreaterLifetime",
+          "shared_implementation_short_name": "DoNotCopyAddressOfAutoStorageObjectToOtherObject",
+          "tags": [
+            "correctness",
+            "security",
+            "scope/single-translation-unit"
+          ],
+          "implementation_scope": {
+            "description": "The rule checks specifically for pointers to objects with automatic storage duration that are assigned to static storage duration variables."
+          }
+        }
+      ],
+      "title": "An assignment operator shall not assign the address of an object with automatic storage duration to an object with a greater lifetime"
+    }
+  }
+}
