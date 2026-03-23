@@ -184,7 +184,7 @@ predicate switchConditionIsAnUnfixedEnumVariant(SwitchStmt switch, Enum enum, Sw
   isUnscopedEnumWithoutFixedUnderlyingType(enum) and
   enum = switch.getExpr().getType() and
   invalidCase = switch.getASwitchCase() and
-  not invalidCase.getExpr().getUnderlyingType() = enum
+  invalidCase.getExpr().getUnderlyingType() != enum
 }
 
 /**
