@@ -49,6 +49,7 @@ void bitwise() {
   Fixed f = F0;
 
   u | U1; // NON_COMPLIANT: bitwise on unfixed unscoped enum
+  // clang-format off
   u & U1; // NON_COMPLIANT: bitwise on unfixed unscoped enum
   u ^ U1; // NON_COMPLIANT: bitwise on unfixed unscoped enum
 
@@ -370,6 +371,7 @@ void cross_enum_bitwise() {
   Fixed f = F0;
 
   u | f; // NON_COMPLIANT: bitwise with unfixed operand
+  // clang-format off
   u & f; // NON_COMPLIANT: bitwise with unfixed operand
   u ^ f; // NON_COMPLIANT: bitwise with unfixed operand
   f | u; // NON_COMPLIANT: bitwise with unfixed operand
