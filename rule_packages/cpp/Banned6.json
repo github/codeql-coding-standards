@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-12-3-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using unions should be avoided and 'std::variant' should be used as a type-safe alternative.",
+          "kind": "problem",
+          "name": "The union keyword shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnionKeywordUsed",
+          "shared_implementation_short_name": "UnionKeywordUsed",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "The union keyword shall not be used"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 /**
  * @id cpp/autosar/unions-used
  * @name A9-5-1: Unions shall not be used
- * @description Unions shall not be used.  Tagged untions can be used if std::variant is not
+ * @description Unions shall not be used. Tagged unions can be used if 'std::variant' is not
  *              available.
  * @kind problem
  * @precision very-high

@@ -930,7 +930,7 @@ cpp,MISRA-C++-2023,RULE-11-6-3,Yes,Required,Decidable,Single Translation Unit,"W
 cpp,MISRA-C++-2023,RULE-12-2-1,Yes,Advisory,Decidable,Single Translation Unit,Bit-fields should not be declared,A9-6-2,Banned5,Easy,
 cpp,MISRA-C++-2023,RULE-12-2-2,Yes,Required,Decidable,Single Translation Unit,A bit-field shall have an appropriate type,RULE-6-1,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-12-2-3,Yes,Required,Decidable,Single Translation Unit,A named bit-field with signed integer type shall not have a length of one bit,M9-6-4,ImportMisra23,Import,
-cpp,MISRA-C++-2023,RULE-12-3-1,Yes,Required,Decidable,Single Translation Unit,The union keyword shall not be used,RULE-19-2,Banned,Easy,
+cpp,MISRA-C++-2023,RULE-12-3-1,Yes,Required,Decidable,Single Translation Unit,The union keyword shall not be used,RULE-19-2,Banned6,Easy,
 cpp,MISRA-C++-2023,RULE-13-1-1,Yes,Advisory,Decidable,Single Translation Unit,Classes should not be inherited virtually,,Classes2,Easy,
 cpp,MISRA-C++-2023,RULE-13-1-2,Yes,Required,Decidable,Single Translation Unit,An accessible base class shall not be both virtual and non-virtual in the same hierarchy,M10-1-3,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-13-3-1,Yes,Required,Decidable,Single Translation Unit,"User-declared member functions shall use the virtual, override and final specifiers appropriately",,Classes2,Easy,
