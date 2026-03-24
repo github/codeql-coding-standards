@@ -9,11 +9,14 @@ import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
 
-signature module BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsConfigSig {
+signature module BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsConfigSig
+{
   Query getQuery();
 }
 
-module BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols<BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsConfigSig Config> {
+module BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols<
+  BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsConfigSig Config>
+{
   query predicate problems(Element e, string message) {
     not isExcluded(e, Config::getQuery()) and message = "<replace with problem alert message for >"
   }
