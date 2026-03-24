@@ -58,3 +58,22 @@ When reviewing tests, it is critical to:
 - Check that the locations do not refer to files in the standard library, as these have issues in GitHub's Code Scanning UI and complicate our compiler compatibility tests.
 - Consider the "test coverage" of the query, are each of its logical statements effectively exercised  individually, collectively? The test should neither be overly bloated nor under specified.
 - Consider the edge cases of the language itself, will the analysis work in non-trivial cases, are all relevant language concepts tested here? This doesn't need to be exhaustive, but it should be thoughfully thorough.
+
+### Validating Query style
+
+The following list describes the required style guides for a query that **must** be validated during the code-review process.
+
+A query **must** include:
+
+- A use of the `isExcluded` predicate on the element reported as the primary location. This predicate ensures that we have a central mechanism for excluding results. This predicate may also be used on other elements relevant to the alert, but only if a suppression on that element should also cause alerts on the current element to be suppressed.
+- A well formatted alert message:
+  - The message should be a complete standalone sentence, with punctuation and a full stop.
+  - The message should refer to this particular instance of the problem, rather than repeating the generic rule. e.g. "Call to banned function x." instead of "Do not use function x."
+  - Code elements should be placed in 'single quotes', unless they are formatted as links.
+  - Avoid value judgments such as "dubious" and "suspicious", and focus on factual statements about the problem.
+  - If possible, avoid constant alert messages. Either add placeholders and links (using $@), or concatenate element names to the alert message. Non-constant messages make it easier to find particular results, and links to other program elements can help provide additional context to help a developer understand the results. Examples:
+    - Instead of `Call to banned function.` prefer `Call to banned function foobar.`.
+    - Instead of `Return value from call is unused.` prefer `Return value from call to function [x] is unused.`, where `[x]` is a link to the function itself.
+  - Do not try to explain the solution in the message; instead that should be provided in the help for the query.
+
+All public predicates, classes, modules and files should be documented with QLDoc. All QLDoc should follow the [QLDoc style guide](https://github.com/github/codeql/blob/main/docs/qldoc-style-guide.md).
