@@ -67,7 +67,7 @@ A query **must** include:
 
 - A use of the `isExcluded` predicate on the element reported as the primary location. This predicate ensures that we have a central mechanism for excluding results. This predicate may also be used on other elements relevant to the alert, but only if a suppression on that element should also cause alerts on the current element to be suppressed.
 - A well formatted alert message:
-  - The message should be a complete standalone sentence, with punctuation and a full stop.
+  - The message should be a complete standalone sentence, with punctuation and a period.
   - The message should refer to this particular instance of the problem, rather than repeating the generic rule. e.g. "Call to banned function x." instead of "Do not use function x."
   - Code elements should be placed in 'single quotes', unless they are formatted as links.
   - Avoid value judgments such as "dubious" and "suspicious", and focus on factual statements about the problem.
