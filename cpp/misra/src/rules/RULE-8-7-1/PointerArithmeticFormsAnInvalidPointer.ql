@@ -389,19 +389,22 @@ module TrackArray = DataFlow::Global<TrackArrayConfig>;
 
 import TrackArray::PathGraph
 
-from TrackArray::PathNode src, TrackArray::PathNode sink, FatPointer end, string message
+from
+  TrackArray::PathNode src, TrackArray::PathNode sink, FatPointer end, int totalOffset, int length
 where
   not isExcluded(sink.getNode().asExpr(),
     Memory1Package::pointerArithmeticFormsAnInvalidPointerQuery()) and
-  exists(FatPointer start, int srcOffset, int sinkOffset, int length |
+  exists(FatPointer start, int srcOffset, int sinkOffset |
     src.getNode() = start.getNode() and
     sink.getNode() = end.getBasePointerNode()
   |
     srcSinkLengthMap(start, end, srcOffset, sinkOffset, length) and
+    totalOffset = srcOffset + sinkOffset and
     (
-      srcOffset + sinkOffset < 0 or // Underflow detection
-      srcOffset + sinkOffset > length // Overflow detection
-    ) and
-    message = "srcOffset: " + srcOffset + ", sinkOffset: " + sinkOffset + ", length: " + length
+      totalOffset < 0 or // Underflow detection
+      totalOffset > length // Overflow detection
+    )
   )
-select end, src, sink, message
+select end, src, sink,
+  "This pointer accesses element at index " + totalOffset +
+    " while the underlying object has length " + length + "."
