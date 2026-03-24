@@ -45,7 +45,7 @@ void test_sub_simple(signed int i1, signed int i2) {
 }
 
 void test_sub_precheck(signed int i1, signed int i2) {
-  // Style recomended by CERT
+  // Style recommended by CERT
   if ((i2 > 0 && i1 < INT_MIN + i2) || (i2 < 0 && i1 > INT_MAX + i2)) {
     // handle error
   } else {
