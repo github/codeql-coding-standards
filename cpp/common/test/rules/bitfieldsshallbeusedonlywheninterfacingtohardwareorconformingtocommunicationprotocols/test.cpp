@@ -56,4 +56,3 @@ public:
   char b;
   char c : 2; // NON_COMPLIANT
 };
-
