@@ -130,7 +130,7 @@ void stack_allocated_multi_dimensional_array_access(int array[2][3]) {
   int valid11 = array[0][0];  // COMPLIANT: pointer is within boundary
   int valid12 = array[0][1];  // COMPLIANT: pointer is within boundary
   int valid13 = array[0][2];  // COMPLIANT: pointer is within boundary
-  int valid13 = array[0][3];  // COMPLIANT: pointer points one beyond the last
+  int valid14 = array[0][3];  // COMPLIANT: pointer points one beyond the last
                               // element, but non-compliant to Rule 4.1.3
   int invalid1 = array[0][4]; // NON_COMPLIANT: pointer points more than one
                               // beyond the last element
@@ -138,7 +138,7 @@ void stack_allocated_multi_dimensional_array_access(int array[2][3]) {
   int valid21 = array[1][0];  // COMPLIANT: pointer is within boundary
   int valid22 = array[1][1];  // COMPLIANT: pointer is within boundary
   int valid23 = array[1][2];  // COMPLIANT: pointer is within boundary
-  int valid13 = array[1][3];  // COMPLIANT: pointer points one beyond the last
+  int valid24 = array[1][3];  // COMPLIANT: pointer points one beyond the last
                               // element, but non-compliant to Rule 4.1.3
   int invalid2 = array[1][4]; // NON_COMPLIANT: pointer points more than one
                               // beyond the last element
@@ -148,6 +148,21 @@ void stack_allocated_multi_dimensional_array_access(int array[2][3]) {
 
   int invalid3 = array[3][0]; // NON_COMPLIANT: pointer points more than one
                               // beyond the last element
+}
+
+void row_reader(int row[3]) {
+  int x1 = row[0]; // COMPLIANT: pointer is within boundary
+  int x2 = row[1]; // COMPLIANT: pointer is within boundary
+  int x3 = row[2]; // COMPLIANT[FALSE_POSITIVE]: pointer is within boundary
+  int x4 = row[3]; // COMPLIANT[FALSE_POSITIVE]: pointer points one beyond the last
+                   // element, but non-compliant to Rule 4.1.3
+  int x5 = row[4]; // NON_COMPLIANT: pointer points more than one
+                   // beyond the last element
+}
+
+void stack_allocated_multi_dimensional_array_access2(int array[2][3]) {
+  row_reader(array[0]); // COMPLIANT: pointer is within boundary
+  row_reader(array[1]); // COMPLIANT: pointer is within boundary
 }
 
 void stack_allocated_multi_dimensional_pointer_arithmetic(int array[2][3]) {
@@ -509,10 +524,12 @@ int main(int argc, char *argv[]) {
   int stack_multi_dimensional_array[2][3] = {{1, 2, 3}, {4, 5, 6}};
 
   /* 4. Multi-dimensional array initialized on the heap */
-  int(*heap_multi_dimensional_array)[3] = (int(*)[3])malloc(sizeof(int[2][3]));
+  int(*heap_multi_dimensional_array)[3] = (int (*)[3])malloc(sizeof(int[2][3]));
 
   stack_allocated_multi_dimensional_array_access(stack_multi_dimensional_array);
   stack_allocated_multi_dimensional_pointer_arithmetic(
+      stack_multi_dimensional_array);
+  stack_allocated_multi_dimensional_array_access2(
       stack_multi_dimensional_array);
 
   return 0;
