@@ -3,24 +3,24 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Banned5Query = TBitFieldsShouldNotBeDeclaredQuery()
+newtype Banned5Query = TBitFieldsShouldNotBeDeclaredMisraCppQuery()
 
 predicate isBanned5QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
-    // `Query` instance for the `bitFieldsShouldNotBeDeclared` query
-    Banned5Package::bitFieldsShouldNotBeDeclaredQuery() and
+    // `Query` instance for the `bitFieldsShouldNotBeDeclaredMisraCpp` query
+    Banned5Package::bitFieldsShouldNotBeDeclaredMisraCppQuery() and
   queryId =
-    // `@id` for the `bitFieldsShouldNotBeDeclared` query
-    "cpp/misra/bit-fields-should-not-be-declared" and
+    // `@id` for the `bitFieldsShouldNotBeDeclaredMisraCpp` query
+    "cpp/misra/bit-fields-should-not-be-declared-misra-cpp" and
   ruleId = "RULE-12-2-1" and
   category = "advisory"
 }
 
 module Banned5Package {
-  Query bitFieldsShouldNotBeDeclaredQuery() {
+  Query bitFieldsShouldNotBeDeclaredMisraCppQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `bitFieldsShouldNotBeDeclared` query
-      TQueryCPP(TBanned5PackageQuery(TBitFieldsShouldNotBeDeclaredQuery()))
+      // `Query` type for `bitFieldsShouldNotBeDeclaredMisraCpp` query
+      TQueryCPP(TBanned5PackageQuery(TBitFieldsShouldNotBeDeclaredMisraCppQuery()))
   }
 }

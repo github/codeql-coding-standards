@@ -12,7 +12,7 @@
           "name": "Bit-fields should not be declared",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "BitFieldsShouldNotBeDeclared",
+          "short_name": "BitFieldsShouldNotBeDeclaredMisraCpp",
           "shared_implementation_short_name": "BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols",
           "tags": [
             "scope/single-translation-unit",

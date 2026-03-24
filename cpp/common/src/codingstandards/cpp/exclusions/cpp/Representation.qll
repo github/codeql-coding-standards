@@ -4,7 +4,7 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype RepresentationQuery =
-  TBitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsQuery() or
+  TBitFieldsShouldNotBeDeclaredAutosarCppQuery() or
   TAuditPossibleHardwareInterfaceDueToBitFieldUsageInDataTypeDefinitionQuery() or
   TObjectAssignedToAnOverlappingObjectAutosarCppQuery() or
   TDoNotPassAliasedPointerToParamQuery() or
@@ -16,11 +16,11 @@ newtype RepresentationQuery =
 
 predicate isRepresentationQueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
-    // `Query` instance for the `bitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols` query
-    RepresentationPackage::bitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsQuery() and
+    // `Query` instance for the `bitFieldsShouldNotBeDeclaredAutosarCpp` query
+    RepresentationPackage::bitFieldsShouldNotBeDeclaredAutosarCppQuery() and
   queryId =
-    // `@id` for the `bitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols` query
-    "cpp/autosar/bit-fields-shall-be-used-only-when-interfacing-to-hardware-or-conforming-to-communication-protocols" and
+    // `@id` for the `bitFieldsShouldNotBeDeclaredAutosarCpp` query
+    "cpp/autosar/bit-fields-should-not-be-declared-autosar-cpp" and
   ruleId = "A9-6-2" and
   category = "required"
   or
@@ -98,11 +98,11 @@ predicate isRepresentationQueryMetadata(Query query, string queryId, string rule
 }
 
 module RepresentationPackage {
-  Query bitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsQuery() {
+  Query bitFieldsShouldNotBeDeclaredAutosarCppQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `bitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols` query
-      TQueryCPP(TRepresentationPackageQuery(TBitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsQuery()))
+      // `Query` type for `bitFieldsShouldNotBeDeclaredAutosarCpp` query
+      TQueryCPP(TRepresentationPackageQuery(TBitFieldsShouldNotBeDeclaredAutosarCppQuery()))
   }
 
   Query auditPossibleHardwareInterfaceDueToBitFieldUsageInDataTypeDefinitionQuery() {
