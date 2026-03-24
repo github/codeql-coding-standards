@@ -138,9 +138,9 @@ All public predicates, classes, modules and files should be documented with QLDo
 
 1. Use a third-person verb phrase of the form `Gets (a|the) <thing>.`
 1. Use "if any" if the item is usually unique but might be missing. For example
-`Gets the body of this method, if any.`
+   `Gets the body of this method, if any.`
 1. If the predicate has more complex behaviour, for example multiple arguments are conceptually "outputs", it can be described like a predicate without a result. For example
-``Holds if `result` is a child of this expression.``
+   ``Holds if `result` is a child of this expression.``
 1. Avoid:
    - `Get a ...`
    - `The ...`
