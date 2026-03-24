@@ -66,7 +66,7 @@ class C1 {
   enum {
     C1_Anon1,
     C1_Anon2
-  }; // COMPLIANT: unscoped anonymous in class (exception)
+  };                    // COMPLIANT: unscoped anonymous in class (exception)
   enum class E2 { G1 }; // COMPLIANT: scoped enum
 
   class C2 {
@@ -88,7 +88,7 @@ struct S_Global {
   enum {
     S_Anon1,
     S_Anon2
-  }; // COMPLIANT: unscoped anonymous in struct (exception)
+  };                    // COMPLIANT: unscoped anonymous in struct (exception)
   enum class E2 { G1 }; // COMPLIANT: scoped enum
 };
 
@@ -101,7 +101,7 @@ enum E1 : int32_t { G1 }; // NON_COMPLIANT: unscoped in namespace
 class C1 {
   enum E2 {
     N4_V1
-  }; // COMPLIANT: unscoped in class (exception) + hides N4::N4_V1
+  };              // COMPLIANT: unscoped in class (exception) + hides N4::N4_V1
   enum E3 { G2 }; // COMPLIANT: unscoped in class (exception) + hides ::G2
   enum class E4 { N4_V1, G2 }; // COMPLIANT: scoped enum
 };
