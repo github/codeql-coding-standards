@@ -119,7 +119,7 @@ All public predicates, classes, modules and files should be documented with QLDo
 1. Use a third-person verb phrase of the form ``Holds if `arg` has <property>.``
 1. Avoid:
    - `/** Whether ... */`
-   - `/**" Relates ... */`
+   - `/** Relates ... */`
    - Question forms:
      - ``/** Is `x` a foo? */``
      - ``/** Does `x` have a bar? */``
