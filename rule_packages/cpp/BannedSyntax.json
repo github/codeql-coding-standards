@@ -318,7 +318,7 @@
           "name": "Unions shall not be used",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "UnionsUsed",
+          "short_name": "UnionKeywordUsedAutosarCpp",
           "shared_implementation_short_name": "UnionKeywordUsed",
           "tags": [
             "correctness",
