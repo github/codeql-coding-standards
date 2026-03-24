@@ -17,7 +17,9 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.rules.bitfieldsshallbeusedonlywheninterfacingtohardwareorconformingtocommunicationprotocols.BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols
 
-module BitFieldsShouldNotBeDeclaredMisraCppConfig implements BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsConfigSig {
+module BitFieldsShouldNotBeDeclaredMisraCppConfig implements
+  BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsConfigSig
+{
   Query getQuery() { result = Banned5Package::bitFieldsShouldNotBeDeclaredMisraCppQuery() }
 }
 
