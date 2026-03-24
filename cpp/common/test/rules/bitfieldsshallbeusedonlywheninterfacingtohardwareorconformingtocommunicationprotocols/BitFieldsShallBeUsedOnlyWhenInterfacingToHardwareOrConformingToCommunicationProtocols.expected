@@ -1,1 +1,1 @@
-No expected results have yet been specified
+| test.cpp:57:8:57:8 | c | test.cpp:53:7:53:8 | B2 | Bit-field used within a class that is not a hardware or protocol class. |
