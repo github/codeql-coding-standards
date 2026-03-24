@@ -59,7 +59,7 @@ When reviewing tests, it is critical to:
 - Consider the "test coverage" of the query, are each of its logical statements effectively exercised  individually, collectively? The test should neither be overly bloated nor under specified.
 - Consider the edge cases of the language itself, will the analysis work in non-trivial cases, are all relevant language concepts tested here? This doesn't need to be exhaustive, but it should be thoughfully thorough.
 
-## Validating Query style
+## Validating Query Style
 
 The following list describes the required style guides for a query that **must** be validated during the code-review process.
 
