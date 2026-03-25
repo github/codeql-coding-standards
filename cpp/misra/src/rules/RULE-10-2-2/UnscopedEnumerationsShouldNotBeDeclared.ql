@@ -22,8 +22,14 @@ class NestedUnscopedEnum extends Enum, NestedEnum {
   NestedUnscopedEnum() { not this instanceof ScopedEnum }
 }
 
-from Enum enum
+from Enum enum, string message
 where
   not isExcluded(enum, Banned2Package::unscopedEnumerationsShouldNotBeDeclaredQuery()) and
-  not (enum instanceof ScopedEnum or enum instanceof NestedUnscopedEnum)
-select enum, "This enumeration is an unscoped enum not enclosed in a class or a struct."
+  not (enum instanceof ScopedEnum or enum instanceof NestedUnscopedEnum) and
+  (
+    if enum.isAnonymous()
+    then
+      message = "This unnamed enumeration is an unscoped and not enclosed in a class or a struct."
+    else message = "This enumeration $@ is an unscoped enum not enclosed in a class or a struct."
+  )
+select enum, message, enum, enum.toString()
