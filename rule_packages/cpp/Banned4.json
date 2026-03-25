@@ -11,7 +11,7 @@
           "kind": "problem",
           "name": "There should be no unnamed namespaces in header files",
           "precision": "very-high",
-          "severity": "error",
+          "severity": "warning",
           "short_name": "UnnamedNamespacesInHeaderFiles",
           "tags": [
             "scope/single-translation-unit",

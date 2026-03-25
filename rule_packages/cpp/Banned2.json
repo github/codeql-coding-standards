@@ -11,7 +11,7 @@
           "kind": "problem",
           "name": "Unscoped enumerations should not be declared",
           "precision": "very-high",
-          "severity": "error",
+          "severity": "warning",
           "short_name": "UnscopedEnumerationsShouldNotBeDeclared",
           "tags": [
             "scope/single-translation-unit",

@@ -6,7 +6,7 @@
  *              types.
  * @kind problem
  * @precision very-high
- * @problem.severity error
+ * @problem.severity warning
  * @tags external/misra/id/rule-10-2-2
  *       scope/single-translation-unit
  *       correctness
