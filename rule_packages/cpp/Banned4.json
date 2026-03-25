@@ -15,7 +15,8 @@
           "short_name": "UnnamedNamespacesInHeaderFiles",
           "tags": [
             "scope/single-translation-unit",
-            "correctness"
+            "correctness",
+            "maintainability"
           ]
         }
       ],

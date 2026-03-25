@@ -15,7 +15,8 @@
           "short_name": "UnscopedEnumerationsShouldNotBeDeclared",
           "tags": [
             "scope/single-translation-unit",
-            "correctness"
+            "correctness",
+            "maintainability"
           ]
         }
       ],

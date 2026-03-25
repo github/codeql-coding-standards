@@ -15,7 +15,8 @@
           "short_name": "UnscopedEnumWithoutFixedUnderlyingTypeUsed",
           "tags": [
             "scope/single-translation-unit",
-            "correctness"
+            "correctness",
+            "readability"
           ]
         }
       ],

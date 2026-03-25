@@ -9,6 +9,7 @@
  * @tags external/misra/id/rule-10-2-3
  *       scope/single-translation-unit
  *       correctness
+ *       readability
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/required
  */
