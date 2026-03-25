@@ -37,7 +37,7 @@ module PossibleDataRaceBetweenThreadsShared<PossibleDataRaceBetweenThreadsShared
     TStdFunctionCall(FunctionCall call) {
       call.getTarget()
           .hasName([
-              "setlocale", "tmpnam", "rand", "srand", "getenv", "getenv_s", "strok", "strerror",
+              "setlocale", "tmpnam", "rand", "srand", "getenv", "getenv_s", "strtok", "strerror",
               "asctime", "ctime", "gmtime", "localtime", "mbrtoc16", "c16rtomb", "mbrtoc32",
               "c32rtomb", "mbrlen", "mbrtowc", "wcrtomb", "mbsrtowcs", "wcsrtombs"
             ])
