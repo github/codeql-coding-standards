@@ -33,8 +33,9 @@ private predicate needsInitialization(Type t) {
 }
 
 /**
- * An aggregate that must be validated at construction time. 
- * For example, `Agg` must be validated at construction time as it includes field `f1` that needs initialization.
+ * An aggregate that must be validated at construction time.
+ * For example, `Agg` must be validated at construction time as it includes
+ * field `f1` that needs initialization.
  * ```
  * struct Agg {
  *   int f1;
