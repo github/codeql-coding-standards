@@ -75,6 +75,8 @@ A query **must** include:
     - Instead of `Call to banned function.` prefer `Call to banned function foobar.`.
     - Instead of `Return value from call is unused.` prefer `Return value from call to function [x] is unused.`, where `[x]` is a link to the function itself.
   - Do not try to explain the solution in the message; instead that should be provided in the help for the query.
+ 
+All lines in CodeQL source files and test files should be kept to a maximum of 100 characters.
 
 All public predicates, classes, modules and files should be documented with QLDoc. All QLDoc should follow the following QLDoc style guide:
 
