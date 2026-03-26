@@ -65,8 +65,8 @@ public:
   std::int32_t m1;
 };
 
-class MemorCtorInitCompliant {
-  MemorCtorInitCompliant(float x) : m1(x) {} // COMPLIANT
+class MemberCtorInitCompliant {
+  MemberCtorInitCompliant(float x) : m1(x) {} // COMPLIANT
   MultipleCtors m1;
 };
 
