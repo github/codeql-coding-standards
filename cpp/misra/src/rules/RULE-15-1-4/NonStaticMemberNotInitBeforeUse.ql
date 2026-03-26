@@ -71,8 +71,7 @@ class CheckedField extends Field {
 }
 
 /**
- * Holds if `f` is initialized in constructor `ctor` via the member initialization list
- * or has a default member initializer (NSDMI).
+ * Holds if `f` is initialized in constructor `ctor` via the member initialization list.
  */
 predicate ctorInitializesCheckedField(Constructor ctor, CheckedField f) {
   // Field appears in the member initialization list
@@ -84,7 +83,8 @@ predicate ctorInitializesCheckedField(Constructor ctor, CheckedField f) {
 }
 
 /**
- * Represents an AST element that does not initialize a non-static data member that requires initialization.
+ * Represents an AST element that does not initialize a non-static data member that requires
+ * initialization.
  *
  * This may be a constructor definition, or an aggregate creation, etc.
  */
