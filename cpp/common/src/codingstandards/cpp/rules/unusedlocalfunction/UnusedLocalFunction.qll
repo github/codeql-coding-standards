@@ -72,44 +72,36 @@ signature module UnusedLocalFunctionConfigSig {
 
 module UnusedLocalFunction<UnusedLocalFunctionConfigSig Config> {
   query predicate problems(LocalFunction unusedLocalFunction, string message) {
-    exists(string name |
-      not isExcluded(unusedLocalFunction, Config::getQuery()) and
-      // No static or dynamic call target for this function
-      not unusedLocalFunction = getTarget(_) and
-      // If this is a TemplateFunction or an instantiation of a template, then only report it as unused
-      // if all other instantiations of the template are unused
-      not exists(
-        Function functionFromUninstantiatedTemplate, Function functionFromInstantiatedTemplate
-      |
-        // `unusedLocalFunction` is a template instantiation from `functionFromUninstantiatedTemplate`
-        unusedLocalFunction.isConstructedFrom(functionFromUninstantiatedTemplate)
-        or
-        // `unusedLocalFunction` is from an uninstantiated template
-        unusedLocalFunction = functionFromUninstantiatedTemplate
-      |
-        // There exists an instantiation which is called
-        functionFromInstantiatedTemplate.isConstructedFrom(functionFromUninstantiatedTemplate) and
-        functionFromInstantiatedTemplate = getTarget(_)
-      ) and
-      // A function is defined as "used" if any one of the following holds true:
-      // - It's an explicitly deleted functions e.g. =delete
-      // - It's annotated as "[[maybe_unused]]"
-      // - It's part of an overloaded set and any one of the overloaded instance
-      //   is called.
-      // - It's an operand of an expression in an unevaluated context.
-      not unusedLocalFunction.isDeleted() and
-      not unusedLocalFunction.getAnAttribute().getName() = "maybe_unused" and
-      not overloadedFunctionIsCalled(unusedLocalFunction) and
-      not addressBeenTaken(unusedLocalFunction) and
-      // Get a printable name
-      (
-        if exists(unusedLocalFunction.getQualifiedName())
-        then name = unusedLocalFunction.getQualifiedName()
-        else name = unusedLocalFunction.getName()
-      ) and
-      message =
-        unusedLocalFunction.getLocalFunctionType() + " function " + name +
-          " is not statically called, or is in an unused template."
-    )
+    not isExcluded(unusedLocalFunction, Config::getQuery()) and
+    // No static or dynamic call target for this function
+    not unusedLocalFunction = getTarget(_) and
+    // If this is a TemplateFunction or an instantiation of a template, then only report it as unused
+    // if all other instantiations of the template are unused
+    not exists(
+      Function functionFromUninstantiatedTemplate, Function functionFromInstantiatedTemplate
+    |
+      // `unusedLocalFunction` is a template instantiation from `functionFromUninstantiatedTemplate`
+      unusedLocalFunction.isConstructedFrom(functionFromUninstantiatedTemplate)
+      or
+      // `unusedLocalFunction` is from an uninstantiated template
+      unusedLocalFunction = functionFromUninstantiatedTemplate
+    |
+      // There exists an instantiation which is called
+      functionFromInstantiatedTemplate.isConstructedFrom(functionFromUninstantiatedTemplate) and
+      functionFromInstantiatedTemplate = getTarget(_)
+    ) and
+    // A function is defined as "used" if any one of the following holds true:
+    // - It's an explicitly deleted functions e.g. =delete
+    // - It's annotated as "[[maybe_unused]]"
+    // - It's part of an overloaded set and any one of the overloaded instance
+    //   is called.
+    // - It's an operand of an expression in an unevaluated context.
+    not unusedLocalFunction.isDeleted() and
+    not unusedLocalFunction.getAnAttribute().getName() = "maybe_unused" and
+    not overloadedFunctionIsCalled(unusedLocalFunction) and
+    not addressBeenTaken(unusedLocalFunction) and
+    message =
+      unusedLocalFunction.getLocalFunctionType() + " function " + unusedLocalFunction.getName() +
+        " is not statically called, or is in an unused template."
   }
 }

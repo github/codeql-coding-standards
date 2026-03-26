@@ -1,2 +1,3 @@
  - `A0-1-3` - `UnusedLocalFunction.ql`:
    - Query now reports unused public members of classes in anonymous namespaces, which have internal linkage.
+   - Alert message no longer contains the fully qualified name of the function, since the given function is already linked.
