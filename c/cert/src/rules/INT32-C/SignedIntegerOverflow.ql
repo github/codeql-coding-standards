@@ -19,24 +19,10 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.Overflow
-import semmle.code.cpp.controlflow.Guards
-import semmle.code.cpp.valuenumbering.GlobalValueNumbering
+import codingstandards.cpp.rules.signedintegeroverflowshared.SignedIntegerOverflowShared
 
-from InterestingOverflowingOperation op
-where
-  not isExcluded(op, IntegerOverflowPackage::signedIntegerOverflowQuery()) and
-  (
-    // An operation that returns a signed integer type
-    op.getType().getUnderlyingType().(IntegralType).isSigned()
-    or
-    // The divide or rem expression on a signed integer
-    op.(DivOrRemOperation).getDividend().getType().getUnderlyingType().(IntegralType).isSigned()
-  ) and
-  // Not checked before the operation
-  not op.hasValidPreCheck() and
-  // Covered by INT34-C
-  not op instanceof LShiftExpr
-select op,
-  "Operation " + op.getOperator() + " of type " + op.getType().getUnderlyingType() +
-    " may overflow or underflow."
+module SignedIntegerOverflowConfig implements SignedIntegerOverflowSharedConfigSig {
+  Query getQuery() { result = IntegerOverflowPackage::signedIntegerOverflowQuery() }
+}
+
+import SignedIntegerOverflowShared<SignedIntegerOverflowConfig>
