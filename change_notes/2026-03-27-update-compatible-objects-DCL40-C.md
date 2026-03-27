@@ -1,0 +1,2 @@
+ - `DCL40-C` - `IncompatibleObjectDeclarations.ql`:
+   - Enhanced the query's ability to compare objects with array type, which will reduce false positives.
