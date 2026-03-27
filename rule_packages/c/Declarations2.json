@@ -61,6 +61,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "IncompatibleObjectDeclarations",
+          "shared_implementation_short_name": "IncompatibleObjectDeclaration",
           "tags": [
             "correctness",
             "maintainability",
@@ -79,6 +80,7 @@
           "precision": "high",
           "severity": "error",
           "short_name": "IncompatibleFunctionDeclarations",
+          "shared_implementation_short_name": "IncompatibleFunctionDeclaration",
           "tags": [
             "correctness",
             "maintainability",
