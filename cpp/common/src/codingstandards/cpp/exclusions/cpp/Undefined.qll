@@ -4,10 +4,6 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype UndefinedQuery =
-  TUndefinedBehaviorQuery() or
-  TCriticalUnspecifiedBehaviorQuery() or
-  TUndefinedBehaviorAuditQuery() or
-  TCriticalUnspecifiedBehaviorAuditQuery() or
   TPossibleDataRaceBetweenThreadsQuery() or
   TDivisionByZeroUndefinedBehaviorQuery() or
   TDeallocationTypeMismatchQuery() or
@@ -17,42 +13,6 @@ newtype UndefinedQuery =
   TNonExistentMemberAccessUndefinedBehaviorQuery()
 
 predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, string category) {
-  query =
-    // `Query` instance for the `undefinedBehavior` query
-    UndefinedPackage::undefinedBehaviorQuery() and
-  queryId =
-    // `@id` for the `undefinedBehavior` query
-    "cpp/misra/undefined-behavior" and
-  ruleId = "RULE-4-1-3" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `criticalUnspecifiedBehavior` query
-    UndefinedPackage::criticalUnspecifiedBehaviorQuery() and
-  queryId =
-    // `@id` for the `criticalUnspecifiedBehavior` query
-    "cpp/misra/critical-unspecified-behavior" and
-  ruleId = "RULE-4-1-3" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `undefinedBehaviorAudit` query
-    UndefinedPackage::undefinedBehaviorAuditQuery() and
-  queryId =
-    // `@id` for the `undefinedBehaviorAudit` query
-    "cpp/misra/undefined-behavior-audit" and
-  ruleId = "RULE-4-1-3" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `criticalUnspecifiedBehaviorAudit` query
-    UndefinedPackage::criticalUnspecifiedBehaviorAuditQuery() and
-  queryId =
-    // `@id` for the `criticalUnspecifiedBehaviorAudit` query
-    "cpp/misra/critical-unspecified-behavior-audit" and
-  ruleId = "RULE-4-1-3" and
-  category = "required"
-  or
   query =
     // `Query` instance for the `possibleDataRaceBetweenThreads` query
     UndefinedPackage::possibleDataRaceBetweenThreadsQuery() and
@@ -118,34 +78,6 @@ predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, s
 }
 
 module UndefinedPackage {
-  Query undefinedBehaviorQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `undefinedBehavior` query
-      TQueryCPP(TUndefinedPackageQuery(TUndefinedBehaviorQuery()))
-  }
-
-  Query criticalUnspecifiedBehaviorQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `criticalUnspecifiedBehavior` query
-      TQueryCPP(TUndefinedPackageQuery(TCriticalUnspecifiedBehaviorQuery()))
-  }
-
-  Query undefinedBehaviorAuditQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `undefinedBehaviorAudit` query
-      TQueryCPP(TUndefinedPackageQuery(TUndefinedBehaviorAuditQuery()))
-  }
-
-  Query criticalUnspecifiedBehaviorAuditQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `criticalUnspecifiedBehaviorAudit` query
-      TQueryCPP(TUndefinedPackageQuery(TCriticalUnspecifiedBehaviorAuditQuery()))
-  }
-
   Query possibleDataRaceBetweenThreadsQuery() {
     //autogenerate `Query` type
     result =
