@@ -7,56 +7,6 @@
       },
       "queries": [
         {
-          "description": "It is not possible to reason about the behaviour of any program that contains instances of undefined behaviour, which can cause unpredictable results that are particularly difficult to detect during testing.",
-          "kind": "problem",
-          "name": "There shall be no occurrence of undefined behaviour",
-          "precision": "high",
-          "severity": "error",
-          "short_name": "UndefinedBehavior",
-          "tags": [
-            "correctness",
-            "scope/system"
-          ]
-        },
-        {
-          "description": "Critical unspecified behaviour impacts the observable behaviour of the abstract machine and means a program is not guaranteed to behave predictably.",
-          "kind": "problem",
-          "name": "There shall be no occurrence of critical unspecified behaviour",
-          "precision": "high",
-          "severity": "error",
-          "short_name": "CriticalUnspecifiedBehavior",
-          "tags": [
-            "correctness",
-            "scope/system"
-          ]
-        },
-        {
-          "description": "It is not possible to reason about the behaviour of any program that contains instances of undefined behaviour, which can cause unpredictable results that are particularly difficult to detect during testing.",
-          "kind": "problem",
-          "name": "Audit: there shall be no occurrence of undefined behaviour",
-          "precision": "low",
-          "severity": "error",
-          "short_name": "UndefinedBehaviorAudit",
-          "tags": [
-            "correctness",
-            "scope/system",
-            "external/misra/audit"
-          ]
-        },
-        {
-          "description": "Critical unspecified behaviour impacts the observable behaviour of the abstract machine and means a program is not guaranteed to behave predictably.",
-          "kind": "problem",
-          "name": "Audit: there shall be no occurrence of critical unspecified behaviour",
-          "precision": "low",
-          "severity": "error",
-          "short_name": "CriticalUnspecifiedBehaviorAudit",
-          "tags": [
-            "correctness",
-            "scope/system",
-            "external/misra/audit"
-          ]
-        },
-        {
           "description": "Threads accessing the same memory location concurrently without utilization of thread synchronization objects results in undefined behavior.",
           "kind": "problem",
           "name": "Data races between threads lead to undefined behavior",
@@ -118,6 +68,45 @@
           "severity": "error",
           "shared_implementation_short_name": "DoNotCastToAnOutOfRangeEnumerationValueShared",
           "short_name": "OutOfRangeEnumCastCriticalUnspecifiedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Using a null pointer-to-member value as the second operand in a pointer-to-member expression results in undefined behavior.",
+          "kind": "path-problem",
+          "name": "Null pointer-to-member access leads to undefined behavior",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "AccessOfUndefinedMemberThroughNullPointer",
+          "short_name": "NullPointerToMemberAccessUndefinedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Using an uninitialized static pointer-to-member in a pointer-to-member expression results in undefined behavior.",
+          "kind": "problem",
+          "name": "Uninitialized static pointer-to-member access leads to undefined behavior",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "AccessOfUndefinedMemberThroughUninitializedStaticPointer",
+          "short_name": "UninitializedStaticPointerToMemberUndefinedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Using a pointer-to-member expression where the dynamic type of the first operand does not contain the member pointed to by the second operand results in undefined behavior.",
+          "kind": "problem",
+          "name": "Pointer-to-member access of nonexistent member leads to undefined behavior",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "AccessOfNonExistingMemberThroughPointerToMember",
+          "short_name": "NonExistentMemberAccessUndefinedBehavior",
           "tags": [
             "correctness",
             "scope/system"
