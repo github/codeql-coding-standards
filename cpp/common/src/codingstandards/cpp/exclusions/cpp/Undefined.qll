@@ -4,50 +4,16 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype UndefinedQuery =
-  TUndefinedBehaviorQuery() or
-  TCriticalUnspecifiedBehaviorQuery() or
-  TUndefinedBehaviorAuditQuery() or
-  TCriticalUnspecifiedBehaviorAuditQuery() or
   TPossibleDataRaceBetweenThreadsQuery() or
-  TArrayDeletedThroughPointerOfIncorrectTypeQuery()
+  TArrayDeletedThroughPointerOfIncorrectTypeQuery() or
+  TDivisionByZeroUndefinedBehaviorQuery() or
+  TDeallocationTypeMismatchQuery() or
+  TStringLiteralPossiblyModifiedAuditQuery() or
+  TNullPointerToMemberAccessUndefinedBehaviorQuery() or
+  TUninitializedStaticPointerToMemberUndefinedBehaviorQuery() or
+  TNonExistentMemberAccessUndefinedBehaviorQuery()
 
 predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, string category) {
-  query =
-    // `Query` instance for the `undefinedBehavior` query
-    UndefinedPackage::undefinedBehaviorQuery() and
-  queryId =
-    // `@id` for the `undefinedBehavior` query
-    "cpp/misra/undefined-behavior" and
-  ruleId = "RULE-4-1-3" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `criticalUnspecifiedBehavior` query
-    UndefinedPackage::criticalUnspecifiedBehaviorQuery() and
-  queryId =
-    // `@id` for the `criticalUnspecifiedBehavior` query
-    "cpp/misra/critical-unspecified-behavior" and
-  ruleId = "RULE-4-1-3" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `undefinedBehaviorAudit` query
-    UndefinedPackage::undefinedBehaviorAuditQuery() and
-  queryId =
-    // `@id` for the `undefinedBehaviorAudit` query
-    "cpp/misra/undefined-behavior-audit" and
-  ruleId = "RULE-4-1-3" and
-  category = "required"
-  or
-  query =
-    // `Query` instance for the `criticalUnspecifiedBehaviorAudit` query
-    UndefinedPackage::criticalUnspecifiedBehaviorAuditQuery() and
-  queryId =
-    // `@id` for the `criticalUnspecifiedBehaviorAudit` query
-    "cpp/misra/critical-unspecified-behavior-audit" and
-  ruleId = "RULE-4-1-3" and
-  category = "required"
-  or
   query =
     // `Query` instance for the `possibleDataRaceBetweenThreads` query
     UndefinedPackage::possibleDataRaceBetweenThreadsQuery() and
@@ -65,37 +31,63 @@ predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, s
     "cpp/misra/array-deleted-through-pointer-of-incorrect-type" and
   ruleId = "RULE-4-1-3" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `divisionByZeroUndefinedBehavior` query
+    UndefinedPackage::divisionByZeroUndefinedBehaviorQuery() and
+  queryId =
+    // `@id` for the `divisionByZeroUndefinedBehavior` query
+    "cpp/misra/division-by-zero-undefined-behavior" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `deallocationTypeMismatch` query
+    UndefinedPackage::deallocationTypeMismatchQuery() and
+  queryId =
+    // `@id` for the `deallocationTypeMismatch` query
+    "cpp/misra/deallocation-type-mismatch" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `stringLiteralPossiblyModifiedAudit` query
+    UndefinedPackage::stringLiteralPossiblyModifiedAuditQuery() and
+  queryId =
+    // `@id` for the `stringLiteralPossiblyModifiedAudit` query
+    "cpp/misra/string-literal-possibly-modified-audit" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `nullPointerToMemberAccessUndefinedBehavior` query
+    UndefinedPackage::nullPointerToMemberAccessUndefinedBehaviorQuery() and
+  queryId =
+    // `@id` for the `nullPointerToMemberAccessUndefinedBehavior` query
+    "cpp/misra/null-pointer-to-member-access-undefined-behavior" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `uninitializedStaticPointerToMemberUndefinedBehavior` query
+    UndefinedPackage::uninitializedStaticPointerToMemberUndefinedBehaviorQuery() and
+  queryId =
+    // `@id` for the `uninitializedStaticPointerToMemberUndefinedBehavior` query
+    "cpp/misra/uninitialized-static-pointer-to-member-undefined-behavior" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `nonExistentMemberAccessUndefinedBehavior` query
+    UndefinedPackage::nonExistentMemberAccessUndefinedBehaviorQuery() and
+  queryId =
+    // `@id` for the `nonExistentMemberAccessUndefinedBehavior` query
+    "cpp/misra/non-existent-member-access-undefined-behavior" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
 }
 
 module UndefinedPackage {
-  Query undefinedBehaviorQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `undefinedBehavior` query
-      TQueryCPP(TUndefinedPackageQuery(TUndefinedBehaviorQuery()))
-  }
-
-  Query criticalUnspecifiedBehaviorQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `criticalUnspecifiedBehavior` query
-      TQueryCPP(TUndefinedPackageQuery(TCriticalUnspecifiedBehaviorQuery()))
-  }
-
-  Query undefinedBehaviorAuditQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `undefinedBehaviorAudit` query
-      TQueryCPP(TUndefinedPackageQuery(TUndefinedBehaviorAuditQuery()))
-  }
-
-  Query criticalUnspecifiedBehaviorAuditQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `criticalUnspecifiedBehaviorAudit` query
-      TQueryCPP(TUndefinedPackageQuery(TCriticalUnspecifiedBehaviorAuditQuery()))
-  }
-
   Query possibleDataRaceBetweenThreadsQuery() {
     //autogenerate `Query` type
     result =
@@ -108,5 +100,47 @@ module UndefinedPackage {
     result =
       // `Query` type for `arrayDeletedThroughPointerOfIncorrectType` query
       TQueryCPP(TUndefinedPackageQuery(TArrayDeletedThroughPointerOfIncorrectTypeQuery()))
+  }
+
+  Query divisionByZeroUndefinedBehaviorQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `divisionByZeroUndefinedBehavior` query
+      TQueryCPP(TUndefinedPackageQuery(TDivisionByZeroUndefinedBehaviorQuery()))
+  }
+
+  Query deallocationTypeMismatchQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `deallocationTypeMismatch` query
+      TQueryCPP(TUndefinedPackageQuery(TDeallocationTypeMismatchQuery()))
+  }
+
+  Query stringLiteralPossiblyModifiedAuditQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `stringLiteralPossiblyModifiedAudit` query
+      TQueryCPP(TUndefinedPackageQuery(TStringLiteralPossiblyModifiedAuditQuery()))
+  }
+
+  Query nullPointerToMemberAccessUndefinedBehaviorQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `nullPointerToMemberAccessUndefinedBehavior` query
+      TQueryCPP(TUndefinedPackageQuery(TNullPointerToMemberAccessUndefinedBehaviorQuery()))
+  }
+
+  Query uninitializedStaticPointerToMemberUndefinedBehaviorQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `uninitializedStaticPointerToMemberUndefinedBehavior` query
+      TQueryCPP(TUndefinedPackageQuery(TUninitializedStaticPointerToMemberUndefinedBehaviorQuery()))
+  }
+
+  Query nonExistentMemberAccessUndefinedBehaviorQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `nonExistentMemberAccessUndefinedBehavior` query
+      TQueryCPP(TUndefinedPackageQuery(TNonExistentMemberAccessUndefinedBehaviorQuery()))
   }
 }
