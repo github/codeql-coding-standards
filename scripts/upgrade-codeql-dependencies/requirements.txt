@@ -3,5 +3,5 @@ charset-normalizer==3.2.0
 idna==3.7
 requests==2.32.4
 semantic-version==2.10.0
-urllib3==2.5.0
+urllib3==2.6.3
 pyyaml==6.0.1
