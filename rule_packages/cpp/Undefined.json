@@ -74,6 +74,19 @@
           ]
         },
         {
+          "description": "Casting to an enumeration value outside the range of the enumeration's values results in critical unspecified behavior.",
+          "kind": "problem",
+          "name": "Out-of-range enumeration cast leads to critical unspecified behavior",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "DoNotCastToAnOutOfRangeEnumerationValueShared",
+          "short_name": "OutOfRangeEnumCastCriticalUnspecifiedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
           "description": "Using a null pointer-to-member value as the second operand in a pointer-to-member expression results in undefined behavior.",
           "kind": "path-problem",
           "name": "Null pointer-to-member access leads to undefined behavior",
