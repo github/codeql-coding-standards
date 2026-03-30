@@ -1,2 +1,3 @@
 | test.cpp:6:1:6:20 | #include STRING_PATH | Non-compliant #include directive text 'STRING_PATH'. |
+| test.cpp:8:1:8:17 | #include "string" ".h" | Non-compliant #include directive text '"string" ".h"'. |
 | test.cpp:10:1:10:16 | #include QSTRING | Non-compliant #include directive text 'QSTRING'. |
