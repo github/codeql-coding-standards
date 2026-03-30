@@ -1,0 +1,8 @@
+| test.cpp:25:18:27:3 | { ... } | Catch block catches a class type 's1' by value, which can lead to slicing. |
+| test.cpp:27:24:29:3 | { ... } | Catch block catches a class type 'const s1' by value, which can lead to slicing. |
+| test.cpp:37:24:39:3 | { ... } | Catch block catches a class type 'const C1' by value, which can lead to slicing. |
+| test.cpp:39:18:41:3 | { ... } | Catch block catches a class type 'C1' by value, which can lead to slicing. |
+| test.cpp:49:20:51:3 | { ... } | Catch block catches a class type 's1_t' by value, which can lead to slicing. |
+| test.cpp:51:26:53:3 | { ... } | Catch block catches a class type 's1_const_t' by value, which can lead to slicing. |
+| test.cpp:53:20:55:3 | { ... } | Catch block catches a class type 'C1_t' by value, which can lead to slicing. |
+| test.cpp:55:26:57:3 | { ... } | Catch block catches a class type 'C1_const_t' by value, which can lead to slicing. |

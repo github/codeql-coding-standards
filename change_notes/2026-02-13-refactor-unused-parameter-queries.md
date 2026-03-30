@@ -1,0 +1,2 @@
+ - `A0-1-4`, `RULE-2-7` - `UnusedParameter.ql`:
+   - Refactored to be able to share most logic between MISRA C, MISRA C++, and AUTOSAR. No visible change in behavior expected.

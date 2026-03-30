@@ -19,7 +19,7 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.deadcode.UnusedVariables
 import SingleUsePODVariable
 
-from PotentiallyUnusedGlobalOrNamespaceVariable v
+from SecondPass::UnusedGlobalOrNamespaceVariable v
 where
   not isExcluded(v, DeadCodePackage::singleUseGlobalOrNamespacePODVariableQuery()) and
   isSingleUseNonVolatilePODVariable(v)

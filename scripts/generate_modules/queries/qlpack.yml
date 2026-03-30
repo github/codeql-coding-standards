@@ -2,4 +2,4 @@ name: codeql/standard-library-extraction-cpp-coding-standards
 version: 0.0.0
 license: MIT
 dependencies:
-  codeql/cpp-all: 4.0.3
+  codeql/cpp-all: 5.0.0

@@ -1,0 +1,1 @@
+| test_except_inside_catch.cpp:7:5:7:8 | main | Main function has a $@ which is not within a try block with a catch-all ('catch(...)') handler. | test_except_inside_catch.cpp:14:15:14:15 | call to operator<< | function call that may throw |

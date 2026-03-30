@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-21-6-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Advanced memory management may introduce subtle bugs related to lifetime and alignment, which may cause undefined behavior.",
+          "kind": "problem",
+          "name": "Advanced memory management shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "AdvancedMemoryManagementUsed",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Advanced memory management shall not be used."
+    }
+  }
+}

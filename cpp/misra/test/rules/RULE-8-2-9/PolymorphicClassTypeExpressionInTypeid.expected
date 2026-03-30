@@ -1,0 +1,6 @@
+| test.cpp:41:30:41:39 | typeid ... | Use of 'typeid' with $@ of polymorphic class type $@. | test.cpp:41:37:41:38 | l1 | expression | test.cpp:7:8:7:24 | PolymorphicStruct | PolymorphicStruct |
+| test.cpp:42:30:42:40 | typeid ... | Use of 'typeid' with $@ of polymorphic class type $@. | test.cpp:42:37:42:39 | * ... | expression | test.cpp:7:8:7:24 | PolymorphicStruct | PolymorphicStruct |
+| test.cpp:43:30:43:39 | typeid ... | Use of 'typeid' with $@ of polymorphic class type $@. | test.cpp:43:37:43:38 | l3 | expression | test.cpp:11:8:11:25 | DerivedPolymorphic | DerivedPolymorphic |
+| test.cpp:44:30:44:39 | typeid ... | Use of 'typeid' with $@ of polymorphic class type $@. | test.cpp:44:37:44:38 | l4 | expression | test.cpp:15:7:15:22 | PolymorphicClass | PolymorphicClass |
+| test.cpp:57:30:57:39 | typeid ... | Use of 'typeid' with $@ of polymorphic class type $@. | test.cpp:57:37:57:38 | (reference dereference) | expression | test.cpp:7:8:7:24 | PolymorphicStruct | PolymorphicStruct |
+| test.cpp:61:30:61:56 | typeid ... | Use of 'typeid' with $@ of polymorphic class type $@. | test.cpp:61:37:61:55 | temporary object | expression | test.cpp:7:8:7:24 | PolymorphicStruct | PolymorphicStruct |

@@ -1,0 +1,2 @@
+ - All queries related to integer suffixes:
+   - No visible changes expected: the regex for parsing integer suffixes, and how they are treated after lexing, has been refactored.

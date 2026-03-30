@@ -1,0 +1,27 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-0-1-1": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Unused writes to objects may harm performance, complicate code comprehension, or indicate logical errors in the program.",
+          "kind": "problem",
+          "name": "A value should not be unnecessarily written to a local object",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "UnnecessaryWriteToLocalObject",
+          "tags": [
+            "scope/system",
+            "correctness",
+            "maintainability",
+            "performance"
+          ]
+        }
+      ],
+      "title": "A value should not be unnecessarily written to a local object"
+    }
+  }
+}

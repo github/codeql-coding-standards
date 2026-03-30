@@ -23,16 +23,15 @@ import codingstandards.cpp.Ordering
 import codingstandards.cpp.orderofevaluation.VariableAccessOrdering
 import codingstandards.cpp.Expr
 import codingstandards.cpp.Variable
+import Ordering::Make<Cpp14VariableAccessInFullExpressionOrdering> as FullExprOrdering
 
-from
-  VariableAccessInFullExpressionOrdering config, FullExpr e, ScalarVariable v, VariableEffect ve,
-  VariableAccess va1, VariableAccess va2
+from FullExpr e, ScalarVariable v, VariableEffect ve, VariableAccess va1, VariableAccess va2
 where
   not isExcluded(e,
     SideEffects1Package::doNotDependOnTheOrderOfScalarObjectEvaluationForSideEffectsQuery()) and
   e = va1.(ConstituentExpr).getFullExpr() and
   va1 = ve.getAnAccess() and
-  config.isUnsequenced(va1, va2) and
+  FullExprOrdering::isUnsequenced(va1, va2) and
   v = va1.getTarget()
 select e, "Scalar object referenced by $@ has a $@ that is unsequenced in relative to another $@.",
   v, v.getName(), ve, "side-effect", va2, "side-effect or value computation"

@@ -1,0 +1,27 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-8-2-9": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "It is unclear whether a typeid expression will be evaluated at runtime or compile time when its static type is a polymorphic class type.",
+          "kind": "problem",
+          "name": "The operand to typeid shall not be an expression of polymorphic class type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "PolymorphicClassTypeExpressionInTypeid",
+          "tags": [
+            "scope/single-translation-unit",
+            "readability",
+            "correctness",
+            "performance"
+          ]
+        }
+      ],
+      "title": "The operand to typeid shall not be an expression of polymorphic class type"
+    }
+  }
+}

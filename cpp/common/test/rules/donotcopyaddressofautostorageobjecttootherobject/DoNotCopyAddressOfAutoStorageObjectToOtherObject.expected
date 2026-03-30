@@ -62,3 +62,5 @@
 | stack_escapes_test.cpp:367:3:367:17 | ... = ... | A stack address ($@) may be assigned to a non-local variable. | stack_escapes_test.cpp:367:17:367:17 | x | source |
 | stack_escapes_test.cpp:368:3:368:20 | ... = ... | A stack address ($@) may be assigned to a non-local variable. | stack_escapes_test.cpp:368:20:368:20 | x | source |
 | test.cpp:7:5:7:10 | ... = ... | A stack address ($@) may be assigned to a non-local variable. | test.cpp:7:10:7:10 | c | source |
+| test.cpp:15:5:15:11 | ... = ... | A stack address ($@) may be assigned to a non-local variable. | test.cpp:15:9:15:11 | l_a | source |
+| test.cpp:26:5:26:10 | ... = ... | A stack address ($@) may be assigned to a non-local variable. | test.cpp:25:11:25:11 | l | source |

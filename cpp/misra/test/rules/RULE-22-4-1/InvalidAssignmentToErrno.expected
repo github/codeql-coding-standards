@@ -1,0 +1,37 @@
+| test.cpp:26:3:26:13 | ... = ... | Assignment to 'errno' with value '0.0' that is not a zero integer literal. |
+| test.cpp:27:3:27:14 | ... = ... | Assignment to 'errno' with value '0.0' that is not a zero integer literal. |
+| test.cpp:31:3:31:11 | ... = ... | Assignment to 'errno' with value '1' that is not a zero integer literal. |
+| test.cpp:32:3:32:12 | ... = ... | Assignment to 'errno' with value '42' that is not a zero integer literal. |
+| test.cpp:33:3:33:12 | ... = ... | Assignment to 'errno' with value '- ...' that is not a zero integer literal. |
+| test.cpp:39:3:39:22 | ... = ... | Assignment to 'errno' with value '42' that is not a zero integer literal. |
+| test.cpp:49:3:49:12 | ... = ... | Assignment to 'errno' with value 'l1' that is not a zero integer literal. |
+| test.cpp:50:3:50:12 | ... = ... | Assignment to 'errno' with value 'l2' that is not a zero integer literal. |
+| test.cpp:51:3:51:12 | ... = ... | Assignment to 'errno' with value 'l3' that is not a zero integer literal. |
+| test.cpp:52:3:52:12 | ... = ... | Assignment to 'errno' with value 'l4' that is not a zero integer literal. |
+| test.cpp:53:3:53:12 | ... = ... | Assignment to 'errno' with value 'l5' that is not a zero integer literal. |
+| test.cpp:57:3:57:16 | ... = ... | Assignment to 'errno' with value '22' that is not a zero integer literal. |
+| test.cpp:58:3:58:16 | ... = ... | Assignment to 'errno' with value '34' that is not a zero integer literal. |
+| test.cpp:59:3:59:14 | ... = ... | Assignment to 'errno' with value '33' that is not a zero integer literal. |
+| test.cpp:63:3:63:15 | ... = ... | Assignment to 'errno' with value '... + ...' that is not a zero integer literal. |
+| test.cpp:64:3:64:15 | ... = ... | Assignment to 'errno' with value '... - ...' that is not a zero integer literal. |
+| test.cpp:65:3:65:15 | ... = ... | Assignment to 'errno' with value '... * ...' that is not a zero integer literal. |
+| test.cpp:66:3:66:35 | ... = ... | Assignment to 'errno' with value '... - ...' that is not a zero integer literal. |
+| test.cpp:70:3:70:11 | ... = ... | Assignment to 'errno' with value '5' that is not a zero integer literal. |
+| test.cpp:71:3:71:12 | ... += ... | Compound assignment to 'errno' with operator '+=' is not allowed. |
+| test.cpp:72:3:72:12 | ... -= ... | Assignment to 'errno' with value '5' that is not a zero integer literal. |
+| test.cpp:72:3:72:12 | ... -= ... | Compound assignment to 'errno' with operator '-=' is not allowed. |
+| test.cpp:73:3:73:12 | ... *= ... | Compound assignment to 'errno' with operator '*=' is not allowed. |
+| test.cpp:74:3:74:12 | ... /= ... | Assignment to 'errno' with value '1' that is not a zero integer literal. |
+| test.cpp:74:3:74:12 | ... /= ... | Compound assignment to 'errno' with operator '/=' is not allowed. |
+| test.cpp:81:3:81:14 | ... = ... | Assignment to 'errno' with value 'call to operator()' that is not a zero integer literal. |
+| test.cpp:82:3:82:14 | ... = ... | Assignment to 'errno' with value 'call to operator()' that is not a zero integer literal. |
+| test.cpp:86:3:86:29 | ... = ... | Assignment to 'errno' with value 'static_cast<int>...' that is not a zero integer literal. |
+| test.cpp:87:3:87:31 | ... = ... | Assignment to 'errno' with value 'static_cast<int>...' that is not a zero integer literal. |
+| test.cpp:88:3:88:16 | ... = ... | Assignment to 'errno' with value '(int)...' that is not a zero integer literal. |
+| test.cpp:89:3:89:16 | ... = ... | Assignment to 'errno' with value '(int)...' that is not a zero integer literal. |
+| test.cpp:108:3:108:40 | ... = ... | Assignment to 'errno' with value 'reinterpret_cast<int>...' that is not a zero integer literal. |
+| test.cpp:110:3:110:35 | ... = ... | Assignment to 'errno' with value 'reinterpret_cast<int>...' that is not a zero integer literal. |
+| test.cpp:111:3:111:35 | ... = ... | Assignment to 'errno' with value 'reinterpret_cast<int>...' that is not a zero integer literal. |
+| test.cpp:113:3:113:40 | ... = ... | Assignment to 'errno' with value 'reinterpret_cast<int>...' that is not a zero integer literal. |
+| test.cpp:122:3:122:13 | ... = ... | Assignment to 'errno' with value '48' that is not a zero integer literal. |
+| test.cpp:128:3:128:14 | ... = ... | Assignment to 'errno' with value '1' that is not a zero integer literal. |

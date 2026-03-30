@@ -1,0 +1,29 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-0-2-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Types that are unused with limited visibility are unnecessary and should either be removed or may indicate a developer mistake.",
+          "kind": "problem",
+          "name": "Types with limited visibility should be used at least once",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnusedTypeWithLimitedVisibility",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability",
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "CodeQL extractor information for hidden friends is limited, and the number of hidden friends may be overestimated, resulting in false positives."
+          }
+        }
+      ],
+      "title": "Types with limited visibility should be used at least once"
+    }
+  }
+}

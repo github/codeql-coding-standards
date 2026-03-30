@@ -31,7 +31,7 @@ module NullConfig implements DataFlow::ConfigSig {
   }
 
   predicate isSink(DataFlow::Node sink) {
-    exists(CustomOperatorNew co, ReturnStmt rs |
+    exists(CustomReplaceableOperatorNew co, ReturnStmt rs |
       co.getNumberOfParameters() = 1 and
       rs.getEnclosingFunction() = co and
       rs.getExpr() = sink.asExpr()
@@ -47,7 +47,7 @@ query predicate problems(
   not isExcluded(e, getQuery()) and
   NullFlow::flowPath(source, sink) and
   sink.getNode().asExpr() = e.getExpr() and
-  exists(CustomOperatorNew op |
+  exists(CustomReplaceableOperatorNew op |
     message =
       op.getAllocDescription() + " may return null instead of throwing a std::bad_alloc exception."
   )

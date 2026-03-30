@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-8-9-1": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Pointer comparison should be done between ones that belong to a same array.",
+          "kind": "path-problem",
+          "name": "The built-in relational operators >, >=, < and <= shall not be applied to objects of pointer type",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PointerComparedBetweenDifferentArrays",
+          "shared_implementation_short_name": "DoNotUseRelationalOperatorsWithDifferingArrays",
+          "tags": [
+            "scope/system",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "Pointer comparison should be done between ones that belong to a same array."
+    }
+  }
+}

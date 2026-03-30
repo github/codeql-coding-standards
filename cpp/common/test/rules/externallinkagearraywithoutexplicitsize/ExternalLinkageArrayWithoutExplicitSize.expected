@@ -1,0 +1,4 @@
+| test.cpp:19:14:19:15 | declaration of e1 | The declared array 'e1' with external linkage doesn't specify the size explicitly. |
+| test.cpp:27:20:27:38 | declaration of flexibleArrayMember | The declared array 'flexibleArrayMember' with external linkage doesn't specify the size explicitly. |
+| test.cpp:28:14:28:33 | declaration of flexibleArrayMember2 | The declared array 'flexibleArrayMember2' with external linkage doesn't specify the size explicitly. |
+| test.hpp:2:13:2:26 | declaration of header_and_cpp | The declared array 'header_and_cpp' with external linkage doesn't specify the size explicitly. |

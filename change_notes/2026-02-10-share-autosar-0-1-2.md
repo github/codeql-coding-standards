@@ -1,0 +1,2 @@
+ - `A0-1-2` - `UnusedReturnValue.ql`:
+   - Refactors the rule implementation into a shared library for usage in MISRA C++ ruleset. No externally visible changes expected.

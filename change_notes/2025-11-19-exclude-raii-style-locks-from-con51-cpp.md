@@ -1,0 +1,2 @@
+ - `CON51-CPP` - `EnsureActivelyHeldLocksAreReleasedOnExceptionalConditions.ql`:
+   - Exclude RAII-style locks from query results, as they cannot be leaked, and are recommended to avoid alerts in this rule.

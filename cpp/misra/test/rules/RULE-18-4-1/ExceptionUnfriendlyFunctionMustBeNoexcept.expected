@@ -1,0 +1,15 @@
+| test.cpp:38:3:38:20 | ~NonCompliantClass | Function '~NonCompliantClass' must be noexcept because it is a destructor. | test.cpp:38:3:38:20 | ~NonCompliantClass |  |
+| test.cpp:40:3:40:19 | NonCompliantClass | Function 'NonCompliantClass' must be noexcept because it is a move constructor. | test.cpp:40:3:40:19 | NonCompliantClass |  |
+| test.cpp:49:22:49:30 | operator= | Function 'operator=' must be noexcept because it is a move assignment operator. | test.cpp:49:22:49:30 | operator= |  |
+| test.cpp:51:15:51:18 | swap | Function 'swap' must be noexcept because it is a swap function. | test.cpp:51:15:51:18 | swap |  |
+| test.cpp:62:3:62:24 | ConstructorNotNoexcept | Function 'ConstructorNotNoexcept' must be noexcept because it is used to initialize variable $@. | test.cpp:67:5:67:6 | g2 | g2 |
+| test.cpp:62:3:62:24 | ConstructorNotNoexcept | Function 'ConstructorNotNoexcept' must be noexcept because it is used to initialize variable $@. | test.cpp:71:5:71:6 | g4 | g4 |
+| test.cpp:62:3:62:24 | ConstructorNotNoexcept | Function 'ConstructorNotNoexcept' must be noexcept because it is used to initialize variable $@. | test.cpp:74:25:74:26 | g6 | g6 |
+| test.cpp:62:3:62:24 | ConstructorNotNoexcept | Function 'ConstructorNotNoexcept' must be noexcept because it is used to initialize variable $@. | test.cpp:87:7:87:8 | l4 | l4 |
+| test.cpp:62:3:62:24 | ConstructorNotNoexcept | Function 'ConstructorNotNoexcept' must be noexcept because it is used to initialize variable $@. | test.cpp:91:7:91:8 | l6 | l6 |
+| test.cpp:97:5:97:23 | calledInInitializer | Function 'calledInInitializer' must be noexcept because it is used to initialize variable $@. | test.cpp:100:5:100:6 | g9 | g9 |
+| test.cpp:109:5:109:15 | some_func_t | Function 'some_func_t' must be noexcept because it is $@ extern "C" function 'take_int_c'. | test.cpp:116:3:116:12 | call to take_int_c | passed to |
+| test.cpp:123:16:123:16 | operator() | Function 'operator()' must be noexcept because it is $@ extern "C" function 'take_int_c'. | test.cpp:123:3:123:12 | call to take_int_c | passed to |
+| test.cpp:131:6:131:17 | exit_handler | Function 'exit_handler' must be noexcept because it is $@. | test.cpp:135:3:135:13 | call to atexit | passed to the exit handler std::atexit |
+| test.cpp:131:6:131:17 | exit_handler | Function 'exit_handler' must be noexcept because it is $@. | test.cpp:139:3:139:20 | call to at_quick_exit | passed to the exit handler std::at_quick_exit |
+| test.cpp:131:6:131:17 | exit_handler | Function 'exit_handler' must be noexcept because it is $@. | test.cpp:144:3:144:20 | call to set_terminate | passed to the exit handler std::set_terminate |

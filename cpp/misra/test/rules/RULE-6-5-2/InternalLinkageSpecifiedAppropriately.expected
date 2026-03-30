@@ -1,0 +1,4 @@
+| test.cpp:1:13:1:13 | declaration of f | Static specifier used in non-anonymous namespace. |
+| test.cpp:5:13:5:14 | declaration of f2 | Extern specifier used in anonymous namespace. |
+| test.cpp:8:12:8:13 | declaration of i1 | Extern specifier used in anonymous namespace. |
+| test.cpp:9:12:9:13 | definition of i2 | Static specifier used in anonymous namespace. |

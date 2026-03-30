@@ -1,0 +1,1 @@
+| test_missing.cpp:6:5:6:8 | main | Main function has a $@ which is not within a try block with a catch-all ('catch(...)') handler. | test_missing.cpp:9:5:9:5 | call to f | function call that may throw |

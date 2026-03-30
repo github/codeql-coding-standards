@@ -18,7 +18,7 @@
 
 import cpp
 import codingstandards.cpp.cert
-import codingstandards.cpp.Iterators
+import codingstandards.cpp.standardlibrary.Iterators
 import semmle.code.cpp.dataflow.new.DataFlow
 
 predicate startEndArgumentsDoNotPointToTheSameContainer(

@@ -1,0 +1,6 @@
+ - `M0-1-1`, `RULE-2-1` - `UnreachableCode.ql`:
+   - Updated detection of compiler generated code to include "handler" blocks, part of EDG's IR.
+   - "handler" blocks generated for `catch(...)` blocks are not excluded for technical reasons related to how the CFG is constructed.
+ - `M15-3-6`, `ERR54-CPP` - `CatchBlockShadowingMisra.ql`, `CatchBlockShadowingCert.ql`:
+   - Altered semantics to detect shadowing for a catch block involving type `T` preceding another catch block involving the same type `T`, such as `catch(T&)` shadowing `catch(T)` and vice versa. Previously, the involved types had to have a subtype relationship.
+   - Refactored catch block shadowing into a shared library for use in `RULE-0-0-1`.

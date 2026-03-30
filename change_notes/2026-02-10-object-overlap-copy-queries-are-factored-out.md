@@ -1,0 +1,3 @@
+- `M0-2-1`, `RULE-19-1`, `RULE-8-18-1` - `ObjectAssignedToAnOverlappingObject.ql`, `ObjectCopiedToAnOverlappingObject`:
+  - The query predicate `problem` for `ObjectCopiedToAnOverlappingObject` is now shared across `RULE-19-1` and `RULE-8-18-1 `. Also, the query predicate for `ObjectAssignedToAnOverlappingObject` is now shared across all of the three rules.
+  - Due to the refactor, the queries listed may now emit slightly different results though it is highly unlikely.

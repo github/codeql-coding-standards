@@ -1,0 +1,25 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-22-4-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "C++ provides better options for error handling than the use of errno. Errno should not be used for reporting errors within project code.",
+          "kind": "problem",
+          "name": "The literal value zero shall be the only value assigned to errno",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InvalidAssignmentToErrno",
+          "tags": [
+            "scope/single-translation-unit",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The literal value zero shall be the only value assigned to errno"
+    }
+  }
+}

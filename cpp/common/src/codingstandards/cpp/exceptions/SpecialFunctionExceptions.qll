@@ -16,22 +16,102 @@
 
 import cpp
 private import ExceptionFlow
+private import codingstandards.cpp.Function
 private import codingstandards.cpp.Swap
 private import codingstandards.cpp.EncapsulatingFunctions
 private import codingstandards.cpp.exceptions.ExceptionFlow
 
 /** A special function. */
 class SpecialFunction extends Function {
+  string specialDescription;
+
   SpecialFunction() {
-    this instanceof MoveAssignmentOperator
+    this instanceof MoveAssignmentOperator and
+    specialDescription = "move assignment operator"
     or
-    this instanceof MoveConstructor
+    this instanceof MoveConstructor and
+    specialDescription = "move constructor"
     or
-    this instanceof Destructor
+    this instanceof Destructor and
+    specialDescription = "destructor"
     or
-    this instanceof DeallocationFunction
+    this instanceof DeallocationFunction and
+    specialDescription = "deallocation function"
     or
-    this instanceof SwapFunction
+    this instanceof SwapFunction and
+    specialDescription = "swap function"
+  }
+
+  string getSpecialDescription() { result = specialDescription }
+}
+
+/**
+ * A function which isn't special by itself, but is used in a special context.
+ *
+ * For example, functions which are reachable from initializers of static or thread-local
+ * variables can result in implementation-defined behavior if they throw exceptions.
+ */
+abstract class SpecialUseOfFunction extends Expr {
+  abstract Function getFunction();
+
+  abstract string getSpecialDescription(Locatable extra, string extraString);
+}
+
+class FunctionUsedInInitializer extends FunctionCall, SpecialUseOfFunction {
+  Variable var;
+
+  FunctionUsedInInitializer() {
+    (var.isStatic() or var.isThreadLocal() or var.isTopLevel()) and
+    exists(Expr initializer |
+      var.getInitializer().getExpr() = initializer and
+      getParent*() = initializer
+    )
+  }
+
+  override Function getFunction() { result = this.getTarget() }
+
+  override string getSpecialDescription(Locatable extra, string extraString) {
+    result = "used to initialize variable $@" and
+    extra = var and
+    extraString = var.getName()
+  }
+}
+
+class FunctionGivenToStdExitHandler extends FunctionAccess, SpecialUseOfFunction {
+  Function exitHandler;
+  FunctionCall exitHandlerCall;
+
+  FunctionGivenToStdExitHandler() {
+    exitHandler.hasGlobalOrStdName(["atexit", "at_quick_exit", "set_terminate"]) and
+    exitHandlerCall.getTarget() = exitHandler and
+    exitHandlerCall.getArgument(0) = this
+  }
+
+  override Function getFunction() { result = getTarget() }
+
+  override string getSpecialDescription(Locatable extra, string extraString) {
+    result = "$@" and
+    extra = exitHandlerCall and
+    extraString = "passed to the exit handler std::" + exitHandler.getName()
+  }
+}
+
+class FunctionPassedToExternC extends FunctionAccessLikeExpr, SpecialUseOfFunction {
+  Function cFunction;
+  FunctionCall cFunctionCall;
+
+  FunctionPassedToExternC() {
+    cFunction.hasCLinkage() and
+    cFunction = cFunctionCall.getTarget() and
+    cFunctionCall.getAnArgument() = this
+  }
+
+  override Function getFunction() { result = this.(FunctionAccessLikeExpr).getFunction() }
+
+  override string getSpecialDescription(Locatable extra, string extraString) {
+    result = "$@ extern \"C\" function '" + cFunction.getName() + "'" and
+    extra = cFunctionCall and
+    extraString = "passed to"
   }
 }
 
