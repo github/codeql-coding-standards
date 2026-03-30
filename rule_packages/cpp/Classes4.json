@@ -1,0 +1,28 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-15-1-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Explicit initialization of all non-static data members reduces the risk of an invalid state existing after successful construction.",
+          "kind": "problem",
+          "name": "All direct, non-static data members of a class should be initialized before the class object is accessible",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "NonStaticMemberNotInitBeforeUse",
+          "tags": [
+            "correctness",
+            "scope/single-translation-unit"
+          ],
+          "implementation_scope": {
+            "description": "Some false positives may occur due to extraction errors involving initializer declarations on members."
+          }
+        }
+      ],
+      "title": "All direct, non-static data members of a class should be initialized before the class object is accessible"
+    }
+  }
+}

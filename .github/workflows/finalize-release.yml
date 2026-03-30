@@ -44,14 +44,14 @@ jobs:
           fi
 
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ env.REF }}
           fetch-depth: 0
           path: release 
       
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ env.TOOL_REF }}
           path: tooling 
@@ -108,7 +108,7 @@ jobs:
       - name: Generate token
         if: env.HOTFIX_RELEASE == 'false'
         id: generate-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ vars.AUTOMATION_APP_ID }}
           private-key: ${{ secrets.AUTOMATION_PRIVATE_KEY }}

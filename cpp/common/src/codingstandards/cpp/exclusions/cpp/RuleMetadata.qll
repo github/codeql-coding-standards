@@ -4,6 +4,9 @@ import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
 import Allocations
 import Banned1
+import Banned2
+import Banned3
+import Banned4
 import BannedAPIs
 import BannedFunctions
 import BannedLibraries
@@ -11,6 +14,7 @@ import BannedSyntax
 import BannedTypes
 import Classes
 import Classes2
+import Classes4
 import Comments
 import Concurrency
 import Conditionals
@@ -18,6 +22,7 @@ import Const
 import Conversions
 import Conversions2
 import DeadCode
+import DeadCode10
 import DeadCode11
 import DeadCode3
 import DeadCode4
@@ -27,6 +32,7 @@ import DeadCode7
 import DeadCode8
 import DeadCode9
 import Declarations
+import Declarations1
 import ExceptionSafety
 import Exceptions1
 import Exceptions2
@@ -45,6 +51,7 @@ import IntegerConversion
 import Invariants
 import Iterators
 import Lambdas
+import Lifetime
 import Linkage1
 import Linkage2
 import Literals
@@ -65,6 +72,7 @@ import OrderOfEvaluation
 import OutOfBounds
 import Pointers
 import Preconditions1
+import Preconditions3
 import Preconditions4
 import Preprocessor
 import Preprocessor2
@@ -93,6 +101,9 @@ import VirtualFunctions
 newtype TCPPQuery =
   TAllocationsPackageQuery(AllocationsQuery q) or
   TBanned1PackageQuery(Banned1Query q) or
+  TBanned2PackageQuery(Banned2Query q) or
+  TBanned3PackageQuery(Banned3Query q) or
+  TBanned4PackageQuery(Banned4Query q) or
   TBannedAPIsPackageQuery(BannedAPIsQuery q) or
   TBannedFunctionsPackageQuery(BannedFunctionsQuery q) or
   TBannedLibrariesPackageQuery(BannedLibrariesQuery q) or
@@ -100,6 +111,7 @@ newtype TCPPQuery =
   TBannedTypesPackageQuery(BannedTypesQuery q) or
   TClassesPackageQuery(ClassesQuery q) or
   TClasses2PackageQuery(Classes2Query q) or
+  TClasses4PackageQuery(Classes4Query q) or
   TCommentsPackageQuery(CommentsQuery q) or
   TConcurrencyPackageQuery(ConcurrencyQuery q) or
   TConditionalsPackageQuery(ConditionalsQuery q) or
@@ -107,6 +119,7 @@ newtype TCPPQuery =
   TConversionsPackageQuery(ConversionsQuery q) or
   TConversions2PackageQuery(Conversions2Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
+  TDeadCode10PackageQuery(DeadCode10Query q) or
   TDeadCode11PackageQuery(DeadCode11Query q) or
   TDeadCode3PackageQuery(DeadCode3Query q) or
   TDeadCode4PackageQuery(DeadCode4Query q) or
@@ -116,6 +129,7 @@ newtype TCPPQuery =
   TDeadCode8PackageQuery(DeadCode8Query q) or
   TDeadCode9PackageQuery(DeadCode9Query q) or
   TDeclarationsPackageQuery(DeclarationsQuery q) or
+  TDeclarations1PackageQuery(Declarations1Query q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
   TExceptions2PackageQuery(Exceptions2Query q) or
@@ -134,6 +148,7 @@ newtype TCPPQuery =
   TInvariantsPackageQuery(InvariantsQuery q) or
   TIteratorsPackageQuery(IteratorsQuery q) or
   TLambdasPackageQuery(LambdasQuery q) or
+  TLifetimePackageQuery(LifetimeQuery q) or
   TLinkage1PackageQuery(Linkage1Query q) or
   TLinkage2PackageQuery(Linkage2Query q) or
   TLiteralsPackageQuery(LiteralsQuery q) or
@@ -154,6 +169,7 @@ newtype TCPPQuery =
   TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointersPackageQuery(PointersQuery q) or
   TPreconditions1PackageQuery(Preconditions1Query q) or
+  TPreconditions3PackageQuery(Preconditions3Query q) or
   TPreconditions4PackageQuery(Preconditions4Query q) or
   TPreprocessorPackageQuery(PreprocessorQuery q) or
   TPreprocessor2PackageQuery(Preprocessor2Query q) or
@@ -182,6 +198,9 @@ newtype TCPPQuery =
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
   isAllocationsQueryMetadata(query, queryId, ruleId, category) or
   isBanned1QueryMetadata(query, queryId, ruleId, category) or
+  isBanned2QueryMetadata(query, queryId, ruleId, category) or
+  isBanned3QueryMetadata(query, queryId, ruleId, category) or
+  isBanned4QueryMetadata(query, queryId, ruleId, category) or
   isBannedAPIsQueryMetadata(query, queryId, ruleId, category) or
   isBannedFunctionsQueryMetadata(query, queryId, ruleId, category) or
   isBannedLibrariesQueryMetadata(query, queryId, ruleId, category) or
@@ -189,6 +208,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isBannedTypesQueryMetadata(query, queryId, ruleId, category) or
   isClassesQueryMetadata(query, queryId, ruleId, category) or
   isClasses2QueryMetadata(query, queryId, ruleId, category) or
+  isClasses4QueryMetadata(query, queryId, ruleId, category) or
   isCommentsQueryMetadata(query, queryId, ruleId, category) or
   isConcurrencyQueryMetadata(query, queryId, ruleId, category) or
   isConditionalsQueryMetadata(query, queryId, ruleId, category) or
@@ -196,6 +216,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConversionsQueryMetadata(query, queryId, ruleId, category) or
   isConversions2QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode10QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode11QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode3QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode4QueryMetadata(query, queryId, ruleId, category) or
@@ -205,6 +226,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeadCode8QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode9QueryMetadata(query, queryId, ruleId, category) or
   isDeclarationsQueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
   isExceptions2QueryMetadata(query, queryId, ruleId, category) or
@@ -223,6 +245,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isInvariantsQueryMetadata(query, queryId, ruleId, category) or
   isIteratorsQueryMetadata(query, queryId, ruleId, category) or
   isLambdasQueryMetadata(query, queryId, ruleId, category) or
+  isLifetimeQueryMetadata(query, queryId, ruleId, category) or
   isLinkage1QueryMetadata(query, queryId, ruleId, category) or
   isLinkage2QueryMetadata(query, queryId, ruleId, category) or
   isLiteralsQueryMetadata(query, queryId, ruleId, category) or
@@ -243,6 +266,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointersQueryMetadata(query, queryId, ruleId, category) or
   isPreconditions1QueryMetadata(query, queryId, ruleId, category) or
+  isPreconditions3QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions4QueryMetadata(query, queryId, ruleId, category) or
   isPreprocessorQueryMetadata(query, queryId, ruleId, category) or
   isPreprocessor2QueryMetadata(query, queryId, ruleId, category) or
