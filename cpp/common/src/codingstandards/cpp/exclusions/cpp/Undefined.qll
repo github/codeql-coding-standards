@@ -5,6 +5,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype UndefinedQuery =
   TPossibleDataRaceBetweenThreadsQuery() or
+  TSignedIntegerOverflowQuery() or
   TDivisionByZeroUndefinedBehaviorQuery() or
   TDeallocationTypeMismatchQuery() or
   TStringLiteralPossiblyModifiedAuditQuery() or
@@ -19,6 +20,15 @@ predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, s
   queryId =
     // `@id` for the `possibleDataRaceBetweenThreads` query
     "cpp/misra/possible-data-race-between-threads" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `signedIntegerOverflow` query
+    UndefinedPackage::signedIntegerOverflowQuery() and
+  queryId =
+    // `@id` for the `signedIntegerOverflow` query
+    "cpp/misra/signed-integer-overflow" and
   ruleId = "RULE-4-1-3" and
   category = "required"
   or
@@ -83,6 +93,13 @@ module UndefinedPackage {
     result =
       // `Query` type for `possibleDataRaceBetweenThreads` query
       TQueryCPP(TUndefinedPackageQuery(TPossibleDataRaceBetweenThreadsQuery()))
+  }
+
+  Query signedIntegerOverflowQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `signedIntegerOverflow` query
+      TQueryCPP(TUndefinedPackageQuery(TSignedIntegerOverflowQuery()))
   }
 
   Query divisionByZeroUndefinedBehaviorQuery() {
