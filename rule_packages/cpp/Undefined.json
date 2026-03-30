@@ -34,6 +34,19 @@
           ]
         },
         {
+          "description": "Signed integer overflow or underflow from arithmetic operations results in critical unspecified behavior.",
+          "kind": "problem",
+          "name": "Signed integer overflow leads to critical unspecified behavior",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "SignedIntegerOverflowShared",
+          "short_name": "SignedIntegerOverflow",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
           "description": "Division or remainder by zero results in undefined behavior.",
           "kind": "problem",
           "name": "Division or modulo by zero leads to undefined behavior",
@@ -71,6 +84,19 @@
             "correctness",
             "scope/system",
             "external/misra/audit"
+          ]
+        },
+        {
+          "description": "Casting to an enumeration value outside the range of the enumeration's values results in critical unspecified behavior.",
+          "kind": "problem",
+          "name": "Out-of-range enumeration cast leads to critical unspecified behavior",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "DoNotCastToAnOutOfRangeEnumerationValueShared",
+          "short_name": "OutOfRangeEnumCastCriticalUnspecifiedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
           ]
         },
         {

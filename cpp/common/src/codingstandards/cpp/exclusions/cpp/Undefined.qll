@@ -6,9 +6,11 @@ import codingstandards.cpp.exclusions.RuleMetadata
 newtype UndefinedQuery =
   TPossibleDataRaceBetweenThreadsQuery() or
   TArrayDeletedThroughPointerOfIncorrectTypeQuery() or
+  TSignedIntegerOverflowQuery() or
   TDivisionByZeroUndefinedBehaviorQuery() or
   TDeallocationTypeMismatchQuery() or
   TStringLiteralPossiblyModifiedAuditQuery() or
+  TOutOfRangeEnumCastCriticalUnspecifiedBehaviorQuery() or
   TNullPointerToMemberAccessUndefinedBehaviorQuery() or
   TUninitializedStaticPointerToMemberUndefinedBehaviorQuery() or
   TNonExistentMemberAccessUndefinedBehaviorQuery()
@@ -29,6 +31,15 @@ predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, s
   queryId =
     // `@id` for the `arrayDeletedThroughPointerOfIncorrectType` query
     "cpp/misra/array-deleted-through-pointer-of-incorrect-type" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `signedIntegerOverflow` query
+    UndefinedPackage::signedIntegerOverflowQuery() and
+  queryId =
+    // `@id` for the `signedIntegerOverflow` query
+    "cpp/misra/signed-integer-overflow" and
   ruleId = "RULE-4-1-3" and
   category = "required"
   or
@@ -56,6 +67,15 @@ predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, s
   queryId =
     // `@id` for the `stringLiteralPossiblyModifiedAudit` query
     "cpp/misra/string-literal-possibly-modified-audit" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `outOfRangeEnumCastCriticalUnspecifiedBehavior` query
+    UndefinedPackage::outOfRangeEnumCastCriticalUnspecifiedBehaviorQuery() and
+  queryId =
+    // `@id` for the `outOfRangeEnumCastCriticalUnspecifiedBehavior` query
+    "cpp/misra/out-of-range-enum-cast-critical-unspecified-behavior" and
   ruleId = "RULE-4-1-3" and
   category = "required"
   or
@@ -102,6 +122,13 @@ module UndefinedPackage {
       TQueryCPP(TUndefinedPackageQuery(TArrayDeletedThroughPointerOfIncorrectTypeQuery()))
   }
 
+  Query signedIntegerOverflowQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `signedIntegerOverflow` query
+      TQueryCPP(TUndefinedPackageQuery(TSignedIntegerOverflowQuery()))
+  }
+
   Query divisionByZeroUndefinedBehaviorQuery() {
     //autogenerate `Query` type
     result =
@@ -121,6 +148,13 @@ module UndefinedPackage {
     result =
       // `Query` type for `stringLiteralPossiblyModifiedAudit` query
       TQueryCPP(TUndefinedPackageQuery(TStringLiteralPossiblyModifiedAuditQuery()))
+  }
+
+  Query outOfRangeEnumCastCriticalUnspecifiedBehaviorQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `outOfRangeEnumCastCriticalUnspecifiedBehavior` query
+      TQueryCPP(TUndefinedPackageQuery(TOutOfRangeEnumCastCriticalUnspecifiedBehaviorQuery()))
   }
 
   Query nullPointerToMemberAccessUndefinedBehaviorQuery() {
