@@ -3,7 +3,7 @@
  * @name DCL40-C: Do not create incompatible declarations of the same function or object
  * @description Declaring incompatible objects, in other words same named objects of different
  *              types, then accessing those objects can lead to undefined behaviour.
- * @ kind problem
+ * @kind problem
  * @precision high
  * @problem.severity error
  * @tags external/cert/id/dcl40-c
