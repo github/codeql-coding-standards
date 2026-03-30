@@ -4,6 +4,9 @@ import codingstandards.cpp.exclusions.RuleMetadata
 //** Import packages for this language **/
 import Allocations
 import Banned1
+import Banned2
+import Banned3
+import Banned4
 import BannedAPIs
 import BannedFunctions
 import BannedLibraries
@@ -11,6 +14,7 @@ import BannedSyntax
 import BannedTypes
 import Classes
 import Classes2
+import Classes4
 import Comments
 import Concurrency
 import Conditionals
@@ -18,6 +22,7 @@ import Const
 import Conversions
 import Conversions2
 import DeadCode
+import DeadCode10
 import DeadCode11
 import DeadCode3
 import DeadCode4
@@ -96,6 +101,9 @@ import VirtualFunctions
 newtype TCPPQuery =
   TAllocationsPackageQuery(AllocationsQuery q) or
   TBanned1PackageQuery(Banned1Query q) or
+  TBanned2PackageQuery(Banned2Query q) or
+  TBanned3PackageQuery(Banned3Query q) or
+  TBanned4PackageQuery(Banned4Query q) or
   TBannedAPIsPackageQuery(BannedAPIsQuery q) or
   TBannedFunctionsPackageQuery(BannedFunctionsQuery q) or
   TBannedLibrariesPackageQuery(BannedLibrariesQuery q) or
@@ -103,6 +111,7 @@ newtype TCPPQuery =
   TBannedTypesPackageQuery(BannedTypesQuery q) or
   TClassesPackageQuery(ClassesQuery q) or
   TClasses2PackageQuery(Classes2Query q) or
+  TClasses4PackageQuery(Classes4Query q) or
   TCommentsPackageQuery(CommentsQuery q) or
   TConcurrencyPackageQuery(ConcurrencyQuery q) or
   TConditionalsPackageQuery(ConditionalsQuery q) or
@@ -110,6 +119,7 @@ newtype TCPPQuery =
   TConversionsPackageQuery(ConversionsQuery q) or
   TConversions2PackageQuery(Conversions2Query q) or
   TDeadCodePackageQuery(DeadCodeQuery q) or
+  TDeadCode10PackageQuery(DeadCode10Query q) or
   TDeadCode11PackageQuery(DeadCode11Query q) or
   TDeadCode3PackageQuery(DeadCode3Query q) or
   TDeadCode4PackageQuery(DeadCode4Query q) or
@@ -188,6 +198,9 @@ newtype TCPPQuery =
 predicate isQueryMetadata(Query query, string queryId, string ruleId, string category) {
   isAllocationsQueryMetadata(query, queryId, ruleId, category) or
   isBanned1QueryMetadata(query, queryId, ruleId, category) or
+  isBanned2QueryMetadata(query, queryId, ruleId, category) or
+  isBanned3QueryMetadata(query, queryId, ruleId, category) or
+  isBanned4QueryMetadata(query, queryId, ruleId, category) or
   isBannedAPIsQueryMetadata(query, queryId, ruleId, category) or
   isBannedFunctionsQueryMetadata(query, queryId, ruleId, category) or
   isBannedLibrariesQueryMetadata(query, queryId, ruleId, category) or
@@ -195,6 +208,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isBannedTypesQueryMetadata(query, queryId, ruleId, category) or
   isClassesQueryMetadata(query, queryId, ruleId, category) or
   isClasses2QueryMetadata(query, queryId, ruleId, category) or
+  isClasses4QueryMetadata(query, queryId, ruleId, category) or
   isCommentsQueryMetadata(query, queryId, ruleId, category) or
   isConcurrencyQueryMetadata(query, queryId, ruleId, category) or
   isConditionalsQueryMetadata(query, queryId, ruleId, category) or
@@ -202,6 +216,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isConversionsQueryMetadata(query, queryId, ruleId, category) or
   isConversions2QueryMetadata(query, queryId, ruleId, category) or
   isDeadCodeQueryMetadata(query, queryId, ruleId, category) or
+  isDeadCode10QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode11QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode3QueryMetadata(query, queryId, ruleId, category) or
   isDeadCode4QueryMetadata(query, queryId, ruleId, category) or

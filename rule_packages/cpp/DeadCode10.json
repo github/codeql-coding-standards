@@ -1,0 +1,30 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-0-2-4": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Unused functions may indicate a coding error or require maintenance; functions that are unused with certain visibility have no effect on the program and should be removed.",
+          "kind": "problem",
+          "name": "Functions with limited visibility should be used at least once",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnusedLimitedVisibilityFunction",
+          "shared_implementation_short_name": "UnusedLocalFunction",
+          "tags": [
+            "scope/system",
+            "maintainability",
+            "correctness"
+          ],
+          "implementation_scope": {
+            "description": "Use of any overload of a function in an overload set constitute a use of all members of the set. An overload set is a set of functions with the same name that differ in the number, type and/or qualifiers of their parameters, and, for the purpose of this query, are limited to functions which are declared in the same scope (namespace or class). Functions defined in anonymous (unnamed) namespaces and global namespaces are therefore not currently considered to be part of the same overload set."
+          }
+        }
+      ],
+      "title": "Functions with limited visibility should be used at least once"
+    }
+  }
+}

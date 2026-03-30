@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-10-2-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Treating unscoped enumeration without a fixed underlying type as an integral type is not portable and might cause unintended behaviors.",
+          "kind": "problem",
+          "name": "The numeric value of an unscoped enumeration with no fixed underlying type shall not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "UnscopedEnumWithoutFixedUnderlyingTypeUsed",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The numeric value of an unscoped enumeration with no fixed underlying type shall not be used"
+    }
+  }
+}
