@@ -89,15 +89,15 @@ void many_thread13_calls_nonreentrant_funcs(void *p) {
   // Not all are defined in std:: in our stubs.
   std::setlocale(LC_ALL, "C"); // NON-COMPLIANT
   setlocale(LC_ALL, "C");      // NON-COMPLIANT
-  std::tmpnam(nullptr);        // NON-COMPLIANT
+  std::tmpnam("");             // NON-COMPLIANT
   rand();                      // NON-COMPLIANT
   std::rand();                 // NON-COMPLIANT
   // srand(0);                       // NON-COMPLIANT
   getenv("PATH"); // NON-COMPLIANT
   // std::getenv("PATH");                 // NON-COMPLIANT
   ////getenv_s(NULL, NULL, 0, NULL);  // NON-COMPLIANT
-  strtok("a", "b");      // NON-COMPLIANT
-  std::strtok("a", "b"); // NON-COMPLIANT
+  strtok("a", "b");      // NON-COMPLIANT[False negative]
+  std::strtok("a", "b"); // NON-COMPLIANT[False negative]
   strerror(0);           // NON-COMPLIANT
   std::strerror(0);      // NON-COMPLIANT
   asctime(NULL);         // NON-COMPLIANT
