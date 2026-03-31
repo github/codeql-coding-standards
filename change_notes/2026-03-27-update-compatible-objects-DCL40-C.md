@@ -1,2 +1,2 @@
  - `DCL40-C` - `IncompatibleObjectDeclarations.ql`:
-   - Enhanced the query's ability to compare objects with array type, which will reduce false positives.
+   - The rule now is capable to detect equivalence based on compatible types instead of exact types (which was what it was previously checking on objects). This will eliminate false positives for some array types and types using equivalent typedefs.

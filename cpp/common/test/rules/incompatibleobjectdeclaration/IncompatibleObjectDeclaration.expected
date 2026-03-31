@@ -1,4 +1,6 @@
 | test1.cpp:1:12:1:12 | declaration of i | The object is not compatible with a re-declaration $@. | test.cpp:1:7:1:7 | definition of i | i |
 | test1.cpp:2:13:2:13 | declaration of a | The object is not compatible with a re-declaration $@. | test.cpp:2:5:2:5 | definition of a | a |
+| test1.cpp:9:18:9:18 | declaration of x | The object is not compatible with a re-declaration $@. | test.cpp:8:17:8:17 | declaration of x | x |
+| test1.cpp:11:10:11:11 | declaration of a1 | The object is not compatible with a re-declaration $@. | test.cpp:10:10:10:11 | declaration of a1 | a1 |
 | test.cpp:1:7:1:7 | definition of i | The object is not compatible with a re-declaration $@. | test1.cpp:1:12:1:12 | declaration of i | i |
 | test.cpp:2:5:2:5 | definition of a | The object is not compatible with a re-declaration $@. | test1.cpp:2:13:2:13 | declaration of a | a |

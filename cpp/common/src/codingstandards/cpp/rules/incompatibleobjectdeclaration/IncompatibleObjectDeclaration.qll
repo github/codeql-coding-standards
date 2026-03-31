@@ -15,8 +15,12 @@ signature module IncompatibleObjectDeclarationConfigSig {
   Query getQuery();
 }
 
+class VariableDeclarationEntryExternal extends VariableDeclarationEntry {
+  VariableDeclarationEntryExternal() { this.getDeclaration() instanceof ExternalIdentifiers }
+}
+
 predicate relevantTypes(Type a, Type b) {
-  exists(VariableDeclarationEntry varA, VariableDeclarationEntry varB |
+  exists(VariableDeclarationEntryExternal varA, VariableDeclarationEntryExternal varB |
     not varA = varB and
     varA.getVariable().getName() = varB.getVariable().getName() and
     a = varA.getType() and
@@ -26,7 +30,7 @@ predicate relevantTypes(Type a, Type b) {
 
 module IncompatibleObjectDeclaration<IncompatibleObjectDeclarationConfigSig Config> {
   query predicate problems(
-    VariableDeclarationEntry decl1, string message, VariableDeclarationEntry decl2,
+    VariableDeclarationEntryExternal decl1, string message, VariableDeclarationEntryExternal decl2,
     string secondMessage
   ) {
     not isExcluded(decl1, Config::getQuery()) and
@@ -34,8 +38,6 @@ module IncompatibleObjectDeclaration<IncompatibleObjectDeclarationConfigSig Conf
     not TypeEquivalence<TypesCompatibleConfig, relevantTypes/2>::equalTypes(decl1.getType(),
       decl2.getType()) and
     not decl1 = decl2 and
-    decl1.getDeclaration() instanceof ExternalIdentifiers and
-    decl2.getDeclaration() instanceof ExternalIdentifiers and
     decl1.getLocation().getStartLine() >= decl2.getLocation().getStartLine() and
     decl1.getVariable().getName() = decl2.getVariable().getName() and
     secondMessage = decl2.getName() and
