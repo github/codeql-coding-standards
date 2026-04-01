@@ -1,9 +1,9 @@
-| test.cpp:5:5:5:5 | g | Variable g is array type. |
-| test.cpp:9:24:9:24 | a | Variable a is array type. |
-| test.cpp:10:7:10:8 | a1 | Variable a1 is array type. |
-| test.cpp:14:7:14:8 | a1 | Variable a1 is array type. |
-| test.cpp:19:7:19:7 | x | Variable x is array type. |
-| test.cpp:20:17:20:17 | a | Variable a is array type. |
-| test.cpp:22:8:22:9 | x1 | Variable x1 is array type. |
-| test.cpp:28:6:28:7 | g1 | Variable g1 is array type. |
-| test.cpp:34:21:34:21 | p | Variable p is array type. |
+| test.cpp:5:5:5:5 | g | Variable g has an array type. |
+| test.cpp:9:24:9:24 | a | Variable a has an array type. |
+| test.cpp:10:7:10:8 | a1 | Variable a1 has an array type. |
+| test.cpp:14:7:14:8 | a1 | Variable a1 has an array type. |
+| test.cpp:19:7:19:7 | x | Variable x has an array type. |
+| test.cpp:20:17:20:17 | a | Variable a has an array type. |
+| test.cpp:22:8:22:9 | x1 | Variable x1 has an array type. |
+| test.cpp:28:6:28:7 | g1 | Variable g1 has an array type. |
+| test.cpp:34:21:34:21 | p | Variable p has an array type. |

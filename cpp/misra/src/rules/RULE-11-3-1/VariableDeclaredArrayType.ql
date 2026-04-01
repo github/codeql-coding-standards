@@ -32,4 +32,4 @@ where
   exists(ArrayType a | v.getType() = a | not v instanceof FixedSizeCharArray) and
   // Exclude the compiler generated __func__ as it is the only way to access the function name information
   not v.getName() = "__func__"
-select v, "Variable " + v.getName() + " is array type."
+select v, "Variable " + v.getName() + " has an array type."
