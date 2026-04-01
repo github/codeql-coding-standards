@@ -33,11 +33,7 @@ import DeadCode8
 import DeadCode9
 import Declarations
 import Declarations1
-<<<<<<< HEAD
-=======
-import Declarations3
 import Declarations4
->>>>>>> bc0278c3c (Add RULE-10-1-2)
 import ExceptionSafety
 import Exceptions1
 import Exceptions2
