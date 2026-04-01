@@ -5,8 +5,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Declarations3Query =
   TVariableDeclaredArrayTypeQuery() or
-  TBlockScopeFunctionAmbiguousQuery() or
-  TBlockScopeObjectAmbiguousQuery()
+  TBlockScopeFunctionAmbiguousQuery()
 
 predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -26,15 +25,6 @@ predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleI
     "cpp/misra/block-scope-function-ambiguous" and
   ruleId = "RULE-6-0-1" and
   category = "required"
-  or
-  query =
-    // `Query` instance for the `blockScopeObjectAmbiguous` query
-    Declarations3Package::blockScopeObjectAmbiguousQuery() and
-  queryId =
-    // `@id` for the `blockScopeObjectAmbiguous` query
-    "cpp/misra/block-scope-object-ambiguous" and
-  ruleId = "RULE-6-0-1" and
-  category = "required"
 }
 
 module Declarations3Package {
@@ -50,12 +40,5 @@ module Declarations3Package {
     result =
       // `Query` type for `blockScopeFunctionAmbiguous` query
       TQueryCPP(TDeclarations3PackageQuery(TBlockScopeFunctionAmbiguousQuery()))
-  }
-
-  Query blockScopeObjectAmbiguousQuery() {
-    //autogenerate `Query` type
-    result =
-      // `Query` type for `blockScopeObjectAmbiguous` query
-      TQueryCPP(TDeclarations3PackageQuery(TBlockScopeObjectAmbiguousQuery()))
   }
 }
