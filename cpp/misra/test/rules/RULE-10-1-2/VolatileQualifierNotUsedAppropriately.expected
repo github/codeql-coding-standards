@@ -1,0 +1,7 @@
+| test.cpp:2:16:2:16 | g1 | Volatile entity declared. |
+| test.cpp:4:21:4:21 | p | Volatile entity declared. |
+| test.cpp:5:16:5:16 | x | Volatile entity declared. |
+| test.cpp:9:18:9:18 | a | Volatile entity declared. |
+| test.cpp:12:14:12:15 | f1 | Volatile entity declared. |
+| test.cpp:15:23:15:23 | p | Volatile entity declared. |
+| test.cpp:19:16:19:16 | m | Volatile entity declared. |

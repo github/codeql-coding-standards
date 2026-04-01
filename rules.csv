@@ -916,7 +916,7 @@ cpp,MISRA-C++-2023,RULE-9-6-4,Yes,Required,Undecidable,System,A function declare
 cpp,MISRA-C++-2023,RULE-9-6-5,Yes,Required,Decidable,Single Translation Unit,A function with non-void return type shall return a value on all paths,MSC52-CPP,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-10-0-1,Yes,Advisory,Decidable,Single Translation Unit,A declaration should not declare more than one variable or member variable,M8-0-1,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-10-1-1,Yes,Advisory,Decidable,Single Translation Unit,The target type of a pointer or lvalue reference parameter should be const-qualified appropriately,RULE-8-13,Declarations2,Hard,
-cpp,MISRA-C++-2023,RULE-10-1-2,Yes,Required,Decidable,Single Translation Unit,The volatile qualifier shall be used appropriately,,Declarations2,Easy,
+cpp,MISRA-C++-2023,RULE-10-1-2,Yes,Required,Decidable,Single Translation Unit,The volatile qualifier shall be used appropriately,A2-11-1,Declarations4,Easy,
 cpp,MISRA-C++-2023,RULE-10-2-1,Yes,Required,Decidable,Single Translation Unit,An enumeration shall be defined with an explicit underlying type,A7-2-2,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-10-2-2,Yes,Advisory,Decidable,Single Translation Unit,Unscoped enumerations should not be declared,A7-2-3,Banned2,Easy,
 cpp,MISRA-C++-2023,RULE-10-2-3,Yes,Required,Decidable,Single Translation Unit,The numeric value of an unscoped enumeration with no fixed underlying type shall not be used,A4-5-1,Banned3,Easy,
