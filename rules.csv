@@ -849,7 +849,7 @@ cpp,MISRA-C++-2023,RULE-5-13-4,Yes,Required,Decidable,Single Translation Unit,Un
 cpp,MISRA-C++-2023,RULE-5-13-5,Yes,Required,Decidable,Single Translation Unit,The lowercase form of L shall not be used as the first character in a literal suffix,RULE-7-3,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-5-13-6,Yes,Required,Decidable,Single Translation Unit,An integer-literal of type long long shall not use a single L or l in any suffix,,Expressions2,Easy,
 cpp,MISRA-C++-2023,RULE-5-13-7,No,Required,Decidable,Single Translation Unit,String literals with different encoding prefixes shall not be concatenated,A2-13-2,,,
-cpp,MISRA-C++-2023,RULE-6-0-1,Yes,Required,Decidable,Single Translation Unit,Block scope declarations shall not be visually ambiguous,"M3-1-2,DCL53-CPP",Declarations2,Easy,
+cpp,MISRA-C++-2023,RULE-6-0-1,Yes,Required,Decidable,Single Translation Unit,Block scope declarations shall not be visually ambiguous,"M3-1-2,DCL53-CPP",Declarations3,Easy,
 cpp,MISRA-C++-2023,RULE-6-0-2,Yes,Advisory,Decidable,Single Translation Unit,"When an array with external linkage is declared, its size should be explicitly specified",RULE-18-8,Linkage1,Import,
 cpp,MISRA-C++-2023,RULE-6-0-3,Yes,Advisory,Decidable,Single Translation Unit,"The only declarations in the global namespace should be main, namespace declarations and extern ""C"" declarations",M7-3-1,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-6-0-4,Yes,Required,Decidable,Single Translation Unit,The identifier main shall not be used for a function other than the global function main,M7-3-2,ImportMisra23,Import,
@@ -922,7 +922,7 @@ cpp,MISRA-C++-2023,RULE-10-2-2,Yes,Advisory,Decidable,Single Translation Unit,Un
 cpp,MISRA-C++-2023,RULE-10-2-3,Yes,Required,Decidable,Single Translation Unit,The numeric value of an unscoped enumeration with no fixed underlying type shall not be used,A4-5-1,Banned3,Easy,
 cpp,MISRA-C++-2023,RULE-10-3-1,Yes,Advisory,Decidable,Single Translation Unit,There should be no unnamed namespaces in header files,"DCL59-CPP, M7-3-3",Banned4,Easy,
 cpp,MISRA-C++-2023,RULE-10-4-1,Yes,Required,Decidable,Single Translation Unit,The asm declaration shall not be used,A7-4-1,ImportMisra23,Import,
-cpp,MISRA-C++-2023,RULE-11-3-1,Yes,Advisory,Decidable,Single Translation Unit,Variables of array type should not be declared,,Declarations2,Easy,
+cpp,MISRA-C++-2023,RULE-11-3-1,Yes,Advisory,Decidable,Single Translation Unit,Variables of array type should not be declared,A18-1-1,Declarations3,Easy,
 cpp,MISRA-C++-2023,RULE-11-3-2,Yes,Advisory,Decidable,Single Translation Unit,The declaration of an object should contain no more than two levels of pointer indirection,A5-0-3,ImportMisra23,Import,
 cpp,MISRA-C++-2023,RULE-11-6-1,Yes,Advisory,Decidable,Single Translation Unit,All variables should be initialized,,Declarations2,Easy,
 cpp,MISRA-C++-2023,RULE-11-6-2,Yes,Mandatory,Undecidable,System,The value of an object must not be read before it has been set,A8-5-0,Lifetime,Import
