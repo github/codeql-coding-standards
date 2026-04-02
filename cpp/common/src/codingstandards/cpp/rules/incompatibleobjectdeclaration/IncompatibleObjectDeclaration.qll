@@ -19,10 +19,14 @@ class VariableDeclarationEntryExternal extends VariableDeclarationEntry {
   VariableDeclarationEntryExternal() { this.getDeclaration() instanceof ExternalIdentifiers }
 }
 
+predicate relevantPair(VariableDeclarationEntryExternal varA, VariableDeclarationEntryExternal varB) {
+  not varA = varB and
+  varA.getVariable().getName() = varB.getVariable().getName()
+}
+
 predicate relevantTypes(Type a, Type b) {
   exists(VariableDeclarationEntryExternal varA, VariableDeclarationEntryExternal varB |
-    not varA = varB and
-    varA.getVariable().getName() = varB.getVariable().getName() and
+    relevantPair(varA, varB) and
     a = varA.getType() and
     b = varB.getType()
   )
@@ -35,11 +39,10 @@ module IncompatibleObjectDeclaration<IncompatibleObjectDeclarationConfigSig Conf
   ) {
     not isExcluded(decl1, Config::getQuery()) and
     not isExcluded(decl2, Config::getQuery()) and
+    relevantPair(decl1, decl2) and
     not TypeEquivalence<TypesCompatibleConfig, relevantTypes/2>::equalTypes(decl1.getType(),
       decl2.getType()) and
-    not decl1 = decl2 and
     decl1.getLocation().getStartLine() >= decl2.getLocation().getStartLine() and
-    decl1.getVariable().getName() = decl2.getVariable().getName() and
     secondMessage = decl2.getName() and
     message = "The object is not compatible with a re-declaration $@."
   }
