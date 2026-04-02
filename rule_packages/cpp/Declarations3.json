@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-10-1-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Pointer or lvalue reference parameters that do not modify the target object should be const-qualified to accurately reflect function behavior and prevent unintended modifications.",
+          "kind": "problem",
+          "name": "The target type of a pointer or lvalue reference parameter should be const-qualified appropriately",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "PointerOrRefParamNotConst",
+          "tags": [
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The target type of a pointer or lvalue reference parameter should be const-qualified appropriately"
+    }
+  }
+}
