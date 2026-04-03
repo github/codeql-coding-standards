@@ -17,3 +17,47 @@ FunctionType getExprCallFunctionType(ExprCall call) {
   // Returns a RoutineType
   result = call.(ExprCall).getChild(-1).getType().(PointerToMemberType).getBaseType()
 }
+
+/**
+ * An `Expr` that is used as an argument to a `Call`, and has helpers to handle with the differences
+ * between `ExprCall` and `FunctionCall` cases.
+ */
+class CallArgumentExpr extends Expr {
+  Call call;
+  Type paramType;
+  int argIndex;
+
+  CallArgumentExpr() {
+    this = call.getArgument(argIndex) and
+    (
+      paramType = call.getTarget().getParameter(argIndex).getType()
+      or
+      paramType = getExprCallFunctionType(call).getParameterType(argIndex)
+    )
+  }
+
+  /**
+   * Get the `FunctionExpr` or `FunctionCall` that this argument appears in.
+   */
+  Call getCall() { result = call }
+
+  /**
+   * Gets the `Type` of the parameter corresponding to this argument, whether its based on the target function or the function pointer type.
+   */
+  Type getParamType() { result = paramType }
+
+  /**
+   * Get the argument index of this argument in the call.
+   */
+  int getArgIndex() { result = argIndex }
+
+  /**
+   * Get the target `Function` if this is an argument to a `FunctionCall`.
+   */
+  Function getKnownFunction() { result = call.getTarget() }
+
+  /**
+   * Get the target `Parameter` if this is an argument to a `FunctionCall`.
+   */
+  Parameter getKnownParameter() { result = call.getTarget().getParameter(argIndex) }
+}
