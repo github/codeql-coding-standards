@@ -258,7 +258,7 @@ class NonConstParam extends PointerLikeParam {
 
 from NonConstParam param, Type innerType
 where
-  not isExcluded(param, Declarations3Package::pointerOrRefParamNotConstQuery()) and
+  not isExcluded(param, Declarations6Package::pointerOrRefParamNotConstQuery()) and
   innerType = param.getPointerLikeType().getInnerType() and
   not param.isAffectedByMacro() and
   // Exclude functions with copied parameters which leads to wrong results.
