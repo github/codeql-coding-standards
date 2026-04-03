@@ -37,27 +37,28 @@ class CallArgumentExpr extends Expr {
   }
 
   /**
-   * Get the `FunctionExpr` or `FunctionCall` that this argument appears in.
+   * Gets the `FunctionExpr` or `FunctionCall` that this argument appears in.
    */
   Call getCall() { result = call }
 
   /**
-   * Gets the `Type` of the parameter corresponding to this argument, whether its based on the target function or the function pointer type.
+   * Gets the `Type` of the parameter corresponding to this argument, whether its based on the
+   * target function or the function pointer type.
    */
   Type getParamType() { result = paramType }
 
   /**
-   * Get the argument index of this argument in the call.
+   * Gets the argument index of this argument in the call.
    */
   int getArgIndex() { result = argIndex }
 
   /**
-   * Get the target `Function` if this is an argument to a `FunctionCall`.
+   * Gets the target `Function` if this is an argument to a `FunctionCall`.
    */
   Function getKnownFunction() { result = call.getTarget() }
 
   /**
-   * Get the target `Parameter` if this is an argument to a `FunctionCall`.
+   * Gets the target `Parameter` if this is an argument to a `FunctionCall`.
    */
   Parameter getKnownParameter() { result = call.getTarget().getParameter(argIndex) }
 }

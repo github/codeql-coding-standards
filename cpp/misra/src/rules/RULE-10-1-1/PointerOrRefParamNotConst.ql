@@ -21,7 +21,6 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.types.Pointers
 import codingstandards.cpp.Call
 import codingstandards.cpp.SideEffect
-import codingstandards.cpp.alertreporting.HoldsForAllCopies
 
 /**
  * Holds if the function is in a template scope and should be excluded.
@@ -35,7 +34,7 @@ predicate isInTemplateScope(Function f) {
 /**
  * A `Type` that may be a pointer, array, or reference, to a const or a non-const type.
  *
- * For example, `const int*`, `int* const`, `cont int* const`, `int*`, `int&`, `const int&` are all
+ * For example, `const int*`, `int* const`, `const int* const`, `int*`, `int&`, `const int&` are all
  * `PointerLikeType`s, while `int`, `int&&`, and `const int` are not.
  *
  * To check if a `PointerLikeType` points/refers to a const-qualified type, use the `pointsToConst()`
@@ -61,12 +60,12 @@ class PointerLikeType extends Type {
   }
 
   /**
-   * Get the pointed to or referred to type, for instance `int` for `int*` or `const int&`.
+   * Gets the pointed to or referred to type, for instance `int` for `int*` or `const int&`.
    */
   Type getInnerType() { result = innerType }
 
   /**
-   * Get the resolved pointer, array, or reference type itself, for instance `int*` in `int* const`.
+   * Gets the resolved pointer, array, or reference type itself, for instance `int*` in `int* const`.
    *
    * Removes cv-qualification and resolves typedefs and decltypes and specifiers via
    * `stripTopLevelSpecifiers()`.
@@ -80,7 +79,7 @@ class PointerLikeType extends Type {
   predicate pointsToConst() { innerType.isConst() }
 
   /**
-   * Holds when this type points to non-const -- for example, `int*` and `int&` and `int const*`
+   * Holds when this type points to non-const -- for example, `int*` and `int&` and `int *const`
    * point to non-const, while `const int*`, `const int&` do not.
    */
   predicate pointsToNonConst() { not innerType.isConst() }
@@ -100,12 +99,12 @@ class PointerLikeParam extends Parameter {
   }
 
   /**
-   * Get the pointer like type of this parameter.
+   * Gets the pointer like type of this parameter.
    */
   PointerLikeType getPointerLikeType() { result = pointerLikeType }
 
   /**
-   * Get usages of this parameter that maintain pointer-like semantics -- typically this means
+   * Gets usages of this parameter that maintain pointer-like semantics -- typically this means
    * either a normal access, or switching between pointers and reference semantics.
    *
    * Examples of accesses with pointer-like semantics include:
@@ -177,7 +176,6 @@ class PointerLikeEffect extends VariableEffect {
 class NonConstParam extends PointerLikeParam {
   NonConstParam() {
     not pointerLikeType.pointsToConst() and
-    not pointerLikeType.getInnerType() instanceof VoidType and
     // Ignore parameters in functions without bodies
     exists(this.getFunction().getBlock()) and
     // Ignore unnamed parameters
