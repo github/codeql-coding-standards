@@ -25,21 +25,9 @@ import codingstandards.cpp.alertreporting.HoldsForAllCopies
  * Holds if the function is in a template scope and should be excluded.
  */
 predicate isInTemplateScope(Function f) {
-  // Function templates
   f.isFromTemplateInstantiation(_)
   or
-  f instanceof TemplateFunction
-  or
-  // Functions declared within the scope of a template class
-  exists(TemplateClass tc | f.getDeclaringType() = tc)
-  or
-  f.getDeclaringType().isFromTemplateInstantiation(_)
-  or
-  // Lambdas within template scope
-  exists(LambdaExpression le |
-    le.getLambdaFunction() = f and
-    isInTemplateScope(le.getEnclosingFunction())
-  )
+  f.isFromUninstantiatedTemplate(_)
 }
 
 /**
@@ -96,6 +84,9 @@ class PointerLikeType extends Type {
   predicate pointsToNonConst() { not innerType.isConst() }
 }
 
+/**
+ * A `Parameter` whose type is a `PointerLikeType` such as a pointer or reference.
+ */
 class PointerLikeParam extends Parameter {
   PointerLikeType pointerLikeType;
 
@@ -107,6 +98,28 @@ class PointerLikeParam extends Parameter {
     not pointerLikeType.getInnerType() instanceof VoidType
   }
 
+  /**
+   * Get the pointer like type of this parameter.
+   */
+  PointerLikeType getPointerLikeType() { result = pointerLikeType }
+
+  /**
+   * Get usages of this parameter that maintain pointer-like semantics -- typically this means
+   * either a normal access, or switching between pointers and reference semantics.
+   *
+   * Examples of accesses with pointer-like semantics include:
+   * - `ref` in `int &x = ref`, or `&ref` in `int *x = &ref`;
+   * - `ptr` in `int *x = ptr`, or `*ptr` in `int &x = *ptr`;
+   *
+   * In the above examples, we can still access the value pointed to by `ref` or `ptr` through the
+   * expression.
+   *
+   * Examples of non-pointer-like semantics include:
+   * - `ref` in `int x = ref` and `*ptr` in `int x = *ptr`;
+   *
+   * In the above examples, the value pointed to by `ref` or `ptr` is copied and the expression
+   * refers to a new/different object.
+   */
   Expr getAPointerLikeAccess() {
     result = this.getAnAccess()
     or
@@ -121,17 +134,40 @@ class PointerLikeParam extends Parameter {
   }
 }
 
-query predicate test(
-  PointerLikeParam param, Expr ptrLikeAccess, Type argtype, Type innerType, string explain
-) {
-  ptrLikeAccess = param.getAPointerLikeAccess() and
-  exists(FunctionCall fc |
-    fc.getArgument(0) = ptrLikeAccess and
-    argtype = fc.getTarget().getParameter(0).getType() and
-    argtype.(PointerLikeType).pointsToNonConst() and
-    innerType = argtype.(PointerLikeType).getInnerType()
-  ) and
-  explain = argtype.explain()
+/**
+ * A `VariableEffect` whose target variable is a `PointerLikeParam`.
+ *
+ * Examples of pointer-like effects on a pointer-like parameter `p` would include `p = ...`, `++p`,
+ * `*p = ...`, and `++*p`, etc.
+ */
+class PointerLikeEffect extends VariableEffect {
+  PointerLikeParam param;
+
+  PointerLikeEffect() { param = this.getTarget() }
+
+  /**
+   * Holds if this effect modifies the pointed-to or referred-to object.
+   *
+   * For example, `*p = 0` modifies the inner type if `p` is a pointer, and `p = 0` affects the
+   * inner type if `p` is a reference.
+   */
+  predicate affectsInnerType() {
+    if param.getPointerLikeType() instanceof ReferenceType
+    then affectsOuterType()
+    else not affectsOuterType()
+  }
+
+  /**
+   * Holds if this effect modifies the pointer or reference itself.
+   *
+   * For example, `p = ...` and `++p` modify the outer type, whether that type is a pointer or
+   * reference, while `*p = 0` does not modify the outer type.
+   */
+  predicate affectsOuterType() {
+    this.(Assignment).getLValue() = param.getAnAccess()
+    or
+    this.(CrementOperation).getOperand() = param.getAnAccess()
+  }
 }
 
 /**
@@ -158,17 +194,10 @@ class NonConstParam extends PointerLikeParam {
     not this.getFunction().hasGlobalName("main") and
     // Exclude deleted functions
     not this.getFunction().isDeleted() and
-    // Exclude any parameter whose underlying data is modified (VariableEffect)
-    not exists(VariableEffect effect |
+    // Exclude any parameter whose underlying data is modified
+    not exists(PointerLikeEffect effect |
       effect.getTarget() = this and
-      (
-        // For reference types, any effect is a target modification
-        pointerLikeType.getOuterType() instanceof ReferenceType
-        or
-        // For pointer types, exclude effects that only modify the pointer itself
-        not effect.(AssignExpr).getLValue() = this.getAnAccess() and
-        not effect.(CrementOperation).getOperand() = this.getAnAccess()
-      )
+      effect.affectsInnerType()
     ) and
     // Exclude parameters passed as arguments to functions taking non-const pointer/ref params
     not exists(FunctionCall fc, int i |
@@ -183,19 +212,30 @@ class NonConstParam extends PointerLikeParam {
     ) and
     // Exclude parameters assigned to a non-const pointer/reference alias
     not exists(Variable v |
-      v.getAnAssignedValue() = this.getAnAccess() and
+      v.getAnAssignedValue() = this.getAPointerLikeAccess() and
       v.getType().(PointerLikeType).pointsToNonConst()
     ) and
     // Exclude parameters returned as non-const pointer/reference
     not exists(ReturnStmt ret |
-      ret.getExpr() = this.getAnAccess() and
+      ret.getExpr() = this.getAPointerLikeAccess() and
       ret.getEnclosingFunction().getType().(PointerLikeType).pointsToNonConst()
+    ) and
+    not exists(FieldAccess fa |
+      fa.getQualifier() = [this.getAPointerLikeAccess(), this.getAnAccess()] and
+      fa.isLValueCategory()
+    ) and
+    not exists(AddressOfExpr addrOf |
+      // exclude pointer to pointer and reference to pointer cases.
+      addrOf.getOperand() = this.getAPointerLikeAccess() and
+      addrOf.getType().(PointerLikeType).getInnerType() instanceof PointerLikeType
     )
   }
 }
 
-from NonConstParam param
-where not isExcluded(param, Declarations3Package::pointerOrRefParamNotConstQuery())
+from NonConstParam param, Type innerType
+where
+  not isExcluded(param, Declarations3Package::pointerOrRefParamNotConstQuery()) and
+  innerType = param.getPointerLikeType().getInnerType()
 select param,
-  "Parameter '" + param.getName() +
-    "' points/refers to a non-const-qualified type but does not modify the target object."
+  "Parameter '" + param.getName() + "' points/refers to a non-const type '" + innerType.toString() +
+    "' but does not modify the target object."

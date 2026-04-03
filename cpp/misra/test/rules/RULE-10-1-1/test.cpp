@@ -37,16 +37,16 @@ void take_cref(const std::int32_t &l1);
 void f4() {
   // Pointers used as values
   [](std::int32_t *p1) { *p1 = 0; };             // COMPLIANT
-  [](std::int32_t *p1) { p1 = nullptr; };        // NON_COMPLIANT UNHANDLED
+  [](std::int32_t *p1) { p1 = nullptr; };        // NON_COMPLIANT
   [](std::int32_t *p1) { i32 = *p1; };           // NON_COMPLIANT
   [](std::int32_t *p1) { take_i32(*p1); };       // NON_COMPLIANT
-  [](std::int32_t *p1) { ref = *p1; };           // COMPLIANT UNHANDLED
+  [](std::int32_t *p1) { ref = *p1; };           // COMPLIANT
   [](std::int32_t *p1) { take_ref(*p1); };       // COMPLIANT
   [](std::int32_t *p1) { const int &l1 = *p1; }; // NON_COMPLIANT
   [](std::int32_t *p1) { take_cref(*p1); };      // NON_COMPLIANT
 
   // References used as values
-  [](std::int32_t &p1) { p1 = 0; };             // NON_COMPLIANT UNHANDLED
+  [](std::int32_t &p1) { p1 = 0; };             // COMPLIANT
   [](std::int32_t &p1) { i32 = p1; };           // NON_COMPLIANT
   [](std::int32_t &p1) { take_i32(p1); };       // NON_COMPLIANT
   [](std::int32_t &p1) { ref = p1; };           // COMPLIANT
@@ -65,18 +65,18 @@ void f4() {
   [](std::int32_t *p1) { take_ptrc(p1); };                     // COMPLIANT
 
   // Taking addresses of references parameter
-  [](std::int32_t &p1) { ptr = &p1; };                          // COMPLIANT UNHANDLED
+  [](std::int32_t &p1) { ptr = &p1; };                          // COMPLIANT
   [](std::int32_t &p1) { take_ptr(&p1); };                      // COMPLIANT
   [](std::int32_t &p1) { cptr = &p1; };                         // NON_COMPLIANT
   [](std::int32_t &p1) { take_cptr(&p1); };                     // NON_COMPLIANT
   [](std::int32_t &p1) { const std::int32_t *const l1 = &p1; }; // NON_COMPLIANT
   [](std::int32_t &p1) { take_cptrc(&p1); };                    // NON_COMPLIANT
-  [](std::int32_t &p1) { std::int32_t *const l1 = &p1; };       // COMPLIANT UNHANDLED
+  [](std::int32_t &p1) { std::int32_t *const l1 = &p1; };       // COMPLIANT
   [](std::int32_t &p1) { take_ptrc(&p1); };                     // COMPLIANT
 
   // Returning from pointer parameters
   [](std::int32_t *p1) -> std::int32_t { return *p1; };         // NON_COMPLIANT
-  [](std::int32_t *p1) -> std::int32_t & { return *p1; };       // COMPLIANT UNHANDLED
+  [](std::int32_t *p1) -> std::int32_t & { return *p1; };       // COMPLIANT
   [](std::int32_t *p1) -> const std::int32_t & { return *p1; }; // NON_COMPLIANT
   [](std::int32_t *p1) -> std::int32_t * { return p1; };        // COMPLIANT
   [](std::int32_t *p1) -> const std::int32_t * { return p1; };  // NON_COMPLIANT
@@ -89,9 +89,9 @@ void f4() {
   [](std::int32_t &p1) -> std::int32_t { return p1; };          // NON_COMPLIANT
   [](std::int32_t &p1) -> std::int32_t & { return p1; };        // COMPLIANT
   [](std::int32_t &p1) -> const std::int32_t & { return p1; };  // NON_COMPLIANT
-  [](std::int32_t &p1) -> std::int32_t * { return &p1; };       // COMPLIANT UNHANDLED
+  [](std::int32_t &p1) -> std::int32_t * { return &p1; };       // COMPLIANT
   [](std::int32_t &p1) -> const std::int32_t * { return &p1; }; // NON_COMPLIANT
-  [](std::int32_t &p1) -> std::int32_t *const { return &p1; }; // COMPLIANT UNHANDLED
+  [](std::int32_t &p1) -> std::int32_t *const { return &p1; }; // COMPLIANT
   [](std::int32_t &p1) -> const std::int32_t *const {
     return &p1;
   }; // NON_COMPLIANT
@@ -100,9 +100,9 @@ void f4() {
   [](std::int32_t &p1) -> std::int32_t { return p1; };          // NON_COMPLIANT
   [](std::int32_t &p1) -> std::int32_t & { return p1; };        // COMPLIANT
   [](std::int32_t &p1) -> const std::int32_t & { return p1; };  // NON_COMPLIANT
-  [](std::int32_t &p1) -> std::int32_t * { return &p1; };       // COMPLIANT UNHANDLED
+  [](std::int32_t &p1) -> std::int32_t * { return &p1; };       // COMPLIANT
   [](std::int32_t &p1) -> const std::int32_t * { return &p1; }; // NON_COMPLIANT
-  [](std::int32_t &p1) -> std::int32_t *const { return &p1; }; // COMPLIANT UNHANDLED
+  [](std::int32_t &p1) -> std::int32_t *const { return &p1; }; // COMPLIANT
   [](std::int32_t &p1) -> const std::int32_t *const {
     return &p1;
   }; // NON_COMPLIANT
@@ -156,7 +156,7 @@ void f4() {
 void f5(std::int32_t *p1,       // NON_COMPLIANT -- pointer modified
         std::int32_t *p2,       // COMPLIANT -- pointee modified
         std::int32_t &p3,       // COMPLIANT -- reference modified
-        std::int32_t *p4,       // NON_COMPLIANT -- pointer assigned UNHANDLED
+        std::int32_t *p4,       // NON_COMPLIANT -- pointer assigned
         std::int32_t *p5,       // COMPLIANT -- pointee assigned
         std::int32_t &p6,       // COMPLIANT -- assigned
         const std::int32_t *p7, // COMPLIANT
@@ -196,16 +196,16 @@ struct S {
 
 void f6(S *p1, // COMPLIANT
         S *p2, // NON_COMPLIANT
-        S *p3  // COMPLIANT UNHANDLED
+        S *p3  // COMPLIANT
 ) {
   p1->m1 = 1;
   std::int32_t l1 = p2->m1;
   std::int32_t &l2 = p3->m1;
 }
 
-void f7(std::int32_t *p1, // COMPLIANT UNHANDLED
+void f7(std::int32_t *p1, // COMPLIANT
         std::int32_t *p2, // COMPLIANT
-        std::int32_t *p3, // NON_COMPLIANT
+        std::int32_t *p3, // NON_COMPLIANT[False negative]
         std::int32_t *p4  // NON_COMPLIANT
 ) {
   using pi32 = std::int32_t *;
