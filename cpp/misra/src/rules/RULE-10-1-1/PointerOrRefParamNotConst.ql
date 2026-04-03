@@ -135,24 +135,6 @@ class PointerLikeParam extends Parameter {
   }
 }
 
-predicate test(Assignment a, Field f, Parameter p, string n) {
-  a.getLValue() = f.getAnAccess() and
-  a.getRValue() = p.getAnAccess() and
-  f.getName() = "planes" and
-  n = p.getFunction().getName() and
-  a.getFile().getBaseName() = "matrix_iterator.cpp"
-}
-
-predicate test2(Parameter p) {
-  p.getName() = ["planes", "_planes"] and
-  p.getFunction().getName() = "init"
-}
-
-predicate test3(Function f, int num) {
-  f.getName() = "init" and
-  num = strictcount(Parameter p | p.getFunction() = f and p.getName() = ["planes", "_planes"])
-}
-
 /**
  * A `VariableEffect` whose target variable is a `PointerLikeParam`.
  *
@@ -261,7 +243,9 @@ where
   not isExcluded(param, Declarations6Package::pointerOrRefParamNotConstQuery()) and
   innerType = param.getPointerLikeType().getInnerType() and
   not param.isAffectedByMacro() and
-  // Exclude functions with copied parameters which leads to wrong results.
+  // There are some odd database patterns where a function has multiple parameters with the same
+  // index and different names, due to strange extraction+linker scenarios. These give wrong
+  // results, and should be excluded.
   count(Parameter p |
     p.getFunction() = param.getFunction() and
     p.getIndex() = param.getIndex()
