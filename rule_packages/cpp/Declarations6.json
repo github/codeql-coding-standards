@@ -14,8 +14,9 @@
           "severity": "warning",
           "short_name": "PointerOrRefParamNotConst",
           "tags": [
-            "maintainability",
+            "correctness",
             "readability",
+            "performance",
             "scope/single-translation-unit"
           ]
         }

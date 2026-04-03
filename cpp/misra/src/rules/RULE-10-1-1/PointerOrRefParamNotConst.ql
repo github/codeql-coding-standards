@@ -8,8 +8,9 @@
  * @precision high
  * @problem.severity warning
  * @tags external/misra/id/rule-10-1-1
- *       maintainability
+ *       correctness
  *       readability
+ *       performance
  *       scope/single-translation-unit
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/advisory
