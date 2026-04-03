@@ -80,7 +80,7 @@ void f4() {
   [](std::int32_t *p1) -> const std::int32_t & { return *p1; }; // NON_COMPLIANT
   [](std::int32_t *p1) -> std::int32_t * { return p1; };        // COMPLIANT
   [](std::int32_t *p1) -> const std::int32_t * { return p1; };  // NON_COMPLIANT
-  [](std::int32_t *p1) -> std::int32_t *const { return p1; };  // COMPLIANT
+  [](std::int32_t *p1) -> std::int32_t *const { return p1; };   // COMPLIANT
   [](std::int32_t *p1) -> const std::int32_t *const {
     return p1;
   }; // NON_COMPLIANT
@@ -91,7 +91,7 @@ void f4() {
   [](std::int32_t &p1) -> const std::int32_t & { return p1; };  // NON_COMPLIANT
   [](std::int32_t &p1) -> std::int32_t * { return &p1; };       // COMPLIANT
   [](std::int32_t &p1) -> const std::int32_t * { return &p1; }; // NON_COMPLIANT
-  [](std::int32_t &p1) -> std::int32_t *const { return &p1; }; // COMPLIANT
+  [](std::int32_t &p1) -> std::int32_t *const { return &p1; };  // COMPLIANT
   [](std::int32_t &p1) -> const std::int32_t *const {
     return &p1;
   }; // NON_COMPLIANT
@@ -102,7 +102,7 @@ void f4() {
   [](std::int32_t &p1) -> const std::int32_t & { return p1; };  // NON_COMPLIANT
   [](std::int32_t &p1) -> std::int32_t * { return &p1; };       // COMPLIANT
   [](std::int32_t &p1) -> const std::int32_t * { return &p1; }; // NON_COMPLIANT
-  [](std::int32_t &p1) -> std::int32_t *const { return &p1; }; // COMPLIANT
+  [](std::int32_t &p1) -> std::int32_t *const { return &p1; };  // COMPLIANT
   [](std::int32_t &p1) -> const std::int32_t *const {
     return &p1;
   }; // NON_COMPLIANT
@@ -110,46 +110,46 @@ void f4() {
   // Non compliant cases are compliant when const
   using cpi32 = const std::int32_t *;
   using cri32 = const std::int32_t &;
-  [](const std::int32_t *p1) { p1 = nullptr; };               // COMPLIANT
-  [](const std::int32_t *p1) { i32 = *p1; };                  // COMPLIANT
-  [](const std::int32_t *p1) { take_i32(*p1); };              // COMPLIANT
-  [](const std::int32_t *p1) { const int &l1 = *p1; };        // COMPLIANT
-  [](const std::int32_t *p1) { take_cref(*p1); };             // COMPLIANT
-  [](const std::int32_t &p1) { i32 = p1; };                   // COMPLIANT
-  [](const std::int32_t &p1) { take_i32(p1); };               // COMPLIANT
-  [](const std::int32_t &p1) { const int &l1 = p1; };         // COMPLIANT
-  [](const std::int32_t &p1) { take_cref(p1); };              // COMPLIANT
-  [](const std::int32_t *p1) { cptr = p1; };                  // COMPLIANT
-  [](const std::int32_t *p1) { take_cptr(p1); };              // COMPLIANT
-  [](cpi32 p1) { const std::int32_t *const l1 = p1; };        // COMPLIANT
-  [](cpi32 p1) { take_cptrc(p1); };                           // COMPLIANT
-  [](cri32 p1) { cptr = &p1; };                               // COMPLIANT
-  [](cri32 p1) { take_cptr(&p1); };                           // COMPLIANT
-  [](cri32 p1) { const std::int32_t *const l1 = &p1; };       // COMPLIANT
-  [](cri32 p1) { take_cptrc(&p1); };                          // COMPLIANT
-  [](cpi32 p1) -> std::int32_t { return *p1; };               // COMPLIANT
-  [](cpi32 p1) -> const std::int32_t & { return *p1; };       // COMPLIANT
-  [](cpi32 p1) -> const std::int32_t * { return p1; };        // COMPLIANT
+  [](const std::int32_t *p1) { p1 = nullptr; };              // COMPLIANT
+  [](const std::int32_t *p1) { i32 = *p1; };                 // COMPLIANT
+  [](const std::int32_t *p1) { take_i32(*p1); };             // COMPLIANT
+  [](const std::int32_t *p1) { const int &l1 = *p1; };       // COMPLIANT
+  [](const std::int32_t *p1) { take_cref(*p1); };            // COMPLIANT
+  [](const std::int32_t &p1) { i32 = p1; };                  // COMPLIANT
+  [](const std::int32_t &p1) { take_i32(p1); };              // COMPLIANT
+  [](const std::int32_t &p1) { const int &l1 = p1; };        // COMPLIANT
+  [](const std::int32_t &p1) { take_cref(p1); };             // COMPLIANT
+  [](const std::int32_t *p1) { cptr = p1; };                 // COMPLIANT
+  [](const std::int32_t *p1) { take_cptr(p1); };             // COMPLIANT
+  [](cpi32 p1) { const std::int32_t *const l1 = p1; };       // COMPLIANT
+  [](cpi32 p1) { take_cptrc(p1); };                          // COMPLIANT
+  [](cri32 p1) { cptr = &p1; };                              // COMPLIANT
+  [](cri32 p1) { take_cptr(&p1); };                          // COMPLIANT
+  [](cri32 p1) { const std::int32_t *const l1 = &p1; };      // COMPLIANT
+  [](cri32 p1) { take_cptrc(&p1); };                         // COMPLIANT
+  [](cpi32 p1) -> std::int32_t { return *p1; };              // COMPLIANT
+  [](cpi32 p1) -> const std::int32_t & { return *p1; };      // COMPLIANT
+  [](cpi32 p1) -> const std::int32_t * { return p1; };       // COMPLIANT
   [](cpi32 p1) -> const std::int32_t *const { return p1; };  // COMPLIANT
-  [](cri32 p1) -> std::int32_t { return p1; };                // COMPLIANT
-  [](cri32 p1) -> const std::int32_t & { return p1; };        // COMPLIANT
-  [](cri32 p1) -> const std::int32_t * { return &p1; };       // COMPLIANT
+  [](cri32 p1) -> std::int32_t { return p1; };               // COMPLIANT
+  [](cri32 p1) -> const std::int32_t & { return p1; };       // COMPLIANT
+  [](cri32 p1) -> const std::int32_t * { return &p1; };      // COMPLIANT
   [](cri32 p1) -> const std::int32_t *const { return &p1; }; // COMPLIANT
 
   // Non pointer compliant cases are not compliant for `int32_t *const`.
   using pi32c = std::int32_t *const;
 
-  [](std::int32_t *const p1) { i32 = *p1; };                 // NON_COMPLIANT
-  [](std::int32_t *const p1) { take_i32(*p1); };             // NON_COMPLIANT
-  [](std::int32_t *const p1) { const int &l1 = *p1; };       // NON_COMPLIANT
-  [](std::int32_t *const p1) { take_cref(*p1); };            // NON_COMPLIANT
-  [](std::int32_t *const p1) { cptr = p1; };                 // NON_COMPLIANT
-  [](std::int32_t *const p1) { take_cptr(p1); };             // NON_COMPLIANT
-  [](pi32c p1) { const std::int32_t *const l1 = p1; };       // NON_COMPLIANT
-  [](pi32c p1) { take_cptrc(p1); };                          // NON_COMPLIANT
-  [](pi32c p1) -> std::int32_t { return *p1; };              // NON_COMPLIANT
-  [](pi32c p1) -> const std::int32_t & { return *p1; };      // NON_COMPLIANT
-  [](pi32c p1) -> const std::int32_t * { return p1; };       // NON_COMPLIANT
+  [](std::int32_t *const p1) { i32 = *p1; };                // NON_COMPLIANT
+  [](std::int32_t *const p1) { take_i32(*p1); };            // NON_COMPLIANT
+  [](std::int32_t *const p1) { const int &l1 = *p1; };      // NON_COMPLIANT
+  [](std::int32_t *const p1) { take_cref(*p1); };           // NON_COMPLIANT
+  [](std::int32_t *const p1) { cptr = p1; };                // NON_COMPLIANT
+  [](std::int32_t *const p1) { take_cptr(p1); };            // NON_COMPLIANT
+  [](pi32c p1) { const std::int32_t *const l1 = p1; };      // NON_COMPLIANT
+  [](pi32c p1) { take_cptrc(p1); };                         // NON_COMPLIANT
+  [](pi32c p1) -> std::int32_t { return *p1; };             // NON_COMPLIANT
+  [](pi32c p1) -> const std::int32_t & { return *p1; };     // NON_COMPLIANT
+  [](pi32c p1) -> const std::int32_t * { return p1; };      // NON_COMPLIANT
   [](pi32c p1) -> const std::int32_t *const { return p1; }; // NON_COMPLIANT
 }
 

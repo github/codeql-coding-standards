@@ -18,6 +18,7 @@
 import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.types.Pointers
+import codingstandards.cpp.Call
 import codingstandards.cpp.SideEffect
 import codingstandards.cpp.alertreporting.HoldsForAllCopies
 
@@ -94,8 +95,7 @@ class PointerLikeParam extends Parameter {
     pointerLikeType = this.getType() and
     not pointerLikeType.pointsToConst() and
     // Exclude pointers to non-object types
-    not pointerLikeType.getInnerType() instanceof RoutineType and
-    not pointerLikeType.getInnerType() instanceof VoidType
+    not pointerLikeType.getInnerType() instanceof RoutineType
   }
 
   /**
@@ -132,6 +132,24 @@ class PointerLikeParam extends Parameter {
     result.(PointerDereferenceExpr).getOperand() = this.getAnAccess() and
     not any(ReferenceDereferenceExpr rde).getExpr() = result.getConversion+()
   }
+}
+
+predicate test(Assignment a, Field f, Parameter p, string n) {
+  a.getLValue() = f.getAnAccess() and
+  a.getRValue() = p.getAnAccess() and
+  f.getName() = "planes" and
+  n = p.getFunction().getName() and
+  a.getFile().getBaseName() = "matrix_iterator.cpp"
+}
+
+predicate test2(Parameter p) {
+  p.getName() = ["planes", "_planes"] and
+  p.getFunction().getName() = "init"
+}
+
+predicate test3(Function f, int num) {
+  f.getName() = "init" and
+  num = strictcount(Parameter p | p.getFunction() = f and p.getName() = ["planes", "_planes"])
 }
 
 /**
@@ -176,6 +194,7 @@ class PointerLikeEffect extends VariableEffect {
 class NonConstParam extends PointerLikeParam {
   NonConstParam() {
     not pointerLikeType.pointsToConst() and
+    not pointerLikeType.getInnerType() instanceof VoidType and
     // Ignore parameters in functions without bodies
     exists(this.getFunction().getBlock()) and
     // Ignore unnamed parameters
@@ -199,14 +218,14 @@ class NonConstParam extends PointerLikeParam {
       effect.getTarget() = this and
       effect.affectsInnerType()
     ) and
-    // Exclude parameters passed as arguments to functions taking non-const pointer/ref params
-    not exists(FunctionCall fc, int i |
-      fc.getArgument(i) = this.getAPointerLikeAccess() and
-      fc.getTarget().getParameter(i).getType().(PointerLikeType).pointsToNonConst()
+    // Exclude parameters passed as arguments to non-const pointer/ref params
+    not exists(CallArgumentExpr arg |
+      arg = this.getAPointerLikeAccess() and
+      arg.getParamType().(PointerLikeType).pointsToNonConst()
     ) and
     // Exclude parameters used as qualifier for a non-const member function
     not exists(FunctionCall fc |
-      fc.getQualifier() = this.getAnAccess() and
+      fc.getQualifier() = [this.getAnAccess(), this.getAPointerLikeAccess()] and
       not fc.getTarget().hasSpecifier("const") and
       not fc.getTarget().isStatic()
     ) and
@@ -228,6 +247,10 @@ class NonConstParam extends PointerLikeParam {
       // exclude pointer to pointer and reference to pointer cases.
       addrOf.getOperand() = this.getAPointerLikeAccess() and
       addrOf.getType().(PointerLikeType).getInnerType() instanceof PointerLikeType
+    ) and
+    not exists(PointerArithmeticOperation pointerManip |
+      pointerManip.getAnOperand() = this.getAPointerLikeAccess() and
+      pointerManip.getType().(PointerLikeType).pointsToNonConst()
     )
   }
 }
@@ -235,7 +258,14 @@ class NonConstParam extends PointerLikeParam {
 from NonConstParam param, Type innerType
 where
   not isExcluded(param, Declarations3Package::pointerOrRefParamNotConstQuery()) and
-  innerType = param.getPointerLikeType().getInnerType()
+  innerType = param.getPointerLikeType().getInnerType() and
+  not param.isAffectedByMacro() and
+  // Exclude functions with copied parameters which leads to wrong results.
+  count(Parameter p |
+    p.getFunction() = param.getFunction() and
+    p.getIndex() = param.getIndex()
+  ) = 1
 select param,
   "Parameter '" + param.getName() + "' points/refers to a non-const type '" + innerType.toString() +
-    "' but does not modify the target object."
+    "' but does not modify the target object in the $@.", param.getFunction().getDefinition(),
+  "function definition"

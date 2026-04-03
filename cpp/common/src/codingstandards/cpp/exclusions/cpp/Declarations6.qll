@@ -3,12 +3,12 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Declarations3Query = TPointerOrRefParamNotConstQuery()
+newtype Declarations6Query = TPointerOrRefParamNotConstQuery()
 
-predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleId, string category) {
+predicate isDeclarations6QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
     // `Query` instance for the `pointerOrRefParamNotConst` query
-    Declarations3Package::pointerOrRefParamNotConstQuery() and
+    Declarations6Package::pointerOrRefParamNotConstQuery() and
   queryId =
     // `@id` for the `pointerOrRefParamNotConst` query
     "cpp/misra/pointer-or-ref-param-not-const" and
@@ -16,11 +16,11 @@ predicate isDeclarations3QueryMetadata(Query query, string queryId, string ruleI
   category = "advisory"
 }
 
-module Declarations3Package {
+module Declarations6Package {
   Query pointerOrRefParamNotConstQuery() {
     //autogenerate `Query` type
     result =
       // `Query` type for `pointerOrRefParamNotConst` query
-      TQueryCPP(TDeclarations3PackageQuery(TPointerOrRefParamNotConstQuery()))
+      TQueryCPP(TDeclarations6PackageQuery(TPointerOrRefParamNotConstQuery()))
   }
 }
