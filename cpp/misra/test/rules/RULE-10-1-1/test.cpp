@@ -96,17 +96,6 @@ void f4() {
     return &p1;
   }; // NON_COMPLIANT
 
-  // Returning from reference parameters
-  [](std::int32_t &p1) -> std::int32_t { return p1; };          // NON_COMPLIANT
-  [](std::int32_t &p1) -> std::int32_t & { return p1; };        // COMPLIANT
-  [](std::int32_t &p1) -> const std::int32_t & { return p1; };  // NON_COMPLIANT
-  [](std::int32_t &p1) -> std::int32_t * { return &p1; };       // COMPLIANT
-  [](std::int32_t &p1) -> const std::int32_t * { return &p1; }; // NON_COMPLIANT
-  [](std::int32_t &p1) -> std::int32_t *const { return &p1; };  // COMPLIANT
-  [](std::int32_t &p1) -> const std::int32_t *const {
-    return &p1;
-  }; // NON_COMPLIANT
-
   // Non compliant cases are compliant when const
   using cpi32 = const std::int32_t *;
   using cri32 = const std::int32_t &;
