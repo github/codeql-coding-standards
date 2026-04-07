@@ -18,7 +18,14 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.types.Compatible
 import codingstandards.cpp.Operator
 
-abstract class MembersReturningObjectOrSubobject extends MemberFunction {
+class MembersReturningPointerOrRef extends MemberFunction {
+  MembersReturningPointerOrRef() {
+    this.getUnspecifiedType() instanceof PointerType or
+    this.getUnspecifiedType() instanceof ReferenceType
+  }
+}
+
+abstract class MembersReturningObjectOrSubobject extends MembersReturningPointerOrRef {
   string toString() { result = "Members returning object or subobject" }
 }
 

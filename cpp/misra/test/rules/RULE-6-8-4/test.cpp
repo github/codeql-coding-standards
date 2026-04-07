@@ -7,7 +7,7 @@ struct A {
   int const &geta2() const & { // COMPLIANT  -- due to overload below
     return a;
   }
-  int geta2() && { return a; } // NON_COMPLIANT
+  int geta2() && { return a; }
 
   int const &getabad() const & { // NON_COMPLIANT  -- no overload provided
     return a;
