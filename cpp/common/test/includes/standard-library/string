@@ -250,6 +250,10 @@ public:
   void reserve(size_type new_cap = 0);
 };
 
+using wstring = basic_string<wchar_t>;
+using u16string = basic_string<char16_t>;
+using u32string = basic_string<char32_t>;
+
 template <class charT, class traits, class Allocator>
 basic_string<charT, traits, Allocator>
 operator+(const basic_string<charT, traits, Allocator> &lhs,

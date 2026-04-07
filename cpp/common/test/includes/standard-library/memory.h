@@ -35,9 +35,6 @@ public:
   T *get() { return ptr; }
   unique_ptr<T> &operator=(const unique_ptr &) = delete;
   unique_ptr<T> &operator=(unique_ptr &&) { return *this; }
-  template <typename T> unique_ptr &operator=(unique_ptr<T> &&) {
-    return *this;
-  }
 
 private:
   T *ptr;
@@ -185,107 +182,90 @@ template <typename T1> struct allocator_traits {
 };
 
 // uninitialized_default_construct
-template <class T1>
-void uninitialized_default_construct(T1, T1);
+template <class T1> void uninitialized_default_construct(T1, T1);
 
 template <class T1, class T2>
-void uninitialized_default_construct(T1&&, T2, T2);
+void uninitialized_default_construct(T1 &&, T2, T2);
 
 // uninitialized_default_construct_n
-template <class T1, class T2>
-T1 uninitialized_default_construct_n(T1, T2);
+template <class T1, class T2> T1 uninitialized_default_construct_n(T1, T2);
 
 template <class T1, class T2, class T3>
-T2 uninitialized_default_construct_n(T1&&, T2, T3);
+T2 uninitialized_default_construct_n(T1 &&, T2, T3);
 
 // uninitialized_value_construct
-template <class T1>
-void uninitialized_value_construct(T1, T1);
+template <class T1> void uninitialized_value_construct(T1, T1);
 
-template <class T1, class T2>
-void uninitialized_value_construct(T1&&, T2, T2);
+template <class T1, class T2> void uninitialized_value_construct(T1 &&, T2, T2);
 
 // uninitialized_value_construct_n
-template <class T1, class T2>
-T1 uninitialized_value_construct_n(T1, T2);
+template <class T1, class T2> T1 uninitialized_value_construct_n(T1, T2);
 
 template <class T1, class T2, class T3>
-T2 uninitialized_value_construct_n(T1&&, T2, T3);
+T2 uninitialized_value_construct_n(T1 &&, T2, T3);
 
 // uninitialized_copy
-template <class T1, class T2>
-T2 uninitialized_copy(T1, T1, T2);
+template <class T1, class T2> T2 uninitialized_copy(T1, T1, T2);
 
 template <class T1, class T2, class T3>
-T3 uninitialized_copy(T1&&, T2, T2, T3);
+T3 uninitialized_copy(T1 &&, T2, T2, T3);
 
 // uninitialized_copy_n
-template <class T1, class T2, class T3>
-T3 uninitialized_copy_n(T1, T2, T3);
+template <class T1, class T2, class T3> T3 uninitialized_copy_n(T1, T2, T3);
 
 template <class T1, class T2, class T3, class T4>
-T4 uninitialized_copy_n(T1&&, T2, T3, T4);
+T4 uninitialized_copy_n(T1 &&, T2, T3, T4);
 
 // uninitialized_move
-template <class T1, class T2>
-T2 uninitialized_move(T1, T1, T2);
+template <class T1, class T2> T2 uninitialized_move(T1, T1, T2);
 
 template <class T1, class T2, class T3>
-T3 uninitialized_move(T1&&, T2, T2, T3);
+T3 uninitialized_move(T1 &&, T2, T2, T3);
 
 // uninitialized_move_n
 template <class T1, class T2, class T3>
 pair<T1, T3> uninitialized_move_n(T1, T2, T3);
 
 template <class T1, class T2, class T3, class T4>
-pair<T2, T4> uninitialized_move_n(T1&&, T2, T3, T4);
+pair<T2, T4> uninitialized_move_n(T1 &&, T2, T3, T4);
 
 // uninitialized_fill
-template <class T1, class T2>
-void uninitialized_fill(T1, T1, const T2&);
+template <class T1, class T2> void uninitialized_fill(T1, T1, const T2 &);
 
 template <class T1, class T2, class T3>
-void uninitialized_fill(T1&&, T2, T2, const T3&);
+void uninitialized_fill(T1 &&, T2, T2, const T3 &);
 
 // uninitialized_fill_n
 template <class T1, class T2, class T3>
-T1 uninitialized_fill_n(T1, T2, const T3&);
+T1 uninitialized_fill_n(T1, T2, const T3 &);
 
 template <class T1, class T2, class T3, class T4>
-T2 uninitialized_fill_n(T1&&, T2, T3, const T4&);
+T2 uninitialized_fill_n(T1 &&, T2, T3, const T4 &);
 
 // destroy_at
-template <class T1>
-void destroy_at(T1*);
+template <class T1> void destroy_at(T1 *);
 
 // destroy
-template <class T1>
-void destroy(T1, T1);
+template <class T1> void destroy(T1, T1);
 
-template <class T1, class T2>
-void destroy(T1&&, T2, T2);
+template <class T1, class T2> void destroy(T1 &&, T2, T2);
 
 // destroy_n
-template <class T1, class T2>
-T1 destroy_n(T1, T2);
+template <class T1, class T2> T1 destroy_n(T1, T2);
 
-template <class T1, class T2, class T3>
-T2 destroy_n(T1&&, T2, T3);
+template <class T1, class T2, class T3> T2 destroy_n(T1 &&, T2, T3);
 
 // launder
-template <class T1>
-constexpr T1* launder(T1*) noexcept;
+template <class T1> constexpr T1 *launder(T1 *) noexcept;
 
 // get_temporary_buffer / return_temporary_buffer (deprecated in C++17)
 template <class T>
 pair<T *, ptrdiff_t> get_temporary_buffer(ptrdiff_t n) noexcept;
 
-template <class T>
-void return_temporary_buffer(T *p);
+template <class T> void return_temporary_buffer(T *p);
 
 // raw_storage_iterator (deprecated in C++17)
-template <class OutputIterator, class T>
-class raw_storage_iterator {
+template <class OutputIterator, class T> class raw_storage_iterator {
 public:
   using iterator_category = output_iterator_tag;
   using value_type = void;
@@ -301,6 +281,16 @@ public:
   OutputIterator base() const;
 };
 
+template <typename T> class weak_ptr {
+public:
+  weak_ptr();
+  weak_ptr(const weak_ptr &);
+  weak_ptr(weak_ptr &&);
+  weak_ptr(const shared_ptr<T> &);
+};
+
+template <typename T, typename Alloc, typename... Args>
+shared_ptr<T> allocate_shared(const Alloc &, Args &&...);
 } // namespace std
 
 #endif // _GHLIBCPP_MEMORY

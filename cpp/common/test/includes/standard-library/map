@@ -10,6 +10,10 @@ template <typename _Key, typename _Tp, typename _Compare = std::less<_Key>,
           typename _Alloc = std::allocator<_Key>>
 class multimap {
 public:
+  multimap();
+  multimap(const multimap&);
+  multimap(multimap&&);
+  multimap(std::initializer_list<std::pair<const _Key, _Tp>>);
   typedef std::pair<const _Key, _Tp> value_type;
   typedef std::__iterator<value_type> iterator;
   typedef std::__iterator<value_type> const_iterator;
@@ -18,14 +22,16 @@ public:
   iterator end();
   const_iterator cbegin();
   const_iterator cend();
-
-  multimap();
 };
 
 template <typename _Key, typename _Tp, typename _Compare = std::less<_Key>,
           typename _Alloc = std::allocator<_Key>>
 class map {
 public:
+  map();
+  map(const map&);
+  map(map&&);
+  map(std::initializer_list<std::pair<const _Key, _Tp>>);
   typedef std::pair<const _Key, _Tp> value_type;
   typedef std::__iterator<value_type> iterator;
   typedef std::__iterator<value_type> const_iterator;
@@ -34,7 +40,5 @@ public:
   iterator end();
   const_iterator cbegin();
   const_iterator cend();
-
-  map();
 };
 } // namespace std
