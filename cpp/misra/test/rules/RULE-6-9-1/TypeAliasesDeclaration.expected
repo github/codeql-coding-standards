@@ -1,0 +1,2 @@
+| test.cpp:4:5:4:5 | definition of i | Declaration entry has a different type alias than $@ where the type alias used is '$@'. | test.cpp:5:12:5:12 | declaration of i | i | test.cpp:1:13:1:15 | INT | INT |
+| test.cpp:11:20:11:20 | declaration of i | Declaration entry has a different type alias than $@ where the type alias used is '$@'. | test.cpp:10:12:10:12 | declaration of i | i | test.cpp:2:7:2:11 | Index | Index |
