@@ -16,7 +16,7 @@ newtype BannedSyntaxQuery =
   TTypedefSpecifierUsedQuery() or
   TAsmDeclarationUsedQuery() or
   TFunctionsDefinedUsingTheEllipsisNotationQuery() or
-  TUnionKeywordUsedAutosarCppQuery() or
+  TUnionsUsedQuery() or
   TCommaOperatorUsedQuery() or
   TUsingDirectivesUsedQuery() or
   TUsingDeclarationsUsedInHeaderFilesQuery() or
@@ -132,11 +132,11 @@ predicate isBannedSyntaxQueryMetadata(Query query, string queryId, string ruleId
   category = "required"
   or
   query =
-    // `Query` instance for the `unionKeywordUsedAutosarCpp` query
-    BannedSyntaxPackage::unionKeywordUsedAutosarCppQuery() and
+    // `Query` instance for the `unionsUsed` query
+    BannedSyntaxPackage::unionsUsedQuery() and
   queryId =
-    // `@id` for the `unionKeywordUsedAutosarCpp` query
-    "cpp/autosar/union-keyword-used-autosar-cpp" and
+    // `@id` for the `unionsUsed` query
+    "cpp/autosar/unions-used" and
   ruleId = "A9-5-1" and
   category = "required"
   or
@@ -262,11 +262,11 @@ module BannedSyntaxPackage {
       TQueryCPP(TBannedSyntaxPackageQuery(TFunctionsDefinedUsingTheEllipsisNotationQuery()))
   }
 
-  Query unionKeywordUsedAutosarCppQuery() {
+  Query unionsUsedQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `unionKeywordUsedAutosarCpp` query
-      TQueryCPP(TBannedSyntaxPackageQuery(TUnionKeywordUsedAutosarCppQuery()))
+      // `Query` type for `unionsUsed` query
+      TQueryCPP(TBannedSyntaxPackageQuery(TUnionsUsedQuery()))
   }
 
   Query commaOperatorUsedQuery() {

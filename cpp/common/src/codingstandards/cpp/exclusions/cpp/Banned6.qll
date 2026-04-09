@@ -3,24 +3,24 @@ import cpp
 import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
-newtype Banned6Query = TUnionKeywordUsedMisraCppQuery()
+newtype Banned6Query = TUnionKeywordUsedQuery()
 
 predicate isBanned6QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
-    // `Query` instance for the `unionKeywordUsedMisraCpp` query
-    Banned6Package::unionKeywordUsedMisraCppQuery() and
+    // `Query` instance for the `unionKeywordUsed` query
+    Banned6Package::unionKeywordUsedQuery() and
   queryId =
-    // `@id` for the `unionKeywordUsedMisraCpp` query
-    "cpp/misra/union-keyword-used-misra-cpp" and
+    // `@id` for the `unionKeywordUsed` query
+    "cpp/misra/union-keyword-used" and
   ruleId = "RULE-12-3-1" and
   category = "required"
 }
 
 module Banned6Package {
-  Query unionKeywordUsedMisraCppQuery() {
+  Query unionKeywordUsedQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `unionKeywordUsedMisraCpp` query
-      TQueryCPP(TBanned6PackageQuery(TUnionKeywordUsedMisraCppQuery()))
+      // `Query` type for `unionKeywordUsed` query
+      TQueryCPP(TBanned6PackageQuery(TUnionKeywordUsedQuery()))
   }
 }

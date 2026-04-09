@@ -12,8 +12,7 @@
           "name": "The union keyword shall not be used",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "UnionKeywordUsedMisraCpp",
-          "shared_implementation_short_name": "UnionKeywordUsed",
+          "short_name": "UnionKeywordUsed",
           "tags": [
             "scope/single-translation-unit",
             "correctness"

@@ -1,5 +1,5 @@
 /**
- * @id cpp/misra/union-keyword-used-misra-cpp
+ * @id cpp/misra/union-keyword-used
  * @name RULE-12-3-1: The union keyword shall not be used
  * @description Using unions should be avoided and 'std::variant' should be used as a type-safe
  *              alternative.
@@ -15,10 +15,7 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.unionkeywordused.UnionKeywordUsed
 
-module UnionKeywordUsedMisraCppConfig implements UnionKeywordUsedConfigSig {
-  Query getQuery() { result = Banned6Package::unionKeywordUsedMisraCppQuery() }
-}
-
-import UnionKeywordUsed<UnionKeywordUsedMisraCppConfig>
+from Union u
+where not isExcluded(u, BannedSyntaxPackage::unionsUsedQuery())
+select u, "$@ is a union which is prohibited.", u, u.getName()
