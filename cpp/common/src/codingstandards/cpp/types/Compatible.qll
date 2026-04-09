@@ -379,6 +379,7 @@ module TypeEquivalence<TypeEquivalenceSig Config, interestedInEquality/2 interes
    * `interestedInNestedTypes` holds for the types, and holds if `t1` and `t2` are identical,
    * regardless of how `TypeEquivalenceSig` is defined.
    */
+  pragma[nomagic]
   predicate equalTypes(Type t1, Type t2) {
     interestedInNestedTypes(pragma[only_bind_into](t1), pragma[only_bind_into](t2)) and
     (
