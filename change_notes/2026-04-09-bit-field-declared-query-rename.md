@@ -1,0 +1,3 @@
+- `A9-6-2` - `BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols.ql`:
+  - Shorten the name to `BitFieldsShouldNotBeDeclaredAutosarCpp`, where the name shared query it imports is `BitFieldsShouldNotBeDeclared`.
+  - Tag `"portability"` is added.
