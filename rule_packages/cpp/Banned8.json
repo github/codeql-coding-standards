@@ -15,7 +15,8 @@
           "short_name": "BuiltInUnaryPlusOperatorShouldNotBeUsed",
           "tags": [
             "scope/single-translation-unit",
-            "correctness"
+            "correctness",
+            "readability"
           ]
         }
       ],
