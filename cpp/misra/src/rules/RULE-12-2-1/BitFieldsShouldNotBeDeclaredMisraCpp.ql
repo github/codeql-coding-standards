@@ -9,18 +9,17 @@
  * @tags external/misra/id/rule-12-2-1
  *       scope/single-translation-unit
  *       correctness
+ *       portability
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/advisory
  */
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.bitfieldsshallbeusedonlywheninterfacingtohardwareorconformingtocommunicationprotocols.BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols
+import codingstandards.cpp.rules.bitfieldsshouldnotbedeclared.BitFieldsShouldNotBeDeclared
 
-module BitFieldsShouldNotBeDeclaredMisraCppConfig implements
-  BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsConfigSig
-{
+module BitFieldsShouldNotBeDeclaredMisraCppConfig implements BitFieldsShouldNotBeDeclaredConfigSig {
   Query getQuery() { result = Banned5Package::bitFieldsShouldNotBeDeclaredMisraCppQuery() }
 }
 
-import BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols<BitFieldsShouldNotBeDeclaredMisraCppConfig>
+import BitFieldsShouldNotBeDeclared<BitFieldsShouldNotBeDeclaredMisraCppConfig>

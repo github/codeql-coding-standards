@@ -16,9 +16,10 @@
           "precision": "very-high",
           "severity": "recommendation",
           "short_name": "BitFieldsShouldNotBeDeclaredAutosarCpp",
-          "shared_implementation_short_name": "BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols",
+          "shared_implementation_short_name": "BitFieldsShouldNotBeDeclared",
           "tags": [
-            "maintainability"
+            "maintainability",
+            "portability"
           ]
         },
         {

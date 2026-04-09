@@ -10,6 +10,7 @@
  * @problem.severity recommendation
  * @tags external/autosar/id/a9-6-2
  *       maintainability
+ *       portability
  *       external/autosar/allocated-target/design
  *       external/autosar/enforcement/partially-automated
  *       external/autosar/obligation/required
@@ -17,12 +18,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import codingstandards.cpp.rules.bitfieldsshallbeusedonlywheninterfacingtohardwareorconformingtocommunicationprotocols.BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols
+import codingstandards.cpp.rules.bitfieldsshouldnotbedeclared.BitFieldsShouldNotBeDeclared
 
-module BitFieldsShouldNotBeDeclaredAutosarCppConfig implements
-  BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocolsConfigSig
-{
+module BitFieldsShouldNotBeDeclaredAutosarCppConfig implements BitFieldsShouldNotBeDeclaredConfigSig {
   Query getQuery() { result = RepresentationPackage::bitFieldsShouldNotBeDeclaredAutosarCppQuery() }
 }
 
-import BitFieldsShallBeUsedOnlyWhenInterfacingToHardwareOrConformingToCommunicationProtocols<BitFieldsShouldNotBeDeclaredAutosarCppConfig>
+import BitFieldsShouldNotBeDeclared<BitFieldsShouldNotBeDeclaredAutosarCppConfig>
