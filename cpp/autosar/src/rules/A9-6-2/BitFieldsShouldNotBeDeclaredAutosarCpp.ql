@@ -20,7 +20,8 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.rules.bitfieldsshouldnotbedeclared.BitFieldsShouldNotBeDeclared
 
-module BitFieldsShouldNotBeDeclaredAutosarCppConfig implements BitFieldsShouldNotBeDeclaredConfigSig {
+module BitFieldsShouldNotBeDeclaredAutosarCppConfig implements BitFieldsShouldNotBeDeclaredConfigSig
+{
   Query getQuery() { result = RepresentationPackage::bitFieldsShouldNotBeDeclaredAutosarCppQuery() }
 }
 
