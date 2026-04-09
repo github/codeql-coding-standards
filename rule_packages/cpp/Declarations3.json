@@ -1,0 +1,53 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-11-3-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using array type instead of container types can lead to difficulty manually managing size and accesses.",
+          "kind": "problem",
+          "name": "Variables of array type should not be declared",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VariableDeclaredArrayType",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Variables of array type should not be declared"
+    },
+    "RULE-6-0-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "A function declared at block scope can make code harder to read and may lead to developer confusion.",
+          "kind": "problem",
+          "name": "Block scope declarations shall not be visually ambiguous",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "BlockScopeFunctionAmbiguous",
+          "shared_implementation_short_name": "FunctionDeclaredAtBlockScope",
+          "tags": [
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ],
+          "implementation_scope": {
+            "description": "The rule checks for functions in block scope only. The information CodeQL has access to in the database is not enough to cover the object with redundant parentheses case."
+          }
+        }
+      ],
+      "title": "Block scope declarations shall not be visually ambiguous"
+    }
+  }
+}
