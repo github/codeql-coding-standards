@@ -1,5 +1,6 @@
 int g[1] = {1};
 auto volatile [g1] = g; // NON_COMPLIANT
+volatile int g2;        // COMPLIANT
 
 void f(volatile int p) { // NON_COMPLIANT
   volatile int x = 1;    // NON_COMPLIANT

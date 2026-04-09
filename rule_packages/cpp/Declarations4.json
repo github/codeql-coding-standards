@@ -7,7 +7,7 @@
       },
       "queries": [
         {
-          "description": "Using the volatile qualifier on certain entities can lead to undefined behavior or code that is hard to understand.",
+          "description": "Using the volatile qualifier on certain entities has behavior that is not well-defined and can make code harder to understand, especially as its application to these entities does not prevent data races or guarantee safe multithreading.",
           "kind": "problem",
           "name": "The volatile qualifier shall be used appropriately",
           "precision": "very-high",
