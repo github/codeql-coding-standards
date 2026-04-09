@@ -1,0 +1,35 @@
+/**
+ * @id cpp/misra/unscoped-enumerations-should-not-be-declared
+ * @name RULE-10-2-2: Unscoped enumerations should not be declared
+ * @description An unscoped enumeration should not be used outside of a class/struct scope; use
+ *              'enum class' instead to prevent name clashes and implicit conversions to integral
+ *              types.
+ * @kind problem
+ * @precision very-high
+ * @problem.severity warning
+ * @tags external/misra/id/rule-10-2-2
+ *       scope/single-translation-unit
+ *       correctness
+ *       maintainability
+ *       external/misra/enforcement/decidable
+ *       external/misra/obligation/advisory
+ */
+
+import cpp
+import codingstandards.cpp.misra
+
+class NestedUnscopedEnum extends Enum, NestedEnum {
+  NestedUnscopedEnum() { not this instanceof ScopedEnum }
+}
+
+from Enum enum, string message
+where
+  not isExcluded(enum, Banned2Package::unscopedEnumerationsShouldNotBeDeclaredQuery()) and
+  not (enum instanceof ScopedEnum or enum instanceof NestedUnscopedEnum) and
+  (
+    if enum.isAnonymous()
+    then message = "Unnamed enumeration is unscoped and not enclosed in a class or a struct."
+    else
+      message = "Enum " + enum.getName() + " is unscoped and not enclosed in a class or a struct."
+  )
+select enum, message
