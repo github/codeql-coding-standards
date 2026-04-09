@@ -209,9 +209,7 @@ abstract class DynamicMemoryDeallocatingFunction extends Function { }
  * and C++ deallocation functions (`operator delete`, `operator delete[]`).
  */
 class DirectDynamicMemoryDeallocatingFunction extends DynamicMemoryDeallocatingFunction {
-  DirectDynamicMemoryDeallocatingFunction() {
-    this instanceof DeallocationFunction
-  }
+  DirectDynamicMemoryDeallocatingFunction() { this instanceof DeallocationFunction }
 }
 
 /**
@@ -231,9 +229,7 @@ where
   (
     // Direct allocation: malloc, calloc, realloc, aligned_alloc, operator new, operator new[]
     call.getTarget() instanceof DirectDynamicMemoryAllocatingFunction and
-    message =
-      "Call to dynamic memory allocating function '" + call.getTarget().getName() +
-        "'."
+    message = "Call to dynamic memory allocating function '" + call.getTarget().getName() + "'."
     or
     // Indirect allocation: std library types that allocate internally
     call.getTarget() instanceof IndirectDynamicMemoryAllocatingFunction and
@@ -245,8 +241,6 @@ where
     // Excludes realloc (already caught as allocation).
     call.getTarget() instanceof DynamicMemoryDeallocatingFunction and
     not call.getTarget() instanceof DynamicMemoryAllocatingFunction and
-    message =
-      "Call to dynamic memory deallocating function '" + call.getTarget().getName() +
-        "'."
+    message = "Call to dynamic memory deallocating function '" + call.getTarget().getName() + "'."
   )
 select call, message
