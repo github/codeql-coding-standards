@@ -18,4 +18,4 @@ import codingstandards.cpp.misra
 
 from UnaryPlusExpr e
 where not e.isFromUninstantiatedTemplate(_)
-select e, "Use of built-in unary + operator."
+select e, "Use of built-in unary '+' operator."

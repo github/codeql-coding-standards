@@ -34,6 +34,6 @@ module UnionKeywordUsed<UnionKeywordUsedConfigSig Config> {
   query predicate problems(Union u, string message) {
     not isExcluded(u, Config::getQuery()) and
     not u.getParentScope() instanceof TaggedUnion and
-    message = u.getName() + " is not a tagged union."
+    message = "'" + u.getName() + "' is not a tagged union."
   }
 }
