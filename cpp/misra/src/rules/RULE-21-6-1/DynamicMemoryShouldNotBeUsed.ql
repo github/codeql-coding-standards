@@ -15,30 +15,7 @@
 
 import cpp
 import codingstandards.cpp.misra
-
-class PlacementNewOrNewArrayAllocationFunction extends AllocationFunction {
-  /* NOTE: Duplicate with RULE-21-6-2 */
-  PlacementNewOrNewArrayAllocationFunction() {
-    this.getName() in ["operator new", "operator new[]"] and
-    this.getParameter(0).getType().resolveTypedefs*() instanceof Size_t and
-    this.getAParameter().getUnderlyingType() instanceof VoidPointerType
-  }
-}
-
-/**
- * A function that has namespace `std` and has name `allocate` or `deallocate`, including but not limited to:
- * - `std::allocator<T>::allocate(std::size_t)`
- * - `std::allocator<T>::dellocate(T*, std::size_t)`
- * - `std::pmr::memory_resource::allocate(std::size_t, std::size_t)`
- * - `std::pmr::memory_resource::deallocate(void*, std::size_t, std::size_t)`
- */
-class AllocateOrDeallocateStdlibMemberFunction extends MemberFunction {
-  /* NOTE: Duplicate with RULE-21-6-2 */
-  AllocateOrDeallocateStdlibMemberFunction() {
-    this.getName() in ["allocate", "deallocate"] and
-    this.getNamespace().getParentNamespace*() instanceof StdNamespace
-  }
-}
+import codingstandards.cpp.DynamicMemory
 
 /**
  * A function that directly or indirectly allocates dynamic memory.
@@ -56,6 +33,8 @@ class DirectDynamicMemoryAllocatingFunction extends DynamicMemoryAllocatingFunct
   DirectDynamicMemoryAllocatingFunction() {
     this instanceof AllocationFunction and
     not this instanceof PlacementNewOrNewArrayAllocationFunction
+    or
+    this.hasGlobalOrStdName("aligned_alloc")
   }
 }
 
@@ -226,19 +205,48 @@ abstract class DynamicMemoryDeallocatingFunction extends Function { }
 
 /**
  * A function that directly deallocates dynamic memory.
- * Includes C allocation functions (`free`)
- * and C++ allocation functions (`operator delete`, `operator delete[]`).
+ * Includes C deallocation functions (`free`)
+ * and C++ deallocation functions (`operator delete`, `operator delete[]`).
  */
-class DirectDynamicMemoryDeallocatingFunction extends DynamicMemoryDeallocatingFunction { }
+class DirectDynamicMemoryDeallocatingFunction extends DynamicMemoryDeallocatingFunction {
+  DirectDynamicMemoryDeallocatingFunction() {
+    this instanceof DeallocationFunction
+  }
+}
 
 /**
- * A function that indirectly allocates dynamic memory through
+ * A function that indirectly deallocates dynamic memory through
  * standard library classes and their member functions (e.g. `std::allocator::deallocate`).
  */
-class IndirectDynamicMemoryDeallocatingFunction extends DynamicMemoryDeallocatingFunction { }
+class IndirectDynamicMemoryDeallocatingFunction extends DynamicMemoryDeallocatingFunction {
+  IndirectDynamicMemoryDeallocatingFunction() {
+    this instanceof AllocateOrDeallocateStdlibMemberFunction and
+    this.getName() = "deallocate"
+  }
+}
 
-from FunctionCall call
+from FunctionCall call, string message
 where
   not isExcluded(call, Banned7Package::dynamicMemoryShouldNotBeUsedQuery()) and
-  call.getTarget() instanceof DynamicMemoryAllocatingFunction
-select call, call.getTarget().toString()
+  (
+    // Direct allocation: malloc, calloc, realloc, aligned_alloc, operator new, operator new[]
+    call.getTarget() instanceof DirectDynamicMemoryAllocatingFunction and
+    message =
+      "Call to dynamic memory allocating function '" + call.getTarget().getName() +
+        "'."
+    or
+    // Indirect allocation: std library types that allocate internally
+    call.getTarget() instanceof IndirectDynamicMemoryAllocatingFunction and
+    message =
+      "Call to '" + call.getTarget().getName() +
+        "' that dynamically allocates memory via the standard library."
+    or
+    // Deallocation: free, operator delete, operator delete[], std::allocator::deallocate
+    // Excludes realloc (already caught as allocation).
+    call.getTarget() instanceof DynamicMemoryDeallocatingFunction and
+    not call.getTarget() instanceof DynamicMemoryAllocatingFunction and
+    message =
+      "Call to dynamic memory deallocating function '" + call.getTarget().getName() +
+        "'."
+  )
+select call, message

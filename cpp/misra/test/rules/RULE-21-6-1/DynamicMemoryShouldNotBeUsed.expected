@@ -1,1 +1,120 @@
-No expected results have yet been specified
+| test.cpp:34:13:34:19 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
+| test.cpp:35:13:35:23 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
+| test.cpp:36:13:36:23 | call to operator new[] | Call to dynamic memory allocating function 'operator new[]'. |
+| test.cpp:38:3:38:11 | call to operator delete | Call to dynamic memory deallocating function 'operator delete'. |
+| test.cpp:39:3:39:11 | call to operator delete | Call to dynamic memory deallocating function 'operator delete'. |
+| test.cpp:40:3:40:13 | call to operator delete[] | Call to dynamic memory deallocating function 'operator delete[]'. |
+| test.cpp:54:14:54:24 | call to malloc | Call to dynamic memory allocating function 'malloc'. |
+| test.cpp:55:14:55:24 | call to calloc | Call to dynamic memory allocating function 'calloc'. |
+| test.cpp:56:14:56:25 | call to realloc | Call to dynamic memory allocating function 'realloc'. |
+| test.cpp:57:14:57:31 | call to aligned_alloc | Call to dynamic memory allocating function 'aligned_alloc'. |
+| test.cpp:59:3:59:11 | call to free | Call to dynamic memory deallocating function 'free'. |
+| test.cpp:60:3:60:11 | call to free | Call to dynamic memory deallocating function 'free'. |
+| test.cpp:61:3:61:11 | call to free | Call to dynamic memory deallocating function 'free'. |
+| test.cpp:65:14:65:19 | call to malloc | Call to dynamic memory allocating function 'malloc'. |
+| test.cpp:66:14:66:19 | call to calloc | Call to dynamic memory allocating function 'calloc'. |
+| test.cpp:67:14:67:20 | call to realloc | Call to dynamic memory allocating function 'realloc'. |
+| test.cpp:68:14:68:26 | call to aligned_alloc | Call to dynamic memory allocating function 'aligned_alloc'. |
+| test.cpp:70:3:70:6 | call to free | Call to dynamic memory deallocating function 'free'. |
+| test.cpp:71:3:71:6 | call to free | Call to dynamic memory deallocating function 'free'. |
+| test.cpp:72:3:72:6 | call to free | Call to dynamic memory deallocating function 'free'. |
+| test.cpp:76:13:76:33 | call to make_unique | Call to 'make_unique' that dynamically allocates memory via the standard library. |
+| test.cpp:77:13:77:35 | call to make_unique | Call to 'make_unique' that dynamically allocates memory via the standard library. |
+| test.cpp:78:13:78:33 | call to make_shared | Call to 'make_shared' that dynamically allocates memory via the standard library. |
+| test.cpp:82:13:82:37 | call to allocate_shared | Call to 'allocate_shared' that dynamically allocates memory via the standard library. |
+| test.cpp:87:27:87:37 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
+| test.cpp:88:27:88:37 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
+| test.cpp:94:20:94:21 | call to vector | Call to 'vector' that dynamically allocates memory via the standard library. |
+| test.cpp:95:23:95:30 | call to vector | Call to 'vector' that dynamically allocates memory via the standard library. |
+| test.cpp:96:23:96:25 | call to vector | Call to 'vector' that dynamically allocates memory via the standard library. |
+| test.cpp:97:23:97:29 | call to vector | Call to 'vector' that dynamically allocates memory via the standard library. |
+| test.cpp:99:19:99:20 | call to deque | Call to 'deque' that dynamically allocates memory via the standard library. |
+| test.cpp:100:22:100:29 | call to deque | Call to 'deque' that dynamically allocates memory via the standard library. |
+| test.cpp:102:18:102:19 | call to list | Call to 'list' that dynamically allocates memory via the standard library. |
+| test.cpp:103:21:103:28 | call to list | Call to 'list' that dynamically allocates memory via the standard library. |
+| test.cpp:105:26:105:28 | call to forward_list | Call to 'forward_list' that dynamically allocates memory via the standard library. |
+| test.cpp:106:30:106:37 | call to forward_list | Call to 'forward_list' that dynamically allocates memory via the standard library. |
+| test.cpp:110:17:110:18 | call to set | Call to 'set' that dynamically allocates memory via the standard library. |
+| test.cpp:111:20:111:27 | call to set | Call to 'set' that dynamically allocates memory via the standard library. |
+| test.cpp:113:22:113:23 | call to map | Call to 'map' that dynamically allocates memory via the standard library. |
+| test.cpp:114:25:114:39 | call to map | Call to 'map' that dynamically allocates memory via the standard library. |
+| test.cpp:116:22:116:24 | call to multiset | Call to 'multiset' that dynamically allocates memory via the standard library. |
+| test.cpp:117:26:117:33 | call to multiset | Call to 'multiset' that dynamically allocates memory via the standard library. |
+| test.cpp:119:27:119:29 | call to multimap | Call to 'multimap' that dynamically allocates memory via the standard library. |
+| test.cpp:120:31:120:37 | call to multimap | Call to 'multimap' that dynamically allocates memory via the standard library. |
+| test.cpp:124:27:124:29 | call to unordered_set | Call to 'unordered_set' that dynamically allocates memory via the standard library. |
+| test.cpp:125:31:125:38 | call to unordered_set | Call to 'unordered_set' that dynamically allocates memory via the standard library. |
+| test.cpp:127:32:127:34 | call to unordered_map | Call to 'unordered_map' that dynamically allocates memory via the standard library. |
+| test.cpp:128:36:129:21 | call to unordered_map | Call to 'unordered_map' that dynamically allocates memory via the standard library. |
+| test.cpp:131:32:131:35 | call to unordered_multiset | Call to 'unordered_multiset' that dynamically allocates memory via the standard library. |
+| test.cpp:132:37:133:38 | call to unordered_multiset | Call to 'unordered_multiset' that dynamically allocates memory via the standard library. |
+| test.cpp:135:37:135:40 | call to unordered_multimap | Call to 'unordered_multimap' that dynamically allocates memory via the standard library. |
+| test.cpp:136:42:137:13 | call to unordered_multimap | Call to 'unordered_multimap' that dynamically allocates memory via the standard library. |
+| test.cpp:141:22:141:24 | call to valarray | Call to 'valarray' that dynamically allocates memory via the standard library. |
+| test.cpp:142:26:142:28 | call to valarray | Call to 'valarray' that dynamically allocates memory via the standard library. |
+| test.cpp:143:26:144:27 | call to valarray | Call to 'valarray' that dynamically allocates memory via the standard library. |
+| test.cpp:148:15:148:16 | call to basic_string | Call to 'basic_string' that dynamically allocates memory via the standard library. |
+| test.cpp:149:19:149:26 | call to basic_string | Call to 'basic_string' that dynamically allocates memory via the standard library. |
+| test.cpp:150:18:150:25 | call to basic_string | Call to 'basic_string' that dynamically allocates memory via the standard library. |
+| test.cpp:151:18:151:25 | call to basic_string | Call to 'basic_string' that dynamically allocates memory via the standard library. |
+| test.cpp:153:16:153:18 | call to basic_string | Call to 'basic_string' that dynamically allocates memory via the standard library. |
+| test.cpp:154:21:154:29 | call to basic_string | Call to 'basic_string' that dynamically allocates memory via the standard library. |
+| test.cpp:156:18:156:22 | call to basic_string | Call to 'basic_string' that dynamically allocates memory via the standard library. |
+| test.cpp:157:25:157:33 | call to basic_string | Call to 'basic_string' that dynamically allocates memory via the standard library. |
+| test.cpp:159:18:159:22 | call to basic_string | Call to 'basic_string' that dynamically allocates memory via the standard library. |
+| test.cpp:160:25:160:33 | call to basic_string | Call to 'basic_string' that dynamically allocates memory via the standard library. |
+| test.cpp:164:19:164:21 | call to stack | Call to 'stack' that dynamically allocates memory via the standard library. |
+| test.cpp:166:19:166:20 | call to queue | Call to 'queue' that dynamically allocates memory via the standard library. |
+| test.cpp:168:28:168:30 | call to priority_queue | Call to 'priority_queue' that dynamically allocates memory via the standard library. |
+| test.cpp:172:21:172:23 | call to basic_stringstream | Call to 'basic_stringstream' that dynamically allocates memory via the standard library. |
+| test.cpp:173:25:173:32 | call to basic_stringstream | Call to 'basic_stringstream' that dynamically allocates memory via the standard library. |
+| test.cpp:175:22:175:25 | call to basic_istringstream | Call to 'basic_istringstream' that dynamically allocates memory via the standard library. |
+| test.cpp:176:27:176:34 | call to basic_istringstream | Call to 'basic_istringstream' that dynamically allocates memory via the standard library. |
+| test.cpp:178:22:178:25 | call to basic_ostringstream | Call to 'basic_ostringstream' that dynamically allocates memory via the standard library. |
+| test.cpp:180:22:180:25 | call to basic_stringstream | Call to 'basic_stringstream' that dynamically allocates memory via the standard library. |
+| test.cpp:181:23:181:27 | call to basic_istringstream | Call to 'basic_istringstream' that dynamically allocates memory via the standard library. |
+| test.cpp:182:23:182:27 | call to basic_ostringstream | Call to 'basic_ostringstream' that dynamically allocates memory via the standard library. |
+| test.cpp:186:16:186:18 | call to basic_fstream | Call to 'basic_fstream' that dynamically allocates memory via the standard library. |
+| test.cpp:187:20:187:30 | call to basic_fstream | Call to 'basic_fstream' that dynamically allocates memory via the standard library. |
+| test.cpp:189:17:189:20 | call to basic_ifstream | Call to 'basic_ifstream' that dynamically allocates memory via the standard library. |
+| test.cpp:190:22:190:32 | call to basic_ifstream | Call to 'basic_ifstream' that dynamically allocates memory via the standard library. |
+| test.cpp:192:17:192:20 | call to basic_ofstream | Call to 'basic_ofstream' that dynamically allocates memory via the standard library. |
+| test.cpp:193:22:193:32 | call to basic_ofstream | Call to 'basic_ofstream' that dynamically allocates memory via the standard library. |
+| test.cpp:195:17:195:20 | call to basic_fstream | Call to 'basic_fstream' that dynamically allocates memory via the standard library. |
+| test.cpp:196:18:196:22 | call to basic_ifstream | Call to 'basic_ifstream' that dynamically allocates memory via the standard library. |
+| test.cpp:197:18:197:22 | call to basic_ofstream | Call to 'basic_ofstream' that dynamically allocates memory via the standard library. |
+| test.cpp:201:14:201:15 | call to basic_regex | Call to 'basic_regex' that dynamically allocates memory via the standard library. |
+| test.cpp:202:17:202:26 | call to basic_regex | Call to 'basic_regex' that dynamically allocates memory via the standard library. |
+| test.cpp:203:17:203:25 | call to basic_regex | Call to 'basic_regex' that dynamically allocates memory via the standard library. |
+| test.cpp:205:15:205:17 | call to basic_regex | Call to 'basic_regex' that dynamically allocates memory via the standard library. |
+| test.cpp:206:19:206:29 | call to basic_regex | Call to 'basic_regex' that dynamically allocates memory via the standard library. |
+| test.cpp:210:25:210:26 | call to function | Call to 'function' that dynamically allocates memory via the standard library. |
+| test.cpp:211:29:212:3 | call to function | Call to 'function' that dynamically allocates memory via the standard library. |
+| test.cpp:213:31:215:3 | call to function | Call to 'function' that dynamically allocates memory via the standard library. |
+| test.cpp:218:29:221:7 | call to function | Call to 'function' that dynamically allocates memory via the standard library. |
+| test.cpp:225:12:225:13 | call to any | Call to 'any' that dynamically allocates memory via the standard library. |
+| test.cpp:226:16:226:18 | call to any | Call to 'any' that dynamically allocates memory via the standard library. |
+| test.cpp:227:16:228:26 | call to any | Call to 'any' that dynamically allocates memory via the standard library. |
+| test.cpp:228:7:228:26 | call to basic_string | Call to 'basic_string' that dynamically allocates memory via the standard library. |
+| test.cpp:233:16:233:23 | call to any | Call to 'any' that dynamically allocates memory via the standard library. |
+| test.cpp:237:21:237:22 | call to promise | Call to 'promise' that dynamically allocates memory via the standard library. |
+| test.cpp:242:22:242:23 | call to promise | Call to 'promise' that dynamically allocates memory via the standard library. |
+| test.cpp:243:32:244:38 | call to shared_future | Call to 'shared_future' that dynamically allocates memory via the standard library. |
+| test.cpp:244:7:244:25 | call to promise | Call to 'promise' that dynamically allocates memory via the standard library. |
+| test.cpp:246:33:247:24 | call to packaged_task | Call to 'packaged_task' that dynamically allocates memory via the standard library. |
+| test.cpp:251:15:251:18 | call to locale | Call to 'locale' that dynamically allocates memory via the standard library. |
+| test.cpp:252:20:252:23 | call to locale | Call to 'locale' that dynamically allocates memory via the standard library. |
+| test.cpp:253:21:254:28 | call to locale | Call to 'locale' that dynamically allocates memory via the standard library. |
+| test.cpp:258:18:258:25 | call to thread | Call to 'thread' that dynamically allocates memory via the standard library. |
+| test.cpp:262:18:263:25 | call to thread | Call to 'thread' that dynamically allocates memory via the standard library. |
+| test.cpp:268:13:268:22 | call to async | Call to 'async' that dynamically allocates memory via the standard library. |
+| test.cpp:270:13:270:22 | call to async | Call to 'async' that dynamically allocates memory via the standard library. |
+| test.cpp:273:13:273:22 | call to async | Call to 'async' that dynamically allocates memory via the standard library. |
+| test.cpp:279:25:279:26 | call to path | Call to 'path' that dynamically allocates memory via the standard library. |
+| test.cpp:280:29:280:39 | call to path | Call to 'path' that dynamically allocates memory via the standard library. |
+| test.cpp:281:28:281:38 | call to path | Call to 'path' that dynamically allocates memory via the standard library. |
+| test.cpp:282:35:282:39 | call to path | Call to 'path' that dynamically allocates memory via the standard library. |
+| test.cpp:287:7:287:8 | call to vector | Call to 'vector' that dynamically allocates memory via the standard library. |
+| test.cpp:289:7:289:8 | call to deque | Call to 'deque' that dynamically allocates memory via the standard library. |
+| test.cpp:291:7:291:8 | call to list | Call to 'list' that dynamically allocates memory via the standard library. |
+| test.cpp:293:7:293:9 | call to forward_list | Call to 'forward_list' that dynamically allocates memory via the standard library. |

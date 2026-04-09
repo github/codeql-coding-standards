@@ -236,7 +236,8 @@ void test_any() {
 void test_promise_future() {
   std::promise<int> p1; // NON_COMPLIANT: allocates shared state
   std::future<int> f1 =
-      p1.get_future(); // NON_COMPLIANT: references allocated shared state
+      p1.get_future(); // COMPLIANT: references shared state already allocated
+                       // by promise constructor
 
   std::promise<void> p2; // NON_COMPLIANT: allocates shared state
   std::shared_future<int> sf1 =
