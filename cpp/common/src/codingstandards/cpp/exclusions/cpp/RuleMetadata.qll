@@ -131,11 +131,8 @@ newtype TCPPQuery =
   TDeadCode9PackageQuery(DeadCode9Query q) or
   TDeclarationsPackageQuery(DeclarationsQuery q) or
   TDeclarations1PackageQuery(Declarations1Query q) or
-<<<<<<< HEAD
-  TDeclarations3PackageQuery(Declarations3Query q) or
-=======
   TDeclarations2PackageQuery(Declarations2Query q) or
->>>>>>> main
+  TDeclarations3PackageQuery(Declarations3Query q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
   TExceptions2PackageQuery(Exceptions2Query q) or
@@ -232,11 +229,8 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeadCode9QueryMetadata(query, queryId, ruleId, category) or
   isDeclarationsQueryMetadata(query, queryId, ruleId, category) or
   isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
-<<<<<<< HEAD
-  isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
-=======
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
->>>>>>> main
+  isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
   isExceptions2QueryMetadata(query, queryId, ruleId, category) or
