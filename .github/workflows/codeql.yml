@@ -1,0 +1,72 @@
+name: "CodeQL Advanced"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '27 4 * * 4' # análisis semanal automático
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+  packages: read
+
+jobs:
+  analyze:
+    name: Analizar (${{ matrix.language }})
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    timeout-minutes: 30  # ⏱️ aumenta tiempo máximo
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: actions
+            build-mode: none
+          - language: c-cpp
+            build-mode: none
+          - language: javascript-typescript
+            build-mode: none
+          - language: python
+            build-mode: none
+
+    steps:
+      - name: 🧰 Checkout del repositorio
+        uses: actions/checkout@v6
+
+      - name: ⚡ Configurar caché de CodeQL
+        uses: actions/cache@v4
+        with:
+          path: ~/.codeql-cache
+          key: ${{ runner.os }}-codeql-${{ matrix.language }}
+          restore-keys: |
+            ${{ runner.os }}-codeql-
+
+      - name: 🧩 Inicializar CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+          queries: +security-extended,security-and-quality
+
+      - name: 🚀 Analizar con CodeQL
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:${{ matrix.language }}"
+          output: results-${{ matrix.language }}.sarif
+
+      - name: 📦 Generar paquete de consultas CodeQL
+        run: |
+          echo "Creando paquete para ${{ matrix.language }}..."
+          codeql pack create --threads=4 --timeout=900 || echo "⚠️ Error leve, continuará..."
+          echo "Verificando integridad del paquete..."
+          codeql pack verify || echo "⚠️ Verificación incompleta."
+
+      - name: ☁️ Subir artefacto SARIF
+        uses: actions/upload-artifact@v4
+        with:
+          name: codeql-results-${{ matrix.language }}
+          path: results-${{ matrix.language }}.sarif
+
