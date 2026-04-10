@@ -45,7 +45,9 @@ template <class F, class T> binder1st<F> bind1st(const F &f, const T &x);
 template <class F, class T> binder2nd<F> bind2nd(const F &f, const T &x);
 
 template <class T> class reference_wrapper {
+public:
   reference_wrapper(T &ref) : ref(addressof(ref)) {}
+  reference_wrapper(const reference_wrapper&);
   reference_wrapper(T &&ref) = delete;
 
   operator T &() const { return *ref; }
