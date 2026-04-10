@@ -1,0 +1,4 @@
+| test.cpp:22:7:22:8 | a1 | Usage of bit-field in data type definition. |
+| test.cpp:47:9:47:10 | a2 | Usage of bit-field in data type definition. |
+| test.cpp:50:8:50:9 | c1 | Usage of bit-field in data type definition. |
+| test.cpp:57:8:57:8 | c | Usage of bit-field in data type definition. |
