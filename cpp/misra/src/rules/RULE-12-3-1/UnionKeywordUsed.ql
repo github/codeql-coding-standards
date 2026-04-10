@@ -18,4 +18,4 @@ import codingstandards.cpp.misra
 
 from Union u
 where not isExcluded(u, BannedSyntaxPackage::unionsUsedQuery())
-select u, "$@ is a union which is prohibited.", u, u.getName()
+select u, "'" + u.getName() + "' is a union which is prohibited."

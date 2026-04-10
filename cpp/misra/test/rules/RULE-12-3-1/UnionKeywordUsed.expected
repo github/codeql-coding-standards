@@ -1,3 +1,3 @@
-| test.cpp:4:9:4:9 | u | $@ is a union which is prohibited. | test.cpp:4:9:4:9 | u | u |
-| test.cpp:13:9:13:9 | u | $@ is a union which is prohibited. | test.cpp:13:9:13:9 | u | u |
-| test.cpp:20:7:20:7 | u | $@ is a union which is prohibited. | test.cpp:20:7:20:7 | u | u |
+| test.cpp:4:9:4:9 | u | 'u' is a union which is prohibited. |
+| test.cpp:13:9:13:9 | u | 'u' is a union which is prohibited. |
+| test.cpp:20:7:20:7 | u | 'u' is a union which is prohibited. |
