@@ -20,6 +20,8 @@ import codingstandards.cpp.misra
 import codingstandards.cpp.Extensions
 import codingstandards.cpp.AlertReporting
 
-from CPPCompilerExtension e
-where not isExcluded(e, Toolchain2Package::compilerLanguageExtensionsUsedQuery())
-select MacroUnwrapper<CPPCompilerExtension>::unwrapElement(e), e.getMessage()
+from Element unwrapped, CPPCompilerExtension e
+where
+  not isExcluded([e, unwrapped], Toolchain2Package::compilerLanguageExtensionsUsedQuery()) and
+  unwrapped = MacroUnwrapper<CPPCompilerExtension>::unwrapElement(e)
+select unwrapped, e.getMessage()

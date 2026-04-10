@@ -1,4 +1,3 @@
-| file:///Users/michaelrfairhurst/projects/codeql-coding-standards/cpp/common/test/includes/standard-library/stdarg.h:5:1:5:47 | #define va_start(v,l) __builtin_va_start(v, l) | Use of built-in operation '__builtin_va_start' is a compiler extension. |
 | test.cpp:11:3:11:19 | maybe_unused | Use of attribute 'maybe_unused' in namespace 'gnu' is a compiler extension and is not portable to other compilers. |
 | test.cpp:12:16:12:22 | aligned | Use of attribute 'aligned' is a compiler extension and is not portable to other compilers. |
 | test.cpp:13:16:13:21 | unused | Use of attribute 'unused' is a compiler extension and is not portable to other compilers. |
