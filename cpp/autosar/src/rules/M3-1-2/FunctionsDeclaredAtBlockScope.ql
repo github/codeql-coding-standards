@@ -17,10 +17,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.functiondeclaredatblockscope.FunctionDeclaredAtBlockScope
 
-from DeclStmt decl, Function f
-where
-  not isExcluded(decl, DeclarationsPackage::functionsDeclaredAtBlockScopeQuery()) and
-  not isExcluded(f, DeclarationsPackage::functionsDeclaredAtBlockScopeQuery()) and
-  decl.getADeclaration() = f
-select f, "Function " + f.getName() + " is declared at block scope."
+module FunctionDeclaredAtBlockScopeConfig implements FunctionDeclaredAtBlockScopeConfigSig {
+  Query getQuery() { result = DeclarationsPackage::functionsDeclaredAtBlockScopeQuery() }
+}
+
+import FunctionDeclaredAtBlockScope<FunctionDeclaredAtBlockScopeConfig>
