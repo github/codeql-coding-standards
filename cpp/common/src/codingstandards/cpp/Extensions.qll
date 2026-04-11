@@ -1,14 +1,10 @@
 import cpp
 
 /**
- * Common base class for modeling compiler extensions.
+ * A usage of a compiler extension in C++ code, such as non-standard attributes or built-in function
+ * calls.
  */
-abstract class CompilerExtension extends Locatable { }
-
-/**
- * Common base class for modeling compiler extensions in CPP.
- */
-abstract class CPPCompilerExtension extends CompilerExtension {
+abstract class CPPCompilerExtension extends Locatable {
   abstract string getMessage();
 }
 
@@ -29,7 +25,7 @@ class CPPAttributeExtension extends CPPCompilerExtension, Attribute {
 }
 
 /**
- * An `Attribute` within a compiler specific namespace such as `[[gnu::weak]]`.
+ * A `StdAttribute` within a compiler specific namespace such as `[[gnu::weak]]`.
  */
 class CppNamespacedStdAttributeExtension extends CPPCompilerExtension, StdAttribute {
   CppNamespacedStdAttributeExtension() { exists(this.getNamespace()) and not getNamespace() = "" }
@@ -41,6 +37,12 @@ class CppNamespacedStdAttributeExtension extends CPPCompilerExtension, StdAttrib
   }
 }
 
+/**
+ * A `StdAttribute` with a name not recognized as part of the C++17 standard.
+ *
+ * Only the listed names are valid C++17. Namespaced attributes are handled by
+ * `CppNamespacedStdAttributeExtension` and not considered here.
+ */
 class CppUnrecognizedAttributeExtension extends CPPCompilerExtension, StdAttribute {
   CppUnrecognizedAttributeExtension() {
     not this instanceof CppNamespacedStdAttributeExtension and
@@ -55,7 +57,8 @@ class CppUnrecognizedAttributeExtension extends CPPCompilerExtension, StdAttribu
 }
 
 /**
- * Compiler-specific builtin functions.
+ * A `FunctionCall` of a compiler-specific builtin function.
+ *
  * Reference: https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
  */
 class CPPBuiltinFunctionExtension extends CPPCompilerExtension, FunctionCall {
@@ -73,7 +76,8 @@ class CPPBuiltinFunctionExtension extends CPPCompilerExtension, FunctionCall {
 }
 
 /**
- * Statement expressions: ({ ... }) syntax.
+ * A `StmtExpr`, which uses `({ <stmts> })` syntax, which is a GNU extension.
+ *
  * Reference: https://gcc.gnu.org/onlinedocs/gcc/Statement-Exprs.html
  */
 class CPPStmtExprExtension extends CPPCompilerExtension, StmtExpr {
@@ -84,7 +88,8 @@ class CPPStmtExprExtension extends CPPCompilerExtension, StmtExpr {
 }
 
 /**
- * Ternary expressions with omitted middle operand: x ?: y
+ * A `ConditionalExpr` using GNU-style omitted middle operand such as `x ?: y`.
+ *
  * Reference: https://gcc.gnu.org/onlinedocs/gcc/Conditionals.html
  */
 class CPPTerseTernaryExtension extends CPPCompilerExtension, ConditionalExpr {
@@ -92,87 +97,84 @@ class CPPTerseTernaryExtension extends CPPCompilerExtension, ConditionalExpr {
 
   override string getMessage() {
     result =
-      "Ternaries with omitted middle operands are a compiler extension and are not portable to other compilers."
+      "Ternaries with omitted middle operands are a compiler extension and are not portable to " +
+        "other compilers."
   }
 }
 
 /**
- * Extended integer types: __int128, etc.
+ * A non-standard `Type` that is only available as a compiler extension, such as `__int128`,
+ * `_Decimal32`, `_Decimal64`, `_Decimal128`, or `__float128`.
+ *
  * Reference: https://gcc.gnu.org/onlinedocs/gcc/__int128.html
- */
-class CPPExtendedIntegerTypeExtension extends CPPCompilerExtension, DeclarationEntry {
-  CPPExtendedIntegerTypeExtension() { getType() instanceof Int128Type }
-
-  override string getMessage() {
-    result = "128-bit integers are a compiler extension and are not portable to other compilers."
-  }
-}
-
-/**
- * Extended floating-point types: __float128, _Decimal32, etc.
  * Reference: https://gcc.gnu.org/onlinedocs/gcc/Decimal-Float.html
  */
-class CPPExtendedFloatTypeExtension extends CPPCompilerExtension, DeclarationEntry {
-  CPPExtendedFloatTypeExtension() {
-    getType() instanceof Decimal128Type or
-    getType() instanceof Decimal32Type or
-    getType() instanceof Decimal64Type or
-    getType() instanceof Float128Type
+class CPPExtensionType extends Type {
+  CPPExtensionType() {
+    this instanceof Int128Type or
+    this instanceof Decimal128Type or
+    this instanceof Decimal32Type or
+    this instanceof Decimal64Type or
+    this instanceof Float128Type
   }
+}
+
+/**
+ * A `DeclarationEntry` using an extended type such as `__int128`, `_Decimal32`, `_Decimal64`,
+ * `_Decimal128`, or `__float128`.
+ *
+ * Reference: https://gcc.gnu.org/onlinedocs/gcc/__int128.html
+ */
+class CPPExtensionTypeUsage extends CPPCompilerExtension, DeclarationEntry {
+  CPPExtensionType extendedType;
+
+  CPPExtensionTypeUsage() { extendedType = getType() }
 
   override string getMessage() {
     result =
-      "Extended floating-point types are a compiler extension and are not portable to other compilers."
+      "Declaration '" + getName() + "' uses type '" + extendedType.getName() +
+        "' which is a compiler extension and is not portable to other compilers."
   }
 }
 
 /**
- * Zero-length arrays (flexible array members must be last).
+ * A `DeclarationEntry` using a zero-length array, which is a non-standard way to declare a flexible
+ * array member.
+ *
  * Reference: https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
  */
 class CPPZeroLengthArraysExtension extends CPPCompilerExtension, DeclarationEntry {
-  CPPZeroLengthArraysExtension() { getType().(ArrayType).getArraySize() = 0 }
+  ArrayType array;
 
-  override string getMessage() {
-    result = "Zero length arrays are a compiler extension and are not portable to other compilers."
-  }
-}
-
-/**
- * Variable-length arrays in struct members (not C++17 compliant).
- * Reference: https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html
- */
-class CPPVariableLengthArraysExtension extends CPPCompilerExtension, Field {
-  CPPVariableLengthArraysExtension() {
-    getType() instanceof ArrayType and
-    not getType().(ArrayType).hasArraySize() and
-    // Not the final member of the struct, which is allowed in some contexts
-    not exists(int lastIndex, Class declaringStruct |
-      declaringStruct = getDeclaringType() and
-      lastIndex = count(declaringStruct.getACanonicalMember()) - 1 and
-      this = declaringStruct.getCanonicalMember(lastIndex)
-    )
+  CPPZeroLengthArraysExtension() {
+    array = getType() and
+    array.getArraySize() = 0
   }
 
   override string getMessage() {
     result =
-      "Variable length arrays are a compiler extension and are not portable to other compilers."
+      "Variable '" + getName() + "' is declared with a zero-length array (of '" +
+        array.getBaseType() + "') is a compiler extension and are not portable to other compilers."
   }
 }
 
 /**
- * __alignof__ operator (use alignof from C++11 instead).
+ * A `Field` with a variable-length array type in a struct member (not C++17 compliant).
+ *
+ * Reference: https://gcc.gnu.org/onlinedocs/gcc/Variable-Length.html
  */
-class CPPAlignofExtension extends CPPCompilerExtension, AlignofExprOperator {
-  CPPAlignofExtension() { exists(getValueText().indexOf("__alignof__")) }
-
+class CPPVariableLengthArraysExtension extends CPPCompilerExtension, VlaDeclStmt {
   override string getMessage() {
-    result = "'__alignof__' is a compiler extension and is not portable to other compilers."
+    result =
+      "Variable length array (used in '" + this +
+        "') are a compiler extension and are not portable to other compilers."
   }
 }
 
 /**
- * Preprocessor extensions for feature detection.
+ * A `PreprocessorIfdef` using a builtin preprocessor feature such as `__has_builtin`,
+ * `__has_include`, etc., which are non-standard clang extensions.
+ *
  * Reference: https://clang.llvm.org/docs/LanguageExtensions.html
  */
 class CPPConditionalDefineExtension extends CPPCompilerExtension, PreprocessorIfdef {
@@ -195,6 +197,10 @@ class CPPConditionalDefineExtension extends CPPCompilerExtension, PreprocessorIf
   }
 }
 
+/**
+ * A `PreprocessorDirective` that is a non-standard compiler extension, such as `#pragma`, `#error`,
+ * or `#warning`.
+ */
 class CPPPreprocessorDirectiveExtension extends CPPCompilerExtension, PreprocessorDirective {
   string kind;
 
@@ -212,7 +218,8 @@ class CPPPreprocessorDirectiveExtension extends CPPCompilerExtension, Preprocess
 }
 
 /**
- * Built-in type traits and operations such as `__is_abstract`, `__is_same`, etc.
+ * A `BuiltInOperation` which describes certain non-standard syntax such as type trait operations,
+ * for example GNU `__is_abstract(T)`, `__is_same(T, U)`, etc.
  *
  * Reference: https://gcc.gnu.org/onlinedocs/gcc/Type-Traits.html
  */
