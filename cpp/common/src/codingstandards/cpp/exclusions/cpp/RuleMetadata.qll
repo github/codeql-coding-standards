@@ -7,6 +7,9 @@ import Banned1
 import Banned2
 import Banned3
 import Banned4
+import Banned5
+import Banned6
+import Banned8
 import BannedAPIs
 import BannedFunctions
 import BannedLibraries
@@ -35,6 +38,7 @@ import Declarations
 import Declarations1
 import Declarations2
 import Declarations3
+import Declarations4
 import ExceptionSafety
 import Exceptions1
 import Exceptions2
@@ -106,6 +110,9 @@ newtype TCPPQuery =
   TBanned2PackageQuery(Banned2Query q) or
   TBanned3PackageQuery(Banned3Query q) or
   TBanned4PackageQuery(Banned4Query q) or
+  TBanned5PackageQuery(Banned5Query q) or
+  TBanned6PackageQuery(Banned6Query q) or
+  TBanned8PackageQuery(Banned8Query q) or
   TBannedAPIsPackageQuery(BannedAPIsQuery q) or
   TBannedFunctionsPackageQuery(BannedFunctionsQuery q) or
   TBannedLibrariesPackageQuery(BannedLibrariesQuery q) or
@@ -134,6 +141,7 @@ newtype TCPPQuery =
   TDeclarations1PackageQuery(Declarations1Query q) or
   TDeclarations2PackageQuery(Declarations2Query q) or
   TDeclarations3PackageQuery(Declarations3Query q) or
+  TDeclarations4PackageQuery(Declarations4Query q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
   TExceptions2PackageQuery(Exceptions2Query q) or
@@ -205,6 +213,9 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isBanned2QueryMetadata(query, queryId, ruleId, category) or
   isBanned3QueryMetadata(query, queryId, ruleId, category) or
   isBanned4QueryMetadata(query, queryId, ruleId, category) or
+  isBanned5QueryMetadata(query, queryId, ruleId, category) or
+  isBanned6QueryMetadata(query, queryId, ruleId, category) or
+  isBanned8QueryMetadata(query, queryId, ruleId, category) or
   isBannedAPIsQueryMetadata(query, queryId, ruleId, category) or
   isBannedFunctionsQueryMetadata(query, queryId, ruleId, category) or
   isBannedLibrariesQueryMetadata(query, queryId, ruleId, category) or
@@ -233,6 +244,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations4QueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
   isExceptions2QueryMetadata(query, queryId, ruleId, category) or
