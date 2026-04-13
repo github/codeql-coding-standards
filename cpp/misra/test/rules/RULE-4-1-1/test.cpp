@@ -75,3 +75,8 @@ typedef int t2 __attribute__((vector_size(16))); // NON_COMPLIANT
 // clang-format off
 #   warning "preceeding spaces is common" // NON_COMPLIANT
 // clang-format on
+
+const int g5 = 5;
+void f12(int p0, int p1[10], int p2[], int p3[g5]) { // COMPLIANT -- not VLAs.
+  int l0[p0]; // NON_COMPLIANT -- VLA
+}

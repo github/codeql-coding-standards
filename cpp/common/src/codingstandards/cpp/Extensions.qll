@@ -1,10 +1,15 @@
 import cpp
 
 /**
+ * Common base class for modeling compiler extensions.
+ */
+abstract class CompilerExtension extends Locatable { }
+
+/**
  * A usage of a compiler extension in C++ code, such as non-standard attributes or built-in function
  * calls.
  */
-abstract class CPPCompilerExtension extends Locatable {
+abstract class CPPCompilerExtension extends CompilerExtension {
   abstract string getMessage();
 }
 
@@ -27,8 +32,8 @@ class CPPAttributeExtension extends CPPCompilerExtension, Attribute {
 /**
  * A `StdAttribute` within a compiler specific namespace such as `[[gnu::weak]]`.
  */
-class CppNamespacedStdAttributeExtension extends CPPCompilerExtension, StdAttribute {
-  CppNamespacedStdAttributeExtension() { exists(this.getNamespace()) and not getNamespace() = "" }
+class CPPNamespacedStdAttributeExtension extends CPPCompilerExtension, StdAttribute {
+  CPPNamespacedStdAttributeExtension() { exists(this.getNamespace()) and not getNamespace() = "" }
 
   override string getMessage() {
     result =
@@ -41,11 +46,11 @@ class CppNamespacedStdAttributeExtension extends CPPCompilerExtension, StdAttrib
  * A `StdAttribute` with a name not recognized as part of the C++17 standard.
  *
  * Only the listed names are valid C++17. Namespaced attributes are handled by
- * `CppNamespacedStdAttributeExtension` and not considered here.
+ * `CPPNamespacedStdAttributeExtension` and not considered here.
  */
-class CppUnrecognizedAttributeExtension extends CPPCompilerExtension, StdAttribute {
-  CppUnrecognizedAttributeExtension() {
-    not this instanceof CppNamespacedStdAttributeExtension and
+class CPPUnrecognizedAttributeExtension extends CPPCompilerExtension, StdAttribute {
+  CPPUnrecognizedAttributeExtension() {
+    not this instanceof CPPNamespacedStdAttributeExtension and
     not getName() in [
         "maybe_unused", "nodiscard", "noreturn", "deprecated", "carries_dependency", "fallthrough"
       ]
