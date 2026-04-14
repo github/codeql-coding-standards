@@ -1,0 +1,132 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-4-1-3": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Threads accessing the same memory location concurrently without utilization of thread synchronization objects results in undefined behavior.",
+          "kind": "problem",
+          "name": "Data races between threads lead to undefined behavior",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "PossibleDataRaceBetweenThreadsShared",
+          "short_name": "PossibleDataRaceBetweenThreads",
+          "tags": [
+            "correctness",
+            "concurrency",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Signed integer overflow or underflow from arithmetic operations results in critical unspecified behavior.",
+          "kind": "problem",
+          "name": "Signed integer overflow leads to critical unspecified behavior",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "SignedIntegerOverflowShared",
+          "short_name": "SignedIntegerOverflow",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Division or remainder by zero results in undefined behavior.",
+          "kind": "problem",
+          "name": "Division or modulo by zero leads to undefined behavior",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "DivisorEqualToZeroShared",
+          "short_name": "DivisionByZeroUndefinedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Using a deallocation function that does not match the allocation function results in undefined behavior.",
+          "kind": "problem",
+          "name": "Deallocation type mismatch leads to undefined behavior",
+          "precision": "medium",
+          "severity": "error",
+          "shared_implementation_short_name": "ProperlyDeallocateDynamicallyAllocatedResourcesShared",
+          "short_name": "DeallocationTypeMismatch",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Assigning a string literal to a non-const pointer may lead to undefined behaviour if the string is modified through that pointer.",
+          "kind": "problem",
+          "name": "Audit: string literal possibly modified through non-const pointer",
+          "precision": "low",
+          "severity": "error",
+          "shared_implementation_short_name": "StringLiteralsAssignedToNonConstantPointersShared",
+          "short_name": "StringLiteralPossiblyModifiedAudit",
+          "tags": [
+            "correctness",
+            "scope/system",
+            "external/misra/audit"
+          ]
+        },
+        {
+          "description": "Casting to an enumeration value outside the range of the enumeration's values results in critical unspecified behavior.",
+          "kind": "problem",
+          "name": "Out-of-range enumeration cast leads to critical unspecified behavior",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "DoNotCastToAnOutOfRangeEnumerationValueShared",
+          "short_name": "OutOfRangeEnumCastCriticalUnspecifiedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Using a null pointer-to-member value as the second operand in a pointer-to-member expression results in undefined behavior.",
+          "kind": "path-problem",
+          "name": "Null pointer-to-member access leads to undefined behavior",
+          "precision": "high",
+          "severity": "error",
+          "shared_implementation_short_name": "AccessOfUndefinedMemberThroughNullPointer",
+          "short_name": "NullPointerToMemberAccessUndefinedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Using an uninitialized static pointer-to-member in a pointer-to-member expression results in undefined behavior.",
+          "kind": "problem",
+          "name": "Uninitialized static pointer-to-member access leads to undefined behavior",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "AccessOfUndefinedMemberThroughUninitializedStaticPointer",
+          "short_name": "UninitializedStaticPointerToMemberUndefinedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Using a pointer-to-member expression where the dynamic type of the first operand does not contain the member pointed to by the second operand results in undefined behavior.",
+          "kind": "problem",
+          "name": "Pointer-to-member access of nonexistent member leads to undefined behavior",
+          "precision": "very-high",
+          "severity": "error",
+          "shared_implementation_short_name": "AccessOfNonExistingMemberThroughPointerToMember",
+          "short_name": "NonExistentMemberAccessUndefinedBehavior",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "There shall be no occurrence of undefined or critical unspecified behaviour"
+    }
+  }
+}

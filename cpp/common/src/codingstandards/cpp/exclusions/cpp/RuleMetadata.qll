@@ -99,6 +99,7 @@ import Toolchain3
 import Trigraph
 import TrustBoundaries
 import TypeRanges
+import Undefined
 import Uninitialized
 import VirtualFunctions
 
@@ -201,6 +202,7 @@ newtype TCPPQuery =
   TTrigraphPackageQuery(TrigraphQuery q) or
   TTrustBoundariesPackageQuery(TrustBoundariesQuery q) or
   TTypeRangesPackageQuery(TypeRangesQuery q) or
+  TUndefinedPackageQuery(UndefinedQuery q) or
   TUninitializedPackageQuery(UninitializedQuery q) or
   TVirtualFunctionsPackageQuery(VirtualFunctionsQuery q)
 
@@ -303,6 +305,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isTrigraphQueryMetadata(query, queryId, ruleId, category) or
   isTrustBoundariesQueryMetadata(query, queryId, ruleId, category) or
   isTypeRangesQueryMetadata(query, queryId, ruleId, category) or
+  isUndefinedQueryMetadata(query, queryId, ruleId, category) or
   isUninitializedQueryMetadata(query, queryId, ruleId, category) or
   isVirtualFunctionsQueryMetadata(query, queryId, ruleId, category)
 }
