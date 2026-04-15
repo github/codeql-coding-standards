@@ -69,7 +69,7 @@ typedef int t2 __attribute__((vector_size(16))); // NON_COMPLIANT
 #ifdef __cplusplus // COMPLIANT
 #endif
 
-#pragma once // NON_COMPLIANT
+#pragma once                // NON_COMPLIANT
 #pragma GCC diagnostic push // NON_COMPLIANT
 #warning "This is a warning" // NON_COMPLIANT
 // clang-format off
