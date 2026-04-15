@@ -21,5 +21,5 @@
 | test.cpp:72:1:72:12 | #pragma once | Use of non-standard preprocessor directive '#pragma once' is a compiler extension. |
 | test.cpp:73:1:73:27 | #pragma GCC diagnostic push | Use of non-standard preprocessor directive '#pragma GCC diagnostic push' is a compiler extension. |
 | test.cpp:74:1:74:28 | #warning "This is a warning" | Use of non-standard preprocessor directive '#warning' is a compiler extension. |
-| test.cpp:76:1:76:41 | #warning "preceeding spaces is common" | Use of non-standard preprocessor directive '#warning' is a compiler extension. |
+| test.cpp:76:1:76:40 | #warning "preceding spaces is common" | Use of non-standard preprocessor directive '#warning' is a compiler extension. |
 | test.cpp:81:7:81:7 | VLA declaration | Variable length array (used in 'VLA declaration') are a compiler extension and are not portable to other compilers. |
