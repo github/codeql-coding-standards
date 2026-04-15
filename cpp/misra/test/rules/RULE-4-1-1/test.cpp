@@ -69,11 +69,11 @@ typedef int t2 __attribute__((vector_size(16))); // NON_COMPLIANT
 #ifdef __cplusplus // COMPLIANT
 #endif
 
-#pragma once
+#pragma once // NON_COMPLIANT
 #pragma GCC diagnostic push // NON_COMPLIANT
 #warning "This is a warning" // NON_COMPLIANT
 // clang-format off
-#   warning "preceeding spaces is common" // NON_COMPLIANT
+#   warning "preceding spaces is common" // NON_COMPLIANT
 // clang-format on
 
 const int g5 = 5;
