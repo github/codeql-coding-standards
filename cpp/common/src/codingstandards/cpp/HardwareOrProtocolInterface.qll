@@ -1,4 +1,4 @@
-import codingstandards.cpp.autosar
+import cpp
 import codingstandards.cpp.CommonTypes as CommonTypes
 
 abstract class HardwareOrProtocolInterfaceClass extends Class { }
