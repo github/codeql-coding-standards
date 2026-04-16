@@ -122,7 +122,7 @@ class ValueCategory extends TValueCategory {
 
   predicate isRValue() { this instanceof PRValue or this instanceof XValue }
 
-  predicate isGlvalue() { this instanceof LValue or this instanceof XValue }
+  predicate isGLValue() { this instanceof LValue or this instanceof XValue }
 
   string toString() { result = description }
 }
