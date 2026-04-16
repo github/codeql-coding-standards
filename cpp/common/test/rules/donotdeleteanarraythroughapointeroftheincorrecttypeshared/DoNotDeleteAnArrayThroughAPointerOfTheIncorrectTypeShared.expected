@@ -1,5 +1,5 @@
 problems
-| test.cpp:9:12:9:13 | l1 | test.cpp:6:19:6:37 | new[] | test.cpp:9:12:9:13 | l1 | Array of type DerivedClass * is deleted through a pointer of type BaseClass *. |
+| test.cpp:9:12:9:13 | l1 | test.cpp:6:19:6:37 | new[] | test.cpp:9:12:9:13 | l1 | Array of type 'DerivedClass *' is deleted through a pointer of type 'BaseClass *'. |
 edges
 | test.cpp:6:19:6:37 | new[] | test.cpp:9:12:9:13 | l1 | provenance |  |
 | test.cpp:7:22:7:40 | new[] | test.cpp:10:12:10:13 | l2 | provenance |  |
