@@ -1,28 +1,263 @@
 #include <string>
 #include <utility>
 
-template <typename T> T func(T param);
+template <typename T> void func(T param);
 
-std::string f2();
+class TrivMovable {
+  int x;
 
-void f3() {
+public:
+  TrivMovable() = default;
+  TrivMovable(const TrivMovable &) = default;
+  TrivMovable(TrivMovable &&) = default;
+  TrivMovable &operator=(const TrivMovable &) = default;
+  TrivMovable &operator=(TrivMovable &&) = default;
+};
+
+void f1();
+
+class NonTrivMovable {
+  int x;
+
+public:
+  NonTrivMovable() = default;
+  NonTrivMovable(const NonTrivMovable &other) {
+    f1();
+    x = other.x;
+  }
+  NonTrivMovable(NonTrivMovable &&other) {
+    f1();
+    x = other.x;
+  }
+  NonTrivMovable &operator=(const NonTrivMovable &other) {
+    f1();
+    x = other.x;
+    return *this;
+  }
+  NonTrivMovable &operator=(NonTrivMovable &&other) {
+    f1();
+    x = other.x;
+    return *this;
+  }
+};
+
+void fstr(std::string param);
+void fint(int param);
+void fmovable(TrivMovable param);
+void fnontriv(NonTrivMovable param);
+
+std::string get_str();
+int get_int();
+TrivMovable get_triv();
+NonTrivMovable get_nontriv();
+
+std::string &get_str_ref();
+int &get_int_ref();
+TrivMovable &get_triv_ref();
+NonTrivMovable &get_nontriv_ref();
+
+const std::string &get_str_cref();
+const int &get_int_cref();
+const TrivMovable &get_triv_cref();
+const NonTrivMovable &get_nontriv_cref();
+
+std::string &&get_str_rref();
+int &&get_int_rref();
+TrivMovable &&get_triv_rref();
+NonTrivMovable &&get_nontriv_rref();
+
+const std::string &&get_str_crref();
+const int &&get_int_crref();
+const TrivMovable &&get_triv_crref();
+const NonTrivMovable &&get_nontriv_crref();
+
+void f2() {
+  // non-const lvalues
   std::string l1{"hello"};
+  int il1{0};
+  TrivMovable tml1{};
+  NonTrivMovable ntml1{};
+
+  std::move(l1);    // COMPLIANT
+  std::move(il1);   // COMPLIANT
+  std::move(tml1);  // COMPLIANT
+  std::move(ntml1); // COMPLIANT
+
+  func(std::move(l1));    // COMPLIANT
+  func(std::move(il1));   // COMPLIANT
+  func(std::move(tml1));  // COMPLIANT
+  func(std::move(ntml1)); // COMPLIANT
+
+  fstr(std::move(l1));        // COMPLIANT
+  fint(std::move(il1));       // COMPLIANT
+  fmovable(std::move(tml1));  // COMPLIANT
+  fnontriv(std::move(ntml1)); // COMPLIANT
+
+  // non-const lvalue references
   std::string &l2 = l1;
+  int &il2 = il1;
+  TrivMovable &tml2 = tml1;
+  NonTrivMovable &ntml2 = ntml1;
+
+  std::move(l2);    // COMPLIANT
+  std::move(il2);   // COMPLIANT
+  std::move(tml2);  // COMPLIANT
+  std::move(ntml2); // COMPLIANT
+
+  func(std::move(l2));    // COMPLIANT
+  func(std::move(il2));   // COMPLIANT
+  func(std::move(tml2));  // COMPLIANT
+  func(std::move(ntml2)); // COMPLIANT
+
+  fstr(std::move(l2));        // COMPLIANT
+  fint(std::move(il2));       // COMPLIANT
+  fmovable(std::move(tml2));  // COMPLIANT
+  fnontriv(std::move(ntml2)); // COMPLIANT
+
+  // const lvalue refs
   std::string const &l3 = l1;
+  int const &il3 = il1;
+  TrivMovable const &tml3 = tml1;
+  NonTrivMovable const &ntml3 = ntml1;
+
+  std::move(l3);    // NON_COMPLIANT
+  std::move(il3);   // NON_COMPLIANT
+  std::move(tml3);  // NON_COMPLIANT
+  std::move(ntml3); // NON_COMPLIANT
+
+  func(std::move(l3));    // NON_COMPLIANT
+  func(std::move(il3));   // NON_COMPLIANT
+  func(std::move(tml3));  // NON_COMPLIANT
+  func(std::move(ntml3)); // NON_COMPLIANT
+
+  fstr(std::move(l3));        // NON_COMPLIANT
+  fint(std::move(il3));       // NON_COMPLIANT
+  fmovable(std::move(tml3));  // NON_COMPLIANT
+  fnontriv(std::move(ntml3)); // NON_COMPLIANT
+
+  // const lvalues
   std::string const l4{"hello"};
+  int const il4{0};
+  TrivMovable const tml4{};
+  NonTrivMovable const ntml4{};
+
+  std::move(l4);    // NON_COMPLIANT
+  std::move(il4);   // NON_COMPLIANT
+  std::move(tml4);  // NON_COMPLIANT
+  std::move(ntml4); // NON_COMPLIANT
+
+  func(std::move(l4));    // NON_COMPLIANT
+  func(std::move(il4));   // NON_COMPLIANT
+  func(std::move(tml4));  // NON_COMPLIANT
+  func(std::move(ntml4)); // NON_COMPLIANT
+
+  fstr(std::move(l4));        // NON_COMPLIANT
+  fint(std::move(il4));       // NON_COMPLIANT
+  fmovable(std::move(tml4));  // NON_COMPLIANT
+  fnontriv(std::move(ntml4)); // NON_COMPLIANT
+
+  // non-const glvalues
   std::string &&l5 = std::string{"hello"};
+  int &&il5 = int{0};
+  TrivMovable &&tml5 = TrivMovable{};
+  NonTrivMovable &&ntml5 = NonTrivMovable{};
+
+  std::move(l5);    // COMPLIANT
+  std::move(il5);   // COMPLIANT
+  std::move(tml5);  // COMPLIANT
+  std::move(ntml5); // COMPLIANT
+
+  func(std::move(l5));    // COMPLIANT
+  func(std::move(il5));   // COMPLIANT
+  func(std::move(tml5));  // COMPLIANT
+  func(std::move(ntml5)); // COMPLIANT
+
+  fstr(std::move(l5));        // COMPLIANT
+  fint(std::move(il5));       // COMPLIANT
+  fmovable(std::move(tml5));  // COMPLIANT
+  fnontriv(std::move(ntml5)); // COMPLIANT
+
+  // const glvalues
   const std::string &&l6 = std::string{"hello"};
+  const int &&il6 = int{0};
+  const TrivMovable &&tml6 = TrivMovable{};
+  const NonTrivMovable &&ntml6 = NonTrivMovable{};
 
-  func(std::move(l1)); // COMPLIANT - non-const lvalue
-  func(std::move(l2)); // COMPLIANT - non-const lvalue
-  func(std::move(l3)); // NON_COMPLIANT - const lvalue
-  func(std::move(l4)); // NON_COMPLIANT - const lvalue
-  func(std::move(l5)); // COMPLIANT - non-const glvalue
-  func(std::move(l6)); // NON_COMPLIANT - const lvalue
+  std::move(l6);    // NON_COMPLIANT
+  std::move(il6);   // NON_COMPLIANT
+  std::move(tml6);  // NON_COMPLIANT
+  std::move(ntml6); // NON_COMPLIANT
 
-  func(std::move(std::string("hello"))); // NON_COMPLIANT - rvalue argument
-  func(std::move(l1 + "!"));             // NON_COMPLIANT - temporary rvalue
-  func(std::move(f2())); // NON_COMPLIANT - rvalue from function call
+  func(std::move(l6));    // NON_COMPLIANT
+  func(std::move(il6));   // NON_COMPLIANT
+  func(std::move(tml6));  // NON_COMPLIANT
+  func(std::move(ntml6)); // NON_COMPLIANT
+
+  fstr(std::move(l6));        // NON_COMPLIANT
+  fint(std::move(il6));       // NON_COMPLIANT
+  fmovable(std::move(tml6));  // NON_COMPLIANT
+  fnontriv(std::move(ntml6)); // NON_COMPLIANT
+
+  // xvalues
+  std::move(std::string("hello")); // NON_COMPLIANT
+  std::move(int(1));               // NON_COMPLIANT
+  std::move(TrivMovable());        // NON_COMPLIANT
+  std::move(NonTrivMovable());     // NON_COMPLIANT
+
+  func(std::move(std::string("hello"))); // NON_COMPLIANT
+  func(std::move(int(1)));               // NON_COMPLIANT
+  func(std::move(TrivMovable()));        // NON_COMPLIANT
+  func(std::move(NonTrivMovable()));     // NON_COMPLIANT
+
+  fstr(std::move(std::string("hello"))); // NON_COMPLIANT
+  fint(std::move(int(1)));               // NON_COMPLIANT
+  fmovable(std::move(TrivMovable()));    // NON_COMPLIANT
+  fnontriv(std::move(NonTrivMovable())); // NON_COMPLIANT
+
+  std::move(l1 + "!");       // NON_COMPLIANT
+  std::move(il1 + 1);        // NON_COMPLIANT
+  fstr(std::move(l1 + "!")); // NON_COMPLIANT
+  fint(std::move(il1 + 1));  // NON_COMPLIANT
+  func(std::move(l1 + "!")); // NON_COMPLIANT
+  func(std::move(il1 + 1));  // NON_COMPLIANT
+
+  std::move(get_str());     // NON_COMPLIANT
+  std::move(get_int());     // NON_COMPLIANT
+  std::move(get_triv());    // NON_COMPLIANT
+  std::move(get_nontriv()); // NON_COMPLIANT
+
+  func(std::move(get_str()));     // NON_COMPLIANT
+  func(std::move(get_int()));     // NON_COMPLIANT
+  func(std::move(get_triv()));    // NON_COMPLIANT
+  func(std::move(get_nontriv())); // NON_COMPLIANT
+
+  fstr(std::move(get_str()));         // NON_COMPLIANT
+  fint(std::move(get_int()));         // NON_COMPLIANT
+  fmovable(std::move(get_triv()));    // NON_COMPLIANT
+  fnontriv(std::move(get_nontriv())); // NON_COMPLIANT
+
+  // Function calls returning references
+  std::move(get_str_ref());     // COMPLIANT
+  std::move(get_int_ref());     // COMPLIANT
+  std::move(get_triv_ref());    // COMPLIANT
+  std::move(get_nontriv_ref()); // COMPLIANT
+
+  // Function calls returning const references
+  std::move(get_str_cref());     // NON_COMPLIANT
+  std::move(get_int_cref());     // NON_COMPLIANT
+  std::move(get_triv_cref());    // NON_COMPLIANT
+  std::move(get_nontriv_cref()); // NON_COMPLIANT
+
+  // Function calls returning rvalue references
+  std::move(get_str_rref());     // NON_COMPLIANT
+  std::move(get_int_rref());     // NON_COMPLIANT
+  std::move(get_triv_rref());    // NON_COMPLIANT
+  std::move(get_nontriv_rref()); // NON_COMPLIANT
+
+  std::move(get_str_crref());     // NON_COMPLIANT
+  std::move(get_int_crref());     // NON_COMPLIANT
+  std::move(get_triv_crref());    // NON_COMPLIANT
+  std::move(get_nontriv_crref()); // NON_COMPLIANT
 }
 
 class TestClass {
@@ -40,11 +275,11 @@ public:
 template <typename T> void cref_tpl1(const T &param) { std::move(param); }
 // NON_COMPLIANT -- always moving const value
 template <typename T> void cref_tpl2(const T &param) { std::move(param); }
-// NON_COMPLIANT -- always moving const value
+// NON_COMPLIANT -- always moving const value UNHANDLED
 template <typename T> void cref_tpl3(const T &param) { std::move(param); }
 // NON_COMPLIANT -- always moving const value
 template <typename T> void cref_tpl4(const T &param) { std::move(param); }
-// NON_COMPLIANT -- always moving const value
+// NON_COMPLIANT -- always moving const value UNHANDLED
 template <typename T> void cref_tpl5(const T &param) { std::move(param); }
 // NON_COMPLIANT -- always moving const value
 template <typename T> void cref_tpl6(const T &param) { std::move(param); }
@@ -88,7 +323,7 @@ template <typename T> void univ_ref_tpl5(T &&param) { std::move(param); }
 // T=const std::string&& -- NON_COMPLIANT
 template <typename T> void univ_ref_tpl6(T &&param) { std::move(param); }
 
-void f4() {
+void f3() {
   std::string l1{"test"};
   const std::string l2{"test"};
   std::string &l3 = l1;
