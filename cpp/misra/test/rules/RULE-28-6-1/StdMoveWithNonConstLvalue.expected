@@ -1,57 +1,47 @@
-| test.cpp:111:3:111:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const string &'. |
-| test.cpp:112:3:112:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const int &'. |
-| test.cpp:113:3:113:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const TrivMovable &'. |
-| test.cpp:114:3:114:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const NonTrivMovable &'. |
-| test.cpp:116:8:116:16 | call to move | Call to 'std::move' with const lvalue argument of type 'const string &'. |
-| test.cpp:117:8:117:16 | call to move | Call to 'std::move' with const lvalue argument of type 'const int &'. |
-| test.cpp:118:12:118:20 | call to move | Call to 'std::move' with const lvalue argument of type 'const TrivMovable &'. |
-| test.cpp:119:12:119:20 | call to move | Call to 'std::move' with const lvalue argument of type 'const NonTrivMovable &'. |
-| test.cpp:127:3:127:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const string'. |
-| test.cpp:128:3:128:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const int'. |
-| test.cpp:129:3:129:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const TrivMovable'. |
-| test.cpp:130:3:130:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const NonTrivMovable'. |
-| test.cpp:149:3:149:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const string &&'. |
-| test.cpp:150:3:150:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const int &&'. |
-| test.cpp:151:3:151:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const TrivMovable &&'. |
-| test.cpp:152:3:152:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const NonTrivMovable &&'. |
-| test.cpp:155:3:155:11 | call to move | Call to 'std::move' with prvalue argument of type 'basic_string<char, char_traits<char>, allocator<char>>'. |
-| test.cpp:156:3:156:11 | call to move | Call to 'std::move' with prvalue argument of type 'int'. |
-| test.cpp:157:3:157:11 | call to move | Call to 'std::move' with prvalue argument of type 'TrivMovable'. |
-| test.cpp:158:3:158:11 | call to move | Call to 'std::move' with prvalue argument of type 'NonTrivMovable'. |
-| test.cpp:160:8:160:16 | call to move | Call to 'std::move' with prvalue argument of type 'basic_string<char, char_traits<char>, allocator<char>>'. |
-| test.cpp:161:8:161:16 | call to move | Call to 'std::move' with prvalue argument of type 'int'. |
-| test.cpp:162:12:162:20 | call to move | Call to 'std::move' with prvalue argument of type 'TrivMovable'. |
-| test.cpp:163:12:163:20 | call to move | Call to 'std::move' with prvalue argument of type 'NonTrivMovable'. |
-| test.cpp:165:3:165:11 | call to move | Call to 'std::move' with prvalue argument of type 'basic_string<char, char_traits<char>, allocator<char>>'. |
-| test.cpp:166:3:166:11 | call to move | Call to 'std::move' with prvalue argument of type 'int'. |
-| test.cpp:167:3:167:11 | call to move | Call to 'std::move' with prvalue argument of type 'string'. |
-| test.cpp:168:3:168:11 | call to move | Call to 'std::move' with prvalue argument of type 'int'. |
-| test.cpp:169:3:169:11 | call to move | Call to 'std::move' with prvalue argument of type 'TrivMovable'. |
-| test.cpp:170:3:170:11 | call to move | Call to 'std::move' with prvalue argument of type 'NonTrivMovable'. |
-| test.cpp:179:3:179:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const string &'. |
-| test.cpp:180:3:180:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const int &'. |
-| test.cpp:181:3:181:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const TrivMovable &'. |
-| test.cpp:182:3:182:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const NonTrivMovable &'. |
-| test.cpp:185:3:185:11 | call to move | Call to 'std::move' with xvalue argument of type 'string &&'. |
-| test.cpp:186:3:186:11 | call to move | Call to 'std::move' with xvalue argument of type 'int &&'. |
-| test.cpp:187:3:187:11 | call to move | Call to 'std::move' with xvalue argument of type 'TrivMovable &&'. |
-| test.cpp:188:3:188:11 | call to move | Call to 'std::move' with xvalue argument of type 'NonTrivMovable &&'. |
-| test.cpp:190:3:190:11 | call to move | Call to 'std::move' with xvalue argument of type 'const string &&'. |
-| test.cpp:191:3:191:11 | call to move | Call to 'std::move' with xvalue argument of type 'const int &&'. |
-| test.cpp:192:3:192:11 | call to move | Call to 'std::move' with xvalue argument of type 'const TrivMovable &&'. |
-| test.cpp:193:3:193:11 | call to move | Call to 'std::move' with xvalue argument of type 'const NonTrivMovable &&'. |
-| test.cpp:203:5:203:13 | call to move | Call to 'std::move' with const lvalue argument of type 'const string'. |
-| test.cpp:209:56:209:64 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
-| test.cpp:211:56:211:64 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
-| test.cpp:217:56:217:64 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
-| test.cpp:223:56:223:64 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
-| test.cpp:228:49:228:57 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
-| test.cpp:232:49:232:57 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
-| test.cpp:236:49:236:57 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
-| test.cpp:241:48:241:56 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>>'. |
-| test.cpp:245:48:245:56 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
-| test.cpp:249:48:249:56 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &&'. |
-| test.cpp:254:55:254:63 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &&'. |
-| test.cpp:258:55:258:63 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
-| test.cpp:262:55:262:63 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &&'. |
-| test.cpp:302:3:302:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const iterator &'. |
+| test.cpp:62:3:62:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const string &'. |
+| test.cpp:63:3:63:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const int &'. |
+| test.cpp:64:3:64:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const C &'. |
+| test.cpp:66:8:66:16 | call to move | Call to 'std::move' with const lvalue argument of type 'const string &'. |
+| test.cpp:67:8:67:16 | call to move | Call to 'std::move' with const lvalue argument of type 'const int &'. |
+| test.cpp:68:8:68:16 | call to move | Call to 'std::move' with const lvalue argument of type 'const C &'. |
+| test.cpp:75:3:75:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const string'. |
+| test.cpp:76:3:76:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const int'. |
+| test.cpp:77:3:77:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const C'. |
+| test.cpp:93:3:93:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const string &&'. |
+| test.cpp:94:3:94:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const int &&'. |
+| test.cpp:95:3:95:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const C &&'. |
+| test.cpp:98:3:98:11 | call to move | Call to 'std::move' with prvalue argument of type 'basic_string<char, char_traits<char>, allocator<char>>'. |
+| test.cpp:99:3:99:11 | call to move | Call to 'std::move' with prvalue argument of type 'int'. |
+| test.cpp:100:3:100:11 | call to move | Call to 'std::move' with prvalue argument of type 'C'. |
+| test.cpp:102:8:102:16 | call to move | Call to 'std::move' with prvalue argument of type 'basic_string<char, char_traits<char>, allocator<char>>'. |
+| test.cpp:103:8:103:16 | call to move | Call to 'std::move' with prvalue argument of type 'int'. |
+| test.cpp:104:8:104:16 | call to move | Call to 'std::move' with prvalue argument of type 'C'. |
+| test.cpp:106:3:106:11 | call to move | Call to 'std::move' with prvalue argument of type 'basic_string<char, char_traits<char>, allocator<char>>'. |
+| test.cpp:107:3:107:11 | call to move | Call to 'std::move' with prvalue argument of type 'int'. |
+| test.cpp:108:3:108:11 | call to move | Call to 'std::move' with prvalue argument of type 'string'. |
+| test.cpp:109:3:109:11 | call to move | Call to 'std::move' with prvalue argument of type 'int'. |
+| test.cpp:110:3:110:11 | call to move | Call to 'std::move' with prvalue argument of type 'C'. |
+| test.cpp:118:3:118:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const string &'. |
+| test.cpp:119:3:119:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const int &'. |
+| test.cpp:120:3:120:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const C &'. |
+| test.cpp:123:3:123:11 | call to move | Call to 'std::move' with xvalue argument of type 'string &&'. |
+| test.cpp:124:3:124:11 | call to move | Call to 'std::move' with xvalue argument of type 'int &&'. |
+| test.cpp:125:3:125:11 | call to move | Call to 'std::move' with xvalue argument of type 'C &&'. |
+| test.cpp:127:3:127:11 | call to move | Call to 'std::move' with xvalue argument of type 'const string &&'. |
+| test.cpp:128:3:128:11 | call to move | Call to 'std::move' with xvalue argument of type 'const int &&'. |
+| test.cpp:129:3:129:11 | call to move | Call to 'std::move' with xvalue argument of type 'const C &&'. |
+| test.cpp:139:5:139:13 | call to move | Call to 'std::move' with const lvalue argument of type 'const string'. |
+| test.cpp:145:56:145:64 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
+| test.cpp:147:56:147:64 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
+| test.cpp:153:56:153:64 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
+| test.cpp:159:56:159:64 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
+| test.cpp:164:49:164:57 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
+| test.cpp:168:49:168:57 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
+| test.cpp:172:49:172:57 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
+| test.cpp:177:48:177:56 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>>'. |
+| test.cpp:181:48:181:56 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
+| test.cpp:185:48:185:56 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &&'. |
+| test.cpp:190:55:190:63 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &&'. |
+| test.cpp:194:55:194:63 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &'. |
+| test.cpp:198:55:198:63 | call to move | Call to 'std::move' with const lvalue argument of type 'const basic_string<char, char_traits<char>, allocator<char>> &&'. |
+| test.cpp:238:3:238:11 | call to move | Call to 'std::move' with const lvalue argument of type 'const iterator &'. |
