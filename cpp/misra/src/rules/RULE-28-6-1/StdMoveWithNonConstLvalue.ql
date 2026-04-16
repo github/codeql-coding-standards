@@ -17,12 +17,20 @@
 import cpp
 import codingstandards.cpp.standardlibrary.Utility
 import codingstandards.cpp.ast.ValueCategory
-import codingstandards.cpp.types.Resolve
-import codingstandards.cpp.types.Specifiers
+
+predicate resolvesToConstOrConstRef(Type t) {
+  t.isConst()
+  or
+  resolvesToConstOrConstRef(t.(ReferenceType).getBaseType())
+  or
+  resolvesToConstOrConstRef(t.(TypedefType).getBaseType())
+  or
+  resolvesToConstOrConstRef(t.(Decltype).getBaseType())
+}
 
 predicate isConstLvalue(Expr arg) {
   getValueCategory(arg).isLValue() and
-  arg.getType() instanceof ResolvesTo<RawConstType>::ExactlyOrRef
+  resolvesToConstOrConstRef(arg.getType())
 }
 
 Type typeOfArgument(Expr e) {
