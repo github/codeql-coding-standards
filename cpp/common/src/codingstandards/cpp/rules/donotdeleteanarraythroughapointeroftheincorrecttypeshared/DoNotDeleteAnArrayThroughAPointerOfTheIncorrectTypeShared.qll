@@ -41,8 +41,8 @@ module DoNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeShared<
         deleteArray.getExpr().getType().getUnspecifiedType() and
       deleteExpr = sink.getNode().asExpr() and
       message =
-        "Array of type " + newArray.getType() + " is deleted through a pointer of type " +
-          deleteArray.getExpr().getType() + "."
+        "Array of type '" + newArray.getType() + "' is deleted through a pointer of type '" +
+          deleteArray.getExpr().getType() + "'."
     )
   }
 }
