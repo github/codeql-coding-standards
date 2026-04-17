@@ -51,6 +51,8 @@ class ReplaceableOperatorNew extends OperatorNewOrDelete {
 /**
  * `operator new`, `operator new[]`, `operator delete`, or `operator delete[]` functions
  * that are very likely provided by the user.
+ *
+ * Note that this captures _any_ function that has one of the above four names.
  */
 class CustomOperatorNewOrDelete extends OperatorNewOrDelete {
   CustomOperatorNewOrDelete() {
@@ -78,6 +80,12 @@ class CustomOperatorNewOrDelete extends OperatorNewOrDelete {
   }
 }
 
+/**
+ * The replaceable `operator new` or `operator new[]` functions that have custom
+ * definitions provided by the user.
+ *
+ * Also see `CustomReplaceableOperatorDelete`.
+ */
 class CustomReplaceableOperatorNew extends CustomOperatorNewOrDelete, ReplaceableOperatorNew { }
 
 /**
@@ -107,6 +115,12 @@ class ReplaceableOperatorDelete extends OperatorNewOrDelete {
   }
 }
 
+/**
+ * The replaceable `operator new` or `operator new[]` functions that have custom
+ * definitions provided by the user.
+ *
+ * Also see `CustomReplaceableOperatorNew`.
+ */
 class CustomReplaceableOperatorDelete extends CustomOperatorNewOrDelete, ReplaceableOperatorDelete {
   CustomReplaceableOperatorDelete getPartner() {
     if this.getAParameter().getType() instanceof Size_t
