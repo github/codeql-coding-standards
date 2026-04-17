@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.cpp.misra
-import codingstandards.cpp.rules.readofuninitializedmemory.ReadOfUninitializedMemory
+import codingstandards.cpp.InitializationContext
 
 from UninitializedVariable v
 where not isExcluded(v, Declarations7Package::uninitializedVariableQuery())
