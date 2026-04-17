@@ -63,6 +63,7 @@ import Linkage2
 import Literals
 import Loops
 import Macros
+import Memory1
 import Memory2
 import Memory3
 import Memory4
@@ -165,6 +166,7 @@ newtype TCPPQuery =
   TLiteralsPackageQuery(LiteralsQuery q) or
   TLoopsPackageQuery(LoopsQuery q) or
   TMacrosPackageQuery(MacrosQuery q) or
+  TMemory1PackageQuery(Memory1Query q) or
   TMemory2PackageQuery(Memory2Query q) or
   TMemory3PackageQuery(Memory3Query q) or
   TMemory4PackageQuery(Memory4Query q) or
@@ -267,6 +269,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isLiteralsQueryMetadata(query, queryId, ruleId, category) or
   isLoopsQueryMetadata(query, queryId, ruleId, category) or
   isMacrosQueryMetadata(query, queryId, ruleId, category) or
+  isMemory1QueryMetadata(query, queryId, ruleId, category) or
   isMemory2QueryMetadata(query, queryId, ruleId, category) or
   isMemory3QueryMetadata(query, queryId, ruleId, category) or
   isMemory4QueryMetadata(query, queryId, ruleId, category) or
