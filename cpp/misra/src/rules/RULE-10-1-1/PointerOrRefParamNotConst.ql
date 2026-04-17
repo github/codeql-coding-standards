@@ -23,7 +23,7 @@ import codingstandards.cpp.Call
 import codingstandards.cpp.SideEffect
 
 /**
- * Holds if the function is in a template scope and should be excluded.
+ * Holds if `f` is a `Function` in a template scope and should be excluded.
  */
 predicate isInTemplateScope(Function f) {
   f.isFromTemplateInstantiation(_)
@@ -39,9 +39,7 @@ class PointerLikeParam extends Parameter {
 
   PointerLikeParam() {
     pointerLikeType = this.getType() and
-    not pointerLikeType.pointsToConst() and
-    // Exclude pointers to non-object types
-    not pointerLikeType.getInnerType() instanceof RoutineType
+    not pointerLikeType.pointsToConst()
   }
 
   /**
@@ -70,42 +68,6 @@ class PointerLikeParam extends Parameter {
 }
 
 /**
- * A `VariableEffect` whose target variable is a `PointerLikeParam`.
- *
- * Examples of pointer-like effects on a pointer-like parameter `p` would include `p = ...`, `++p`,
- * `*p = ...`, and `++*p`, etc.
- */
-class PointerLikeEffect extends VariableEffect {
-  PointerLikeParam param;
-
-  PointerLikeEffect() { param = this.getTarget() }
-
-  /**
-   * Holds if this effect modifies the pointed-to or referred-to object.
-   *
-   * For example, `*p = 0` modifies the inner type if `p` is a pointer, and `p = 0` affects the
-   * inner type if `p` is a reference.
-   */
-  predicate affectsInnerType() {
-    if param.getPointerLikeType() instanceof ReferenceType
-    then affectsOuterType()
-    else not affectsOuterType()
-  }
-
-  /**
-   * Holds if this effect modifies the pointer or reference itself.
-   *
-   * For example, `p = ...` and `++p` modify the outer type, whether that type is a pointer or
-   * reference, while `*p = 0` does not modify the outer type.
-   */
-  predicate affectsOuterType() {
-    this.(Assignment).getLValue() = param.getAnAccess()
-    or
-    this.(CrementOperation).getOperand() = param.getAnAccess()
-  }
-}
-
-/**
  * A candidate parameter that could have its target type const-qualified.
  */
 class NonConstParam extends PointerLikeParam {
@@ -119,8 +81,8 @@ class NonConstParam extends PointerLikeParam {
     not exists(AsmStmt a | a.getEnclosingFunction() = this.getFunction()) and
     // Must have a pointer, array, or lvalue reference type with non-const target
     // Exclude pointers to non-object types
-    not pointerLikeType.getInnerType() instanceof RoutineType and
-    not pointerLikeType.getInnerType() instanceof VoidType and
+    not pointerLikeType.getInnerType+().getUnderlyingType() instanceof RoutineType and
+    not pointerLikeType.getInnerType+().getUnderlyingType() instanceof VoidType and
     // Exclude virtual functions
     not this.getFunction().isVirtual() and
     // Exclude functions in template scope
@@ -130,10 +92,7 @@ class NonConstParam extends PointerLikeParam {
     // Exclude deleted functions
     not this.getFunction().isDeleted() and
     // Exclude any parameter whose underlying data is modified
-    not exists(PointerLikeEffect effect |
-      effect.getTarget() = this and
-      effect.affectsInnerType()
-    ) and
+    not exists(AliasParameter alias | alias = this | alias.isModified()) and
     // Exclude parameters passed as arguments to non-const pointer/ref params
     not exists(CallArgumentExpr arg |
       arg = this.getAPointerLikeAccess() and

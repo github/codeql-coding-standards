@@ -234,3 +234,11 @@ template <typename T> struct A {
 };
 
 template <typename T> void f11(T &l1) {} // COMPLIANT - function template
+
+using func = int(int);
+void f12(void **p1,       // COMPLIANT
+         void *const *p2, // COMPLIANT
+         func *p3,        // COMPLIANT
+         func **p4,       // COMPLIANT
+         func *const *p5  // COMPLIANT
+) {}
