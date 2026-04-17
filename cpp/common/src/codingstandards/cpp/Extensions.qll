@@ -137,8 +137,8 @@ class CPPExtensionTypeUsage extends CPPCompilerExtension, DeclarationEntry {
 
   override string getMessage() {
     result =
-      "Declaration '" + getName() + "' uses type '" + extendedType.getName() +
-        "' which is a compiler extension and is not portable to other compilers."
+      "Declaration of variable '" + getName() + "' as type '" + extendedType.getName() +
+        "' requires a compiler extension and is not portable to other compilers."
   }
 }
 
@@ -158,8 +158,9 @@ class CPPZeroLengthArraysExtension extends CPPCompilerExtension, DeclarationEntr
 
   override string getMessage() {
     result =
-      "Variable '" + getName() + "' is declared with a zero-length array (of '" +
-        array.getBaseType() + "') is a compiler extension and are not portable to other compilers."
+      "Declaration of variable '" + getName() + "' as a zero-length array (of '" +
+        array.getBaseType() +
+        "') requires a compiler extension and is not portable to other compilers."
   }
 }
 
