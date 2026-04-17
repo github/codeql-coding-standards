@@ -37,10 +37,7 @@ predicate isInTemplateScope(Function f) {
 class PointerLikeParam extends Parameter {
   PointerLikeType pointerLikeType;
 
-  PointerLikeParam() {
-    pointerLikeType = this.getType() and
-    not pointerLikeType.pointsToConst()
-  }
+  PointerLikeParam() { pointerLikeType = this.getType() }
 
   /**
    * Gets the pointer like type of this parameter.
