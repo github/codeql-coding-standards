@@ -7,9 +7,9 @@
       },
       "queries": [
         {
-          "description": "All variables should be initialized",
+          "description": "All variables should be initialized, otherwise it may lead to a read of uninitialized memory which is undefined behavior.",
           "kind": "problem",
-          "name": "All variables should be initialized, otherwise it may lead to a read of uninitialized memory which is undefined behavior.",
+          "name": "All variables should be initialized",
           "precision": "very-high",
           "severity": "error",
           "short_name": "UninitializedVariable",
