@@ -1,0 +1,3 @@
+| test.cpp:11:7:11:7 | i | Uninitialized variable found. |
+| test.cpp:18:8:18:9 | i4 | Uninitialized variable found. |
+| test.cpp:20:8:20:9 | p4 | Uninitialized variable found. |
