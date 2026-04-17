@@ -1,3 +1,10 @@
+/**
+ * Provides classes to help reasoning about `operator new`, `operator new[]`,
+ * `operator delete`, and `operator delete[]`.
+ *
+ * These are described in section [support.dynamic] of the C++ standard.
+ */
+
 import cpp
 import codingstandards.cpp.Handlers
 
@@ -21,6 +28,13 @@ abstract class OperatorNewOrDelete extends Operator {
   }
 }
 
+/**
+ * An `operator new` and `operator new[]` function described in [new.delete.single]
+ * and [new.delete.array], respectively.
+ * 
+ * Note that these do not include [new.delete.placement]. These are captured in
+ * `PlacementOperatorNew`.
+ */
 class ReplaceableOperatorNew extends OperatorNewOrDelete {
   ReplaceableOperatorNew() {
     this.getName().regexpMatch("operator new(\\[\\])?") and
@@ -34,6 +48,10 @@ class ReplaceableOperatorNew extends OperatorNewOrDelete {
   }
 }
 
+/**
+ * `operator new`, `operator new[]`, `operator delete`, or `operator delete[]` functions
+ * that are very likely provided by the user.
+ */
 class CustomOperatorNewOrDelete extends OperatorNewOrDelete {
   CustomOperatorNewOrDelete() {
     this.hasDefinition() and
@@ -62,6 +80,10 @@ class CustomOperatorNewOrDelete extends OperatorNewOrDelete {
 
 class CustomReplaceableOperatorNew extends CustomOperatorNewOrDelete, ReplaceableOperatorNew { }
 
+/**
+ * An `operator delete` or `operator delete[]` deallocation function described in
+ * [new.delete.single] and [new.delete.array], respectively.
+ */
 class ReplaceableOperatorDelete extends OperatorNewOrDelete {
   ReplaceableOperatorDelete() {
     this.getName().regexpMatch("operator delete(\\[\\])?") and
@@ -93,5 +115,20 @@ class CustomReplaceableOperatorDelete extends CustomOperatorNewOrDelete, Replace
       // Linked together in the same target
       result.getALinkTarget() = this.getALinkTarget()
     else result.getPartner() = this
+  }
+}
+
+/**
+ * An `operator new` or `operator new[]` allocation function called by a placement-new expression,
+ * as described in [new.delete.placement].
+ *
+ * The operator functions have a `std::size_t` as their first parameter and a
+ * `void*` parameter somewhere in the rest of the parameter list.
+ */
+class PlacementOperatorNew extends AllocationFunction {
+  PlacementOperatorNew() {
+    this.getName() in ["operator new", "operator new[]"] and
+    this.getParameter(0).getType().resolveTypedefs*() instanceof Size_t and
+    this.getAParameter().getUnderlyingType() instanceof VoidPointerType
   }
 }

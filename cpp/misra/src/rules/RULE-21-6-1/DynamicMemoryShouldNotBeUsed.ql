@@ -16,6 +16,7 @@
 import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.DynamicMemory
+import codingstandards.cpp.allocations.CustomOperatorNewDelete
 
 /**
  * A function that directly or indirectly allocates dynamic memory.
@@ -32,7 +33,7 @@ abstract class DynamicMemoryAllocatingFunction extends Function { }
 class DirectDynamicMemoryAllocatingFunction extends DynamicMemoryAllocatingFunction {
   DirectDynamicMemoryAllocatingFunction() {
     this instanceof AllocationFunction and
-    not this instanceof PlacementNewOrNewArrayAllocationFunction
+    not this instanceof PlacementOperatorNew
     or
     this.hasGlobalOrStdName("aligned_alloc")
   }

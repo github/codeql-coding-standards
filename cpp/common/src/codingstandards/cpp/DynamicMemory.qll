@@ -3,20 +3,6 @@
 import cpp
 
 /**
- * An `operator new` or `operator new[]` allocation function called by a placement-new expression.
- *
- * The operator functions have a `std::size_t` as their first parameter and a
- * `void*` parameter somewhere in the rest of the parameter list.
- */
-class PlacementNewOrNewArrayAllocationFunction extends AllocationFunction {
-  PlacementNewOrNewArrayAllocationFunction() {
-    this.getName() in ["operator new", "operator new[]"] and
-    this.getParameter(0).getType().resolveTypedefs*() instanceof Size_t and
-    this.getAParameter().getUnderlyingType() instanceof VoidPointerType
-  }
-}
-
-/**
  * A function that has namespace `std` and has name `allocate` or `deallocate`, including but
  * not limited to:
  * - `std::allocator<T>::allocate(std::size_t)`

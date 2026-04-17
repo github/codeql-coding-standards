@@ -18,6 +18,7 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.SmartPointers
 import codingstandards.cpp.DynamicMemory
+import codingstandards.cpp.allocations.CustomOperatorNewDelete
 
 class DynamicMemoryManagementFunction extends Function {
   DynamicMemoryManagementFunction() {
@@ -25,7 +26,7 @@ class DynamicMemoryManagementFunction extends Function {
     /* Avoid duplicate alerts on `realloc` which is both an `AllocationFunction` and a `DeallocationFunction`. */
     not this instanceof ReallocFunction and
     /* Placement-new expressions are not prohibited by this rule, but by Rule 21.6.3. */
-    not this instanceof PlacementNewOrNewArrayAllocationFunction
+    not this instanceof PlacementOperatorNew
     or
     this instanceof DeallocationFunction and
     /* Avoid duplicate alerts on `realloc` which is both an `AllocationFunction` and a `DeallocationFunction`. */
