@@ -1,0 +1,29 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-4-1-1": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Language extensions are compiler-specific features that are not part of the C++17 standard. Using these extensions reduces portability and may lead to unpredictable behavior when code is compiled with different compilers or compiler versions.",
+          "kind": "problem",
+          "name": "A program shall conform to ISO/IEC 14882:2017 (C++17)",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "CompilerLanguageExtensionsUsed",
+          "tags": [
+            "scope/system",
+            "maintainability",
+            "portability"
+          ],
+          "implementation_scope": {
+            "description": "This query detects pragmas, non standard attributes, some compiler-specific built-ins and nonstandard behaviors. It cannot detect all possible compiler extensions or deviations from standard C++17."
+          }
+        }
+      ],
+      "title": "A program shall conform to ISO/IEC 14882:2017 (C++17)"
+    }
+  }
+}
