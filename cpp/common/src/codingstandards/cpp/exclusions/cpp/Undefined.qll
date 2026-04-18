@@ -5,6 +5,7 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype UndefinedQuery =
   TPossibleDataRaceBetweenThreadsQuery() or
+  TArrayDeletedThroughPointerOfIncorrectTypeQuery() or
   TSignedIntegerOverflowQuery() or
   TDivisionByZeroUndefinedBehaviorQuery() or
   TDeallocationTypeMismatchQuery() or
@@ -21,6 +22,15 @@ predicate isUndefinedQueryMetadata(Query query, string queryId, string ruleId, s
   queryId =
     // `@id` for the `possibleDataRaceBetweenThreads` query
     "cpp/misra/possible-data-race-between-threads" and
+  ruleId = "RULE-4-1-3" and
+  category = "required"
+  or
+  query =
+    // `Query` instance for the `arrayDeletedThroughPointerOfIncorrectType` query
+    UndefinedPackage::arrayDeletedThroughPointerOfIncorrectTypeQuery() and
+  queryId =
+    // `@id` for the `arrayDeletedThroughPointerOfIncorrectType` query
+    "cpp/misra/array-deleted-through-pointer-of-incorrect-type" and
   ruleId = "RULE-4-1-3" and
   category = "required"
   or
@@ -103,6 +113,13 @@ module UndefinedPackage {
     result =
       // `Query` type for `possibleDataRaceBetweenThreads` query
       TQueryCPP(TUndefinedPackageQuery(TPossibleDataRaceBetweenThreadsQuery()))
+  }
+
+  Query arrayDeletedThroughPointerOfIncorrectTypeQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `arrayDeletedThroughPointerOfIncorrectType` query
+      TQueryCPP(TUndefinedPackageQuery(TArrayDeletedThroughPointerOfIncorrectTypeQuery()))
   }
 
   Query signedIntegerOverflowQuery() {
