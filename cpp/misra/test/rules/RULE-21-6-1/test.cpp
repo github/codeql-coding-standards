@@ -160,6 +160,44 @@ void test_strings() {
   std::u32string u32s2 = U"hello"; // NON_COMPLIANT: uses std::allocator
 }
 
+void test_strings_with_explicit_allocator() {
+  std::basic_string<char, std::char_traits<char>, std::allocator<char>>
+      char_string1; // NON_COMPLIANT: Passes std::allocator<char> specialization
+
+  std::basic_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t>>
+      wchar_t_string1; // NON_COMPLIANT: Passes
+                       // std::allocator<wchar_t> specialization
+
+  std::basic_string<char16_t, std::char_traits<char16_t>,
+                    std::allocator<char16_t>>
+      char16_t_string1; // NON_COMPLIANT: Passes std::allocator<char16_t>
+
+  std::basic_string<char32_t, std::char_traits<char32_t>,
+                    std::allocator<char32_t>>
+      char32_t_string1; // NON_COMPLIANT: Passes std::allocator<char32_t>
+
+  auto char_string2 =
+      new std::basic_string<char, std::char_traits<char>,
+                            std::allocator<char>>; // NON_COMPLIANT: Passes
+                                                   // std::allocator<char>
+                                                   // specialization
+
+  auto wchar_t_string2 =
+      new std::basic_string<wchar_t, std::char_traits<wchar_t>,
+                            std::allocator<wchar_t>>; // NON_COMPLIANT: Passes
+                                                      // std::allocator<wchar_t>
+                                                      // specialization
+  auto char16_t_string = new std::basic_string<
+      char16_t, std::char_traits<char16_t>,
+      std::allocator<char16_t>>; // NON_COMPLIANT: Passes
+                                 // std::allocator<char16_t>
+
+  auto char32_t_string2 = new std::basic_string<
+      char32_t, std::char_traits<char32_t>,
+      std::allocator<char32_t>>; // NON_COMPLIANT: Passes
+                                 // std::allocator<char32_t>
+}
+
 void test_container_adaptors() {
   std::stack<int> st1; // NON_COMPLIANT: contains std::deque
 
@@ -291,6 +329,20 @@ void test_containers_with_explicit_allocator() {
       l1; // NON_COMPLIANT: explicit std::allocator template argument
   std::forward_list<int, std::allocator<int>>
       fl1; // NON_COMPLIANT: explicit std::allocator template argument
+
+  auto v2 =
+      new std::vector<int,
+                      std::allocator<int>>; // NON_COMPLIANT: explicit
+                                            // std::allocator template argument
+  auto d2 = new std::deque<int, std::allocator<int>>; // NON_COMPLIANT: explicit
+                                                      // std::allocator template
+                                                      // argument
+  auto l2 = new std::list<int, std::allocator<int>>;  // NON_COMPLIANT: explicit
+                                                      // std::allocator template
+                                                      // argument
+  auto fl2 = new std::forward_list<
+      int, std::allocator<int>>; // NON_COMPLIANT: explicit std::allocator
+                                 // template argument
 }
 
 void test_compliant_views() {
