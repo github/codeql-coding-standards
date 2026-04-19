@@ -1,0 +1,1 @@
+| test.cpp:6:13:6:26 | definition of func_redefined | Inline variable 'func_redefined' is defined in multiple files, violating the source code uniqueness requirement. |

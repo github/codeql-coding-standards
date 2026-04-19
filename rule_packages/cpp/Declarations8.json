@@ -1,0 +1,37 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-6-2-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Implementing an entity in multiple source locations violates the one-definition rule and leads to undefined behavior.",
+          "kind": "problem",
+          "name": "The source code used to implement an entity shall appear only once",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "SourceCodeImplementedOnlyOnce",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Template specializations must be defined in the same file as the primary template or where a specialized type is defined to ensure visibility and avoid ODR violations.",
+          "kind": "problem",
+          "name": "RULE-6-2-3: Template specializations in wrong location",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TemplateSpecializationWrongLocation",
+          "tags": [
+            "correctness",
+            "scope/system"
+          ]
+        }
+      ],
+      "title": "The source code used to implement an entity shall appear only once"
+    }
+  }
+}
