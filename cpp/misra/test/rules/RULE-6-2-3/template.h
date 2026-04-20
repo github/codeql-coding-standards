@@ -22,9 +22,9 @@ template <> class Tpl2<class_h::C1, class_h::C1> {};       // COMPLIANT
 
 template <typename T> class Tpl2<int, T> {}; // COMPLIANT
 
-template<> class Tpl3<0> {}; // COMPLIANT
-template<> class Tpl4<int, 0> {}; // COMPLIANT
-template<> class Tpl4<template_h::C1, 0> {}; // COMPLIANT
-template<> class Tpl4<class_h::C1, 0> {}; // COMPLIANT
+template <> class Tpl3<0> {};                 // COMPLIANT
+template <> class Tpl4<int, 0> {};            // COMPLIANT
+template <> class Tpl4<template_h::C1, 0> {}; // COMPLIANT
+template <> class Tpl4<class_h::C1, 0> {};    // COMPLIANT
 
 #endif // TEMPLATE_H

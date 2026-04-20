@@ -13,5 +13,5 @@ template <> class Tpl2<compliant_h::C1, long> {};            // COMPLIANT
 
 template <typename T> class Tpl2<T, compliant_h::C1> {}; // COMPLIANT
 
-template<> class Tpl4<compliant_h::C1, 0> {}; // COMPLIANT
-template<int N> class Tpl4<compliant_h::C1, N> {}; // COMPLIANT
+template <> class Tpl4<compliant_h::C1, 0> {};      // COMPLIANT
+template <int N> class Tpl4<compliant_h::C1, N> {}; // COMPLIANT
