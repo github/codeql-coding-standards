@@ -9,6 +9,7 @@ public:
 
 void f(int p) {        // COMPLIANT - not applicable to parameters
   int i;               // NON_COMPLIANT
+  i = 0;               // not affected by later assignments
   int i1 = 0;          // COMPLIANT
   int i2[10] = {1, 0}; // COMPLIANT
   int i3[10];          // COMPLIANT

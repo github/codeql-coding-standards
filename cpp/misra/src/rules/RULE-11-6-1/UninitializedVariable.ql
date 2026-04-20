@@ -19,4 +19,4 @@ import codingstandards.cpp.InitializationContext
 
 from UninitializedVariable v
 where not isExcluded(v, Declarations7Package::uninitializedVariableQuery())
-select v, "Uninitialized variable found."
+select v, "Variable '" + v.getName() + "' has no initializer."
