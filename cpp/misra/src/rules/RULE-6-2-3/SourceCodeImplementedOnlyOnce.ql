@@ -1,13 +1,14 @@
 /**
  * @id cpp/misra/source-code-implemented-only-once
  * @name RULE-6-2-3: The source code used to implement an entity shall appear only once
- * @description Implementing an entity in multiple source locations violates the one-definition rule
- *              and leads to undefined behavior.
+ * @description Implementing an entity in multiple source locations increases the risk of ODR
+ *              violations and undefined behavior.
  * @kind problem
  * @precision very-high
  * @problem.severity error
  * @tags external/misra/id/rule-6-2-3
  *       correctness
+ *       maintainability
  *       scope/system
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/required

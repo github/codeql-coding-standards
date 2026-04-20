@@ -17,7 +17,7 @@ private predicate isSpecificationVariable(Variable v) {
 /** Holds if `elem` has internal linkage. */
 predicate hasInternalLinkage(Element elem) {
   // An unnamed namespace or a namespace declared directly or indirectly within an unnamed namespace has internal linkage
-  directlyOrIndirectlyUnnnamedNamespace(elem)
+  elem instanceof WithinAnonymousNamespace
   or
   exists(Declaration decl | decl = elem |
     // A name having namespace scope has internal linkage if it is the name of
@@ -46,7 +46,7 @@ predicate hasInternalLinkage(Element elem) {
       )
     )
     or
-    directlyOrIndirectlyUnnnamedNamespace(decl.getNamespace()) and
+    decl.getNamespace() instanceof WithinAnonymousNamespace and
     inheritsLinkageOfNamespace(decl.getNamespace(), decl)
     or
     exists(Class klass |
@@ -59,12 +59,12 @@ predicate hasInternalLinkage(Element elem) {
 /** Holds if `elem` has external linkage. */
 predicate hasExternalLinkage(Element elem) {
   elem instanceof Namespace and
-  not directlyOrIndirectlyUnnnamedNamespace(elem)
+  not elem instanceof WithinAnonymousNamespace
   or
   not hasInternalLinkage(elem) and
   exists(Declaration decl | decl = elem |
     // A name having namespace scope that has not been given internal linkage above has the same linkage as the enclosing namespace if it is the name of
-    not directlyOrIndirectlyUnnnamedNamespace(decl.getNamespace()) and
+    not decl.getNamespace() instanceof WithinAnonymousNamespace and
     inheritsLinkageOfNamespace(decl.getNamespace(), decl)
     or
     exists(Class klass |
@@ -74,11 +74,11 @@ predicate hasExternalLinkage(Element elem) {
   )
 }
 
-private predicate directlyOrIndirectlyUnnnamedNamespace(Namespace ns) {
-  exists(Namespace anonymous |
-    anonymous.isAnonymous() and
-    ns = anonymous.getAChildNamespace*()
-  )
+/**
+ * A `Namespace` that is anonymous or indirectly contained within an unnamed namespace.
+ */
+class WithinAnonymousNamespace extends Namespace {
+  WithinAnonymousNamespace() { getParentNamespace*().isAnonymous() }
 }
 
 private predicate hasLinkageOfTypedef(TypedefType typedef, Element decl) {

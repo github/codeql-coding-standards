@@ -8,6 +8,7 @@
  * @problem.severity error
  * @tags external/misra/id/rule-6-2-3
  *       correctness
+ *       maintainability
  *       scope/system
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/required
@@ -23,7 +24,6 @@ predicate specializedWithFileDeclaredType(ClassTemplateSpecialization spec) {
     not argType instanceof TypeTemplateParameter
   )
 }
-
 
 from ClassTemplateSpecialization spec, Class primaryTemplate, File primaryFile
 where

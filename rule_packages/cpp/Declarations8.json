@@ -7,7 +7,7 @@
       },
       "queries": [
         {
-          "description": "Implementing an entity in multiple source locations violates the one-definition rule and leads to undefined behavior.",
+          "description": "Implementing an entity in multiple source locations increases the risk of ODR violations and undefined behavior.",
           "kind": "problem",
           "name": "The source code used to implement an entity shall appear only once",
           "precision": "very-high",
@@ -15,8 +15,13 @@
           "short_name": "SourceCodeImplementedOnlyOnce",
           "tags": [
             "correctness",
+            "maintainability",
             "scope/system"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "This query does not detect duplicated definitions of inline variables.",
+            "items": []
+          }
         },
         {
           "description": "Template specializations must be defined in the same file as the primary template or where a specialized type is defined to ensure visibility and avoid ODR violations.",
@@ -27,6 +32,20 @@
           "short_name": "TemplateSpecializationWrongLocation",
           "tags": [
             "correctness",
+            "maintainability",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Defining a type with the same fully qualified name in multiple files increases the risk of ODR violations and undefined behavior.",
+          "kind": "problem",
+          "name": "RULE-6-2-3: Duplicate type definitions across files",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DuplicateTypeDefinitions",
+          "tags": [
+            "correctness",
+            "maintainability",
             "scope/system"
           ]
         }

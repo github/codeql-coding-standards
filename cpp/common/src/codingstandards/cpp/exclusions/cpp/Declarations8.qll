@@ -5,7 +5,8 @@ import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Declarations8Query =
   TSourceCodeImplementedOnlyOnceQuery() or
-  TTemplateSpecializationWrongLocationQuery()
+  TTemplateSpecializationWrongLocationQuery() or
+  TDuplicateTypeDefinitionsQuery()
 
 predicate isDeclarations8QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -25,6 +26,15 @@ predicate isDeclarations8QueryMetadata(Query query, string queryId, string ruleI
     "cpp/misra/template-specialization-wrong-location" and
   ruleId = "RULE-6-2-3" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `duplicateTypeDefinitions` query
+    Declarations8Package::duplicateTypeDefinitionsQuery() and
+  queryId =
+    // `@id` for the `duplicateTypeDefinitions` query
+    "cpp/misra/duplicate-type-definitions" and
+  ruleId = "RULE-6-2-3" and
+  category = "required"
 }
 
 module Declarations8Package {
@@ -40,5 +50,12 @@ module Declarations8Package {
     result =
       // `Query` type for `templateSpecializationWrongLocation` query
       TQueryCPP(TDeclarations8PackageQuery(TTemplateSpecializationWrongLocationQuery()))
+  }
+
+  Query duplicateTypeDefinitionsQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `duplicateTypeDefinitions` query
+      TQueryCPP(TDeclarations8PackageQuery(TDuplicateTypeDefinitionsQuery()))
   }
 }
