@@ -6,6 +6,7 @@ inline int16_t global_redeclared = 0; // COMPLIANT
 inline void func_redefined() {}       // NON_COMPLIANT
 inline void func_unique() {}          // COMPLIANT
 inline void func_redeclared() {}      // COMPLIANT
+inline void func_overloaded(int) {}   // COMPLIANT
 
 // Violates our implementation of 6.2.1, but legal in our implementation
 // of 6.2.3
