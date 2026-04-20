@@ -25,8 +25,8 @@ abstract class DynamicMemoryAllocatingFunction extends Function { }
 
 /**
  * A function that directly allocates dynamic memory.
- * Includes C allocation functions (malloc, calloc, realloc, aligned_alloc)
- * and C++ allocation functions (operator new, operator new[]).
+ * Includes C allocation functions (`malloc`, `calloc`, realloc`,` `aligned_alloc`)
+ * and C++ allocation functions (`operator new`, `operator new[]`).
  *
  * This excludes placement-new operators, as they do not allocate memory themselves.
  */
@@ -48,38 +48,29 @@ class DirectDynamicMemoryAllocatingFunction extends DynamicMemoryAllocatingFunct
 abstract class IndirectDynamicMemoryAllocatingFunction extends DynamicMemoryAllocatingFunction { }
 
 /**
- * A constructor of a standard library container that uses `std::allocator` directly
+ * A constructor of a standard library classes that uses `std::allocator` directly
  * as template argument or under the hood as the default value of the template argument.
- * Includes `vector`, `deque`, `list`, `forward_list`, `set`, `map`, `multiset`, `multimap`,
- * `unordered_set`, `unordered_map`, `unordered_multiset`, `unordered_multimap`, and `valarray`.
+ * This class can be divided into big categories:
+ *
+ * 1. A constructor of standard library containers such as `vector`, `deque`, `unordered_set`.
+ * 2. A constructor of standard library strings such as `string`, `wstring` that derives from
+ *    `std::basic_string`.
  */
-class AllocatorContainerConstructor extends IndirectDynamicMemoryAllocatingFunction {
-  AllocatorContainerConstructor() {
-    this instanceof Constructor and
+class AllocatorContructor extends IndirectDynamicMemoryAllocatingFunction {
+  AllocatorContructor() {
+    /* Ensure that the constructor accepts a `std::allocator`. */
     this.getDeclaringType()
-        .hasQualifiedName("std",
-          [
-            "vector", "deque", "list", "forward_list", "set", "map", "multiset", "multimap",
-            "unordered_set", "unordered_map", "unordered_multiset", "unordered_multimap", "valarray"
-          ])
-  }
-}
-
-/**
- * A constructor of a standard library string type that uses std::allocator.
- * Includes basic_string and its aliases (string, wstring, u16string, u32string).
- */
-class AllocatorStringConstructor extends IndirectDynamicMemoryAllocatingFunction {
-  AllocatorStringConstructor() {
-    this instanceof Constructor and
-    this.getDeclaringType()
-        .hasQualifiedName("std", ["basic_string", "string", "wstring", "u16string", "u32string"])
+        .(ClassTemplateInstantiation)
+        .getATemplateArgument()
+        .(Type)
+        .resolveTypedefs() instanceof StdAllocator
   }
 }
 
 /**
  * A constructor of a container adaptor that contains an allocating container by default.
- * Includes stack (contains deque), queue (contains deque), and priority_queue (contains vector).
+ * Includes `stack` (contains `deque`), `queue` (contains `deque`), and `priority_queue`
+ * (contains `vector`).
  */
 class ContainerAdaptorConstructor extends IndirectDynamicMemoryAllocatingFunction {
   ContainerAdaptorConstructor() {
@@ -89,7 +80,7 @@ class ContainerAdaptorConstructor extends IndirectDynamicMemoryAllocatingFunctio
 }
 
 /**
- * A constructor of a string stream that contains std::basic_string for buffer storage.
+ * A constructor of a string stream that contains `std::basic_string` for buffer storage.
  * Includes `basic_stringstream`, `stringstream`, `wstringstream`,
  * `basic_istringstream`, `istringstream`, `wistringstream`,
  * `basic_ostringstream`, `ostringstream`, `wostringstream`.
@@ -137,7 +128,7 @@ class RegexConstructor extends IndirectDynamicMemoryAllocatingFunction {
 }
 
 /**
- * A constructor of a type-erasing wrapper that may allocate via operator new.
+ * A constructor of a type-erasing wrapper that may allocate via `operator new`.
  * SBO (small buffer optimization) is not guaranteed by the standard.
  * Includes `std::function` and `std::any`.
  */
@@ -151,7 +142,7 @@ class TypeErasureConstructor extends IndirectDynamicMemoryAllocatingFunction {
 /**
  * A constructor of a type that heap-allocates shared state for
  * cross-object or cross-thread communication.
- * Includes promise, future, shared_future, packaged_task, and locale.
+ * Includes `promise`, `future`, `shared_future`, `packaged_task`, and `locale`.
  */
 class SharedStateConstructor extends IndirectDynamicMemoryAllocatingFunction {
   SharedStateConstructor() {
@@ -183,6 +174,16 @@ class FilesystemPathConstructor extends IndirectDynamicMemoryAllocatingFunction 
 }
 
 /**
+ * A constructor of `std::valarray` that allocates dynamic memory.
+ */
+class ValarrayConstructor extends IndirectDynamicMemoryAllocatingFunction {
+  ValarrayConstructor() {
+    this instanceof Constructor and
+    this.getDeclaringType().hasQualifiedName("std", "valarray")
+  }
+}
+
+/**
  * A smart pointer factory function that allocates dynamic memory.
  * Includes `make_unique`, `make_shared`, and `allocate_shared`.
  */
@@ -206,16 +207,17 @@ abstract class DynamicMemoryDeallocatingFunction extends Function { }
 
 /**
  * A function that directly deallocates dynamic memory.
- * Includes C deallocation functions (`free`)
- * and C++ deallocation functions (`operator delete`, `operator delete[]`).
+ *
+ * Includes C deallocation functions (`free`) and C++ deallocation functions
+ * (`operator delete`, `operator delete[]`).
  */
 class DirectDynamicMemoryDeallocatingFunction extends DynamicMemoryDeallocatingFunction {
   DirectDynamicMemoryDeallocatingFunction() { this instanceof DeallocationFunction }
 }
 
 /**
- * A function that indirectly deallocates dynamic memory through
- * standard library classes and their member functions (e.g. `std::allocator::deallocate`).
+ * A function that indirectly deallocates dynamic memory through standard
+ * library classes and their member functions (e.g. `std::allocator::deallocate`).
  */
 class IndirectDynamicMemoryDeallocatingFunction extends DynamicMemoryDeallocatingFunction {
   IndirectDynamicMemoryDeallocatingFunction() {
@@ -228,18 +230,26 @@ from FunctionCall call, string message
 where
   not isExcluded(call, Banned7Package::dynamicMemoryShouldNotBeUsedQuery()) and
   (
-    // Direct allocation: malloc, calloc, realloc, aligned_alloc, operator new, operator new[]
+    /* 1. Direct allocation: malloc, calloc, realloc, aligned_alloc, operator new, operator new[]. */
     call.getTarget() instanceof DirectDynamicMemoryAllocatingFunction and
     message = "Call to dynamic memory allocating function '" + call.getTarget().getName() + "'."
     or
-    // Indirect allocation: std library types that allocate internally
+    /* 2. Indirect allocation: std library types that allocate internally */
     call.getTarget() instanceof IndirectDynamicMemoryAllocatingFunction and
-    message =
-      "Call to '" + call.getTarget().getName() +
-        "' that dynamically allocates memory via the standard library."
+    (
+      if call.getTarget() instanceof AllocatorContructor
+      then message = "Call to '" + call.getTarget().getName() + "' that uses 'std::allocator<T>'."
+      else
+        message =
+          "Call to '" + call.getTarget().getName() +
+            "' that dynamically allocates memory via the standard library."
+    )
     or
-    // Deallocation: free, operator delete, operator delete[], std::allocator::deallocate
-    // Excludes realloc (already caught as allocation).
+    /*
+     * 3. Deallocation: free, operator delete, operator delete[], std::allocator::deallocate.
+     * Excludes realloc (already caught as allocation).
+     */
+
     call.getTarget() instanceof DynamicMemoryDeallocatingFunction and
     not call.getTarget() instanceof DynamicMemoryAllocatingFunction and
     message = "Call to dynamic memory deallocating function '" + call.getTarget().getName() + "'."
