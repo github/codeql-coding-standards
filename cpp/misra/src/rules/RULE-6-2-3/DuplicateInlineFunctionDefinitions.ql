@@ -1,5 +1,5 @@
 /**
- * @id cpp/misra/source-code-implemented-only-once
+ * @id cpp/misra/duplicate-inline-function-definitions
  * @name RULE-6-2-3: The source code used to implement an entity shall appear only once
  * @description Implementing an entity in multiple source locations increases the risk of ODR
  *              violations and undefined behavior.
@@ -34,7 +34,7 @@ module FunDeclEquiv =
 
 from FunctionDeclarationEntry d1, FunctionDeclarationEntry d2, string namespace, string name
 where
-  not isExcluded([d1, d2], Declarations8Package::sourceCodeImplementedOnlyOnceQuery()) and
+  not isExcluded([d1, d2], Declarations8Package::duplicateInlineFunctionDefinitionsQuery()) and
   interestedInFunctions(d1, d2) and
   FunDeclEquiv::equalParameterTypes(d1, d2) and
   d1.getDeclaration().hasQualifiedName(namespace, name) and

@@ -12,7 +12,7 @@
           "name": "The source code used to implement an entity shall appear only once",
           "precision": "very-high",
           "severity": "error",
-          "short_name": "SourceCodeImplementedOnlyOnce",
+          "short_name": "DuplicateInlineFunctionDefinitions",
           "tags": [
             "correctness",
             "maintainability",

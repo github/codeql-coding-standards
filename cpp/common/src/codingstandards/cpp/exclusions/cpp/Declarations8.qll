@@ -4,17 +4,17 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Declarations8Query =
-  TSourceCodeImplementedOnlyOnceQuery() or
+  TDuplicateInlineFunctionDefinitionsQuery() or
   TTemplateSpecializationWrongLocationQuery() or
   TDuplicateTypeDefinitionsQuery()
 
 predicate isDeclarations8QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
-    // `Query` instance for the `sourceCodeImplementedOnlyOnce` query
-    Declarations8Package::sourceCodeImplementedOnlyOnceQuery() and
+    // `Query` instance for the `duplicateInlineFunctionDefinitions` query
+    Declarations8Package::duplicateInlineFunctionDefinitionsQuery() and
   queryId =
-    // `@id` for the `sourceCodeImplementedOnlyOnce` query
-    "cpp/misra/source-code-implemented-only-once" and
+    // `@id` for the `duplicateInlineFunctionDefinitions` query
+    "cpp/misra/duplicate-inline-function-definitions" and
   ruleId = "RULE-6-2-3" and
   category = "required"
   or
@@ -38,11 +38,11 @@ predicate isDeclarations8QueryMetadata(Query query, string queryId, string ruleI
 }
 
 module Declarations8Package {
-  Query sourceCodeImplementedOnlyOnceQuery() {
+  Query duplicateInlineFunctionDefinitionsQuery() {
     //autogenerate `Query` type
     result =
-      // `Query` type for `sourceCodeImplementedOnlyOnce` query
-      TQueryCPP(TDeclarations8PackageQuery(TSourceCodeImplementedOnlyOnceQuery()))
+      // `Query` type for `duplicateInlineFunctionDefinitions` query
+      TQueryCPP(TDeclarations8PackageQuery(TDuplicateInlineFunctionDefinitionsQuery()))
   }
 
   Query templateSpecializationWrongLocationQuery() {
