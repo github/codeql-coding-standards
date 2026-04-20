@@ -39,6 +39,7 @@ import Declarations1
 import Declarations2
 import Declarations3
 import Declarations4
+import Declarations7
 import ExceptionSafety
 import Exceptions1
 import Exceptions2
@@ -142,6 +143,7 @@ newtype TCPPQuery =
   TDeclarations2PackageQuery(Declarations2Query q) or
   TDeclarations3PackageQuery(Declarations3Query q) or
   TDeclarations4PackageQuery(Declarations4Query q) or
+  TDeclarations7PackageQuery(Declarations7Query q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
   TExceptions2PackageQuery(Exceptions2Query q) or
@@ -245,6 +247,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations4QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations7QueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
   isExceptions2QueryMetadata(query, queryId, ruleId, category) or
