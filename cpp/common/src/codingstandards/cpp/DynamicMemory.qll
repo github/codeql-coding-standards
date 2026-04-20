@@ -16,3 +16,11 @@ class AllocateOrDeallocateStdlibMemberFunction extends MemberFunction {
     this.getNamespace().getParentNamespace*() instanceof StdNamespace
   }
 }
+
+class StdAllocator extends Class {
+  StdAllocator() { this.hasGlobalOrStdName("allocator") }
+}
+
+class StdPmrMemoryResource extends Class {
+  StdPmrMemoryResource() { this.hasQualifiedName("std::pmr", "memory_resource") }
+}
