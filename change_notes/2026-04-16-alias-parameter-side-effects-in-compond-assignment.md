@@ -1,0 +1,2 @@
+- All queries related to side effects:
+  - Compound assignments of pointer parameters (e.g. `p += 1`) are no longer treated as a modification of the pointed-to object. This was previously only handled for simple assignments (e.g. `p = ...`).
