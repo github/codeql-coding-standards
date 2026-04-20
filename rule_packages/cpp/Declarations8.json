@@ -26,7 +26,7 @@
         {
           "description": "Template specializations must be defined in the same file as the primary template or where a specialized type is defined to ensure visibility and avoid ODR violations.",
           "kind": "problem",
-          "name": "RULE-6-2-3: Template specializations in wrong location",
+          "name": "Template specializations in wrong location",
           "precision": "very-high",
           "severity": "error",
           "short_name": "TemplateSpecializationWrongLocation",
@@ -39,7 +39,7 @@
         {
           "description": "Defining a type with the same fully qualified name in multiple files increases the risk of ODR violations and undefined behavior.",
           "kind": "problem",
-          "name": "RULE-6-2-3: Duplicate type definitions across files",
+          "name": "Duplicate type definitions across files",
           "precision": "very-high",
           "severity": "error",
           "short_name": "DuplicateTypeDefinitions",

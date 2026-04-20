@@ -1,6 +1,6 @@
 /**
  * @id cpp/misra/duplicate-type-definitions
- * @name RULE-6-2-3: RULE-6-2-3: Duplicate type definitions across files
+ * @name RULE-6-2-3: Duplicate type definitions across files
  * @description Defining a type with the same fully qualified name in multiple files increases the
  *              risk of ODR violations and undefined behavior.
  * @kind problem

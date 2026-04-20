@@ -1,6 +1,6 @@
 /**
  * @id cpp/misra/template-specialization-wrong-location
- * @name RULE-6-2-3: RULE-6-2-3: Template specializations in wrong location
+ * @name RULE-6-2-3: Template specializations in wrong location
  * @description Template specializations must be defined in the same file as the primary template or
  *              where a specialized type is defined to ensure visibility and avoid ODR violations.
  * @kind problem
