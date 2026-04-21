@@ -161,50 +161,57 @@ edges
 | test.cpp:168:63:168:67 | array | test.cpp:206:22:206:26 | array | provenance |  |
 | test.cpp:168:63:168:67 | array | test.cpp:208:23:208:27 | array | provenance |  |
 | test.cpp:168:63:168:67 | array | test.cpp:211:11:211:15 | array | provenance |  |
-| test.cpp:295:14:295:45 | call to malloc | test.cpp:295:14:295:45 | call to malloc | provenance |  |
-| test.cpp:295:14:295:45 | call to malloc | test.cpp:305:12:305:13 | p2 | provenance |  |
-| test.cpp:483:7:483:36 | definition of stack_single_dimensional_array | test.cpp:486:7:486:36 | stack_single_dimensional_array | provenance |  |
-| test.cpp:483:7:483:36 | definition of stack_single_dimensional_array | test.cpp:488:7:488:36 | stack_single_dimensional_array | provenance |  |
-| test.cpp:486:7:486:36 | stack_single_dimensional_array | test.cpp:6:65:6:69 | array | provenance |  |
-| test.cpp:488:7:488:36 | stack_single_dimensional_array | test.cpp:20:59:20:63 | array | provenance |  |
-| test.cpp:506:7:506:57 | call to malloc | test.cpp:506:7:506:57 | call to malloc | provenance |  |
-| test.cpp:506:7:506:57 | call to malloc | test.cpp:513:48:513:78 | single_dimensional_array_malloc | provenance |  |
-| test.cpp:506:7:506:57 | call to malloc | test.cpp:514:42:514:72 | single_dimensional_array_malloc | provenance |  |
-| test.cpp:508:7:508:56 | call to calloc | test.cpp:508:7:508:56 | call to calloc | provenance |  |
-| test.cpp:508:7:508:56 | call to calloc | test.cpp:516:48:516:78 | single_dimensional_array_calloc | provenance |  |
-| test.cpp:508:7:508:56 | call to calloc | test.cpp:517:42:517:72 | single_dimensional_array_calloc | provenance |  |
-| test.cpp:510:43:511:77 | call to realloc | test.cpp:510:43:511:77 | call to realloc | provenance |  |
-| test.cpp:510:43:511:77 | call to realloc | test.cpp:520:7:520:38 | single_dimensional_array_realloc | provenance |  |
-| test.cpp:510:43:511:77 | call to realloc | test.cpp:521:43:521:74 | single_dimensional_array_realloc | provenance |  |
-| test.cpp:513:48:513:78 | single_dimensional_array_malloc | test.cpp:33:56:33:60 | array | provenance |  |
-| test.cpp:514:42:514:72 | single_dimensional_array_malloc | test.cpp:50:50:50:54 | array | provenance |  |
-| test.cpp:516:48:516:78 | single_dimensional_array_calloc | test.cpp:66:56:66:60 | array | provenance |  |
-| test.cpp:517:42:517:72 | single_dimensional_array_calloc | test.cpp:82:50:82:54 | array | provenance |  |
-| test.cpp:520:7:520:38 | single_dimensional_array_realloc | test.cpp:97:57:97:61 | array | provenance |  |
-| test.cpp:521:43:521:74 | single_dimensional_array_realloc | test.cpp:112:51:112:55 | array | provenance |  |
-| test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:524:47:524:47 | 1 | provenance |  |
-| test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:529:50:529:78 | stack_multi_dimensional_array | provenance |  |
-| test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:531:7:531:35 | stack_multi_dimensional_array | provenance |  |
-| test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:533:7:533:35 | stack_multi_dimensional_array | provenance |  |
-| test.cpp:524:47:524:47 | 1 | test.cpp:524:50:524:50 | 2 | provenance |  |
-| test.cpp:524:50:524:50 | 2 | test.cpp:524:53:524:53 | {...} | provenance |  |
-| test.cpp:524:53:524:53 | {...} | test.cpp:524:58:524:58 | 4 | provenance |  |
-| test.cpp:524:58:524:58 | 4 | test.cpp:524:61:524:61 | 5 | provenance |  |
-| test.cpp:524:61:524:61 | 5 | test.cpp:524:64:524:64 | {...} | provenance |  |
-| test.cpp:524:64:524:64 | {...} | test.cpp:529:50:529:78 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:524:64:524:64 | {...} | test.cpp:531:7:531:35 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:524:64:524:64 | {...} | test.cpp:533:7:533:35 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:529:50:529:78 | *stack_multi_dimensional_array | test.cpp:129:57:129:61 | *array | provenance |  |
-| test.cpp:529:50:529:78 | *stack_multi_dimensional_array | test.cpp:529:50:529:78 | stack_allocated_multi_dimensional_array_access output argument | provenance |  |
-| test.cpp:529:50:529:78 | stack_allocated_multi_dimensional_array_access output argument | test.cpp:531:7:531:35 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:529:50:529:78 | stack_allocated_multi_dimensional_array_access output argument | test.cpp:533:7:533:35 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:529:50:529:78 | stack_multi_dimensional_array | test.cpp:129:57:129:61 | array | provenance |  |
-| test.cpp:531:7:531:35 | *stack_multi_dimensional_array | test.cpp:168:63:168:67 | *array | provenance |  |
-| test.cpp:531:7:531:35 | *stack_multi_dimensional_array | test.cpp:531:7:531:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | provenance |  |
-| test.cpp:531:7:531:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | test.cpp:533:7:533:35 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:531:7:531:35 | stack_multi_dimensional_array | test.cpp:168:63:168:67 | array | provenance |  |
-| test.cpp:533:7:533:35 | *stack_multi_dimensional_array | test.cpp:163:58:163:62 | *array | provenance |  |
-| test.cpp:533:7:533:35 | stack_multi_dimensional_array | test.cpp:163:58:163:62 | array | provenance |  |
+| test.cpp:215:32:215:34 | ptr | test.cpp:216:17:216:19 | ptr | provenance |  |
+| test.cpp:215:32:215:34 | ptr | test.cpp:218:7:218:9 | ptr | provenance |  |
+| test.cpp:215:32:215:34 | ptr | test.cpp:220:17:220:19 | ptr | provenance |  |
+| test.cpp:215:32:215:34 | ptr | test.cpp:223:7:223:9 | ptr | provenance |  |
+| test.cpp:215:32:215:34 | ptr | test.cpp:225:19:225:21 | ptr | provenance |  |
+| test.cpp:215:32:215:34 | ptr | test.cpp:227:20:227:22 | ptr | provenance |  |
+| test.cpp:311:14:311:45 | call to malloc | test.cpp:311:14:311:45 | call to malloc | provenance |  |
+| test.cpp:311:14:311:45 | call to malloc | test.cpp:321:12:321:13 | p2 | provenance |  |
+| test.cpp:499:7:499:36 | definition of stack_single_dimensional_array | test.cpp:502:7:502:36 | stack_single_dimensional_array | provenance |  |
+| test.cpp:499:7:499:36 | definition of stack_single_dimensional_array | test.cpp:504:7:504:36 | stack_single_dimensional_array | provenance |  |
+| test.cpp:502:7:502:36 | stack_single_dimensional_array | test.cpp:6:65:6:69 | array | provenance |  |
+| test.cpp:504:7:504:36 | stack_single_dimensional_array | test.cpp:20:59:20:63 | array | provenance |  |
+| test.cpp:522:7:522:57 | call to malloc | test.cpp:522:7:522:57 | call to malloc | provenance |  |
+| test.cpp:522:7:522:57 | call to malloc | test.cpp:529:48:529:78 | single_dimensional_array_malloc | provenance |  |
+| test.cpp:522:7:522:57 | call to malloc | test.cpp:530:42:530:72 | single_dimensional_array_malloc | provenance |  |
+| test.cpp:524:7:524:56 | call to calloc | test.cpp:524:7:524:56 | call to calloc | provenance |  |
+| test.cpp:524:7:524:56 | call to calloc | test.cpp:532:48:532:78 | single_dimensional_array_calloc | provenance |  |
+| test.cpp:524:7:524:56 | call to calloc | test.cpp:533:42:533:72 | single_dimensional_array_calloc | provenance |  |
+| test.cpp:526:43:527:77 | call to realloc | test.cpp:526:43:527:77 | call to realloc | provenance |  |
+| test.cpp:526:43:527:77 | call to realloc | test.cpp:536:7:536:38 | single_dimensional_array_realloc | provenance |  |
+| test.cpp:526:43:527:77 | call to realloc | test.cpp:537:43:537:74 | single_dimensional_array_realloc | provenance |  |
+| test.cpp:529:48:529:78 | single_dimensional_array_malloc | test.cpp:33:56:33:60 | array | provenance |  |
+| test.cpp:530:42:530:72 | single_dimensional_array_malloc | test.cpp:50:50:50:54 | array | provenance |  |
+| test.cpp:532:48:532:78 | single_dimensional_array_calloc | test.cpp:66:56:66:60 | array | provenance |  |
+| test.cpp:533:42:533:72 | single_dimensional_array_calloc | test.cpp:82:50:82:54 | array | provenance |  |
+| test.cpp:536:7:536:38 | single_dimensional_array_realloc | test.cpp:97:57:97:61 | array | provenance |  |
+| test.cpp:537:43:537:74 | single_dimensional_array_realloc | test.cpp:112:51:112:55 | array | provenance |  |
+| test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:540:47:540:47 | 1 | provenance |  |
+| test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:545:50:545:78 | stack_multi_dimensional_array | provenance |  |
+| test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:547:7:547:35 | stack_multi_dimensional_array | provenance |  |
+| test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:549:7:549:35 | stack_multi_dimensional_array | provenance |  |
+| test.cpp:540:47:540:47 | 1 | test.cpp:540:50:540:50 | 2 | provenance |  |
+| test.cpp:540:50:540:50 | 2 | test.cpp:540:53:540:53 | {...} | provenance |  |
+| test.cpp:540:53:540:53 | {...} | test.cpp:540:58:540:58 | 4 | provenance |  |
+| test.cpp:540:58:540:58 | 4 | test.cpp:540:61:540:61 | 5 | provenance |  |
+| test.cpp:540:61:540:61 | 5 | test.cpp:540:64:540:64 | {...} | provenance |  |
+| test.cpp:540:64:540:64 | {...} | test.cpp:545:50:545:78 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:540:64:540:64 | {...} | test.cpp:547:7:547:35 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:540:64:540:64 | {...} | test.cpp:549:7:549:35 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:545:50:545:78 | *stack_multi_dimensional_array | test.cpp:129:57:129:61 | *array | provenance |  |
+| test.cpp:545:50:545:78 | *stack_multi_dimensional_array | test.cpp:545:50:545:78 | stack_allocated_multi_dimensional_array_access output argument | provenance |  |
+| test.cpp:545:50:545:78 | stack_allocated_multi_dimensional_array_access output argument | test.cpp:547:7:547:35 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:545:50:545:78 | stack_allocated_multi_dimensional_array_access output argument | test.cpp:549:7:549:35 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:545:50:545:78 | stack_multi_dimensional_array | test.cpp:129:57:129:61 | array | provenance |  |
+| test.cpp:547:7:547:35 | *stack_multi_dimensional_array | test.cpp:168:63:168:67 | *array | provenance |  |
+| test.cpp:547:7:547:35 | *stack_multi_dimensional_array | test.cpp:547:7:547:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | provenance |  |
+| test.cpp:547:7:547:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | test.cpp:549:7:549:35 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:547:7:547:35 | stack_multi_dimensional_array | test.cpp:168:63:168:67 | array | provenance |  |
+| test.cpp:549:7:549:35 | *stack_multi_dimensional_array | test.cpp:163:58:163:62 | *array | provenance |  |
+| test.cpp:549:7:549:35 | stack_multi_dimensional_array | test.cpp:163:58:163:62 | array | provenance |  |
+| test.cpp:552:24:552:38 | & ... | test.cpp:215:32:215:34 | ptr | provenance |  |
 nodes
 | test.cpp:6:65:6:69 | array | semmle.label | array |
 | test.cpp:9:17:9:21 | array | semmle.label | array |
@@ -376,76 +383,84 @@ nodes
 | test.cpp:208:23:208:27 | array | semmle.label | array |
 | test.cpp:211:11:211:15 | *array | semmle.label | *array |
 | test.cpp:211:11:211:15 | array | semmle.label | array |
-| test.cpp:295:14:295:45 | call to malloc | semmle.label | call to malloc |
-| test.cpp:295:14:295:45 | call to malloc | semmle.label | call to malloc |
-| test.cpp:305:12:305:13 | p2 | semmle.label | p2 |
-| test.cpp:483:7:483:36 | definition of stack_single_dimensional_array | semmle.label | definition of stack_single_dimensional_array |
-| test.cpp:486:7:486:36 | stack_single_dimensional_array | semmle.label | stack_single_dimensional_array |
-| test.cpp:488:7:488:36 | stack_single_dimensional_array | semmle.label | stack_single_dimensional_array |
-| test.cpp:506:7:506:57 | call to malloc | semmle.label | call to malloc |
-| test.cpp:506:7:506:57 | call to malloc | semmle.label | call to malloc |
-| test.cpp:508:7:508:56 | call to calloc | semmle.label | call to calloc |
-| test.cpp:508:7:508:56 | call to calloc | semmle.label | call to calloc |
-| test.cpp:510:43:511:77 | call to realloc | semmle.label | call to realloc |
-| test.cpp:510:43:511:77 | call to realloc | semmle.label | call to realloc |
-| test.cpp:513:48:513:78 | single_dimensional_array_malloc | semmle.label | single_dimensional_array_malloc |
-| test.cpp:514:42:514:72 | single_dimensional_array_malloc | semmle.label | single_dimensional_array_malloc |
-| test.cpp:516:48:516:78 | single_dimensional_array_calloc | semmle.label | single_dimensional_array_calloc |
-| test.cpp:517:42:517:72 | single_dimensional_array_calloc | semmle.label | single_dimensional_array_calloc |
-| test.cpp:520:7:520:38 | single_dimensional_array_realloc | semmle.label | single_dimensional_array_realloc |
-| test.cpp:521:43:521:74 | single_dimensional_array_realloc | semmle.label | single_dimensional_array_realloc |
-| test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | semmle.label | *definition of stack_multi_dimensional_array |
-| test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | semmle.label | definition of stack_multi_dimensional_array |
-| test.cpp:524:47:524:47 | 1 | semmle.label | 1 |
-| test.cpp:524:50:524:50 | 2 | semmle.label | 2 |
-| test.cpp:524:53:524:53 | {...} | semmle.label | {...} |
-| test.cpp:524:58:524:58 | 4 | semmle.label | 4 |
-| test.cpp:524:61:524:61 | 5 | semmle.label | 5 |
-| test.cpp:524:64:524:64 | {...} | semmle.label | {...} |
-| test.cpp:529:50:529:78 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
-| test.cpp:529:50:529:78 | stack_allocated_multi_dimensional_array_access output argument | semmle.label | stack_allocated_multi_dimensional_array_access output argument |
-| test.cpp:529:50:529:78 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
-| test.cpp:531:7:531:35 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
-| test.cpp:531:7:531:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | semmle.label | stack_allocated_multi_dimensional_pointer_arithmetic output argument |
-| test.cpp:531:7:531:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
-| test.cpp:533:7:533:35 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
-| test.cpp:533:7:533:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
+| test.cpp:215:32:215:34 | ptr | semmle.label | ptr |
+| test.cpp:216:17:216:19 | ptr | semmle.label | ptr |
+| test.cpp:218:7:218:9 | ptr | semmle.label | ptr |
+| test.cpp:220:17:220:19 | ptr | semmle.label | ptr |
+| test.cpp:223:7:223:9 | ptr | semmle.label | ptr |
+| test.cpp:225:19:225:21 | ptr | semmle.label | ptr |
+| test.cpp:227:20:227:22 | ptr | semmle.label | ptr |
+| test.cpp:311:14:311:45 | call to malloc | semmle.label | call to malloc |
+| test.cpp:311:14:311:45 | call to malloc | semmle.label | call to malloc |
+| test.cpp:321:12:321:13 | p2 | semmle.label | p2 |
+| test.cpp:499:7:499:36 | definition of stack_single_dimensional_array | semmle.label | definition of stack_single_dimensional_array |
+| test.cpp:502:7:502:36 | stack_single_dimensional_array | semmle.label | stack_single_dimensional_array |
+| test.cpp:504:7:504:36 | stack_single_dimensional_array | semmle.label | stack_single_dimensional_array |
+| test.cpp:522:7:522:57 | call to malloc | semmle.label | call to malloc |
+| test.cpp:522:7:522:57 | call to malloc | semmle.label | call to malloc |
+| test.cpp:524:7:524:56 | call to calloc | semmle.label | call to calloc |
+| test.cpp:524:7:524:56 | call to calloc | semmle.label | call to calloc |
+| test.cpp:526:43:527:77 | call to realloc | semmle.label | call to realloc |
+| test.cpp:526:43:527:77 | call to realloc | semmle.label | call to realloc |
+| test.cpp:529:48:529:78 | single_dimensional_array_malloc | semmle.label | single_dimensional_array_malloc |
+| test.cpp:530:42:530:72 | single_dimensional_array_malloc | semmle.label | single_dimensional_array_malloc |
+| test.cpp:532:48:532:78 | single_dimensional_array_calloc | semmle.label | single_dimensional_array_calloc |
+| test.cpp:533:42:533:72 | single_dimensional_array_calloc | semmle.label | single_dimensional_array_calloc |
+| test.cpp:536:7:536:38 | single_dimensional_array_realloc | semmle.label | single_dimensional_array_realloc |
+| test.cpp:537:43:537:74 | single_dimensional_array_realloc | semmle.label | single_dimensional_array_realloc |
+| test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | semmle.label | *definition of stack_multi_dimensional_array |
+| test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | semmle.label | definition of stack_multi_dimensional_array |
+| test.cpp:540:47:540:47 | 1 | semmle.label | 1 |
+| test.cpp:540:50:540:50 | 2 | semmle.label | 2 |
+| test.cpp:540:53:540:53 | {...} | semmle.label | {...} |
+| test.cpp:540:58:540:58 | 4 | semmle.label | 4 |
+| test.cpp:540:61:540:61 | 5 | semmle.label | 5 |
+| test.cpp:540:64:540:64 | {...} | semmle.label | {...} |
+| test.cpp:545:50:545:78 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
+| test.cpp:545:50:545:78 | stack_allocated_multi_dimensional_array_access output argument | semmle.label | stack_allocated_multi_dimensional_array_access output argument |
+| test.cpp:545:50:545:78 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
+| test.cpp:547:7:547:35 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
+| test.cpp:547:7:547:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | semmle.label | stack_allocated_multi_dimensional_pointer_arithmetic output argument |
+| test.cpp:547:7:547:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
+| test.cpp:549:7:549:35 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
+| test.cpp:549:7:549:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
+| test.cpp:552:24:552:38 | & ... | semmle.label | & ... |
 subpaths
 | test.cpp:164:14:164:21 | *access to array | test.cpp:153:21:153:23 | *row | test.cpp:153:21:153:23 | *row | test.cpp:164:14:164:21 | row_reader output argument |
-| test.cpp:529:50:529:78 | *stack_multi_dimensional_array | test.cpp:129:57:129:61 | *array | test.cpp:129:57:129:61 | *array | test.cpp:529:50:529:78 | stack_allocated_multi_dimensional_array_access output argument |
-| test.cpp:531:7:531:35 | *stack_multi_dimensional_array | test.cpp:168:63:168:67 | *array | test.cpp:168:63:168:67 | *array | test.cpp:531:7:531:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument |
+| test.cpp:545:50:545:78 | *stack_multi_dimensional_array | test.cpp:129:57:129:61 | *array | test.cpp:129:57:129:61 | *array | test.cpp:545:50:545:78 | stack_allocated_multi_dimensional_array_access output argument |
+| test.cpp:547:7:547:35 | *stack_multi_dimensional_array | test.cpp:168:63:168:67 | *array | test.cpp:168:63:168:67 | *array | test.cpp:547:7:547:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument |
 #select
-| test.cpp:14:7:15:7 | ... + ... | test.cpp:483:7:483:36 | definition of stack_single_dimensional_array | test.cpp:14:7:14:11 | array | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:17:7:17:15 | ... - ... | test.cpp:483:7:483:36 | definition of stack_single_dimensional_array | test.cpp:17:7:17:11 | array | This pointer accesses element at index -1 while the underlying object has length 3. |
-| test.cpp:27:18:27:25 | access to array | test.cpp:483:7:483:36 | definition of stack_single_dimensional_array | test.cpp:27:18:27:22 | array | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:30:7:30:15 | access to array | test.cpp:483:7:483:36 | definition of stack_single_dimensional_array | test.cpp:30:7:30:11 | array | This pointer accesses element at index -1 while the underlying object has length 3. |
-| test.cpp:38:17:38:25 | ... + ... | test.cpp:506:7:506:57 | call to malloc | test.cpp:38:17:38:21 | array | This pointer accesses element at index 2 while the underlying object has length 1. |
-| test.cpp:40:17:40:25 | ... + ... | test.cpp:506:7:506:57 | call to malloc | test.cpp:40:17:40:21 | array | This pointer accesses element at index 3 while the underlying object has length 1. |
-| test.cpp:42:19:42:27 | ... + ... | test.cpp:506:7:506:57 | call to malloc | test.cpp:42:19:42:23 | array | This pointer accesses element at index 4 while the underlying object has length 1. |
-| test.cpp:44:19:44:27 | ... + ... | test.cpp:506:7:506:57 | call to malloc | test.cpp:44:19:44:23 | array | This pointer accesses element at index 5 while the underlying object has length 1. |
-| test.cpp:47:7:47:15 | ... - ... | test.cpp:506:7:506:57 | call to malloc | test.cpp:47:7:47:11 | array | This pointer accesses element at index -1 while the underlying object has length 1. |
-| test.cpp:57:16:57:23 | access to array | test.cpp:506:7:506:57 | call to malloc | test.cpp:57:16:57:20 | array | This pointer accesses element at index 2 while the underlying object has length 1. |
-| test.cpp:59:16:59:23 | access to array | test.cpp:506:7:506:57 | call to malloc | test.cpp:59:16:59:20 | array | This pointer accesses element at index 3 while the underlying object has length 1. |
-| test.cpp:61:18:61:25 | access to array | test.cpp:506:7:506:57 | call to malloc | test.cpp:61:18:61:22 | array | This pointer accesses element at index 4 while the underlying object has length 1. |
-| test.cpp:63:18:63:26 | access to array | test.cpp:506:7:506:57 | call to malloc | test.cpp:63:18:63:22 | array | This pointer accesses element at index -1 while the underlying object has length 1. |
-| test.cpp:74:17:74:25 | ... + ... | test.cpp:508:7:508:56 | call to calloc | test.cpp:74:17:74:21 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:76:19:76:27 | ... + ... | test.cpp:508:7:508:56 | call to calloc | test.cpp:76:19:76:23 | array | This pointer accesses element at index 4 while the underlying object has length 2. |
-| test.cpp:79:7:79:15 | ... - ... | test.cpp:508:7:508:56 | call to calloc | test.cpp:79:7:79:11 | array | This pointer accesses element at index -1 while the underlying object has length 2. |
-| test.cpp:89:16:89:23 | access to array | test.cpp:508:7:508:56 | call to calloc | test.cpp:89:16:89:20 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:91:18:91:25 | access to array | test.cpp:508:7:508:56 | call to calloc | test.cpp:91:18:91:22 | array | This pointer accesses element at index 4 while the underlying object has length 2. |
-| test.cpp:94:7:94:15 | access to array | test.cpp:508:7:508:56 | call to calloc | test.cpp:94:7:94:11 | array | This pointer accesses element at index -1 while the underlying object has length 2. |
-| test.cpp:106:19:106:27 | ... + ... | test.cpp:510:43:511:77 | call to realloc | test.cpp:106:19:106:23 | array | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:109:7:109:15 | ... - ... | test.cpp:510:43:511:77 | call to realloc | test.cpp:109:7:109:11 | array | This pointer accesses element at index -1 while the underlying object has length 3. |
-| test.cpp:123:18:123:25 | access to array | test.cpp:510:43:511:77 | call to realloc | test.cpp:123:18:123:22 | array | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:126:7:126:15 | access to array | test.cpp:510:43:511:77 | call to realloc | test.cpp:126:7:126:11 | array | This pointer accesses element at index -1 while the underlying object has length 3. |
-| test.cpp:135:18:135:28 | access to array | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:135:18:135:25 | *access to array | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:135:18:135:28 | access to array | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:135:18:135:25 | *access to array | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:143:18:143:28 | access to array | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:143:18:143:25 | *access to array | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:143:18:143:28 | access to array | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:143:18:143:25 | *access to array | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:149:18:149:25 | access to array | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:149:18:149:22 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:149:18:149:25 | access to array | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:149:18:149:22 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:149:18:149:25 | access to array | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:149:18:149:22 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:149:18:149:25 | access to array | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:149:18:149:22 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:14:7:15:7 | ... + ... | test.cpp:499:7:499:36 | definition of stack_single_dimensional_array | test.cpp:14:7:14:11 | array | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:17:7:17:15 | ... - ... | test.cpp:499:7:499:36 | definition of stack_single_dimensional_array | test.cpp:17:7:17:11 | array | This pointer accesses element at index -1 while the underlying object has length 3. |
+| test.cpp:27:18:27:25 | access to array | test.cpp:499:7:499:36 | definition of stack_single_dimensional_array | test.cpp:27:18:27:22 | array | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:30:7:30:15 | access to array | test.cpp:499:7:499:36 | definition of stack_single_dimensional_array | test.cpp:30:7:30:11 | array | This pointer accesses element at index -1 while the underlying object has length 3. |
+| test.cpp:38:17:38:25 | ... + ... | test.cpp:522:7:522:57 | call to malloc | test.cpp:38:17:38:21 | array | This pointer accesses element at index 2 while the underlying object has length 1. |
+| test.cpp:40:17:40:25 | ... + ... | test.cpp:522:7:522:57 | call to malloc | test.cpp:40:17:40:21 | array | This pointer accesses element at index 3 while the underlying object has length 1. |
+| test.cpp:42:19:42:27 | ... + ... | test.cpp:522:7:522:57 | call to malloc | test.cpp:42:19:42:23 | array | This pointer accesses element at index 4 while the underlying object has length 1. |
+| test.cpp:44:19:44:27 | ... + ... | test.cpp:522:7:522:57 | call to malloc | test.cpp:44:19:44:23 | array | This pointer accesses element at index 5 while the underlying object has length 1. |
+| test.cpp:47:7:47:15 | ... - ... | test.cpp:522:7:522:57 | call to malloc | test.cpp:47:7:47:11 | array | This pointer accesses element at index -1 while the underlying object has length 1. |
+| test.cpp:57:16:57:23 | access to array | test.cpp:522:7:522:57 | call to malloc | test.cpp:57:16:57:20 | array | This pointer accesses element at index 2 while the underlying object has length 1. |
+| test.cpp:59:16:59:23 | access to array | test.cpp:522:7:522:57 | call to malloc | test.cpp:59:16:59:20 | array | This pointer accesses element at index 3 while the underlying object has length 1. |
+| test.cpp:61:18:61:25 | access to array | test.cpp:522:7:522:57 | call to malloc | test.cpp:61:18:61:22 | array | This pointer accesses element at index 4 while the underlying object has length 1. |
+| test.cpp:63:18:63:26 | access to array | test.cpp:522:7:522:57 | call to malloc | test.cpp:63:18:63:22 | array | This pointer accesses element at index -1 while the underlying object has length 1. |
+| test.cpp:74:17:74:25 | ... + ... | test.cpp:524:7:524:56 | call to calloc | test.cpp:74:17:74:21 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:76:19:76:27 | ... + ... | test.cpp:524:7:524:56 | call to calloc | test.cpp:76:19:76:23 | array | This pointer accesses element at index 4 while the underlying object has length 2. |
+| test.cpp:79:7:79:15 | ... - ... | test.cpp:524:7:524:56 | call to calloc | test.cpp:79:7:79:11 | array | This pointer accesses element at index -1 while the underlying object has length 2. |
+| test.cpp:89:16:89:23 | access to array | test.cpp:524:7:524:56 | call to calloc | test.cpp:89:16:89:20 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:91:18:91:25 | access to array | test.cpp:524:7:524:56 | call to calloc | test.cpp:91:18:91:22 | array | This pointer accesses element at index 4 while the underlying object has length 2. |
+| test.cpp:94:7:94:15 | access to array | test.cpp:524:7:524:56 | call to calloc | test.cpp:94:7:94:11 | array | This pointer accesses element at index -1 while the underlying object has length 2. |
+| test.cpp:106:19:106:27 | ... + ... | test.cpp:526:43:527:77 | call to realloc | test.cpp:106:19:106:23 | array | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:109:7:109:15 | ... - ... | test.cpp:526:43:527:77 | call to realloc | test.cpp:109:7:109:11 | array | This pointer accesses element at index -1 while the underlying object has length 3. |
+| test.cpp:123:18:123:25 | access to array | test.cpp:526:43:527:77 | call to realloc | test.cpp:123:18:123:22 | array | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:126:7:126:15 | access to array | test.cpp:526:43:527:77 | call to realloc | test.cpp:126:7:126:11 | array | This pointer accesses element at index -1 while the underlying object has length 3. |
+| test.cpp:135:18:135:28 | access to array | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:135:18:135:25 | *access to array | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:135:18:135:28 | access to array | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:135:18:135:25 | *access to array | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:143:18:143:28 | access to array | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:143:18:143:25 | *access to array | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:143:18:143:28 | access to array | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:143:18:143:25 | *access to array | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:149:18:149:25 | access to array | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:149:18:149:22 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:149:18:149:25 | access to array | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:149:18:149:22 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:149:18:149:25 | access to array | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:149:18:149:22 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:149:18:149:25 | access to array | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:149:18:149:22 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
 | test.cpp:156:12:156:17 | access to array | test.cpp:165:14:165:21 | access to array | test.cpp:156:12:156:14 | *row | This pointer accesses element at index 3 while the underlying object has length 2. |
 | test.cpp:156:12:156:17 | access to array | test.cpp:165:14:165:21 | access to array | test.cpp:156:12:156:14 | row | This pointer accesses element at index 3 while the underlying object has length 2. |
 | test.cpp:157:12:157:17 | access to array | test.cpp:164:14:164:21 | access to array | test.cpp:157:12:157:14 | *row | This pointer accesses element at index 3 while the underlying object has length 2. |
@@ -462,21 +477,23 @@ subpaths
 | test.cpp:159:12:159:17 | access to array | test.cpp:165:14:165:21 | access to array | test.cpp:159:12:159:14 | *row | This pointer accesses element at index 5 while the underlying object has length 3. |
 | test.cpp:159:12:159:17 | access to array | test.cpp:165:14:165:21 | access to array | test.cpp:159:12:159:14 | row | This pointer accesses element at index 5 while the underlying object has length 2. |
 | test.cpp:159:12:159:17 | access to array | test.cpp:165:14:165:21 | access to array | test.cpp:159:12:159:14 | row | This pointer accesses element at index 5 while the underlying object has length 3. |
-| test.cpp:159:12:159:17 | access to array | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:159:12:159:14 | *row | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:159:12:159:17 | access to array | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:159:12:159:14 | row | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:159:12:159:17 | access to array | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:159:12:159:14 | *row | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:159:12:159:17 | access to array | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:159:12:159:14 | row | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:185:21:185:36 | ... + ... | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:185:21:185:32 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:185:21:185:36 | ... + ... | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:185:21:185:32 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:188:9:188:18 | ... + ... | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:188:9:188:14 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:188:9:188:18 | ... + ... | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:188:9:188:14 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:201:20:201:35 | ... + ... | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:201:20:201:31 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:201:20:201:35 | ... + ... | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:201:20:201:31 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
-| test.cpp:208:23:208:31 | ... + ... | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:208:23:208:27 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:208:23:208:31 | ... + ... | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:208:23:208:27 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:208:23:208:31 | ... + ... | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:208:23:208:27 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:208:23:208:31 | ... + ... | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:208:23:208:27 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:211:11:211:19 | ... + ... | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:211:11:211:15 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:211:11:211:19 | ... + ... | test.cpp:524:7:524:35 | *definition of stack_multi_dimensional_array | test.cpp:211:11:211:15 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:211:11:211:19 | ... + ... | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:211:11:211:15 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:211:11:211:19 | ... + ... | test.cpp:524:7:524:35 | definition of stack_multi_dimensional_array | test.cpp:211:11:211:15 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:159:12:159:17 | access to array | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:159:12:159:14 | *row | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:159:12:159:17 | access to array | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:159:12:159:14 | row | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:159:12:159:17 | access to array | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:159:12:159:14 | *row | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:159:12:159:17 | access to array | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:159:12:159:14 | row | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:185:21:185:36 | ... + ... | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:185:21:185:32 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:185:21:185:36 | ... + ... | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:185:21:185:32 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:188:9:188:18 | ... + ... | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:188:9:188:14 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:188:9:188:18 | ... + ... | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:188:9:188:14 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:201:20:201:35 | ... + ... | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:201:20:201:31 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:201:20:201:35 | ... + ... | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:201:20:201:31 | ** ... | This pointer accesses element at index 4 while the underlying object has length 3. |
+| test.cpp:208:23:208:31 | ... + ... | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:208:23:208:27 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:208:23:208:31 | ... + ... | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:208:23:208:27 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:208:23:208:31 | ... + ... | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:208:23:208:27 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:208:23:208:31 | ... + ... | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:208:23:208:27 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:211:11:211:19 | ... + ... | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:211:11:211:15 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:211:11:211:19 | ... + ... | test.cpp:540:7:540:35 | *definition of stack_multi_dimensional_array | test.cpp:211:11:211:15 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:211:11:211:19 | ... + ... | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:211:11:211:15 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:211:11:211:19 | ... + ... | test.cpp:540:7:540:35 | definition of stack_multi_dimensional_array | test.cpp:211:11:211:15 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
+| test.cpp:225:19:225:24 | access to array | test.cpp:552:24:552:38 | & ... | test.cpp:225:19:225:21 | ptr | This pointer accesses element at index 2 while the underlying object has length 1. |
+| test.cpp:227:20:227:26 | ... + ... | test.cpp:552:24:552:38 | & ... | test.cpp:227:20:227:22 | ptr | This pointer accesses element at index 2 while the underlying object has length 1. |
