@@ -154,8 +154,8 @@ void row_reader(int row[3]) {
   int x1 = row[0]; // COMPLIANT: pointer is within boundary
   int x2 = row[1]; // COMPLIANT: pointer is within boundary
   int x3 = row[2]; // COMPLIANT[FALSE_POSITIVE]: pointer is within boundary
-  int x4 = row[3]; // COMPLIANT[FALSE_POSITIVE]: pointer points one beyond the last
-                   // element, but non-compliant to Rule 4.1.3
+  int x4 = row[3]; // COMPLIANT[FALSE_POSITIVE]: pointer points one beyond the
+                   // last element, but non-compliant to Rule 4.1.3
   int x5 = row[4]; // NON_COMPLIANT: pointer points more than one
                    // beyond the last element
 }
