@@ -336,7 +336,8 @@ class FatPointer extends TFatPointer {
 }
 
 /**
- * A table with headers (start pointer, end pointer, source offset, sink offset, length).
+ * A table with headers (start pointer, end pointer, source offset, sink offset, accumulated
+ * offset up to now, length).
  *
  * Consider the following code:
  * ``` C++
@@ -366,8 +367,16 @@ class FatPointer extends TFatPointer {
  *
  * The predicate also implements the following equations:
  *
- * - currentOffset_0   = srcOffset           + sinkOffset if src is an ArrayAllocation
- * - currentOffset_{n} = currentOffset_{n-1} + sinkOffset if src is a  PointerFormation
+ * - currentOffset_0  = srcOffset_0         + sinkOffset_0 if src is an ArrayAllocation
+ * - currentOffset_n  = currentOffset_{n-1} + sinkOffset_n if src is a  PointerFormation
+ *
+ * Note that for n-dimensional stack-initialized arrays, the length information is created for each
+ * initialization level. For example, the below 2-dimensional array produces two `def. of buf` with
+ * length 2 and length 3, respectively.
+ *
+ * ``` C++
+ * int buf[2][3] = {{1, 2, 3}, {4, 5, 6}}
+ * ```
  */
 predicate srcSinkLengthMap(
   FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int currentOffset, int length
@@ -383,7 +392,7 @@ predicate srcSinkLengthMap(
     /* Implement the equation that computes the current offset. */
     (
       /* Base case: The object is allocated and a fat pointer created. */
-      length = start.asAllocated().getLength(src.getNode()) and
+      length = start.asAllocated().getLength(src.getNode()) and // Get the length at the given indirection level.
       currentOffset = srcOffset + sinkOffset
       or
       /* Recursive case: A fat pointer is derived from a fat pointer. */
