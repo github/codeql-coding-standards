@@ -119,11 +119,8 @@ class NarrowedHeapAllocationFunctionCall extends Cast {
 
 newtype TArrayAllocation =
   TStackAllocation(ArrayDeclaration arrayDecl) or
-  TDynamicAllocation(NarrowedHeapAllocationFunctionCall narrowedAlloc)
-
-newtype TPointerFormation =
-  TArrayExpr(ArrayExprBA arrayExpr) or
-  TPointerArithmetic(PointerArithmeticOperation pointerArithmetic)
+  TDynamicAllocation(NarrowedHeapAllocationFunctionCall narrowedAlloc) or
+  TAddressOfLvalue(AddressOfExpr addressExpr)
 
 /**
  * Any kind of allocation of an array, either allocated on the stack or the heap.
@@ -133,9 +130,12 @@ class ArrayAllocation extends TArrayAllocation {
 
   NarrowedHeapAllocationFunctionCall asDynamicAllocation() { this = TDynamicAllocation(result) }
 
+  AddressOfExpr asAddressOfExpr() { this = TAddressOfLvalue(result) }
+
   string toString() {
     result = this.asStackAllocation().toString() or
-    result = this.asDynamicAllocation().toString()
+    result = this.asDynamicAllocation().toString() or
+    result = this.asAddressOfExpr().toString()
   }
 
   /**
@@ -149,26 +149,31 @@ class ArrayAllocation extends TArrayAllocation {
       result = this.asStackAllocation().getLength(inode.getIndirection())
     )
     or
-    result = this.asStackAllocation().getLength() and
-    node.asUninitialized() = this.asStackAllocation().getVariable()
+    node.asUninitialized() = this.asStackAllocation().getVariable() and
+    result = this.asStackAllocation().getLength()
     or
-    result = this.asDynamicAllocation().getMinNumElements() and
-    node.asConvertedExpr() = this.asDynamicAllocation()
+    node.asConvertedExpr() = this.asDynamicAllocation() and
+    result = this.asDynamicAllocation().getMinNumElements()
+    or
+    result = 1 and
+    node.asExpr() = this.asAddressOfExpr()
   }
 
   Location getLocation() {
     result = this.asStackAllocation().getLocation() or
-    result = this.asDynamicAllocation().getLocation()
+    result = this.asDynamicAllocation().getLocation() or
+    result = this.asAddressOfExpr().getLocation()
   }
 
   /**
    * Gets the node associated with this allocation.
    */
-  DataFlow::Node getNode() { exists(getLength(result)) }
+  DataFlow::Node getNode() { exists(this.getLength(result)) }
 
   Expr asExpr() {
     result = this.asStackAllocation().getVariable().getAnAccess() or
-    result = this.asDynamicAllocation()
+    result = this.asDynamicAllocation() or
+    result = this.asAddressOfExpr()
   }
 }
 
@@ -198,6 +203,10 @@ class IndirectUninitializedNode extends Node {
 
   int getIndirection() { result = indirection }
 }
+
+newtype TPointerFormation =
+  TArrayExpr(ArrayExprBA arrayExpr) or
+  TPointerArithmetic(PointerArithmeticOperation pointerArithmetic)
 
 /**
  * Any kind of pointer formation that derives from a base pointer, either as an arithmetic operation
@@ -343,11 +352,11 @@ class FatPointer extends TFatPointer {
  * ``` C++
  * int buf[10];
  * int *p = buf;
- * int *p2 = p - 5;   // offshoots to left, totalOffset = -5
+ * int *p2 = p - 5;   // offshoots to left,  totalOffset = -5
  * int *p3 = p2 + 16; // offshoots to right, totalOffset = 11
- * int *p4 = p3 - 2;  // adjusts to left, totalOffset = 9
- * int *p5 = p4 - 5;  // adjusts to left, totalOffset = 4
- * int *p6 = p5 - 5;  // offshoots to left, totalOffset = -1
+ * int *p4 = p3 - 2;  // adjusts   to left,  totalOffset = 9
+ * int *p5 = p4 - 5;  // adjusts   to left,  totalOffset = 4
+ * int *p6 = p5 - 5;  // offshoots to left,  totalOffset = -1
  * ```
  *
  * Then, this table is roughly populated with (we use PathNode src, sink instead of FatPointer

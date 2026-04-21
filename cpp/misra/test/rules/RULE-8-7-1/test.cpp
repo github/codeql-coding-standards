@@ -212,6 +212,22 @@ void stack_allocated_multi_dimensional_pointer_arithmetic(int array[2][3]) {
                        // one beyond the last element (equivalent to the above)
 }
 
+void test_address_of_expr(int *ptr) {
+  int valid11 = ptr[0]; // COMPLIANT: pointer points one beyond the last element
+  int *valid12 =
+      ptr + 0; // COMPLIANT: pointer points one beyond the last element
+
+  int valid21 = ptr[1]; // COMPLIANT: pointer points one beyond the last
+                        // element, but non-compliant to Rule 4.1.3
+  int *valid22 =
+      ptr + 1; // COMPLIANT: pointer points one beyond the last element
+
+  int invalid31 = ptr[2]; // NON_COMPLIANT: pointer points more than one beyond
+                          // the last element
+  int *invalid32 = ptr + 2; // NON_COMPLIANT: pointer points more than one
+                            // beyond the last element
+}
+
 /**
  * Test code that was copied from that of ARR38-C, at revision `d82ed6ee`.
  */
@@ -524,13 +540,17 @@ int main(int argc, char *argv[]) {
   int stack_multi_dimensional_array[2][3] = {{1, 2, 3}, {4, 5, 6}};
 
   /* 4. Multi-dimensional array initialized on the heap */
-  int(*heap_multi_dimensional_array)[3] = (int(*)[3])malloc(sizeof(int[2][3]));
+  int (*heap_multi_dimensional_array)[3] =
+      (int (*)[3])malloc(sizeof(int[2][3]));
 
   stack_allocated_multi_dimensional_array_access(stack_multi_dimensional_array);
   stack_allocated_multi_dimensional_pointer_arithmetic(
       stack_multi_dimensional_array);
   stack_allocated_multi_dimensional_array_access2(
       stack_multi_dimensional_array);
+
+  int lvalue_example = 1;
+  test_address_of_expr(&lvalue_example);
 
   return 0;
 }
