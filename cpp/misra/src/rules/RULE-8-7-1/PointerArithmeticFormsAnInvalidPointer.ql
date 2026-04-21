@@ -337,23 +337,37 @@ class FatPointer extends TFatPointer {
 
 /**
  * A table with headers (start pointer, end pointer, source offset, sink offset, length).
+ *
  * Consider the following code:
  * ``` C++
- *   int buf[10];
- *   int *p = buf;
- *   int *p2 = p - 5;
- *   int *p3 = p2 + 16;
+ * int buf[10];
+ * int *p = buf;
+ * int *p2 = p - 5;   // offshoots to left, totalOffset = -5
+ * int *p3 = p2 + 16; // offshoots to right, totalOffset = 11
+ * int *p4 = p3 - 2;  // adjusts to left, totalOffset = 9
+ * int *p5 = p4 - 5;  // adjusts to left, totalOffset = 4
+ * int *p6 = p5 - 5;  // offshoots to left, totalOffset = -1
  * ```
- * Then, this table is roughly populated with:
- * |-------------+----------------+------------+-------------+----------------+------------------|
- * | flow start  | flow end       | src offset | sink offset | length(exists) | valid?           |
- * |-------------+----------------+------------+-------------+----------------+------------------|
- * | int buf[10] | p  (∵ p - 5)   |          0 |          -5 |             10 | No,  0-5 < 10    |
- * | p           | p2 (∵ p2 + 12) |         -5 |          12 |             10 | Yes, -5+12 < 10  |
- * |-------------+----------------+------------+-------------+----------------+------------------|
+ *
+ * Then, this table is roughly populated with (we use PathNode src, sink instead of FatPointer
+ * start, end for clarity):
+ *
+ * |-------------+----------------+-----------+------------+---------------+--------+------------|
+ * | src         | sink           | srcOffset | sinkOffset | currentOffset | length | valid?     |
+ * |-------------+----------------+-----------+------------+---------------+--------+------------|
+ * | def. of buf | p  (∵ p  - 5)  |         0 |         -5 | 0  - 5  = -5  |     10 | N, -5 < 0  |
+ * | p - 5       | p2 (∵ p2 + 16) |        -5 |         16 | -5 + 16 = 11  |     10 | N, 11 > 10 |
+ * | p2 + 16     | p3 (∵ p3 - 2)  |        16 |         -2 | 11 - 2  = 9   |     10 | Y, 9  < 10 |
+ * | p3 - 2      | p4 (∵ p4 - 5)  |        -2 |         -5 | 9  - 5  = 4   |     10 | Y, 4  < 10 |
+ * | p4 - 5      | p5 (∵ p5 - 5)  |        -5 |         -5 | 4  - 5  = -1  |     10 | N, -1 < 0  |
+ * |-------------+----------------+-----------+------------+---------------+--------+------------|
  *
  * And then we can answer the question of whether the pointer is valid (last column `valid?`).
- * NOTE: Consult the configuration `TrackArrayConfig` for the actual definition of `src` and `sink`.
+ *
+ * The predicate also implements the following equations:
+ *
+ * - currentOffset_0   = srcOffset           + sinkOffset if src is an ArrayAllocation
+ * - currentOffset_{n} = currentOffset_{n-1} + sinkOffset if src is a  PointerFormation
  */
 predicate srcSinkLengthMap(
   FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int currentOffset, int length
@@ -366,6 +380,7 @@ predicate srcSinkLengthMap(
   |
     srcOffset = start.getOffset() and
     sinkOffset = end.getOffset() and
+    /* Implement the equation that computes the current offset. */
     (
       /* Base case: The object is allocated and a fat pointer created. */
       length = start.asAllocated().getLength(src.getNode()) and
