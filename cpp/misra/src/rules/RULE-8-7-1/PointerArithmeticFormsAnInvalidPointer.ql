@@ -172,6 +172,11 @@ class ArrayAllocation extends TArrayAllocation {
   }
 }
 
+/*
+ * NOTE: `IndirectUninitializedNode` has made its way into `github/codeql`. Once we upgrade it to
+ * the version that has it, the class can be safely removed.
+ */
+
 import semmle.code.cpp.ir.dataflow.internal.SsaInternals as SsaImpl
 
 class IndirectUninitializedNode extends Node {
