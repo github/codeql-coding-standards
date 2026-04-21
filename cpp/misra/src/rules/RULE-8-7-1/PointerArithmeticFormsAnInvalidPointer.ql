@@ -260,7 +260,7 @@ class PointerFormation extends TPointerFormation {
     result = this.asPointerArithmetic()
   }
 
-  private PointerAddInstruction getInstruction() { result.getAst() = this.asExpr() }
+  private PointerArithmeticInstruction getInstruction() { result.getAst() = this.asExpr() }
 
   /**
    * Gets the data-flow node associated with this pointer formation.
@@ -356,7 +356,7 @@ class FatPointer extends TFatPointer {
  * NOTE: Consult the configuration `TrackArrayConfig` for the actual definition of `src` and `sink`.
  */
 predicate srcSinkLengthMap(
-  FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int length
+  FatPointer start, FatPointer end, int srcOffset, int sinkOffset, int currentOffset, int length
 ) {
   exists(TrackArray::PathNode src, TrackArray::PathNode sink |
     TrackArray::flowPath(src, sink) and
@@ -368,10 +368,14 @@ predicate srcSinkLengthMap(
     sinkOffset = end.getOffset() and
     (
       /* Base case: The object is allocated and a fat pointer created. */
-      length = start.asAllocated().getLength(src.getNode())
+      length = start.asAllocated().getLength(src.getNode()) and
+      currentOffset = srcOffset + sinkOffset
       or
       /* Recursive case: A fat pointer is derived from a fat pointer. */
-      srcSinkLengthMap(_, start, _, srcOffset, length)
+      exists(int previousOffset |
+        srcSinkLengthMap(_, start, _, srcOffset, previousOffset, length) and
+        currentOffset = previousOffset + sinkOffset
+      )
     )
   )
 }
@@ -403,8 +407,7 @@ where
     src.getNode() = start.getNode() and
     sink.getNode() = end.getBasePointerNode()
   |
-    srcSinkLengthMap(start, end, srcOffset, sinkOffset, length) and
-    totalOffset = srcOffset + sinkOffset and
+    srcSinkLengthMap(start, end, srcOffset, sinkOffset, totalOffset, length) and
     (
       totalOffset < 0 or // Underflow detection
       totalOffset > length // Overflow detection
