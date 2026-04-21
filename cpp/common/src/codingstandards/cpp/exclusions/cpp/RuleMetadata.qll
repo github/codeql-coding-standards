@@ -39,6 +39,8 @@ import Declarations1
 import Declarations2
 import Declarations3
 import Declarations4
+import Declarations6
+import Declarations7
 import ExceptionSafety
 import Exceptions1
 import Exceptions2
@@ -96,6 +98,7 @@ import Statements
 import Strings
 import Templates
 import Toolchain
+import Toolchain2
 import Toolchain3
 import Trigraph
 import TrustBoundaries
@@ -142,6 +145,8 @@ newtype TCPPQuery =
   TDeclarations2PackageQuery(Declarations2Query q) or
   TDeclarations3PackageQuery(Declarations3Query q) or
   TDeclarations4PackageQuery(Declarations4Query q) or
+  TDeclarations6PackageQuery(Declarations6Query q) or
+  TDeclarations7PackageQuery(Declarations7Query q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
   TExceptions2PackageQuery(Exceptions2Query q) or
@@ -199,6 +204,7 @@ newtype TCPPQuery =
   TStringsPackageQuery(StringsQuery q) or
   TTemplatesPackageQuery(TemplatesQuery q) or
   TToolchainPackageQuery(ToolchainQuery q) or
+  TToolchain2PackageQuery(Toolchain2Query q) or
   TToolchain3PackageQuery(Toolchain3Query q) or
   TTrigraphPackageQuery(TrigraphQuery q) or
   TTrustBoundariesPackageQuery(TrustBoundariesQuery q) or
@@ -245,6 +251,8 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations4QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations6QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations7QueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
   isExceptions2QueryMetadata(query, queryId, ruleId, category) or
@@ -302,6 +310,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isStringsQueryMetadata(query, queryId, ruleId, category) or
   isTemplatesQueryMetadata(query, queryId, ruleId, category) or
   isToolchainQueryMetadata(query, queryId, ruleId, category) or
+  isToolchain2QueryMetadata(query, queryId, ruleId, category) or
   isToolchain3QueryMetadata(query, queryId, ruleId, category) or
   isTrigraphQueryMetadata(query, queryId, ruleId, category) or
   isTrustBoundariesQueryMetadata(query, queryId, ruleId, category) or
