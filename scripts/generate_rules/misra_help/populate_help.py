@@ -94,7 +94,7 @@ def _normalize_title(s: str) -> str:
     # Drop trailing references of the form "C90 [...]" / "C99 [...]" etc.
     s = re.sub(
         r"\s+(?:C90|C99|C11|C17|C18)\s*\[[^\]]*\]"
-        r"(?:\s*[,;]?\s*(?:C90|C99|C11|C17|C18)\s*\[[^\]]*\])*\s*$",
+        r"(?:[,;\s]+(?:C90|C99|C11|C17|C18)\s*\[[^\]]*\])*\s*$",
         "",
         s,
     )
