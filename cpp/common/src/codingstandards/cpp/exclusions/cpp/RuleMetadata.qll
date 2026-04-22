@@ -82,6 +82,7 @@ import Pointers
 import Preconditions1
 import Preconditions3
 import Preconditions4
+import Preconditions5
 import Preprocessor
 import Preprocessor2
 import Representation
@@ -187,6 +188,7 @@ newtype TCPPQuery =
   TPreconditions1PackageQuery(Preconditions1Query q) or
   TPreconditions3PackageQuery(Preconditions3Query q) or
   TPreconditions4PackageQuery(Preconditions4Query q) or
+  TPreconditions5PackageQuery(Preconditions5Query q) or
   TPreprocessorPackageQuery(PreprocessorQuery q) or
   TPreprocessor2PackageQuery(Preprocessor2Query q) or
   TRepresentationPackageQuery(RepresentationQuery q) or
@@ -292,6 +294,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isPreconditions1QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions3QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions4QueryMetadata(query, queryId, ruleId, category) or
+  isPreconditions5QueryMetadata(query, queryId, ruleId, category) or
   isPreprocessorQueryMetadata(query, queryId, ruleId, category) or
   isPreprocessor2QueryMetadata(query, queryId, ruleId, category) or
   isRepresentationQueryMetadata(query, queryId, ruleId, category) or
