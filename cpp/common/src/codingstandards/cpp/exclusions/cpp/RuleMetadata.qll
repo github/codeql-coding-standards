@@ -7,6 +7,9 @@ import Banned1
 import Banned2
 import Banned3
 import Banned4
+import Banned5
+import Banned6
+import Banned8
 import BannedAPIs
 import BannedFunctions
 import BannedLibraries
@@ -34,7 +37,11 @@ import DeadCode9
 import Declarations
 import Declarations1
 import Declarations2
+import Declarations3
+import Declarations4
 import Declarations5
+import Declarations6
+import Declarations7
 import ExceptionSafety
 import Exceptions1
 import Exceptions2
@@ -91,6 +98,7 @@ import Statements
 import Strings
 import Templates
 import Toolchain
+import Toolchain2
 import Toolchain3
 import Trigraph
 import TrustBoundaries
@@ -105,6 +113,9 @@ newtype TCPPQuery =
   TBanned2PackageQuery(Banned2Query q) or
   TBanned3PackageQuery(Banned3Query q) or
   TBanned4PackageQuery(Banned4Query q) or
+  TBanned5PackageQuery(Banned5Query q) or
+  TBanned6PackageQuery(Banned6Query q) or
+  TBanned8PackageQuery(Banned8Query q) or
   TBannedAPIsPackageQuery(BannedAPIsQuery q) or
   TBannedFunctionsPackageQuery(BannedFunctionsQuery q) or
   TBannedLibrariesPackageQuery(BannedLibrariesQuery q) or
@@ -132,7 +143,11 @@ newtype TCPPQuery =
   TDeclarationsPackageQuery(DeclarationsQuery q) or
   TDeclarations1PackageQuery(Declarations1Query q) or
   TDeclarations2PackageQuery(Declarations2Query q) or
+  TDeclarations3PackageQuery(Declarations3Query q) or
+  TDeclarations4PackageQuery(Declarations4Query q) or
   TDeclarations5PackageQuery(Declarations5Query q) or
+  TDeclarations6PackageQuery(Declarations6Query q) or
+  TDeclarations7PackageQuery(Declarations7Query q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
   TExceptions1PackageQuery(Exceptions1Query q) or
   TExceptions2PackageQuery(Exceptions2Query q) or
@@ -189,6 +204,7 @@ newtype TCPPQuery =
   TStringsPackageQuery(StringsQuery q) or
   TTemplatesPackageQuery(TemplatesQuery q) or
   TToolchainPackageQuery(ToolchainQuery q) or
+  TToolchain2PackageQuery(Toolchain2Query q) or
   TToolchain3PackageQuery(Toolchain3Query q) or
   TTrigraphPackageQuery(TrigraphQuery q) or
   TTrustBoundariesPackageQuery(TrustBoundariesQuery q) or
@@ -203,6 +219,9 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isBanned2QueryMetadata(query, queryId, ruleId, category) or
   isBanned3QueryMetadata(query, queryId, ruleId, category) or
   isBanned4QueryMetadata(query, queryId, ruleId, category) or
+  isBanned5QueryMetadata(query, queryId, ruleId, category) or
+  isBanned6QueryMetadata(query, queryId, ruleId, category) or
+  isBanned8QueryMetadata(query, queryId, ruleId, category) or
   isBannedAPIsQueryMetadata(query, queryId, ruleId, category) or
   isBannedFunctionsQueryMetadata(query, queryId, ruleId, category) or
   isBannedLibrariesQueryMetadata(query, queryId, ruleId, category) or
@@ -230,7 +249,11 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarationsQueryMetadata(query, queryId, ruleId, category) or
   isDeclarations1QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations4QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations5QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations6QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations7QueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
   isExceptions1QueryMetadata(query, queryId, ruleId, category) or
   isExceptions2QueryMetadata(query, queryId, ruleId, category) or
@@ -287,6 +310,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isStringsQueryMetadata(query, queryId, ruleId, category) or
   isTemplatesQueryMetadata(query, queryId, ruleId, category) or
   isToolchainQueryMetadata(query, queryId, ruleId, category) or
+  isToolchain2QueryMetadata(query, queryId, ruleId, category) or
   isToolchain3QueryMetadata(query, queryId, ruleId, category) or
   isTrigraphQueryMetadata(query, queryId, ruleId, category) or
   isTrustBoundariesQueryMetadata(query, queryId, ruleId, category) or
