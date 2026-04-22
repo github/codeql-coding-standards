@@ -76,6 +76,36 @@ from populate_help import (  # noqa: E402
 )
 
 
+def _load_impl_scope_lookup(
+    query_repo: Path, standard: str,
+) -> dict[tuple[str, str], dict]:
+    """Build a (rule_id, short_name) -> implementation_scope lookup
+    from the rule_packages JSON files."""
+    lang, _ = STANDARD_INFO[standard]
+    pkg_dir = query_repo / "rule_packages" / lang
+    if not pkg_dir.is_dir():
+        return {}
+    lookup: dict[tuple[str, str], dict] = {}
+    for pkg_file in sorted(pkg_dir.glob("*.json")):
+        try:
+            data = json.loads(pkg_file.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        # Top-level key is the standard name (e.g. "MISRA-C-2012").
+        for std_key, rules in data.items():
+            if not isinstance(rules, dict):
+                continue
+            for rule_id, rule_data in rules.items():
+                if not isinstance(rule_data, dict):
+                    continue
+                for q in rule_data.get("queries", []):
+                    sn = q.get("short_name")
+                    impl = q.get("implementation_scope")
+                    if sn and impl:
+                        lookup[(rule_id, sn)] = impl
+    return lookup
+
+
 def _rule_to_jsonable(rule: Rule) -> dict:
     """Serialize a Rule to JSON, including the example layout."""
     d = asdict(rule)
@@ -89,7 +119,9 @@ def _rule_to_jsonable(rule: Rule) -> dict:
 
 def _query_entries(rule_id: str, ql_paths: list[Path],
                    query_repo: Path, help_repo: Path,
-                   lang_src: Path) -> list[dict]:
+                   lang_src: Path,
+                   impl_lookup: dict[tuple[str, str], dict] | None = None,
+                   ) -> list[dict]:
     out: list[dict] = []
     for ql in sorted(ql_paths):
         rel_dir = ql.parent.relative_to(query_repo / lang_src)
@@ -98,12 +130,17 @@ def _query_entries(rule_id: str, ql_paths: list[Path],
             existing = md.read_text(encoding="utf-8")
         except FileNotFoundError:
             existing = None
-        out.append({
+        entry: dict = {
             "ql_path": str(ql.relative_to(query_repo)),
             "ql_name_title": _read_ql_name(ql) or "",
             "md_path": str(md.relative_to(help_repo)),
             "existing_md": existing,
-        })
+        }
+        if impl_lookup:
+            impl = impl_lookup.get((rule_id, ql.stem))
+            if impl:
+                entry["implementation_scope"] = impl
+        out.append(entry)
     return out
 
 
@@ -129,6 +166,8 @@ def main() -> int:
     lang, lang_src = STANDARD_INFO[args.standard]
     queries = collect_queries(args.query_repo, args.standard)
 
+    impl_lookup = _load_impl_scope_lookup(args.query_repo, args.standard)
+
     rules_json: dict[str, dict] = {}
     for r in rules:
         rules_json[r.rule_id] = _rule_to_jsonable(r)
@@ -136,7 +175,8 @@ def main() -> int:
     queries_json: dict[str, list[dict]] = {}
     for rule_id, ql_paths in queries.items():
         queries_json[rule_id] = _query_entries(
-            rule_id, ql_paths, args.query_repo, args.help_repo, lang_src)
+            rule_id, ql_paths, args.query_repo, args.help_repo, lang_src,
+            impl_lookup)
 
     payload = {
         "standard": args.standard,

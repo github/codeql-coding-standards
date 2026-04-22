@@ -43,7 +43,7 @@ import requests
 SUPPORTED_STANDARDS = ("MISRA-C-2012", "MISRA-C-2023", "MISRA-C++-2023")
 STD_DISPLAY = {
     "MISRA-C-2012": "MISRA C 2012",
-    "MISRA-C-2023": "MISRA C 2023",
+    "MISRA-C-2023": "MISRA C 2012",
     "MISRA-C++-2023": "MISRA C++ 2023",
 }
 
@@ -228,56 +228,158 @@ class CopilotSession:
 
 def system_prompt() -> str:
     return "\n".join([
-        "You produce a single MISRA query help file (Markdown).",
+        "You are a documentation linter, formatter, and proofreader for"
+        " MISRA query help files (Markdown).",
         "",
-        "Output requirements (follow exactly):",
-        "1. The first line is \"# <Rule|Dir> X.Y[.Z]: <human title>\", where the human title comes from the .ql `@name` (it is the authoritative short title).",
-        "2. Then a blank line, then \"This query implements the <STANDARD DISPLAY NAME> <Rule|Dir> X.Y[.Z]:\" followed by a blank line and a single blockquote line containing the short rule statement (do NOT include footnote references like \"C90 [Undefined 12]\"; strip those).",
-        "3. Then a \"## Classification\" section containing exactly one HTML <table> with rows for \"Category\", \"Analysis\" (omit row if not provided), and \"Applies to\" (omit row if not provided).",
-        "4. Then optional \"### Amplification\" and \"### Rationale\" sections, each as well-formed prose paragraphs. Collapse multi-space kerning runs (e.g. \"If   any   element\" -> \"If any element\"). Use straight quotes.",
-        "5. Then an optional \"### Exception\" section. If the source provides multiple exceptions, render them as a numbered list (1., 2., 3.) -- never as bullets.",
-        "6. Then an optional \"## Example\" section. Code goes inside a fenced block with the language tag (```c or ```cpp). REFORMAT the code so each statement is on its own line, braces are placed idiomatically, and `/* Compliant */` / `/* Non-compliant */` comments stay on the same line as the statement they annotate. If the docling extraction interleaved code and prose paragraphs (example_layout), preserve that interleaving with the prose between fenced code blocks.",
-        "7. Then optional \"## See also\" listing referenced rules.",
-        "8. End with these two sections verbatim, with the rule id and the short rule statement substituted in:",
-        "   \"## Implementation notes\"",
-        "   \"\"",
-        "   \"None\"",
-        "   \"\"",
-        "   \"## References\"",
-        "   \"\"",
-        "   \"* <STANDARD DISPLAY NAME>: <Rule|Dir> X.Y[.Z]: <short rule statement>\"",
+        "You are NOT an author. Your job is to take an existing query"
+        " help file and apply ONLY the transformations listed below."
+        " The input document was generated deterministically from the"
+        " licensed MISRA rule text and should be preserved as-is except"
+        " for the specific fixes you are instructed to make.",
         "",
-        "Hard rules:",
-        "- Output ONLY the Markdown file content. No prose before or after. No fenced wrapper around the whole file.",
-        "- Never invent content not present in the inputs. If a section has no source content, omit it.",
-        "- Preserve technical accuracy. If the existing .md contains a clearly more accurate or more complete version of a section than the structured input, prefer the existing wording.",
-        "- Strip footnote references of the form \"C90 [Undefined N, ...]\", \"C99 [...]\", \"C11 [...]\" and bracketed cross-reference tags like \"[dcl.enum]\" or \"[class.bit]\" from titles and rule statements (these are PDF artefacts, not part of the rule statement).",
-        "- Use American English spelling throughout, even when the MISRA source uses British English. The CodeQL Coding Standards project is standardized on American English. Convert: behaviour->behavior, initialise/initialised/initialisation->initialize/initialized/initialization, recognise->recognize, organisation->organization, optimise->optimize, analyse->analyze, modelling->modeling, signalling->signaling, programme->program, centre->center, colour->color, defence->defense, licence (noun)->license, judgement->judgment, fulfil->fulfill, whilst->while, amongst->among, learnt->learned, spelt->spelled, programme->program, catalogue->catalog, dialogue->dialog, artefact->artifact. Apply this to ALL prose including titles, blockquoted rule statements, amplification, rationale, and exceptions. Do not change identifiers, code, or quoted standard text inside ``code spans``.",
-        "- Do not add a trailing newline beyond a single one at the end of the file.",
+        "ALLOWED changes (apply all that are applicable):",
+        "",
+        "1. American English: convert British spellings throughout all"
+        "   prose (NOT code, identifiers, or text inside `code spans`)."
+        "   Common conversions: behaviour->behavior,"
+        "   initialise->initialize, initialised->initialized,"
+        "   initialisation->initialization, recognise->recognize,"
+        "   organisation->organization, optimise->optimize,"
+        "   analyse->analyze, modelling->modeling,"
+        "   signalling->signaling, programme->program,"
+        "   centre->center, colour->color, defence->defense,"
+        "   licence (noun)->license, judgement->judgment,"
+        "   fulfil->fulfill, whilst->while, amongst->among,"
+        "   learnt->learned, spelt->spelled, catalogue->catalog,"
+        "   dialogue->dialog, artefact->artifact.",
+        "",
+        "2. PDF extraction artifacts:",
+        "   - Strip footnote references: \"C90 [Undefined 12]\","
+        "     \"C99 [...]\", \"C11 [...]\", \"C17 [...]\".",
+        "   - Strip bracketed cross-reference tags:"
+        "     \"[dcl.enum]\", \"[class.bit]\".",
+        "   - Collapse multi-space kerning runs"
+        "     (\"If   any   element\" -> \"If any element\").",
+        "   - Fix stray spaces before punctuation"
+        "     (\"virtual , override\" -> \"virtual, override\").",
+        "   - Replace curly quotes with straight quotes.",
+        "",
+        "3. Markdown formatting (fix only if broken):",
+        "   - Code blocks must use the correct language tag"
+        "     (```c or ```cpp).",
+        "   - Numbered exceptions must use \"1.\", \"2.\", \"3.\""
+        "     format, never bullets.",
+        "   - In code blocks, each statement should be on its own"
+        "     line.",
+        "   - Compliance comments (/* Compliant */,"
+        "     /* Non-compliant */) must stay on the same line as"
+        "     the statement they annotate.",
+        "",
+        "4. Heading title: the \"# <Rule|Dir> X.Y[.Z]: <title>\""
+        "   heading must use the title from the .ql @name metadata"
+        "   (provided in the input as ql_name_title), which is the"
+        "   authoritative short title.",
+        "",
+        "5. Implementation notes: if IMPLEMENTATION_SCOPE text is"
+        "   provided in the input, use it verbatim in the"
+        "   \"## Implementation notes\" section. Otherwise, leave"
+        "   the section as \"None\". Never invent implementation"
+        "   notes.",
+        "",
+        "6. Structure: verify the document follows this section"
+        "   order. Fix ordering if wrong, but do NOT add sections"
+        "   that have no content in the input:",
+        "   - # <Rule|Dir> X.Y[.Z]: <title>",
+        "   - \"This query implements ...\" + blockquote",
+        "   - ## Classification (HTML table)",
+        "   - ### Amplification (if content exists)",
+        "   - ### Rationale (if content exists)",
+        "   - ### Exception (if content exists)",
+        "   - ## Example (if content exists)",
+        "   - ## See also (if content exists)",
+        "   - ## Implementation notes",
+        "   - ## References",
+        "",
+        "FORBIDDEN (do NOT do any of these):",
+        "- Do NOT paraphrase, summarize, or rewrite the rule text"
+        "   in your own words.",
+        "- Do NOT add explanatory text, examples, or content not"
+        "   present in the input.",
+        "- Do NOT remove content that is present in the input"
+        "   (unless it is a PDF artifact listed above).",
+        "- Do NOT change technical meaning, even subtly.",
+        "- Do NOT modify identifiers, variable names, or code"
+        "   (except whitespace formatting in code blocks).",
+        "- Do NOT wrap the entire output in a fenced code block.",
+        "",
+        "Output ONLY the corrected Markdown file content."
+        " No commentary before or after."
+        " End with exactly one trailing newline.",
     ])
 
 
 def user_prompt(rule: dict[str, Any], query: dict[str, Any], standard: str) -> str:
+    existing = query.get("existing_md")
+    impl_scope = query.get("implementation_scope")
+
+    parts: list[str] = []
+
+    if existing:
+        parts += [
+            "Lint, format, and proofread the following query help file.",
+            "Apply ONLY the allowed transformations from your instructions.",
+            "Do NOT rewrite or paraphrase -- preserve the original text.",
+            "",
+            "DOCUMENT TO PROOFREAD:",
+            "```markdown",
+            existing.rstrip("\n"),
+            "```",
+            "",
+        ]
+    else:
+        parts += [
+            "Format the following rule data into a query help file.",
+            "Use the literal MISRA rule text below -- do NOT paraphrase.",
+            "Follow the section structure from your instructions exactly.",
+            "",
+        ]
+
+    # Provide rule JSON as reference (for fact-checking or initial
+    # formatting when there is no existing_md).
     payload = {
         "standard": standard,
         "standard_display": STD_DISPLAY[standard],
         "rule": rule,
-        "query": query,
+        "query": {k: v for k, v in query.items() if k != "existing_md"},
     }
-    return "\n".join([
-        "Generate the help file for the query below.",
-        "",
-        "INPUTS (JSON):",
+    parts += [
+        "REFERENCE DATA (for fact-checking and metadata):",
         "```json",
         json.dumps(payload, indent=2),
         "```",
         "",
-        f"The output MUST start with \"# {rule['raw_id']}: \" followed by the title from "
-        f"query.ql_name_title (NOT the PDF title -- the .ql @name is authoritative). "
-        f"Use the rule.title for the blockquote rule statement (after stripping footnote references).",
+    ]
+
+    if impl_scope:
+        desc = impl_scope.get("description", "")
+        items = impl_scope.get("items", [])
+        parts.append("IMPLEMENTATION_SCOPE (use verbatim in"
+                      " '## Implementation notes'):")
+        parts.append(desc)
+        for item in items:
+            parts.append(f"* {item}")
+        parts.append("")
+
+    parts += [
+        f"The heading MUST be \"# {rule['raw_id']}: <title>\" where"
+        f" <title> comes from ql_name_title"
+        f" (\"{query.get('ql_name_title', '')}\"),"
+        f" NOT from the PDF rule title.",
         "",
-        "Now emit the .md content.",
-    ])
+        "Now emit the proofread .md content.",
+    ]
+
+    return "\n".join(parts)
 
 
 def unwrap_fence(text: str) -> str:

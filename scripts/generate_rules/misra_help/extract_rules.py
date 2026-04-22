@@ -560,7 +560,7 @@ def _format_code_lines(text: str) -> str:
 # ----------------------------------------------------------------------------
 
 STD_DISPLAY = {
-    "MISRA-C-2023": "MISRA C 2023",
+    "MISRA-C-2023": "MISRA C 2012",
     "MISRA-C-2012": "MISRA C 2012",
     "MISRA-C++-2023": "MISRA C++ 2023",
 }
