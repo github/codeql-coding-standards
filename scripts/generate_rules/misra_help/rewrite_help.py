@@ -269,11 +269,6 @@ def system_prompt() -> str:
         "     (```c or ```cpp).",
         "   - Numbered exceptions must use \"1.\", \"2.\", \"3.\""
         "     format, never bullets.",
-        "   - In code blocks, each statement should be on its own"
-        "     line.",
-        "   - Compliance comments (/* Compliant */,"
-        "     /* Non-compliant */) must stay on the same line as"
-        "     the statement they annotate.",
         "",
         "4. Heading title: the \"# <Rule|Dir> X.Y[.Z]: <title>\""
         "   heading must use the title from the .ql @name metadata"
@@ -308,8 +303,14 @@ def system_prompt() -> str:
         "- Do NOT remove content that is present in the input"
         "   (unless it is a PDF artifact listed above).",
         "- Do NOT change technical meaning, even subtly.",
-        "- Do NOT modify identifiers, variable names, or code"
-        "   (except whitespace formatting in code blocks).",
+        "- Do NOT modify code inside fenced code blocks."
+        "   Preserve indentation, brace placement, comment"
+        "   positions, and alignment exactly as given.",
+        "- Do NOT change brace placement style (e.g. Allman to"
+        "   K&R or vice versa).",
+        "- Do NOT merge separate fenced code blocks into one or"
+        "   convert prose paragraphs between code blocks into"
+        "   code comments.",
         "- Do NOT wrap the entire output in a fenced code block.",
         "",
         "Output ONLY the corrected Markdown file content."

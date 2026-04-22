@@ -530,8 +530,6 @@ def extract_rules(pdf_path: Path, standard: str, cache_dir: Path) -> list[Rule]:
 # transform — no parsing or formatting — and keeps the output readable.
 
 _CODE_FORMAT_STEPS = [
-    # Pull "// ..." comments onto their own line.
-    (re.compile(r"\s+//"),          "\n//"),
     # Newline after `;` (but not inside `for( ; ; )` — the next rule catches
     # runs of `;` we should leave alone).
     (re.compile(r";\s+(?=\S)"),    ";\n"),
@@ -542,17 +540,44 @@ _CODE_FORMAT_STEPS = [
 ]
 
 
+def _indent_by_braces(text: str) -> str:
+    """Add 2-space indentation based on brace nesting depth."""
+    lines = text.splitlines()
+    out: list[str] = []
+    depth = 0
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            out.append("")
+            continue
+        # Dedent for lines that start with `}`
+        if stripped.startswith("}"):
+            depth = max(0, depth - 1)
+        out.append("  " * depth + stripped)
+        # Indent after lines that end with `{`
+        if stripped.endswith("{"):
+            depth += 1
+    return "\n".join(out)
+
+
 def _format_code_lines(text: str) -> str:
     """Heuristically insert line breaks into a C/C++ code example that
     docling concatenated onto a single line. Deterministic.
+
+    Preserves existing multi-space alignment and inline ``//`` comments.
+    Only inserts line breaks at ``;``, ``{``, ``}`` boundaries and adds
+    brace-depth indentation.
     """
-    # Collapse 2+ spaces (docling sometimes inserts them where a PDF
-    # layout break occurred) so the regexes below match reliably.
-    s = re.sub(r"[ \t]{2,}", " ", text).strip()
+    # Collapse runs of 3+ spaces (likely docling kerning artefacts) to
+    # a single space, but preserve 2-space runs which may be intentional
+    # alignment in column-style comments.
+    s = re.sub(r"[ \t]{3,}", " ", text).strip()
     for pat, repl in _CODE_FORMAT_STEPS:
         s = pat.sub(repl, s)
-    # Trim any leading/trailing whitespace on each resulting line.
-    return "\n".join(line.rstrip() for line in s.splitlines()).strip()
+    # Trim trailing whitespace on each line.
+    s = "\n".join(line.rstrip() for line in s.splitlines()).strip()
+    # Add indentation based on brace depth.
+    return _indent_by_braces(s)
 
 
 # ----------------------------------------------------------------------------
