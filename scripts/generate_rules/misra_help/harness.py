@@ -72,7 +72,8 @@ def main() -> int:
     ap.add_argument("--pdf", required=True)
     ap.add_argument("--standard", required=True, choices=list(STD_DISPLAY))
     ap.add_argument("-n", "--iterations", type=int, default=3)
-    ap.add_argument("--cache-dir", default="/tmp/misra-pdf-probe/det-cache")
+    ap.add_argument("--cache-dir",
+                    default=str(Path(__file__).resolve().parent / "cache"))
     ap.add_argument("--keep-cache", action="store_true",
                     help="do NOT clear docling cache between runs (tests just the post-docling stages)")
     ap.add_argument("--report", default="/tmp/misra-pdf-probe/determinism-report.json")

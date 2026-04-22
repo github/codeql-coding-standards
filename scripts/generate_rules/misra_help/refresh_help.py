@@ -27,6 +27,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent))
 from extract_rules import Rule, render_help, _format_code_lines  # noqa: E402
+from cache import load_cache as _load_cache, save_cache  # noqa: E402
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 QUERY_REPO = SCRIPT_DIR.parents[2]
@@ -152,12 +153,11 @@ def main() -> int:
     args = p.parse_args()
 
     help_repo = args.help_repo.resolve()
-    cache_path = help_repo / ".misra-rule-cache" / f"{args.standard}.json"
-    if not cache_path.exists():
-        print(f"Cache not found: {cache_path}", file=sys.stderr)
+    try:
+        cache = _load_cache(help_repo, args.standard)
+    except FileNotFoundError as e:
+        print(str(e), file=sys.stderr)
         return 2
-
-    cache = json.loads(cache_path.read_text(encoding="utf-8"))
     total_queries = sum(len(v) for v in cache["queries"].values())
     print(f"Loaded cache: {len(cache['rules'])} rules, {total_queries} queries")
 
@@ -169,8 +169,7 @@ def main() -> int:
     # Patch cache with fresh existing_md + implementation_scope.
     print("\n=== Patching cache ===")
     cache = patch_cache(cache, help_repo, args.query_repo, args.standard)
-    cache_path.write_text(
-        json.dumps(cache, indent=2, ensure_ascii=False), encoding="utf-8")
+    save_cache(help_repo, args.standard, cache)
     impl_count = sum(
         1 for qs in cache["queries"].values()
         for q in qs if q.get("implementation_scope")

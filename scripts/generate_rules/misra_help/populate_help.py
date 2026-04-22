@@ -29,6 +29,7 @@ from extract_rules import extract_rules, render_help, Rule  # noqa: E402
 
 DEFAULT_HELP_REPO = Path(__file__).resolve().parents[3].parent / "codeql-coding-standards-help"
 DEFAULT_QUERY_REPO = Path(__file__).resolve().parents[3]
+DEFAULT_CACHE_DIR = Path(__file__).resolve().parent / "cache"
 
 # standard → (lang, relative source dir under the queries repo).
 # A MISRA standard implies its language; users do not pass --lang.
@@ -218,41 +219,7 @@ def write_help(rule: Rule, ql_path: Path, lang: str, help_repo: Path,
                query_repo: Path, lang_src: Path,
                no_overwrite: bool, dry_run: bool,
                rule_trusted: bool) -> str:
-    """Write one help .md. Returns a status string.
-
-    By default, regenerates every file from the rule description,
-    overwriting any existing content (this is what makes the tool a
-    single source of truth for query documentation). Pass
-    `no_overwrite=True` to leave existing files untouched.
-
-    In the default (overwriting) mode, files whose render matches the
-    existing bytes are reported as `unchanged` and are not touched on
-    disk — so re-runs yield `wrote-changed: 0`, which is the
-    idempotency signal.
-
-    If the rule's identity could not be verified against any of the
-    queries in its directory (`rule_trusted=False`), this query's
-    `.md` is not written and `title-mismatch` is reported. The caller
-    computes `rule_trusted` by comparing the `@name` title of every
-    query for the rule to the PDF-extracted rule title; if at least
-    one matches (exactly, by prefix, or by sufficiently long substring)
-    the rule is trusted for all queries in that directory. This guards
-    against two real failure modes:
-      - MISRA C rule-numbering drift between 2012 and 2023 (queries
-        are tagged for 2012 but the only available PDF is the 2023
-        edition), and
-      - docling rule-anchor detection failures that leave a rule with
-        an empty or garbled title.
-
-    Status is one of:
-        wrote-new        file did not exist, was written
-        wrote-changed    file existed, content differs, was rewritten
-        unchanged        file existed and render matches byte-for-byte
-        skip-existing    file existed and --no-overwrite was passed
-        title-mismatch   rule title was not verifiable from any query;
-                         skipped to preserve existing content
-        would-*          dry-run variants of the above
-    """
+    """Write one help .md and return a short status string."""
     rel_dir = ql_path.parent.relative_to(query_repo / lang_src)
     target_dir = help_repo / lang_src / rel_dir
     target = target_dir / (ql_path.stem + ".md")
@@ -293,7 +260,7 @@ def main() -> int:
                     help="path to the licensed MISRA PDF (overrides env var "
                          "and help-repo glob)")
     ap.add_argument("--cache-dir", type=Path,
-                    default=Path("/tmp/misra-pdf-probe/repo-cache"),
+                    default=DEFAULT_CACHE_DIR,
                     help="docling JSON cache dir (deterministic across runs)")
     ap.add_argument("--rule", action="append", default=[],
                     help="restrict to specific RULE-X-Y[-Z] (repeatable)")

@@ -65,6 +65,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from extract_rules import extract_rules, Rule  # noqa: E402
+from cache import cache_path_for, save_cache  # noqa: E402
 from populate_help import (  # noqa: E402
     STANDARD_INFO,
     SUPPORTED_STANDARDS,
@@ -152,7 +153,7 @@ def main() -> int:
     ap.add_argument("--help-repo", type=Path, default=DEFAULT_HELP_REPO)
     ap.add_argument("--pdf", type=Path, default=None)
     ap.add_argument("--cache-dir", type=Path,
-                    default=Path("/tmp/misra-pdf-probe/repo-cache"),
+                    default=Path(__file__).resolve().parent / "cache",
                     help="docling JSON cache dir")
     ap.add_argument("--output", type=Path, default=None,
                     help="output path (default: "
@@ -188,8 +189,7 @@ def main() -> int:
         "queries": queries_json,
     }
 
-    out_path = args.output or (args.help_repo / ".misra-rule-cache"
-                               / f"{args.standard}.json")
+    out_path = args.output or cache_path_for(args.help_repo, args.standard)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False),
                         encoding="utf-8")

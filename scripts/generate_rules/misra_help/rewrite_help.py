@@ -39,6 +39,8 @@ from typing import Any, Iterable
 
 import requests
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
 
 SUPPORTED_STANDARDS = ("MISRA-C-2012", "MISRA-C-2023", "MISRA-C++-2023")
 STD_DISPLAY = {
@@ -400,14 +402,7 @@ def unwrap_fence(text: str) -> str:
 # Main rewrite loop
 # ---------------------------------------------------------------------------
 
-
-def load_cache(help_repo: Path, standard: str) -> dict[str, Any]:
-    cache_path = help_repo / ".misra-rule-cache" / f"{standard}.json"
-    if not cache_path.exists():
-        raise FileNotFoundError(
-            f"Cache not found: {cache_path}. Run dump_rules_json.py first."
-        )
-    return json.loads(cache_path.read_text(encoding="utf-8"))
+from cache import load_cache  # noqa: E402
 
 
 def iter_work(

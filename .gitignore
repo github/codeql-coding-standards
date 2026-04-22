@@ -6,6 +6,9 @@
 # query compilation caches
 .cache
 
+# MISRA help generator docling cache
+scripts/generate_rules/misra_help/cache/
+
 # qltest projects and artifacts
 **/test/**/*.testproj
 **/test/**/*.actual

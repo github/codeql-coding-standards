@@ -62,12 +62,22 @@ def _load_words() -> set[str]:
     if _WORDS_CACHE is not None:
         return _WORDS_CACHE
     words: set[str] = set(_EXTRA_WORDS)
+    found_system = False
     for p in _WORDLIST_PATHS:
         path = Path(p)
         if path.exists():
             with path.open() as f:
                 words |= {w.strip().lower() for w in f if w.strip()}
+            found_system = True
             break
+    if not found_system:
+        import warnings
+        warnings.warn(
+            "No system wordlist found; ligature repair will rely on "
+            "the built-in word list only. Install a words file at "
+            f"{_WORDLIST_PATHS[0]} for full coverage.",
+            stacklevel=2,
+        )
     _WORDS_CACHE = words
     return words
 
@@ -80,7 +90,7 @@ _LIGS = ("fi", "fl", "ff", "ffi", "ffl")
 #   prevents mis-substitution on legitimate CamelCase identifiers
 #   containing `A` or `C`.
 _SUSPECT_GLYPHS = set("0123456789CA^%")
-_SUSPECT_TOKEN_RE = re.compile(r"[A-Za-z0-9CA\^%]*[0-9CA\^%][A-Za-z0-9CA\^%]*")
+_SUSPECT_TOKEN_RE = re.compile(r"[A-Za-z0-9\^%]+")
 
 
 def repair_ligatures(text: str) -> str:
@@ -100,32 +110,28 @@ def repair_ligatures(text: str) -> str:
         # though they start or end with a suspect glyph.
         if not any(c.isalpha() for c in tok):
             return tok
+        # Skip tokens that contain no suspect glyphs at all.
+        if not any(c in _SUSPECT_GLYPHS for c in tok):
+            return tok
         low = tok.lower()
         if low.isalpha() and low in words:
             return tok
         out = tok
-        for _ in range(4):  # at most a few rounds for ffl etc.
-            changed = False
-            for i, ch in enumerate(out):
-                if ch not in _SUSPECT_GLYPHS:
-                    continue
-                # The substitution is acceptable if at least one side of
-                # the suspect glyph is a letter (or the token edge).
-                left_ok = (i == 0) or out[i - 1].isalpha()
-                right_ok = (i == len(out) - 1) or out[i + 1].isalpha()
-                if not (left_ok and right_ok):
-                    continue
-                hits = []
-                for lig in _LIGS:
-                    cand = (out[:i] + lig + out[i + 1 :]).lower()
-                    if cand in words:
-                        hits.append(lig)
-                if len(hits) == 1:
-                    out = out[:i] + hits[0] + out[i + 1 :]
-                    changed = True
-                    break
-            if not changed:
-                break
+        for i, ch in enumerate(out):
+            if ch not in _SUSPECT_GLYPHS:
+                continue
+            left_ok = (i == 0) or out[i - 1].isalpha()
+            right_ok = (i == len(out) - 1) or out[i + 1].isalpha()
+            if not (left_ok and right_ok):
+                continue
+            hits = []
+            for lig in _LIGS:
+                cand = (out[:i] + lig + out[i + 1 :]).lower()
+                if cand in words:
+                    hits.append(lig)
+            if len(hits) == 1:
+                out = out[:i] + hits[0] + out[i + 1 :]
+                break  # indices shifted; one repair per token suffices
         return out
 
     return _SUSPECT_TOKEN_RE.sub(lambda m: fix(m.group(0)), text)
@@ -654,38 +660,29 @@ def to_dict(rule: Rule) -> dict:
 # CLI
 # ----------------------------------------------------------------------------
 
+_REPO_ROOT = Path(__file__).resolve().parents[3]
+
 if __name__ == "__main__":
-    import argparse, csv
+    import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("pdf")
     ap.add_argument("--standard", required=True, choices=list(STD_DISPLAY))
-    ap.add_argument("--lang", default=None,
-                    help="override the language used to render code fences "
-                         "(default: derived from --standard)")
-    ap.add_argument("--cache-dir", default="/tmp/misra-pdf-probe")
-    ap.add_argument("--out-dir", default="/tmp/misra-pdf-probe/extracted")
+    ap.add_argument("--cache-dir",
+                    default=str(_REPO_ROOT / "scripts" / "generate_rules"
+                                / "misra_help" / "cache"))
     ap.add_argument("--rule", action="append", help="only emit these rule IDs")
-    ap.add_argument("--check-csv", default="/Users/data-douser/Git/github/codeql-coding-standards/rules.csv",
-                    help="cross-check coverage against this rules.csv")
+    ap.add_argument("--json", default=None,
+                    help="write extracted rules to this JSON file")
     args = ap.parse_args()
     rules = extract_rules(Path(args.pdf), args.standard, Path(args.cache_dir))
-    print(f"Extracted {len(rules)} rules from {args.pdf}")
-    out = Path(args.out_dir)
-    out.mkdir(parents=True, exist_ok=True)
-    (out / f"{args.standard}.json").write_text(
-        json.dumps([to_dict(r) for r in rules], indent=2),
-        encoding="utf-8",
-    )
-    if args.check_csv:
-        csv_std = "MISRA-C-2012" if args.standard == "MISRA-C-2023" else args.standard
-        expected = {row["ID"] for row in csv.DictReader(open(args.check_csv))
-                    if row["Standard"] == csv_std}
-        got = {r.rule_id for r in rules}
-        print(f"  csv-coverage: {len(got & expected)}/{len(expected)} matched, "
-              f"missing={sorted(expected - got)[:10]}, extra={sorted(got - expected)[:10]}")
     selected = [r for r in rules if not args.rule or r.rule_id in args.rule]
-    for r in selected:
-        d = out / args.standard / r.rule_id
-        d.mkdir(parents=True, exist_ok=True)
-        (d / "extracted.md").write_text(render_help(r, args.lang or ("cpp" if "C++" in args.standard else "c")), encoding="utf-8")
-    print(f"Wrote {len(selected)} help files under {out / args.standard}/")
+    print(f"Extracted {len(rules)} rules from {args.pdf}"
+          f" ({len(selected)} selected)")
+    if args.json:
+        out = Path(args.json)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(
+            json.dumps([to_dict(r) for r in selected], indent=2),
+            encoding="utf-8",
+        )
+        print(f"Wrote {out}")
