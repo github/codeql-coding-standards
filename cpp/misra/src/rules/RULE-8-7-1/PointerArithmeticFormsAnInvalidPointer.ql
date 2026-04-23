@@ -120,7 +120,25 @@ class NarrowedHeapAllocationFunctionCall extends Cast {
 newtype TArrayAllocation =
   TStackAllocation(ArrayDeclaration arrayDecl) or
   TDynamicAllocation(NarrowedHeapAllocationFunctionCall narrowedAlloc) or
-  TAddressOfLvalue(AddressOfExpr addressExpr)
+  TAddressOfLvalue(AddressOfExpr addressExpr) {
+    /*
+     * We'd like to exclude cases such as &arr[1], since that would raise false positives in these cases:
+     *
+     * ``` C++
+     * int arr[4];
+     * int *third_pos = &arr[2];              // current offset is 2.
+     * int *one_beyond_last = third_pos + 2;  // current offset is 4 (which is just one beyond the last).
+     * ```
+     *
+     * It is totally fine to write (third_pos + 2) in the above case. However, the if we don't make an
+     * exception on the cases where the address-of operand is an array expression, our query would take
+     * that as an object of length 1, and (third_pos + 2) will be flagged as an out-of-bound pointer.
+     *
+     * c.f. `TAddressOfIndex` branch of `PointerFormation`.
+     */
+
+    not addressExpr.getOperand() instanceof ArrayExpr
+  }
 
 /**
  * Any kind of allocation of an array, either allocated on the stack or the heap.
@@ -206,7 +224,24 @@ class IndirectUninitializedNode extends Node {
 
 newtype TPointerFormation =
   TArrayExpr(ArrayExprBA arrayExpr) or
-  TPointerArithmetic(PointerArithmeticOperation pointerArithmetic)
+  TPointerArithmetic(PointerArithmeticOperation pointerArithmetic) or
+  TAddressOfIndex(AddressOfExpr addrOf, ArrayExpr arrExpr) {
+    /*
+     * Here we'd want the array expressions we excluded in `ArrayAllocation`.
+     *
+     * ``` C++
+     * int arr[4];
+     * int *third_pos = &arr[2];              // current offset is 2.
+     * int *one_beyond_last = third_pos + 2;  // current offset is 4 (which is just one beyond the last).
+     * ```
+     *
+     * &
+     *
+     * c.f. `TAddressOfIndex` branch of `PointerFormation`.
+     */
+
+    addrOf.getOperand() = arrExpr
+  }
 
 /**
  * Any kind of pointer formation that derives from a base pointer, either as an arithmetic operation
@@ -239,6 +274,10 @@ class PointerFormation extends TPointerFormation {
    * Gets the offset of this pointer formation as calculated in relation to the base pointer.
    */
   int getOffset() {
+    exists(ArrayExpr arrExpr | this = TAddressOfIndex(_, arrExpr) |
+      result = arrExpr.getArrayOffset().getValue().toInt()
+    )
+    or
     if this.asPointerArithmetic() instanceof PointerSubExpr
     then result = -this.getOffsetExpr().getValue().toInt()
     else result = this.getOffsetExpr().getValue().toInt()
