@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-inline int16_t global_redefined = 0;     // NON_COMPLIANT[False negative]
+inline int16_t global_redefined = 0;     // NON_COMPLIANT[FALSE_NEGATIVE]
 extern inline int16_t global_redeclared; // COMPLIANT
 inline void func_redefined() {}          // NON_COMPLIANT -- flagged in test.cpp
 inline void func_redeclared();           // COMPLIANT

@@ -33,7 +33,7 @@ class UserTypeDefinition extends TypeDeclarationEntry {
 
 from UserTypeDefinition t1, UserTypeDefinition t2
 where
-  not isExcluded(t1, Declarations8Package::duplicateTypeDefinitionsQuery()) and
+  not isExcluded([t1, t2], Declarations8Package::duplicateTypeDefinitionsQuery()) and
   t1.getUserType().getQualifiedName() = t2.getUserType().getQualifiedName() and
   t1.getFile() != t2.getFile() and
   t1.getFile().getAbsolutePath() < t2.getFile().getAbsolutePath() // Report only once per pair

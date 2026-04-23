@@ -19,8 +19,14 @@
             "scope/system"
           ],
           "implementation_scope": {
-            "description": "This query does not detect duplicated definitions of inline variables.",
-            "items": []
+            "description": "The implementation of this rule and the implementation of Rule 6.2.1 are heavily related.",
+            "items": [
+              "Generally speaking, false positives in Rule 6.2.1 will be true violations of this rule, and such results are not duplicated here.",
+              "Our implementation of Rule 6.2.1 detects duplicate definitions of non-inline entities, but excludes all inline functions to avoid false positives.",
+              "This query detects duplicate definitions of inline functions.",
+              "Note that our definition of Rule 6.2.1 cannot distinguish between inline and non-inline variables, and therefore reports all such duplications even if they are not ODR violations. For the same reason, we do not check inline variable definitions in this query.",
+              "This rule contains another query to detect duplicate definitions of types, another case that is excluded by our implementation of Rule 6.2.1."
+            ]
           }
         },
         {
@@ -47,7 +53,16 @@
             "correctness",
             "maintainability",
             "scope/system"
-          ]
+          ],
+          "implementation_scope": {
+            "description": "The implementation of this rule and the implementation of Rule 6.2.1 are heavily related.",
+            "items": [
+              "Generally speaking, false positives in Rule 6.2.1 will be true violations of this rule, and such results are not duplicated here.",
+              "Our implementation of Rule 6.2.1 excludes analysis of duplicate type definitions to avoid false positives, even for cases that are true ODR violations.",
+              "This query detects duplicate definitions of types.",
+              "This rule contains another query to detect duplicate definitions of inline functions, another case that is excluded by our implementation of Rule 6.2.1."
+            ]
+          }
         }
       ],
       "title": "The source code used to implement an entity shall appear only once"

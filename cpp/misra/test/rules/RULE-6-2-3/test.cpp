@@ -1,6 +1,6 @@
 #include <cstdint>
 
-inline int16_t global_redefined = 0;  // NON_COMPLIANT[False negative]
+inline int16_t global_redefined = 0;  // NON_COMPLIANT[FALSE_NEGATIVE]
 inline int16_t global_unique = 0;     // COMPLIANT
 inline int16_t global_redeclared = 0; // COMPLIANT
 inline void func_redefined() {}       // NON_COMPLIANT
