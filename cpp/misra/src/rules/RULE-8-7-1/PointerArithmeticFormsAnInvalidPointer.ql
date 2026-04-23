@@ -8,6 +8,8 @@
  * @problem.severity error
  * @tags external/misra/id/rule-8-7-1
  *       scope/system
+ *       correctness
+ *       security
  *       external/misra/enforcement/undecidable
  *       external/misra/obligation/required
  */
