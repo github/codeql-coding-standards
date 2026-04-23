@@ -337,7 +337,7 @@ void test_strings(int flow, int unk_size) {
     strcat(buf1, " ");     // NON_COMPLIANT - not null terminated
     strcat(buf2, " ");     // COMPLIANT
     strcat(buf3, " ");     // COMPLIANT
-    strcat(buf4, "12345"); // NON_COMPLIANT
+    strcat(buf4, "12345"); // NON_COMPLIANT[FALSE_NEGATIVE]
 
     strcat(get_ca_5(), "12345");    // NON_COMPLIANT
     strcat(get_ca_5(), "1234");     // COMPLIANT
