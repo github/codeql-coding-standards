@@ -230,9 +230,9 @@ newtype TPointerFormation =
      * int *third_pos = &arr[2];              // current offset is 2.
      * int *one_beyond_last = third_pos + 2;  // current offset is 4 (which is just one beyond the last).
      * ```
-     *
-     * &
-     *
+     * 
+     * We want `&arr[2]` to be recognized as an offset of 2 applied to the base pointer of `arr`.
+     * 
      * c.f. `TAddressOfIndex` branch of `PointerFormation`.
      */
 
