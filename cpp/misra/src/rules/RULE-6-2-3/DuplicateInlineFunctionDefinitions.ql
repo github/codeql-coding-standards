@@ -18,27 +18,36 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.types.Compatible
 
-predicate isInline(FunctionDeclarationEntry d) { d.getDeclaration().isInline() }
+class RelevantDeclaration extends FunctionDeclarationEntry {
+  Function function;
+
+  RelevantDeclaration() {
+    isDefinition() and
+    function = getDeclaration() and
+    function.isInline()
+  }
+
+  string getQualifiedName() { result = function.getQualifiedName() }
+}
 
 predicate interestedInFunctions(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
-  f1.isDefinition() and
-  f2.isDefinition() and
-  f1.getDeclaration().getQualifiedName() = f2.getDeclaration().getQualifiedName() and
-  isInline(f1) and
-  isInline(f2) and
-  not f1.getFile() = f2.getFile()
+  not f1 = f2 and
+  exists(RelevantDeclaration d1, RelevantDeclaration d2 |
+    f1 = d1 and
+    f2 = d2 and
+    d1.getQualifiedName() = d2.getQualifiedName() and
+    not f1.getFile() = f2.getFile()
+  )
 }
 
 module FunDeclEquiv =
   FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>;
 
-from FunctionDeclarationEntry d1, FunctionDeclarationEntry d2, string namespace, string name
+from RelevantDeclaration d1, RelevantDeclaration d2
 where
   not isExcluded([d1, d2], Declarations8Package::duplicateInlineFunctionDefinitionsQuery()) and
   interestedInFunctions(d1, d2) and
   FunDeclEquiv::equalParameterTypes(d1, d2) and
-  d1.getDeclaration().hasQualifiedName(namespace, name) and
-  d2.getDeclaration().hasQualifiedName(namespace, name) and
   d1.getFile().getAbsolutePath() < d2.getFile().getAbsolutePath()
 select d1, "Inline function '" + d1.getName() + "' is implemented in multiple files: $@ and $@.",
   d1, d1.getFile().getBaseName(), d2, d2.getFile().getBaseName()
