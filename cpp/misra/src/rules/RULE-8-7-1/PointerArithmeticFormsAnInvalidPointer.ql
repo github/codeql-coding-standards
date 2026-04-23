@@ -23,16 +23,12 @@ import semmle.code.cpp.security.BufferAccess
  * A declaration of a variable that is of an array type.
  */
 class ArrayDeclaration extends VariableDeclarationEntry {
-  int length;
-
-  ArrayDeclaration() { this.getType().getUnderlyingType().(ArrayType).getArraySize() = length }
+  ArrayDeclaration() { this.getType().getUnderlyingType() instanceof ArrayType }
 
   /**
-   * Gets the declared length of this array.
+   * Gets the declared length of this array at the given level of indirection.
    */
-  int getLength() { result = length }
-
-  int getLength(int indirection) { result = getArrayType(indirection).getArraySize() }
+  int getLength(int indirection) { result = this.getArrayType(indirection).getArraySize() }
 
   private ArrayType getArrayType(int indirection) {
     indirection = 0 and result = this.getType().getUnderlyingType()
@@ -168,7 +164,7 @@ class ArrayAllocation extends TArrayAllocation {
     )
     or
     node.asUninitialized() = this.asStackAllocation().getVariable() and
-    result = this.asStackAllocation().getLength()
+    result = this.asStackAllocation().getLength(0)
     or
     node.asConvertedExpr() = this.asDynamicAllocation() and
     result = this.asDynamicAllocation().getMinNumElements()
