@@ -13,8 +13,7 @@ void stack_allocated_single_dimensional_pointer_arithmetic(int *array) {
   int *invalid1 =
       array +
       4; // NON_COMPLIANT: pointer points more than one beyond the last element
-  int *invalid2 =
-      array - 1; // NON_COMPLIANT: pointer is outside boundary
+  int *invalid2 = array - 1; // NON_COMPLIANT: pointer is outside boundary
 }
 
 void stack_allocated_single_dimensional_array_access(int *array) {
@@ -26,8 +25,7 @@ void stack_allocated_single_dimensional_array_access(int *array) {
                            // element, but non-compliant to Rule 4.1.3
   int invalid1 = array[4]; // NON_COMPLIANT: pointer points more than one beyond
                            // the last element
-  int invalid2 =
-      array[-1]; // NON_COMPLIANT: pointer is outside boundary 
+  int invalid2 = array[-1]; // NON_COMPLIANT: pointer is outside boundary
 }
 
 void malloc_single_dimensional_pointer_arithmetic(int *array) { // [1, 4]
@@ -43,8 +41,7 @@ void malloc_single_dimensional_pointer_arithmetic(int *array) { // [1, 4]
                              // beyond the last element (lower bound: 1)
   int *invalid2 = array + 5; // NON_COMPLIANT: pointer points more than one
                              // beyond the last element (lower bound: 1)
-  int *invalid3 =
-      array - 1; // NON_COMPLIANT: pointer is outside boundary 
+  int *invalid3 = array - 1; // NON_COMPLIANT: pointer is outside boundary
 }
 
 void malloc_single_dimensional_array_access(int *array) { // [1, 4]
@@ -75,8 +72,7 @@ void calloc_single_dimensional_pointer_arithmetic(int *array) { // [2, 5]
                            // the last element (lower bound: 2)
   int *invalid1 = array + 4; // NON_COMPLIANT: pointer points more than one
                              // beyond the last element (lower bound: 2)
-  int *invalid2 =
-      array - 1; // NON_COMPLIANT: pointer is outside boundary 
+  int *invalid2 = array - 1; // NON_COMPLIANT: pointer is outside boundary
 }
 
 void calloc_single_dimensional_array_access(int *array) { // [2, 5]
@@ -90,8 +86,7 @@ void calloc_single_dimensional_array_access(int *array) { // [2, 5]
                            // the last element (lower bound: 2)
   int invalid1 = array[4]; // NON_COMPLIANT: pointer points more than one
                            // beyond the last element (lower bound: 2)
-  int invalid2 =
-      array[-1]; // NON_COMPLIANT: pointer is outside boundary 
+  int invalid2 = array[-1]; // NON_COMPLIANT: pointer is outside boundary
 }
 
 void realloc_single_dimensional_pointer_arithmetic(int *array) { // [3, 6]
@@ -105,8 +100,7 @@ void realloc_single_dimensional_pointer_arithmetic(int *array) { // [3, 6]
                              // element (lower bound: 3)
   int *invalid1 = array + 4; // NON_COMPLIANT: pointer points more than one
                              // beyond the last element (lower bound: 3)
-  int *invalid2 =
-      array - 1; // NON_COMPLIANT: pointer is outside boundary 
+  int *invalid2 = array - 1; // NON_COMPLIANT: pointer is outside boundary
 }
 
 void realloc_single_dimensional_array_access(int *array) { // [3, 6]
@@ -122,8 +116,7 @@ void realloc_single_dimensional_array_access(int *array) { // [3, 6]
                 // element, but non-compliant to Rule 4.1.3 (lower bound: 3)
   int invalid1 = array[4]; // NON_COMPLIANT: pointer points more than one beyond
                            // the last element (lower bound: 3)
-  int invalid2 =
-      array[-1]; // NON_COMPLIANT: pointer is outside boundary 
+  int invalid2 = array[-1]; // NON_COMPLIANT: pointer is outside boundary
 }
 
 void stack_allocated_multi_dimensional_array_access(int array[2][3]) {
@@ -540,7 +533,8 @@ int main(int argc, char *argv[]) {
   int stack_multi_dimensional_array[2][3] = {{1, 2, 3}, {4, 5, 6}};
 
   /* 4. Multi-dimensional array initialized on the heap */
-  int(*heap_multi_dimensional_array)[3] = (int(*)[3])malloc(sizeof(int[2][3]));
+  int (*heap_multi_dimensional_array)[3] =
+      (int (*)[3])malloc(sizeof(int[2][3]));
 
   stack_allocated_multi_dimensional_array_access(stack_multi_dimensional_array);
   stack_allocated_multi_dimensional_pointer_arithmetic(
