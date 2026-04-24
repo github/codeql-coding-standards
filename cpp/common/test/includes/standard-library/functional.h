@@ -119,7 +119,9 @@ template <class R, class... Args> class function<R(Args...)> {
 public:
   using result_type = R; // deprecated in C++17
   function();
-  template <class F> function(F&& f);
+  template <class F> function(F &&f);
+  ~function();
+
   template <class F> function &operator=(F &&);
 };
 

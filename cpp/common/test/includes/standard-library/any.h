@@ -7,6 +7,7 @@ public:
   any();
   any(const any &);
   any(any &&);
+  ~any();
   template <typename T> any(T &&);
 };
 

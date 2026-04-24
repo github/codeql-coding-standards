@@ -9,6 +9,7 @@ public:
     queue();
     queue(const queue&);
     queue(queue&&);
+    ~queue();
 };
 
 template<typename T>
@@ -17,6 +18,7 @@ public:
     priority_queue();
     priority_queue(const priority_queue&);
     priority_queue(priority_queue&&);
+    ~priority_queue();
 };
 
 } // namespace std

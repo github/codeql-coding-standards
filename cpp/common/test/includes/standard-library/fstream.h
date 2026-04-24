@@ -12,6 +12,7 @@ public:
   explicit basic_fstream(const char *s);
   basic_fstream(const basic_fstream &);
   basic_fstream(basic_fstream &&);
+  virtual ~basic_fstream();
   // members
   bool is_open() const;
   void open(const string &s);

@@ -10,6 +10,7 @@ public:
     variant(const variant&);
     variant(variant&&);
     template<typename T> variant(T&&);
+    ~variant();
 };
 
 } // namespace std

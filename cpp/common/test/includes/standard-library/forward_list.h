@@ -12,6 +12,7 @@ public:
   forward_list(const forward_list &);
   forward_list(forward_list &&);
   forward_list(std::initializer_list<T>);
+  ~forward_list();
 };
 
 } // namespace std

@@ -15,6 +15,7 @@ public:
   unordered_set(const unordered_set &);
   unordered_set(unordered_set &&);
   unordered_set(std::initializer_list<T>);
+  ~unordered_set();
 };
 
 template <typename T, typename Hash = std::hash<T>,
@@ -26,6 +27,7 @@ public:
   unordered_multiset(const unordered_multiset &);
   unordered_multiset(unordered_multiset &&);
   unordered_multiset(std::initializer_list<T>);
+  ~unordered_multiset();
 };
 
 } // namespace std

@@ -13,6 +13,7 @@ public:
   list(const list &);
   list(list &&);
   list(std::initializer_list<T>);
+  ~list();
 };
 
 } // namespace std

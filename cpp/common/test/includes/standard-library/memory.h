@@ -287,6 +287,7 @@ public:
   weak_ptr(const weak_ptr &);
   weak_ptr(weak_ptr &&);
   weak_ptr(const shared_ptr<T> &);
+  ~weak_ptr();
 };
 
 template <typename T, typename Alloc, typename... Args>

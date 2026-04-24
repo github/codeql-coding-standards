@@ -14,6 +14,7 @@ public:
     future();
     future(const future&);
     future(future&&);
+    ~future();
 };
 
 template<typename T>
@@ -23,6 +24,7 @@ public:
     shared_future(const shared_future&);
     shared_future(shared_future&&);
     shared_future(future<T>&&);
+    ~shared_future();
 };
 
 template<typename T>
@@ -31,6 +33,8 @@ public:
     promise();
     promise(const promise&);
     promise(promise&&);
+    ~promise();
+
     future<T> get_future();
 };
 
@@ -44,6 +48,7 @@ public:
     packaged_task(const packaged_task&);
     packaged_task(packaged_task&&);
     template<typename F> packaged_task(F&&);
+    ~packaged_task();
 };
 
 template<typename F, typename... Args>

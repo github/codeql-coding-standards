@@ -7,6 +7,7 @@ public:
   basic_regex(const basic_regex &);
   basic_regex(basic_regex &&);
   basic_regex(const CharT *);
+  ~basic_regex();
 };
 using regex = basic_regex<char>;
 using wregex = basic_regex<wchar_t>;

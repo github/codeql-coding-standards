@@ -12,6 +12,7 @@ public:
   valarray(valarray &&);
   valarray(std::size_t);
   valarray(std::initializer_list<T>);
+  ~valarray();
 };
 
 } // namespace std

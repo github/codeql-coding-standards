@@ -14,6 +14,8 @@ public:
   multimap(const multimap&);
   multimap(multimap&&);
   multimap(std::initializer_list<std::pair<const _Key, _Tp>>);
+  ~multimap();
+
   typedef std::pair<const _Key, _Tp> value_type;
   typedef std::__iterator<value_type> iterator;
   typedef std::__iterator<value_type> const_iterator;
@@ -32,6 +34,8 @@ public:
   map(const map&);
   map(map&&);
   map(std::initializer_list<std::pair<const _Key, _Tp>>);
+  ~map();
+
   typedef std::pair<const _Key, _Tp> value_type;
   typedef std::__iterator<value_type> iterator;
   typedef std::__iterator<value_type> const_iterator;

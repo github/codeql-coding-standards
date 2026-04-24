@@ -18,6 +18,7 @@ public:
   deque(const deque &);
   deque(deque &&);
   deque(std::initializer_list<T>, const Allocator & = Allocator());
+  ~deque();
 
   typedef __iterator<T> iterator;
   typedef __iterator<T> const_iterator;

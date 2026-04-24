@@ -16,6 +16,7 @@ public:
   unordered_map(const unordered_map &);
   unordered_map(unordered_map &&);
   unordered_map(std::initializer_list<std::pair<const K, V>>);
+  ~unordered_map();
 };
 
 template <typename K, typename V, typename Hash = std::hash<K>,
@@ -27,6 +28,7 @@ public:
   unordered_multimap(const unordered_multimap &);
   unordered_multimap(unordered_multimap &&);
   unordered_multimap(std::initializer_list<std::pair<const K, V>>);
+  ~unordered_multimap();
 };
 
 } // namespace std

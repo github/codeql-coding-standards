@@ -12,6 +12,8 @@ public:
   set(const set&);
   set(set&&);
   set(std::initializer_list<_Key>);
+  ~set();
+
   typedef std::iterator<random_access_iterator_tag, _Key> iterator;
   typedef std::iterator<random_access_iterator_tag, _Key> const_iterator;
 

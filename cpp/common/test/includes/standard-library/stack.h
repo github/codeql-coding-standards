@@ -9,6 +9,7 @@ public:
     stack();
     stack(const stack&);
     stack(stack&&);
+    ~stack();
 };
 
 } // namespace std
