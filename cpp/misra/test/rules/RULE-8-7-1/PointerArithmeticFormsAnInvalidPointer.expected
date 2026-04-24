@@ -189,29 +189,29 @@ edges
 | test.cpp:529:7:529:38 | single_dimensional_array_realloc | test.cpp:92:57:92:61 | array | provenance |  |
 | test.cpp:530:43:530:74 | single_dimensional_array_realloc | test.cpp:106:51:106:55 | array | provenance |  |
 | test.cpp:533:7:533:35 | *definition of stack_multi_dimensional_array | test.cpp:533:47:533:47 | 1 | provenance |  |
-| test.cpp:533:7:533:35 | definition of stack_multi_dimensional_array | test.cpp:539:50:539:78 | stack_multi_dimensional_array | provenance |  |
-| test.cpp:533:7:533:35 | definition of stack_multi_dimensional_array | test.cpp:541:7:541:35 | stack_multi_dimensional_array | provenance |  |
-| test.cpp:533:7:533:35 | definition of stack_multi_dimensional_array | test.cpp:543:7:543:35 | stack_multi_dimensional_array | provenance |  |
+| test.cpp:533:7:533:35 | definition of stack_multi_dimensional_array | test.cpp:538:50:538:78 | stack_multi_dimensional_array | provenance |  |
+| test.cpp:533:7:533:35 | definition of stack_multi_dimensional_array | test.cpp:540:7:540:35 | stack_multi_dimensional_array | provenance |  |
+| test.cpp:533:7:533:35 | definition of stack_multi_dimensional_array | test.cpp:542:7:542:35 | stack_multi_dimensional_array | provenance |  |
 | test.cpp:533:47:533:47 | 1 | test.cpp:533:50:533:50 | 2 | provenance |  |
 | test.cpp:533:50:533:50 | 2 | test.cpp:533:53:533:53 | {...} | provenance |  |
 | test.cpp:533:53:533:53 | {...} | test.cpp:533:58:533:58 | 4 | provenance |  |
 | test.cpp:533:58:533:58 | 4 | test.cpp:533:61:533:61 | 5 | provenance |  |
 | test.cpp:533:61:533:61 | 5 | test.cpp:533:64:533:64 | {...} | provenance |  |
-| test.cpp:533:64:533:64 | {...} | test.cpp:539:50:539:78 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:533:64:533:64 | {...} | test.cpp:541:7:541:35 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:533:64:533:64 | {...} | test.cpp:543:7:543:35 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:539:50:539:78 | *stack_multi_dimensional_array | test.cpp:122:57:122:61 | *array | provenance |  |
-| test.cpp:539:50:539:78 | *stack_multi_dimensional_array | test.cpp:539:50:539:78 | stack_allocated_multi_dimensional_array_access output argument | provenance |  |
-| test.cpp:539:50:539:78 | stack_allocated_multi_dimensional_array_access output argument | test.cpp:541:7:541:35 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:539:50:539:78 | stack_allocated_multi_dimensional_array_access output argument | test.cpp:543:7:543:35 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:539:50:539:78 | stack_multi_dimensional_array | test.cpp:122:57:122:61 | array | provenance |  |
-| test.cpp:541:7:541:35 | *stack_multi_dimensional_array | test.cpp:161:63:161:67 | *array | provenance |  |
-| test.cpp:541:7:541:35 | *stack_multi_dimensional_array | test.cpp:541:7:541:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | provenance |  |
-| test.cpp:541:7:541:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | test.cpp:543:7:543:35 | *stack_multi_dimensional_array | provenance |  |
-| test.cpp:541:7:541:35 | stack_multi_dimensional_array | test.cpp:161:63:161:67 | array | provenance |  |
-| test.cpp:543:7:543:35 | *stack_multi_dimensional_array | test.cpp:156:58:156:62 | *array | provenance |  |
-| test.cpp:543:7:543:35 | stack_multi_dimensional_array | test.cpp:156:58:156:62 | array | provenance |  |
-| test.cpp:546:24:546:38 | & ... | test.cpp:208:32:208:34 | ptr | provenance |  |
+| test.cpp:533:64:533:64 | {...} | test.cpp:538:50:538:78 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:533:64:533:64 | {...} | test.cpp:540:7:540:35 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:533:64:533:64 | {...} | test.cpp:542:7:542:35 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:538:50:538:78 | *stack_multi_dimensional_array | test.cpp:122:57:122:61 | *array | provenance |  |
+| test.cpp:538:50:538:78 | *stack_multi_dimensional_array | test.cpp:538:50:538:78 | stack_allocated_multi_dimensional_array_access output argument | provenance |  |
+| test.cpp:538:50:538:78 | stack_allocated_multi_dimensional_array_access output argument | test.cpp:540:7:540:35 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:538:50:538:78 | stack_allocated_multi_dimensional_array_access output argument | test.cpp:542:7:542:35 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:538:50:538:78 | stack_multi_dimensional_array | test.cpp:122:57:122:61 | array | provenance |  |
+| test.cpp:540:7:540:35 | *stack_multi_dimensional_array | test.cpp:161:63:161:67 | *array | provenance |  |
+| test.cpp:540:7:540:35 | *stack_multi_dimensional_array | test.cpp:540:7:540:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | provenance |  |
+| test.cpp:540:7:540:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | test.cpp:542:7:542:35 | *stack_multi_dimensional_array | provenance |  |
+| test.cpp:540:7:540:35 | stack_multi_dimensional_array | test.cpp:161:63:161:67 | array | provenance |  |
+| test.cpp:542:7:542:35 | *stack_multi_dimensional_array | test.cpp:156:58:156:62 | *array | provenance |  |
+| test.cpp:542:7:542:35 | stack_multi_dimensional_array | test.cpp:156:58:156:62 | array | provenance |  |
+| test.cpp:545:24:545:38 | & ... | test.cpp:208:32:208:34 | ptr | provenance |  |
 nodes
 | test.cpp:6:65:6:69 | array | semmle.label | array |
 | test.cpp:9:17:9:21 | array | semmle.label | array |
@@ -416,19 +416,19 @@ nodes
 | test.cpp:533:58:533:58 | 4 | semmle.label | 4 |
 | test.cpp:533:61:533:61 | 5 | semmle.label | 5 |
 | test.cpp:533:64:533:64 | {...} | semmle.label | {...} |
-| test.cpp:539:50:539:78 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
-| test.cpp:539:50:539:78 | stack_allocated_multi_dimensional_array_access output argument | semmle.label | stack_allocated_multi_dimensional_array_access output argument |
-| test.cpp:539:50:539:78 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
-| test.cpp:541:7:541:35 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
-| test.cpp:541:7:541:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | semmle.label | stack_allocated_multi_dimensional_pointer_arithmetic output argument |
-| test.cpp:541:7:541:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
-| test.cpp:543:7:543:35 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
-| test.cpp:543:7:543:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
-| test.cpp:546:24:546:38 | & ... | semmle.label | & ... |
+| test.cpp:538:50:538:78 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
+| test.cpp:538:50:538:78 | stack_allocated_multi_dimensional_array_access output argument | semmle.label | stack_allocated_multi_dimensional_array_access output argument |
+| test.cpp:538:50:538:78 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
+| test.cpp:540:7:540:35 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
+| test.cpp:540:7:540:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument | semmle.label | stack_allocated_multi_dimensional_pointer_arithmetic output argument |
+| test.cpp:540:7:540:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
+| test.cpp:542:7:542:35 | *stack_multi_dimensional_array | semmle.label | *stack_multi_dimensional_array |
+| test.cpp:542:7:542:35 | stack_multi_dimensional_array | semmle.label | stack_multi_dimensional_array |
+| test.cpp:545:24:545:38 | & ... | semmle.label | & ... |
 subpaths
 | test.cpp:157:14:157:21 | *access to array | test.cpp:146:21:146:23 | *row | test.cpp:146:21:146:23 | *row | test.cpp:157:14:157:21 | row_reader output argument |
-| test.cpp:539:50:539:78 | *stack_multi_dimensional_array | test.cpp:122:57:122:61 | *array | test.cpp:122:57:122:61 | *array | test.cpp:539:50:539:78 | stack_allocated_multi_dimensional_array_access output argument |
-| test.cpp:541:7:541:35 | *stack_multi_dimensional_array | test.cpp:161:63:161:67 | *array | test.cpp:161:63:161:67 | *array | test.cpp:541:7:541:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument |
+| test.cpp:538:50:538:78 | *stack_multi_dimensional_array | test.cpp:122:57:122:61 | *array | test.cpp:122:57:122:61 | *array | test.cpp:538:50:538:78 | stack_allocated_multi_dimensional_array_access output argument |
+| test.cpp:540:7:540:35 | *stack_multi_dimensional_array | test.cpp:161:63:161:67 | *array | test.cpp:161:63:161:67 | *array | test.cpp:540:7:540:35 | stack_allocated_multi_dimensional_pointer_arithmetic output argument |
 #select
 | test.cpp:14:7:15:7 | ... + ... | test.cpp:492:7:492:36 | definition of stack_single_dimensional_array | test.cpp:14:7:14:11 | array | This pointer accesses element at index 4 while the underlying object has length 3. |
 | test.cpp:16:19:16:27 | ... - ... | test.cpp:492:7:492:36 | definition of stack_single_dimensional_array | test.cpp:16:19:16:23 | array | This pointer accesses element at index -1 while the underlying object has length 3. |
@@ -495,5 +495,5 @@ subpaths
 | test.cpp:204:11:204:19 | ... + ... | test.cpp:533:7:533:35 | *definition of stack_multi_dimensional_array | test.cpp:204:11:204:15 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
 | test.cpp:204:11:204:19 | ... + ... | test.cpp:533:7:533:35 | definition of stack_multi_dimensional_array | test.cpp:204:11:204:15 | *array | This pointer accesses element at index 3 while the underlying object has length 2. |
 | test.cpp:204:11:204:19 | ... + ... | test.cpp:533:7:533:35 | definition of stack_multi_dimensional_array | test.cpp:204:11:204:15 | array | This pointer accesses element at index 3 while the underlying object has length 2. |
-| test.cpp:218:19:218:24 | access to array | test.cpp:546:24:546:38 | & ... | test.cpp:218:19:218:21 | ptr | This pointer accesses element at index 2 while the underlying object has length 1. |
-| test.cpp:220:20:220:26 | ... + ... | test.cpp:546:24:546:38 | & ... | test.cpp:220:20:220:22 | ptr | This pointer accesses element at index 2 while the underlying object has length 1. |
+| test.cpp:218:19:218:24 | access to array | test.cpp:545:24:545:38 | & ... | test.cpp:218:19:218:21 | ptr | This pointer accesses element at index 2 while the underlying object has length 1. |
+| test.cpp:220:20:220:26 | ... + ... | test.cpp:545:24:545:38 | & ... | test.cpp:220:20:220:22 | ptr | This pointer accesses element at index 2 while the underlying object has length 1. |
