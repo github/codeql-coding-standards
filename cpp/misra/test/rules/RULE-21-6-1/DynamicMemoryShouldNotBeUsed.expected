@@ -138,34 +138,3 @@
 | test.cpp:340:13:340:51 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
 | test.cpp:343:14:344:31 | call to forward_list | Initialization of an object of class 'forward_list' that uses 'std::allocator<T>'. |
 | test.cpp:343:14:344:31 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
-| test.cpp:405:20:405:20 | call to vector | Initialization of an object of class 'vector' that uses 'std::allocator<T>'. |
-| test.cpp:406:19:406:19 | call to deque | Initialization of an object of class 'deque' that uses 'std::allocator<T>'. |
-| test.cpp:407:18:407:18 | call to list | Initialization of an object of class 'list' that uses 'std::allocator<T>'. |
-| test.cpp:408:26:408:27 | call to forward_list | Initialization of an object of class 'forward_list' that uses 'std::allocator<T>'. |
-| test.cpp:409:17:409:17 | call to set | Initialization of an object of class 'set' that uses 'std::allocator<T>'. |
-| test.cpp:410:22:410:22 | call to map | Initialization of an object of class 'map' that uses 'std::allocator<T>'. |
-| test.cpp:411:22:411:23 | call to multiset | Initialization of an object of class 'multiset' that uses 'std::allocator<T>'. |
-| test.cpp:412:27:412:28 | call to multimap | Initialization of an object of class 'multimap' that uses 'std::allocator<T>'. |
-| test.cpp:413:27:413:28 | call to unordered_set | Initialization of an object of class 'unordered_set' that uses 'std::allocator<T>'. |
-| test.cpp:414:32:414:34 | call to unordered_multiset | Initialization of an object of class 'unordered_multiset' that uses 'std::allocator<T>'. |
-| test.cpp:415:37:415:39 | call to unordered_multimap | Initialization of an object of class 'unordered_multimap' that uses 'std::allocator<T>'. |
-| test.cpp:416:22:416:23 | call to valarray | Initialization of an object of class 'valarray' that dynamically allocates memory internally. |
-| test.cpp:418:5:418:11 | call to ~vector | Call to '~vector' that dynamically deallocates memory. |
-| test.cpp:419:5:419:10 | call to ~deque | Call to '~deque' that dynamically deallocates memory. |
-| test.cpp:420:5:420:9 | call to ~list | Call to '~list' that dynamically deallocates memory. |
-| test.cpp:421:6:421:18 | call to ~forward_list | Call to '~forward_list' that dynamically deallocates memory. |
-| test.cpp:422:5:422:8 | call to ~set | Call to '~set' that dynamically deallocates memory. |
-| test.cpp:423:5:423:8 | call to ~map | Call to '~map' that dynamically deallocates memory. |
-| test.cpp:425:6:425:14 | call to ~multimap | Call to '~multimap' that dynamically deallocates memory. |
-| test.cpp:426:6:426:19 | call to ~unordered_set | Call to '~unordered_set' that dynamically deallocates memory. |
-| test.cpp:427:7:427:25 | call to ~unordered_multiset | Call to '~unordered_multiset' that dynamically deallocates memory. |
-| test.cpp:428:7:428:25 | call to ~unordered_multimap | Call to '~unordered_multimap' that dynamically deallocates memory. |
-| test.cpp:429:6:429:14 | call to ~valarray | Call to '~valarray' that dynamically deallocates memory. |
-| test.cpp:431:15:431:17 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:432:16:432:19 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:433:18:433:23 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:434:18:434:23 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:436:7:436:19 | call to ~basic_string | Call to '~basic_string' that dynamically deallocates memory. |
-| test.cpp:437:8:437:20 | call to ~basic_string | Call to '~basic_string' that dynamically deallocates memory. |
-| test.cpp:438:10:438:22 | call to ~basic_string | Call to '~basic_string' that dynamically deallocates memory. |
-| test.cpp:439:10:439:22 | call to ~basic_string | Call to '~basic_string' that dynamically deallocates memory. |

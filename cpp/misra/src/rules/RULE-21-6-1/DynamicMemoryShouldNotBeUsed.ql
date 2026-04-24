@@ -217,13 +217,13 @@ abstract class DynamicMemoryDeallocatingFunction extends Function { }
  * A function that directly deallocates dynamic memory.
  *
  * Includes C deallocation functions (`free`) and C++ deallocation functions
- * (`operator delete`, `operator delete[]`, `~T()` for any `T`.)
+ * (`operator delete` and `operator delete[]`).
+ *
+ * Note that this includes destructors, as they may or may not deallocate. If
+ * the destructor deallocates, the query should alert on the deallocation site.
  */
 class DirectDynamicMemoryDeallocatingFunction extends DynamicMemoryDeallocatingFunction {
-  DirectDynamicMemoryDeallocatingFunction() {
-    this instanceof DeallocationFunction or
-    this instanceof Destructor
-  }
+  DirectDynamicMemoryDeallocatingFunction() { this instanceof DeallocationFunction }
 }
 
 /**
@@ -264,12 +264,7 @@ where
      * Excludes realloc (already caught as allocation).
      */
 
-    (
-      call.getTarget() instanceof DynamicMemoryDeallocatingFunction and
-      (
-        call instanceof DestructorCall implies not call.isCompilerGenerated() // Exclude RAII constructor calls.
-      )
-    ) and
+    call.getTarget() instanceof DynamicMemoryDeallocatingFunction and
     not call.getTarget() instanceof DynamicMemoryAllocatingFunction and // Exclude `realloc`.
     message = "Call to '" + call.getTarget().getName() + "' that dynamically deallocates memory."
   )
