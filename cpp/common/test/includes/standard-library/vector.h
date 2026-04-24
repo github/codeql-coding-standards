@@ -20,8 +20,8 @@ public:
 
   iterator begin();
   iterator end();
-  const_iterator cbegin();
-  const_iterator cend();
+  const_iterator cbegin() const;
+  const_iterator cend() const;
   size_type size() const noexcept;
   void resize(size_type sz);
   void resize(size_type sz, const T &c);
