@@ -1,160 +1,171 @@
 | test.cpp:34:13:34:19 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
 | test.cpp:35:13:35:23 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
 | test.cpp:36:13:36:23 | call to operator new[] | Call to dynamic memory allocating function 'operator new[]'. |
-| test.cpp:38:3:38:11 | call to operator delete | Call to dynamic memory deallocating function 'operator delete'. |
-| test.cpp:39:3:39:11 | call to operator delete | Call to dynamic memory deallocating function 'operator delete'. |
-| test.cpp:40:3:40:13 | call to operator delete[] | Call to dynamic memory deallocating function 'operator delete[]'. |
+| test.cpp:38:3:38:11 | call to operator delete | Call to 'operator delete' that dynamically deallocates memory. |
+| test.cpp:39:3:39:11 | call to operator delete | Call to 'operator delete' that dynamically deallocates memory. |
+| test.cpp:40:3:40:13 | call to operator delete[] | Call to 'operator delete[]' that dynamically deallocates memory. |
 | test.cpp:54:14:54:24 | call to malloc | Call to dynamic memory allocating function 'malloc'. |
 | test.cpp:55:14:55:24 | call to calloc | Call to dynamic memory allocating function 'calloc'. |
 | test.cpp:56:14:56:25 | call to realloc | Call to dynamic memory allocating function 'realloc'. |
 | test.cpp:57:14:57:31 | call to aligned_alloc | Call to dynamic memory allocating function 'aligned_alloc'. |
-| test.cpp:59:3:59:11 | call to free | Call to dynamic memory deallocating function 'free'. |
-| test.cpp:60:3:60:11 | call to free | Call to dynamic memory deallocating function 'free'. |
-| test.cpp:61:3:61:11 | call to free | Call to dynamic memory deallocating function 'free'. |
+| test.cpp:59:3:59:11 | call to free | Call to 'free' that dynamically deallocates memory. |
+| test.cpp:60:3:60:11 | call to free | Call to 'free' that dynamically deallocates memory. |
+| test.cpp:61:3:61:11 | call to free | Call to 'free' that dynamically deallocates memory. |
 | test.cpp:65:14:65:19 | call to malloc | Call to dynamic memory allocating function 'malloc'. |
 | test.cpp:66:14:66:19 | call to calloc | Call to dynamic memory allocating function 'calloc'. |
 | test.cpp:67:14:67:20 | call to realloc | Call to dynamic memory allocating function 'realloc'. |
 | test.cpp:68:14:68:26 | call to aligned_alloc | Call to dynamic memory allocating function 'aligned_alloc'. |
-| test.cpp:70:3:70:6 | call to free | Call to dynamic memory deallocating function 'free'. |
-| test.cpp:71:3:71:6 | call to free | Call to dynamic memory deallocating function 'free'. |
-| test.cpp:72:3:72:6 | call to free | Call to dynamic memory deallocating function 'free'. |
-| test.cpp:76:13:76:33 | call to make_unique | Call to 'make_unique' that dynamically allocates memory via the standard library. |
-| test.cpp:77:13:77:35 | call to make_unique | Call to 'make_unique' that dynamically allocates memory via the standard library. |
-| test.cpp:78:13:78:33 | call to make_shared | Call to 'make_shared' that dynamically allocates memory via the standard library. |
-| test.cpp:82:13:82:37 | call to allocate_shared | Call to 'allocate_shared' that dynamically allocates memory via the standard library. |
+| test.cpp:70:3:70:6 | call to free | Call to 'free' that dynamically deallocates memory. |
+| test.cpp:71:3:71:6 | call to free | Call to 'free' that dynamically deallocates memory. |
+| test.cpp:72:3:72:6 | call to free | Call to 'free' that dynamically deallocates memory. |
+| test.cpp:76:13:76:33 | call to make_unique | Initialization of an object of class 'make_unique' that dynamically allocates memory internally. |
+| test.cpp:77:13:77:35 | call to make_unique | Initialization of an object of class 'make_unique' that dynamically allocates memory internally. |
+| test.cpp:78:13:78:33 | call to make_shared | Initialization of an object of class 'make_shared' that dynamically allocates memory internally. |
+| test.cpp:82:13:82:37 | call to allocate_shared | Initialization of an object of class 'allocate_shared' that dynamically allocates memory internally. |
 | test.cpp:87:27:87:37 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
 | test.cpp:88:27:88:37 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
-| test.cpp:94:20:94:21 | call to vector | Call to 'vector' that uses 'std::allocator<T>'. |
-| test.cpp:95:23:95:30 | call to vector | Call to 'vector' that uses 'std::allocator<T>'. |
-| test.cpp:96:23:96:25 | call to vector | Call to 'vector' that uses 'std::allocator<T>'. |
-| test.cpp:97:23:97:29 | call to vector | Call to 'vector' that uses 'std::allocator<T>'. |
-| test.cpp:99:19:99:20 | call to deque | Call to 'deque' that uses 'std::allocator<T>'. |
-| test.cpp:100:22:100:29 | call to deque | Call to 'deque' that uses 'std::allocator<T>'. |
-| test.cpp:102:18:102:19 | call to list | Call to 'list' that uses 'std::allocator<T>'. |
-| test.cpp:103:21:103:28 | call to list | Call to 'list' that uses 'std::allocator<T>'. |
-| test.cpp:105:26:105:28 | call to forward_list | Call to 'forward_list' that uses 'std::allocator<T>'. |
-| test.cpp:106:30:106:37 | call to forward_list | Call to 'forward_list' that uses 'std::allocator<T>'. |
-| test.cpp:107:1:107:1 | call to ~vector | Call to '~vector' that uses 'std::allocator<T>'. |
-| test.cpp:107:1:107:1 | call to ~vector | Call to '~vector' that uses 'std::allocator<T>'. |
-| test.cpp:107:1:107:1 | call to ~vector | Call to '~vector' that uses 'std::allocator<T>'. |
-| test.cpp:107:1:107:1 | call to ~vector | Call to '~vector' that uses 'std::allocator<T>'. |
-| test.cpp:110:17:110:18 | call to set | Call to 'set' that uses 'std::allocator<T>'. |
-| test.cpp:111:20:111:27 | call to set | Call to 'set' that uses 'std::allocator<T>'. |
-| test.cpp:113:22:113:23 | call to map | Call to 'map' that uses 'std::allocator<T>'. |
-| test.cpp:114:25:114:39 | call to map | Call to 'map' that uses 'std::allocator<T>'. |
-| test.cpp:116:22:116:24 | call to multiset | Call to 'multiset' that uses 'std::allocator<T>'. |
-| test.cpp:117:26:117:33 | call to multiset | Call to 'multiset' that uses 'std::allocator<T>'. |
-| test.cpp:119:27:119:29 | call to multimap | Call to 'multimap' that uses 'std::allocator<T>'. |
-| test.cpp:120:31:120:37 | call to multimap | Call to 'multimap' that uses 'std::allocator<T>'. |
-| test.cpp:124:27:124:29 | call to unordered_set | Call to 'unordered_set' that uses 'std::allocator<T>'. |
-| test.cpp:125:31:125:38 | call to unordered_set | Call to 'unordered_set' that uses 'std::allocator<T>'. |
-| test.cpp:127:32:127:34 | call to unordered_map | Call to 'unordered_map' that uses 'std::allocator<T>'. |
-| test.cpp:128:36:129:21 | call to unordered_map | Call to 'unordered_map' that uses 'std::allocator<T>'. |
-| test.cpp:131:32:131:35 | call to unordered_multiset | Call to 'unordered_multiset' that uses 'std::allocator<T>'. |
-| test.cpp:132:37:133:38 | call to unordered_multiset | Call to 'unordered_multiset' that uses 'std::allocator<T>'. |
-| test.cpp:135:37:135:40 | call to unordered_multimap | Call to 'unordered_multimap' that uses 'std::allocator<T>'. |
-| test.cpp:136:42:137:13 | call to unordered_multimap | Call to 'unordered_multimap' that uses 'std::allocator<T>'. |
-| test.cpp:141:22:141:24 | call to valarray | Call to 'valarray' that dynamically allocates memory via the standard library. |
-| test.cpp:142:26:142:28 | call to valarray | Call to 'valarray' that dynamically allocates memory via the standard library. |
-| test.cpp:143:26:144:27 | call to valarray | Call to 'valarray' that dynamically allocates memory via the standard library. |
-| test.cpp:148:15:148:16 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:149:19:149:26 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:150:18:150:25 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:151:18:151:25 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:153:16:153:18 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:154:21:154:29 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:156:18:156:22 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:157:25:157:33 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:159:18:159:22 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:160:25:160:33 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:161:1:161:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:161:1:161:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:161:1:161:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:161:1:161:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:161:1:161:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:161:1:161:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:161:1:161:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:161:1:161:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:161:1:161:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:161:1:161:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:165:7:165:18 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:168:7:168:21 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:173:7:173:22 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:177:7:177:22 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:180:7:181:49 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:94:20:94:21 | call to vector | Initialization of an object of class 'vector' that uses 'std::allocator<T>'. |
+| test.cpp:95:23:95:30 | call to vector | Initialization of an object of class 'vector' that uses 'std::allocator<T>'. |
+| test.cpp:96:23:96:25 | call to vector | Initialization of an object of class 'vector' that uses 'std::allocator<T>'. |
+| test.cpp:97:23:97:29 | call to vector | Initialization of an object of class 'vector' that uses 'std::allocator<T>'. |
+| test.cpp:99:19:99:20 | call to deque | Initialization of an object of class 'deque' that uses 'std::allocator<T>'. |
+| test.cpp:100:22:100:29 | call to deque | Initialization of an object of class 'deque' that uses 'std::allocator<T>'. |
+| test.cpp:102:18:102:19 | call to list | Initialization of an object of class 'list' that uses 'std::allocator<T>'. |
+| test.cpp:103:21:103:28 | call to list | Initialization of an object of class 'list' that uses 'std::allocator<T>'. |
+| test.cpp:105:26:105:28 | call to forward_list | Initialization of an object of class 'forward_list' that uses 'std::allocator<T>'. |
+| test.cpp:106:30:106:37 | call to forward_list | Initialization of an object of class 'forward_list' that uses 'std::allocator<T>'. |
+| test.cpp:110:17:110:18 | call to set | Initialization of an object of class 'set' that uses 'std::allocator<T>'. |
+| test.cpp:111:20:111:27 | call to set | Initialization of an object of class 'set' that uses 'std::allocator<T>'. |
+| test.cpp:113:22:113:23 | call to map | Initialization of an object of class 'map' that uses 'std::allocator<T>'. |
+| test.cpp:114:25:114:39 | call to map | Initialization of an object of class 'map' that uses 'std::allocator<T>'. |
+| test.cpp:116:22:116:24 | call to multiset | Initialization of an object of class 'multiset' that uses 'std::allocator<T>'. |
+| test.cpp:117:26:117:33 | call to multiset | Initialization of an object of class 'multiset' that uses 'std::allocator<T>'. |
+| test.cpp:119:27:119:29 | call to multimap | Initialization of an object of class 'multimap' that uses 'std::allocator<T>'. |
+| test.cpp:120:31:120:37 | call to multimap | Initialization of an object of class 'multimap' that uses 'std::allocator<T>'. |
+| test.cpp:124:27:124:29 | call to unordered_set | Initialization of an object of class 'unordered_set' that uses 'std::allocator<T>'. |
+| test.cpp:125:31:125:38 | call to unordered_set | Initialization of an object of class 'unordered_set' that uses 'std::allocator<T>'. |
+| test.cpp:127:32:127:34 | call to unordered_map | Initialization of an object of class 'unordered_map' that uses 'std::allocator<T>'. |
+| test.cpp:128:36:129:21 | call to unordered_map | Initialization of an object of class 'unordered_map' that uses 'std::allocator<T>'. |
+| test.cpp:131:32:131:35 | call to unordered_multiset | Initialization of an object of class 'unordered_multiset' that uses 'std::allocator<T>'. |
+| test.cpp:132:37:133:38 | call to unordered_multiset | Initialization of an object of class 'unordered_multiset' that uses 'std::allocator<T>'. |
+| test.cpp:135:37:135:40 | call to unordered_multimap | Initialization of an object of class 'unordered_multimap' that uses 'std::allocator<T>'. |
+| test.cpp:136:42:137:13 | call to unordered_multimap | Initialization of an object of class 'unordered_multimap' that uses 'std::allocator<T>'. |
+| test.cpp:141:22:141:24 | call to valarray | Initialization of an object of class 'valarray' that dynamically allocates memory internally. |
+| test.cpp:142:26:142:28 | call to valarray | Initialization of an object of class 'valarray' that dynamically allocates memory internally. |
+| test.cpp:143:26:144:27 | call to valarray | Initialization of an object of class 'valarray' that dynamically allocates memory internally. |
+| test.cpp:148:15:148:16 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:149:19:149:26 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:150:18:150:25 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:151:18:151:25 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:153:16:153:18 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:154:21:154:29 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:156:18:156:22 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:157:25:157:33 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:159:18:159:22 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:160:25:160:33 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:165:7:165:18 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:168:7:168:21 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:173:7:173:22 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:177:7:177:22 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:180:7:181:49 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
 | test.cpp:180:7:181:49 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
-| test.cpp:186:7:187:52 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:186:7:187:52 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
 | test.cpp:186:7:187:52 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
-| test.cpp:190:26:192:31 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:190:26:192:31 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
 | test.cpp:190:26:192:31 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
-| test.cpp:195:27:197:31 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:195:27:197:31 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
 | test.cpp:195:27:197:31 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
-| test.cpp:199:1:199:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:199:1:199:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:199:1:199:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:199:1:199:1 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:202:19:202:21 | call to stack | Call to 'stack' that dynamically allocates memory via the standard library. |
-| test.cpp:204:19:204:20 | call to queue | Call to 'queue' that dynamically allocates memory via the standard library. |
-| test.cpp:206:28:206:30 | call to priority_queue | Call to 'priority_queue' that dynamically allocates memory via the standard library. |
-| test.cpp:210:21:210:23 | call to basic_stringstream | Call to 'basic_stringstream' that uses 'std::allocator<T>'. |
-| test.cpp:211:25:211:32 | call to basic_stringstream | Call to 'basic_stringstream' that uses 'std::allocator<T>'. |
-| test.cpp:213:22:213:25 | call to basic_istringstream | Call to 'basic_istringstream' that uses 'std::allocator<T>'. |
-| test.cpp:214:27:214:34 | call to basic_istringstream | Call to 'basic_istringstream' that uses 'std::allocator<T>'. |
-| test.cpp:216:22:216:25 | call to basic_ostringstream | Call to 'basic_ostringstream' that uses 'std::allocator<T>'. |
-| test.cpp:218:22:218:25 | call to basic_stringstream | Call to 'basic_stringstream' that uses 'std::allocator<T>'. |
-| test.cpp:219:23:219:27 | call to basic_istringstream | Call to 'basic_istringstream' that uses 'std::allocator<T>'. |
-| test.cpp:220:23:220:27 | call to basic_ostringstream | Call to 'basic_ostringstream' that uses 'std::allocator<T>'. |
-| test.cpp:224:16:224:18 | call to basic_fstream | Call to 'basic_fstream' that dynamically allocates memory via the standard library. |
-| test.cpp:225:20:225:30 | call to basic_fstream | Call to 'basic_fstream' that dynamically allocates memory via the standard library. |
-| test.cpp:227:17:227:20 | call to basic_ifstream | Call to 'basic_ifstream' that dynamically allocates memory via the standard library. |
-| test.cpp:228:22:228:32 | call to basic_ifstream | Call to 'basic_ifstream' that dynamically allocates memory via the standard library. |
-| test.cpp:230:17:230:20 | call to basic_ofstream | Call to 'basic_ofstream' that dynamically allocates memory via the standard library. |
-| test.cpp:231:22:231:32 | call to basic_ofstream | Call to 'basic_ofstream' that dynamically allocates memory via the standard library. |
-| test.cpp:233:17:233:20 | call to basic_fstream | Call to 'basic_fstream' that dynamically allocates memory via the standard library. |
-| test.cpp:234:18:234:22 | call to basic_ifstream | Call to 'basic_ifstream' that dynamically allocates memory via the standard library. |
-| test.cpp:235:18:235:22 | call to basic_ofstream | Call to 'basic_ofstream' that dynamically allocates memory via the standard library. |
-| test.cpp:239:14:239:15 | call to basic_regex | Call to 'basic_regex' that dynamically allocates memory via the standard library. |
-| test.cpp:240:17:240:26 | call to basic_regex | Call to 'basic_regex' that dynamically allocates memory via the standard library. |
-| test.cpp:241:17:241:25 | call to basic_regex | Call to 'basic_regex' that dynamically allocates memory via the standard library. |
-| test.cpp:243:15:243:17 | call to basic_regex | Call to 'basic_regex' that dynamically allocates memory via the standard library. |
-| test.cpp:244:19:244:29 | call to basic_regex | Call to 'basic_regex' that dynamically allocates memory via the standard library. |
-| test.cpp:248:25:248:26 | call to function | Call to 'function' that dynamically allocates memory via the standard library. |
-| test.cpp:249:29:250:3 | call to function | Call to 'function' that dynamically allocates memory via the standard library. |
-| test.cpp:251:31:253:3 | call to function | Call to 'function' that dynamically allocates memory via the standard library. |
-| test.cpp:256:29:259:7 | call to function | Call to 'function' that dynamically allocates memory via the standard library. |
-| test.cpp:263:12:263:13 | call to any | Call to 'any' that dynamically allocates memory via the standard library. |
-| test.cpp:264:16:264:18 | call to any | Call to 'any' that dynamically allocates memory via the standard library. |
-| test.cpp:265:16:266:26 | call to any | Call to 'any' that dynamically allocates memory via the standard library. |
-| test.cpp:266:7:266:26 | call to basic_string | Call to 'basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:266:7:266:26 | call to ~basic_string | Call to '~basic_string' that uses 'std::allocator<T>'. |
-| test.cpp:271:16:271:23 | call to any | Call to 'any' that dynamically allocates memory via the standard library. |
-| test.cpp:275:21:275:22 | call to promise | Call to 'promise' that dynamically allocates memory via the standard library. |
-| test.cpp:280:22:280:23 | call to promise | Call to 'promise' that dynamically allocates memory via the standard library. |
-| test.cpp:281:32:282:38 | call to shared_future | Call to 'shared_future' that dynamically allocates memory via the standard library. |
-| test.cpp:282:7:282:25 | call to promise | Call to 'promise' that dynamically allocates memory via the standard library. |
-| test.cpp:284:33:285:24 | call to packaged_task | Call to 'packaged_task' that dynamically allocates memory via the standard library. |
-| test.cpp:289:15:289:18 | call to locale | Call to 'locale' that dynamically allocates memory via the standard library. |
-| test.cpp:290:20:290:23 | call to locale | Call to 'locale' that dynamically allocates memory via the standard library. |
-| test.cpp:291:21:292:28 | call to locale | Call to 'locale' that dynamically allocates memory via the standard library. |
-| test.cpp:296:18:296:25 | call to thread | Call to 'thread' that dynamically allocates memory via the standard library. |
-| test.cpp:300:18:301:25 | call to thread | Call to 'thread' that dynamically allocates memory via the standard library. |
-| test.cpp:306:13:306:22 | call to async | Call to 'async' that dynamically allocates memory via the standard library. |
-| test.cpp:308:13:308:22 | call to async | Call to 'async' that dynamically allocates memory via the standard library. |
-| test.cpp:311:13:311:22 | call to async | Call to 'async' that dynamically allocates memory via the standard library. |
-| test.cpp:317:25:317:26 | call to path | Call to 'path' that dynamically allocates memory via the standard library. |
-| test.cpp:318:29:318:39 | call to path | Call to 'path' that dynamically allocates memory via the standard library. |
-| test.cpp:319:28:319:38 | call to path | Call to 'path' that dynamically allocates memory via the standard library. |
-| test.cpp:320:35:320:39 | call to path | Call to 'path' that dynamically allocates memory via the standard library. |
-| test.cpp:325:7:325:8 | call to vector | Call to 'vector' that uses 'std::allocator<T>'. |
-| test.cpp:327:7:327:8 | call to deque | Call to 'deque' that uses 'std::allocator<T>'. |
-| test.cpp:329:7:329:8 | call to list | Call to 'list' that uses 'std::allocator<T>'. |
-| test.cpp:331:7:331:9 | call to forward_list | Call to 'forward_list' that uses 'std::allocator<T>'. |
+| test.cpp:202:19:202:21 | call to stack | Initialization of an object of class 'stack' that dynamically allocates memory internally. |
+| test.cpp:204:19:204:20 | call to queue | Initialization of an object of class 'queue' that dynamically allocates memory internally. |
+| test.cpp:206:28:206:30 | call to priority_queue | Initialization of an object of class 'priority_queue' that dynamically allocates memory internally. |
+| test.cpp:210:21:210:23 | call to basic_stringstream | Initialization of an object of class 'basic_stringstream' that uses 'std::allocator<T>'. |
+| test.cpp:211:25:211:32 | call to basic_stringstream | Initialization of an object of class 'basic_stringstream' that uses 'std::allocator<T>'. |
+| test.cpp:213:22:213:25 | call to basic_istringstream | Initialization of an object of class 'basic_istringstream' that uses 'std::allocator<T>'. |
+| test.cpp:214:27:214:34 | call to basic_istringstream | Initialization of an object of class 'basic_istringstream' that uses 'std::allocator<T>'. |
+| test.cpp:216:22:216:25 | call to basic_ostringstream | Initialization of an object of class 'basic_ostringstream' that uses 'std::allocator<T>'. |
+| test.cpp:218:22:218:25 | call to basic_stringstream | Initialization of an object of class 'basic_stringstream' that uses 'std::allocator<T>'. |
+| test.cpp:219:23:219:27 | call to basic_istringstream | Initialization of an object of class 'basic_istringstream' that uses 'std::allocator<T>'. |
+| test.cpp:220:23:220:27 | call to basic_ostringstream | Initialization of an object of class 'basic_ostringstream' that uses 'std::allocator<T>'. |
+| test.cpp:224:16:224:18 | call to basic_fstream | Initialization of an object of class 'basic_fstream' that dynamically allocates memory internally. |
+| test.cpp:225:20:225:30 | call to basic_fstream | Initialization of an object of class 'basic_fstream' that dynamically allocates memory internally. |
+| test.cpp:227:17:227:20 | call to basic_ifstream | Initialization of an object of class 'basic_ifstream' that dynamically allocates memory internally. |
+| test.cpp:228:22:228:32 | call to basic_ifstream | Initialization of an object of class 'basic_ifstream' that dynamically allocates memory internally. |
+| test.cpp:230:17:230:20 | call to basic_ofstream | Initialization of an object of class 'basic_ofstream' that dynamically allocates memory internally. |
+| test.cpp:231:22:231:32 | call to basic_ofstream | Initialization of an object of class 'basic_ofstream' that dynamically allocates memory internally. |
+| test.cpp:233:17:233:20 | call to basic_fstream | Initialization of an object of class 'basic_fstream' that dynamically allocates memory internally. |
+| test.cpp:234:18:234:22 | call to basic_ifstream | Initialization of an object of class 'basic_ifstream' that dynamically allocates memory internally. |
+| test.cpp:235:18:235:22 | call to basic_ofstream | Initialization of an object of class 'basic_ofstream' that dynamically allocates memory internally. |
+| test.cpp:239:14:239:15 | call to basic_regex | Initialization of an object of class 'basic_regex' that dynamically allocates memory internally. |
+| test.cpp:240:17:240:26 | call to basic_regex | Initialization of an object of class 'basic_regex' that dynamically allocates memory internally. |
+| test.cpp:241:17:241:25 | call to basic_regex | Initialization of an object of class 'basic_regex' that dynamically allocates memory internally. |
+| test.cpp:243:15:243:17 | call to basic_regex | Initialization of an object of class 'basic_regex' that dynamically allocates memory internally. |
+| test.cpp:244:19:244:29 | call to basic_regex | Initialization of an object of class 'basic_regex' that dynamically allocates memory internally. |
+| test.cpp:248:25:248:26 | call to function | Initialization of an object of class 'function' that dynamically allocates memory internally. |
+| test.cpp:249:29:250:3 | call to function | Initialization of an object of class 'function' that dynamically allocates memory internally. |
+| test.cpp:251:31:253:3 | call to function | Initialization of an object of class 'function' that dynamically allocates memory internally. |
+| test.cpp:256:29:259:7 | call to function | Initialization of an object of class 'function' that dynamically allocates memory internally. |
+| test.cpp:263:12:263:13 | call to any | Initialization of an object of class 'any' that dynamically allocates memory internally. |
+| test.cpp:264:16:264:18 | call to any | Initialization of an object of class 'any' that dynamically allocates memory internally. |
+| test.cpp:265:16:266:26 | call to any | Initialization of an object of class 'any' that dynamically allocates memory internally. |
+| test.cpp:266:7:266:26 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:271:16:271:23 | call to any | Initialization of an object of class 'any' that dynamically allocates memory internally. |
+| test.cpp:275:21:275:22 | call to promise | Initialization of an object of class 'promise' that dynamically allocates memory internally. |
+| test.cpp:280:22:280:23 | call to promise | Initialization of an object of class 'promise' that dynamically allocates memory internally. |
+| test.cpp:281:32:282:38 | call to shared_future | Initialization of an object of class 'shared_future' that dynamically allocates memory internally. |
+| test.cpp:282:7:282:25 | call to promise | Initialization of an object of class 'promise' that dynamically allocates memory internally. |
+| test.cpp:284:33:285:24 | call to packaged_task | Initialization of an object of class 'packaged_task' that dynamically allocates memory internally. |
+| test.cpp:289:15:289:18 | call to locale | Initialization of an object of class 'locale' that dynamically allocates memory internally. |
+| test.cpp:290:20:290:23 | call to locale | Initialization of an object of class 'locale' that dynamically allocates memory internally. |
+| test.cpp:291:21:292:28 | call to locale | Initialization of an object of class 'locale' that dynamically allocates memory internally. |
+| test.cpp:296:18:296:25 | call to thread | Initialization of an object of class 'thread' that dynamically allocates memory internally. |
+| test.cpp:300:18:301:25 | call to thread | Initialization of an object of class 'thread' that dynamically allocates memory internally. |
+| test.cpp:306:13:306:22 | call to async | Initialization of an object of class 'async' that dynamically allocates memory internally. |
+| test.cpp:308:13:308:22 | call to async | Initialization of an object of class 'async' that dynamically allocates memory internally. |
+| test.cpp:311:13:311:22 | call to async | Initialization of an object of class 'async' that dynamically allocates memory internally. |
+| test.cpp:317:25:317:26 | call to path | Initialization of an object of class 'path' that dynamically allocates memory internally. |
+| test.cpp:318:29:318:39 | call to path | Initialization of an object of class 'path' that dynamically allocates memory internally. |
+| test.cpp:319:28:319:38 | call to path | Initialization of an object of class 'path' that dynamically allocates memory internally. |
+| test.cpp:320:35:320:39 | call to path | Initialization of an object of class 'path' that dynamically allocates memory internally. |
+| test.cpp:325:7:325:8 | call to vector | Initialization of an object of class 'vector' that uses 'std::allocator<T>'. |
+| test.cpp:327:7:327:8 | call to deque | Initialization of an object of class 'deque' that uses 'std::allocator<T>'. |
+| test.cpp:329:7:329:8 | call to list | Initialization of an object of class 'list' that uses 'std::allocator<T>'. |
+| test.cpp:331:7:331:9 | call to forward_list | Initialization of an object of class 'forward_list' that uses 'std::allocator<T>'. |
 | test.cpp:334:7:335:42 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
-| test.cpp:334:7:335:42 | call to vector | Call to 'vector' that uses 'std::allocator<T>'. |
-| test.cpp:337:13:337:52 | call to deque | Call to 'deque' that uses 'std::allocator<T>'. |
+| test.cpp:334:7:335:42 | call to vector | Initialization of an object of class 'vector' that uses 'std::allocator<T>'. |
+| test.cpp:337:13:337:52 | call to deque | Initialization of an object of class 'deque' that uses 'std::allocator<T>'. |
 | test.cpp:337:13:337:52 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
-| test.cpp:340:13:340:51 | call to list | Call to 'list' that uses 'std::allocator<T>'. |
+| test.cpp:340:13:340:51 | call to list | Initialization of an object of class 'list' that uses 'std::allocator<T>'. |
 | test.cpp:340:13:340:51 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
-| test.cpp:343:14:344:31 | call to forward_list | Call to 'forward_list' that uses 'std::allocator<T>'. |
+| test.cpp:343:14:344:31 | call to forward_list | Initialization of an object of class 'forward_list' that uses 'std::allocator<T>'. |
 | test.cpp:343:14:344:31 | call to operator new | Call to dynamic memory allocating function 'operator new'. |
-| test.cpp:346:1:346:1 | call to ~vector | Call to '~vector' that uses 'std::allocator<T>'. |
+| test.cpp:405:20:405:20 | call to vector | Initialization of an object of class 'vector' that uses 'std::allocator<T>'. |
+| test.cpp:406:19:406:19 | call to deque | Initialization of an object of class 'deque' that uses 'std::allocator<T>'. |
+| test.cpp:407:18:407:18 | call to list | Initialization of an object of class 'list' that uses 'std::allocator<T>'. |
+| test.cpp:408:26:408:27 | call to forward_list | Initialization of an object of class 'forward_list' that uses 'std::allocator<T>'. |
+| test.cpp:409:17:409:17 | call to set | Initialization of an object of class 'set' that uses 'std::allocator<T>'. |
+| test.cpp:410:22:410:22 | call to map | Initialization of an object of class 'map' that uses 'std::allocator<T>'. |
+| test.cpp:411:22:411:23 | call to multiset | Initialization of an object of class 'multiset' that uses 'std::allocator<T>'. |
+| test.cpp:412:27:412:28 | call to multimap | Initialization of an object of class 'multimap' that uses 'std::allocator<T>'. |
+| test.cpp:413:27:413:28 | call to unordered_set | Initialization of an object of class 'unordered_set' that uses 'std::allocator<T>'. |
+| test.cpp:414:32:414:34 | call to unordered_multiset | Initialization of an object of class 'unordered_multiset' that uses 'std::allocator<T>'. |
+| test.cpp:415:37:415:39 | call to unordered_multimap | Initialization of an object of class 'unordered_multimap' that uses 'std::allocator<T>'. |
+| test.cpp:416:22:416:23 | call to valarray | Initialization of an object of class 'valarray' that dynamically allocates memory internally. |
+| test.cpp:418:5:418:11 | call to ~vector | Call to '~vector' that dynamically deallocates memory. |
+| test.cpp:419:5:419:10 | call to ~deque | Call to '~deque' that dynamically deallocates memory. |
+| test.cpp:420:5:420:9 | call to ~list | Call to '~list' that dynamically deallocates memory. |
+| test.cpp:421:6:421:18 | call to ~forward_list | Call to '~forward_list' that dynamically deallocates memory. |
+| test.cpp:422:5:422:8 | call to ~set | Call to '~set' that dynamically deallocates memory. |
+| test.cpp:423:5:423:8 | call to ~map | Call to '~map' that dynamically deallocates memory. |
+| test.cpp:425:6:425:14 | call to ~multimap | Call to '~multimap' that dynamically deallocates memory. |
+| test.cpp:426:6:426:19 | call to ~unordered_set | Call to '~unordered_set' that dynamically deallocates memory. |
+| test.cpp:427:7:427:25 | call to ~unordered_multiset | Call to '~unordered_multiset' that dynamically deallocates memory. |
+| test.cpp:428:7:428:25 | call to ~unordered_multimap | Call to '~unordered_multimap' that dynamically deallocates memory. |
+| test.cpp:429:6:429:14 | call to ~valarray | Call to '~valarray' that dynamically deallocates memory. |
+| test.cpp:431:15:431:17 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:432:16:432:19 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:433:18:433:23 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:434:18:434:23 | call to basic_string | Initialization of an object of class 'basic_string' that uses 'std::allocator<T>'. |
+| test.cpp:436:7:436:19 | call to ~basic_string | Call to '~basic_string' that dynamically deallocates memory. |
+| test.cpp:437:8:437:20 | call to ~basic_string | Call to '~basic_string' that dynamically deallocates memory. |
+| test.cpp:438:10:438:22 | call to ~basic_string | Call to '~basic_string' that dynamically deallocates memory. |
+| test.cpp:439:10:439:22 | call to ~basic_string | Call to '~basic_string' that dynamically deallocates memory. |
