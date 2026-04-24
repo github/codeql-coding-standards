@@ -35,6 +35,13 @@ class DirectDynamicMemoryAllocatingFunction extends DynamicMemoryAllocatingFunct
     this instanceof AllocationFunction and
     not this instanceof PlacementOperatorNew
     or
+    /*
+     * TEMP: `aligned_alloc` is not modeled by `AllocationFunction` in cpp-all@5.0.0
+     * which this query currently depends on. The PR
+     * https://github.com/github/codeql/pull/21725 fixes this, so we can delete this
+     * exception case after we bump to the newest version.
+     */
+
     this.hasGlobalOrStdName("aligned_alloc")
   }
 }
