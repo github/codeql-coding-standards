@@ -401,4 +401,42 @@ void test_compliant_pointers() {
   int *q = &y; // COMPLIANT: raw pointer to static storage, no heap involved
 }
 
+void test_explicit_calls_to_RAII_destructors_of_containers_or_strings() {
+  std::vector<int> v;                    // NON_COMPLIANT: uses std::allocator
+  std::deque<int> d;                     // NON_COMPLIANT: uses std::allocator
+  std::list<int> l;                      // NON_COMPLIANT: uses std::allocator
+  std::forward_list<int> fl;             // NON_COMPLIANT: uses std::allocator
+  std::set<int> s;                       // NON_COMPLIANT: uses std::allocator
+  std::map<int, int> m;                  // NON_COMPLIANT: uses std::allocator
+  std::multiset<int> ms;                 // NON_COMPLIANT: uses std::allocator
+  std::multimap<int, int> mm;            // NON_COMPLIANT: uses std::allocator
+  std::unordered_set<int> us;            // NON_COMPLIANT: uses std::allocator
+  std::unordered_multiset<int> ums;      // NON_COMPLIANT: uses std::allocator
+  std::unordered_multimap<int, int> umm; // NON_COMPLIANT: uses std::allocator
+  std::valarray<int> va;                 // NON_COMPLIANT: uses std::allocator
+
+  v.~vector();               // NON_COMPLIANT: explicit call to RAII destructor
+  d.~deque();                // NON_COMPLIANT: explicit call to RAII destructor
+  l.~list();                 // NON_COMPLIANT: explicit call to RAII destructor
+  fl.~forward_list();        // NON_COMPLIANT: explicit call to RAII destructor
+  s.~set();                  // NON_COMPLIANT: explicit call to RAII destructor
+  m.~map();                  // NON_COMPLIANT: explicit call to RAII destructor
+  ms.~multiset();            // NON_COMPLIANT: explicit call to RAII destructor
+  mm.~multimap();            // NON_COMPLIANT: explicit call to RAII destructor
+  us.~unordered_set();       // NON_COMPLIANT: explicit call to RAII destructor
+  ums.~unordered_multiset(); // NON_COMPLIANT: explicit call to RAII destructor
+  umm.~unordered_multimap(); // NON_COMPLIANT: explicit call to RAII destructor
+  va.~valarray();            // NON_COMPLIANT: explicit call to RAII destructor
+
+  std::string str;       // NON_COMPLIANT: uses std::allocator
+  std::wstring wstr;     // NON_COMPLIANT: uses std::allocator
+  std::u16string u16str; // NON_COMPLIANT: uses std::allocator
+  std::u32string u32str; // NON_COMPLIANT: uses std::allocator
+
+  str.~basic_string();    // NON_COMPLIANT: explicit call to RAII destructor
+  wstr.~basic_string();   // NON_COMPLIANT: explicit call to RAII destructor
+  u16str.~basic_string(); // NON_COMPLIANT: explicit call to RAII destructor
+  u32str.~basic_string(); // NON_COMPLIANT: explicit call to RAII destructor
+}
+
 int main() { return 0; }
