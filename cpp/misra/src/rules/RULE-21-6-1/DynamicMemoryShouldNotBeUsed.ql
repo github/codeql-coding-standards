@@ -63,8 +63,9 @@ abstract class IndirectDynamicMemoryAllocatingFunction extends DynamicMemoryAllo
  * 2. A constructor of standard library strings such as `string`, `wstring` that derives from
  *    `std::basic_string`.
  */
-class AllocatorContructor extends IndirectDynamicMemoryAllocatingFunction {
-  AllocatorContructor() {
+class AllocatorConstructor extends IndirectDynamicMemoryAllocatingFunction {
+  AllocatorConstructor() {
+    this instanceof Constructor and
     /* Ensure that the constructor accepts a `std::allocator`. */
     this.getDeclaringType()
         .(ClassTemplateInstantiation)
@@ -216,10 +217,13 @@ abstract class DynamicMemoryDeallocatingFunction extends Function { }
  * A function that directly deallocates dynamic memory.
  *
  * Includes C deallocation functions (`free`) and C++ deallocation functions
- * (`operator delete`, `operator delete[]`).
+ * (`operator delete`, `operator delete[]`, `~T()` for any `T`.)
  */
 class DirectDynamicMemoryDeallocatingFunction extends DynamicMemoryDeallocatingFunction {
-  DirectDynamicMemoryDeallocatingFunction() { this instanceof DeallocationFunction }
+  DirectDynamicMemoryDeallocatingFunction() {
+    this instanceof DeallocationFunction or
+    this instanceof Destructor
+  }
 }
 
 /**
@@ -241,15 +245,18 @@ where
     call.getTarget() instanceof DirectDynamicMemoryAllocatingFunction and
     message = "Call to dynamic memory allocating function '" + call.getTarget().getName() + "'."
     or
-    /* 2. Indirect allocation: std library types that allocate internally */
+    /* 2. Indirect allocation: C++ standard library types that allocate internally. */
     call.getTarget() instanceof IndirectDynamicMemoryAllocatingFunction and
     (
-      if call.getTarget() instanceof AllocatorContructor
-      then message = "Call to '" + call.getTarget().getName() + "' that uses 'std::allocator<T>'."
+      if call.getTarget() instanceof AllocatorConstructor
+      then
+        message =
+          "Initialization of an object of class '" + call.getTarget().getName() +
+            "' that uses 'std::allocator<T>'."
       else
         message =
-          "Call to '" + call.getTarget().getName() +
-            "' that dynamically allocates memory via the standard library."
+          "Initialization of an object of class '" + call.getTarget().getName() +
+            "' that dynamically allocates memory internally."
     )
     or
     /*
@@ -257,8 +264,12 @@ where
      * Excludes realloc (already caught as allocation).
      */
 
-    call.getTarget() instanceof DynamicMemoryDeallocatingFunction and
+    (
+      call.getTarget() instanceof DynamicMemoryDeallocatingFunction and
+      // not call.isCompilerGenerated() // Exclude RAII constructor calls.
+      exists(Expr expr | expr != call.getAnImplicitDestructorCall())
+    ) and
     not call.getTarget() instanceof DynamicMemoryAllocatingFunction and
-    message = "Call to dynamic memory deallocating function '" + call.getTarget().getName() + "'."
+    message = "Call to '" + call.getTarget().getName() + "' that dynamically deallocates memory."
   )
 select call, message
