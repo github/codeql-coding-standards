@@ -266,10 +266,11 @@ where
 
     (
       call.getTarget() instanceof DynamicMemoryDeallocatingFunction and
-      // not call.isCompilerGenerated() // Exclude RAII constructor calls.
-      exists(Expr expr | expr != call.getAnImplicitDestructorCall())
+      (
+        call instanceof DestructorCall implies not call.isCompilerGenerated() // Exclude RAII constructor calls.
+      )
     ) and
-    not call.getTarget() instanceof DynamicMemoryAllocatingFunction and
+    not call.getTarget() instanceof DynamicMemoryAllocatingFunction and // Exclude `realloc`.
     message = "Call to '" + call.getTarget().getName() + "' that dynamically deallocates memory."
   )
 select call, message
