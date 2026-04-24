@@ -31,7 +31,7 @@ abstract class OperatorNewOrDelete extends Operator {
 /**
  * An `operator new` and `operator new[]` function described in [new.delete.single]
  * and [new.delete.array], respectively.
- * 
+ *
  * Note that these do not include [new.delete.placement]. These are captured in
  * `PlacementOperatorNew`.
  */
