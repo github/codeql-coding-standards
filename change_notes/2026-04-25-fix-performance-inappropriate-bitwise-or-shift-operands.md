@@ -1,0 +1,2 @@
+- `RULE-7-0-4` - `InappropriateBitwiseOrShiftOperands.ql`:
+  - Improved evaluation performance of the `isValidShiftConstantRange` predicate by adding `bindingset[right, leftType]` and `pragma[inline_late]` annotations to guide the CodeQL optimizer.
