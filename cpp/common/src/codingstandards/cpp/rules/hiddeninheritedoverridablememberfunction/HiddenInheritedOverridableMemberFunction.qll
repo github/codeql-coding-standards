@@ -12,11 +12,11 @@ abstract class HiddenInheritedOverridableMemberFunctionSharedQuery extends Query
 
 Query getQuery() { result instanceof HiddenInheritedOverridableMemberFunctionSharedQuery }
 
-class OverridingDeclaration extends FunctionDeclarationEntry {
+private class OverridingDeclaration extends FunctionDeclarationEntry {
   OverridingDeclaration() { this.getDeclaration().hasDefinition() implies not this.isDefinition() }
 }
 
-class HiddenDeclaration extends OverridingDeclaration {
+private class HiddenDeclaration extends OverridingDeclaration {
   HiddenDeclaration() {
     // Check if we are overriding a virtual inherited member function
     this.getDeclaration().isVirtual() and
