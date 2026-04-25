@@ -12,15 +12,24 @@ abstract class HiddenInheritedOverridableMemberFunctionSharedQuery extends Query
 
 Query getQuery() { result instanceof HiddenInheritedOverridableMemberFunctionSharedQuery }
 
+class OverridingDeclaration extends FunctionDeclarationEntry {
+  OverridingDeclaration() { this.getDeclaration().hasDefinition() implies not this.isDefinition() }
+}
+
+class HiddenDeclaration extends OverridingDeclaration {
+  HiddenDeclaration() {
+    // Check if we are overriding a virtual inherited member function
+    this.getDeclaration().isVirtual() and
+    // Exclude private member functions, which cannot be inherited.
+    not this.getDeclaration().(MemberFunction).isPrivate()
+  }
+}
+
 query predicate problems(
-  FunctionDeclarationEntry overridingDecl, string message, FunctionDeclarationEntry hiddenDecl,
+  OverridingDeclaration overridingDecl, string message, HiddenDeclaration hiddenDecl,
   string hiddenDecl_string
 ) {
   not isExcluded(overridingDecl, getQuery()) and
-  // Check if we are overriding a virtual inherited member function
-  hiddenDecl.getDeclaration().isVirtual() and
-  // Exclude private member functions, which cannot be inherited.
-  not hiddenDecl.getDeclaration().(MemberFunction).isPrivate() and
   // The overriding declaration hides the hidden declaration if:
   (
     // 1. the overriding declaration overrides a function in a base class that is an overload of the hidden declaration
@@ -46,9 +55,6 @@ query predicate problems(
     overridingDecl.getDeclaration().getDeclaringType().getABaseClass() =
       hiddenDecl.getDeclaration().getDeclaringType()
   ) and
-  // Limit the results to the declarations and not the definitions, if any.
-  (overridingDecl.getDeclaration().hasDefinition() implies not overridingDecl.isDefinition()) and
-  (hiddenDecl.getDeclaration().hasDefinition() implies not hiddenDecl.isDefinition()) and
   message =
     "Declaration for member '" + overridingDecl.getName() +
       "' hides overridable inherited member function $@" and
