@@ -2,3 +2,4 @@
   - Improved evaluation performance.
 - `RULE-7-0-4` - `InappropriateBitwiseOrShiftOperands.ql`:
   - Improved evaluation performance.
+  - Remove false positives related to the `insertion operator`.

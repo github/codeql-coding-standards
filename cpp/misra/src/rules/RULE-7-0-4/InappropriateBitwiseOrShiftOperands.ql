@@ -24,11 +24,11 @@ predicate isConstantExpression(Expr e) {
 
 bindingset[right, leftType]
 pragma[inline_late]
-predicate isValidShiftConstantRange(Expr right, Type leftType) {
+predicate isValidShiftConstantRange(Expr right, MisraCpp23BuiltInTypes::NumericType leftType) {
   exists(int value |
     value = right.getValue().toInt() and
     value >= 0 and
-    value < leftType.getSize() * 8
+    value < leftType.getBuiltInSize() * 8
   )
 }
 
@@ -99,7 +99,10 @@ where
     )
     or
     // Shift operators - right operand must be unsigned or constant in valid range
-    exists(BinaryShiftOpOrAssignOp shift, Expr right, Type rightType, Type leftType |
+    exists(
+      BinaryShiftOpOrAssignOp shift, Expr right, Type rightType,
+      MisraCpp23BuiltInTypes::NumericType leftType
+    |
       right = shift.getRightOperand() and
       x = right and
       rightType = right.getExplicitlyConverted().getType() and
@@ -110,7 +113,7 @@ where
         not isValidShiftConstantRange(right, leftType) and
         message =
           "Shift operator '" + shift.getOperator() + "' shifts by " + right.getValue().toInt() +
-            " which is not within the valid range 0.." + ((leftType.getSize() * 8) - 1) + "."
+            " which is not within the valid range 0.." + ((leftType.getBuiltInSize() * 8) - 1) + "."
       else (
         not MisraCpp23BuiltInTypes::isUnsignedType(rightType) and
         message =
