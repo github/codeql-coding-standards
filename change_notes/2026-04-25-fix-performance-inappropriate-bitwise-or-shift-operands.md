@@ -1,5 +1,7 @@
 - `RULE-6-4-2` - `InheritedOverridableMemberFunction.ql`:
   - Improved evaluation performance.
+- `RULE-6-9-2` - `AvoidStandardIntegerTypeNames.ql`:
+  - Fixed query name.
 - `RULE-7-0-4` - `InappropriateBitwiseOrShiftOperands.ql`:
   - Improved evaluation performance.
   - Removed false positives related to the `insertion operator`.
