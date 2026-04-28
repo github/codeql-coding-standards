@@ -3,7 +3,13 @@
 
 namespace std {
 // Definition
-template <typename... T1> class tuple {};
+template <typename... T1> class tuple {
+public:
+  tuple();
+  tuple(const tuple&);
+  tuple(tuple&&);
+  template<typename... UTypes> tuple(UTypes&&...);
+};
 
 template <class... Types> std::tuple<Types...> make_tuple(Types &&...args);
 struct ignore_t {

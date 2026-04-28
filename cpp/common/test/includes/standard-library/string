@@ -1,14 +1,13 @@
 #ifndef _GHLIBCPP_STRING
 #define _GHLIBCPP_STRING
 #include "cwchar"
-#include "memory.h"
+#include "empty.h"
 #include "initializer_list"
 #include "ios.h"
 #include "iosfwd.h"
 #include "iterator.h"
-#include "stddef.h"
 #include "memory.h"
-#include "empty.h"
+#include "stddef.h"
 
 namespace std {
 template <class charT> struct char_traits {
@@ -111,8 +110,8 @@ public:
   template <class InputIterator>
   basic_string(InputIterator begin, InputIterator end,
                const Allocator &a = Allocator());
-
   ~basic_string();
+
   basic_string &operator=(const basic_string &str);
   basic_string &operator=(basic_string &&str) noexcept;
   basic_string &operator=(const charT *s);
@@ -249,6 +248,10 @@ public:
 
   void reserve(size_type new_cap = 0);
 };
+
+using wstring = basic_string<wchar_t>;
+using u16string = basic_string<char16_t>;
+using u32string = basic_string<char32_t>;
 
 template <class charT, class traits, class Allocator>
 basic_string<charT, traits, Allocator>

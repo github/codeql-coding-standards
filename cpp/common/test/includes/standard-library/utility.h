@@ -24,7 +24,11 @@ template <typename... T1> class tuple;
 template <class T, class U> struct pair {
   T first;
   U second;
+  pair();
+  pair(const pair&);
+  pair(pair&&);
   pair(T t, U u);
+  template<typename T1, typename U1> pair(T1&&, U1&&);
 };
 template <class T, class U> std::pair<T, U> make_pair(T &&x, U &&y);
 
