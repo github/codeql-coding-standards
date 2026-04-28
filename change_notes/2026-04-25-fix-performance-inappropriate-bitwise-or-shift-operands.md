@@ -4,3 +4,5 @@
   - Fixed query name.
 - `RULE-7-0-4` - `InappropriateBitwiseOrShiftOperands.ql`:
   - Improved evaluation performance.
+- `RULE-7.3.1` - `HiddenInheritedOverridableMemberFunctionQuery.ql`:
+  - Improved evaluation performance.  
