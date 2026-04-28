@@ -52,3 +52,87 @@ void f(int p, float p1) {
   t.f(p1); // instantiation that causes issue due to parameter list type meaning
            // there is no overload
 }
+
+class B {
+  int i;
+  int *ip;
+  int **ip2;
+
+  int *f() {
+    return &i; // NON_COMPLIANT
+  }
+  int *f1() {
+    return ip; // COMPLIANT -- reads pointer
+  }
+  int *f2() {
+    return *ip2; // COMPLIANT -- reads pointer
+  }
+
+  int **f3() {
+    return &ip; // NON_COMPLIANT
+  }
+
+  int **f4() {
+    return ip2; // COMPLIANT -- copies pointer
+  }
+
+  int &f5() {
+    return i; // NON_COMPLIANT
+  }
+  int &f6() {
+    return *ip; // COMPLIANT[FALSE_POSITIVE] -- reads pointer
+  }
+  int &f7() {
+    return **ip2; // COMPLIANT[FALSE_POSITIVE]-- reads pointer
+  }
+
+  int *&f8() {
+    // return &p; // won't compile
+    return ip; // NON_COMPLIANT
+  }
+  int *&f9() {
+    return *ip2; // COMPLIANT[FALSE_POSITIVE] -- reads pointer
+  }
+};
+
+class D {
+  int i;
+  int *ip;
+  int **ip2;
+
+  int *f() {
+    return &(this->i); // NON_COMPLIANT
+  }
+  int *f1() {
+    return this->ip; // COMPLIANT -- reads pointer
+  }
+  int *f2() {
+    return *this->ip2; // COMPLIANT -- reads pointer
+  }
+
+  int **f3() {
+    return &this->ip; // NON_COMPLIANT
+  }
+
+  int **f4() {
+    return this->ip2; // COMPLIANT -- copies pointer
+  }
+
+  int &f5() {
+    return this->i; // NON_COMPLIANT
+  }
+  int &f6() {
+    return *this->ip; // COMPLIANT[FALSE_POSITIVE] -- reads pointer
+  }
+  int &f7() {
+    return **this->ip2; // COMPLIANT[FALSE_POSITIVE] -- reads pointer
+  }
+
+  int *&f8() {
+    // return &p; // won't compile
+    return this->ip; // NON_COMPLIANT
+  }
+  int *&f9() {
+    return *this->ip2; // COMPLIANT[FALSE_POSITIVE] -- reads pointer
+  }
+};

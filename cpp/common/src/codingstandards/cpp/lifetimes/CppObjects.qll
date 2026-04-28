@@ -2,6 +2,7 @@ import cpp
 import codingstandards.cpp.lifetimes.StorageDuration
 import semmle.code.cpp.valuenumbering.HashCons
 import codingstandards.cpp.Clvalues
+import codingstandards.cpp.types.Pointers
 
 /**
  * A library for handling "Objects" in C++.
@@ -136,17 +137,37 @@ abstract class ObjectIdentityBase extends Element {
 }
 
 /**
- * Finds expressions `e.x` or `e[x]` for expression `e`, recursively. Does not resolve pointers.
+ * Finds expressions `e.x` or `e[x]` for expression `e`, recursively.
+ *
+ * Omits accesses to reference fields, as they are not subobjects.
  *
  * Note that this does not hold for `e->x` or `e[x]` where `e` is a pointer.
  */
-private Expr getASubobjectAccessOf(Expr e) {
-  result = e
-  or
-  result.(DotFieldAccess).getQualifier() = getASubobjectAccessOf(e)
+Expr getASubobjectAccessOf(Expr e) {
+  exists(Field f |
+    not f.getUnderlyingType() instanceof ReferenceType and
+    f.getAnAccess().(FieldAccess) = result.getAChild*()
+  ) and
+  (
+    result = e
+    or
+    result.(DotFieldAccess).getQualifier() = getASubobjectAccessOf(e)
+  )
   or
   result.(ArrayExpr).getArrayBase() = getASubobjectAccessOf(e) and
   not result.(ArrayExpr).getArrayBase().getUnspecifiedType() instanceof PointerType
+}
+
+/**
+ * gets an access where the pointee is the subobject
+ */
+Expr getASubobjectAccessOfPointee(Expr e) {
+  e.getParent() instanceof AddressOfExpr and
+  result = getASubobjectAccessOf(e.getParent())
+  or
+  // the accessed field is a pointer to a subobject
+  e.getParent().(PointerFieldAccess).getTarget().getUnspecifiedType() instanceof PointerType and
+  result = getASubobjectAccessOf(e.getParent())
 }
 
 /**

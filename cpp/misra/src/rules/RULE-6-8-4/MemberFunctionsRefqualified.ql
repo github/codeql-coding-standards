@@ -17,28 +17,32 @@ import cpp
 import codingstandards.cpp.misra
 import codingstandards.cpp.types.Compatible
 import codingstandards.cpp.Operator
+import codingstandards.cpp.types.Pointers
+import codingstandards.cpp.lifetimes.CppObjects
 
 class MembersReturningPointerOrRef extends MemberFunction {
-  MembersReturningPointerOrRef() {
-    this.getUnspecifiedType() instanceof PointerType or
-    this.getUnspecifiedType() instanceof ReferenceType
-  }
+  MembersReturningPointerOrRef() { this.getType() instanceof PointerLikeType }
 }
 
 abstract class MembersReturningObjectOrSubobject extends MembersReturningPointerOrRef {
   string toString() { result = "Members returning object or subobject" }
 }
 
+/**
+ * Members that have an explicit `this` access within their return statement.
+ */
 class MembersReturningObject extends MembersReturningObjectOrSubobject {
   MembersReturningObject() {
     exists(ReturnStmt r, ThisExpr t |
       r.getEnclosingFunction() = this and
       (
-        r.getAChild*() = t
+        //direct access only
+        r.getAChild() = t
         or
+        //or one level of indirection
         exists(PointerDereferenceExpr p |
-          p.getAChild*() = t and
-          r.getAChild*() = p
+          p.getAChild() = t and
+          r.getAChild() = p
         )
       ) and
       t.getActualType().stripType() = this.getDeclaringType()
@@ -46,25 +50,33 @@ class MembersReturningObject extends MembersReturningObjectOrSubobject {
   }
 }
 
+/**
+ * Members that have an explicit subobject access within their return statement.
+ *
+ * Specifically, this captures when the return is a reference or pointer
+ * to a subobject.
+ */
 class MembersReturningSubObject extends MembersReturningObjectOrSubobject {
   MembersReturningSubObject() {
-    exists(ReturnStmt r, FieldSubObjectDeclaration field |
+    exists(ReturnStmt r, FieldAccess access, Expr e |
       r.getEnclosingFunction() = this and
+      //direct access only
+      r.getAChild() = e and
       (
-        r.getAChild*() = field.(Field).getAnAccess()
+        //pointer or reference to pointer subobject returned
+        e = getASubobjectAccessOfPointee(access) and
+        (e.getType() instanceof PointerType or e.getType() instanceof ReferenceType)
         or
-        exists(PointerDereferenceExpr p |
-          p.getAChild*() = field.(Field).getAnAccess() and
-          r.getAChild*() = p
-        )
-      ) and
-      field.(Field).getDeclaringType() = this.getDeclaringType()
+        //reference to subobject returned
+        (this.getType() instanceof ReferenceType or e.getType() instanceof ReferenceType) and
+        not access.getTarget().getType() instanceof PointerType
+      )
     )
   }
 }
 
 predicate relevantTypes(Type a, Type b) {
-  exists(MembersReturningObject f, MemberFunction overload |
+  exists(MembersReturningObjectOrSubobject f, MemberFunction overload |
     f.getAnOverload() = overload and
     exists(int i |
       f.getParameter(i).getType() = a and
@@ -77,11 +89,11 @@ class AppropriatelyQualified extends MembersReturningObjectOrSubobject {
   AppropriatelyQualified() {
     //non-const-lvalue-ref-qualified
     this.isLValueRefQualified() and
-    not this.hasSpecifier("const")
+    this.getType().(PointerLikeType).pointsToNonConst()
     or
     //const-lvalue-ref-qualified
     this.isLValueRefQualified() and
-    this.hasSpecifier("const") and
+    this.getType().(PointerLikeType).pointsToConst() and
     //and overload exists that is rvalue-ref-qualified
     exists(MemberFunction overload |
       this.getAnOverload() = overload and
@@ -92,16 +104,6 @@ class AppropriatelyQualified extends MembersReturningObjectOrSubobject {
               .getType(), overload.getParameter(i).getType())
       )
     )
-  }
-}
-
-/**
- * Fields that are not reference type can be subobjects
- */
-class FieldSubObjectDeclaration extends Declaration {
-  FieldSubObjectDeclaration() {
-    not this.getADeclarationEntry().getType() instanceof ReferenceType and
-    this instanceof Field
   }
 }
 
