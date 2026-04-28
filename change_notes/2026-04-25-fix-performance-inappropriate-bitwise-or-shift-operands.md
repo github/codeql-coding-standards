@@ -4,4 +4,3 @@
   - Fixed query name.
 - `RULE-7-0-4` - `InappropriateBitwiseOrShiftOperands.ql`:
   - Improved evaluation performance.
-  - Removed false positives related to the `insertion operator`.
