@@ -1,3 +1,5 @@
+#include <utility>
+
 namespace helpers {
 void f();
 }
@@ -329,3 +331,56 @@ class VirtualProtectedDtorDerived : public BaseVirtualProtectedDtor {};
 } // namespace additional_requirements
 
 } // namespace fully_specified
+
+namespace audit_results {
+
+struct PodClass { // COMPLIANT - we know PODs are OK.
+  int x;
+  int y;
+};
+
+struct TrivialClass { // NON_COMPLIANT - audit result
+  int x;
+  int y;
+  COPY_CTOR(TrivialClass) = default;
+};
+
+class NonTrivialClass { // NON_COMPLIANT - audit result
+  int x;
+  int y;
+
+public:
+  COPY_CTOR(NonTrivialClass) {
+    x = 1;
+    y = 2;
+  }
+  ~NonTrivialClass() { x = 1; }
+};
+
+// This class is not a valid category but hard to analyze in the general case.
+// This should not be reported as a violation except by the audit query.
+class CopyOnly { // NON_COMPLIANT - audit result
+  COPY_CTOR(CopyOnly) = default;
+  MOVE_CTOR(CopyOnly) = delete;
+  MOVE_ASSIGN(CopyOnly) = delete;
+};
+
+// this class should not appear in the audit results, because we have all
+// members in the database even though they aren't all explicitly declared
+class OdrUsedMoveEnabled { // COMPLIANT
+  NonTrivialClass x;
+
+public:
+  // copy operations are generated as deleted
+  MOVE_CTOR(OdrUsedMoveEnabled) = default;
+  MOVE_ASSIGN(OdrUsedMoveEnabled) = default;
+  // destructor is generated as defaulted since it's non trivial and ODR-used.
+};
+
+void f(OdrUsedMoveEnabled o) {
+  // This function ensures the non-trivial destructor is ODR-used.
+  OdrUsedMoveEnabled o3 = std::move(o);
+  o3 = std::move(o);
+}
+
+} // namespace audit_results
