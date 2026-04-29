@@ -40,7 +40,6 @@ void f();
 // special member function.
 #define DEFAULTED = default;
 #define DELETED = delete;
-#define NOT_DECLARED ;   // null statement
 #define CUSTOMIZED { helpers::f(); }
 // clang-format on
 
@@ -282,46 +281,68 @@ public:
 
 class CopyAssignableCustomizedDtorCompliant2 {  // COMPLIANT: copy-assignable class with both move operations not declared
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CopyAssignableCustomizedDtorCompliant2, DEFAULTED,
-                             NOT_DECLARED, CUSTOMIZED, NOT_DECLARED, CUSTOMIZED)
+  COPY_CTOR(CopyAssignableCustomizedDtorCompliant2) DEFAULTED
+  // Move constructor is not declared
+  COPY_ASSIGN(CopyAssignableCustomizedDtorCompliant2) CUSTOMIZED
+  // Move assignment operator is not declared
+  DTOR(CopyAssignableCustomizedDtorCompliant2) CUSTOMIZED
 };
 
 class CopyAssignableCustomizedDtorNonCompliant1 { // NON_COMPLIANT: copy-assignable class with only one of move operations not declared
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CopyAssignableCustomizedDtorNonCompliant1, CUSTOMIZED,
-                             CUSTOMIZED, CUSTOMIZED, NOT_DECLARED, CUSTOMIZED)
+  COPY_CTOR(CopyAssignableCustomizedDtorNonCompliant1) CUSTOMIZED
+  MOVE_CTOR(CopyAssignableCustomizedDtorNonCompliant1) CUSTOMIZED
+  COPY_ASSIGN(CopyAssignableCustomizedDtorNonCompliant1) CUSTOMIZED
+  // Move assignment operator is not declared
+  DTOR(CopyAssignableCustomizedDtorNonCompliant1) CUSTOMIZED
 };
 
 class CopyAssignableCustomizedDtorNonCompliant2 { // NON_COMPLIANT: copy-assignable class with only one of move operations not declared
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CopyAssignableCustomizedDtorNonCompliant2, CUSTOMIZED,
-                             NOT_DECLARED, CUSTOMIZED, CUSTOMIZED, CUSTOMIZED)
+  COPY_CTOR(CopyAssignableCustomizedDtorNonCompliant2) CUSTOMIZED
+  // Move constructor is not declared
+  COPY_ASSIGN(CopyAssignableCustomizedDtorNonCompliant2) CUSTOMIZED
+  MOVE_ASSIGN(CopyAssignableCustomizedDtorNonCompliant2) CUSTOMIZED
+  DTOR(CopyAssignableCustomizedDtorNonCompliant2) CUSTOMIZED
 };
 
 class CopyAssignableCustomizedDtorNonCompliant3 { // NON_COMPLIANT: copy-assignable class with only one of move operations not declared
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CopyAssignableCustomizedDtorNonCompliant3, CUSTOMIZED,
-                             CUSTOMIZED, CUSTOMIZED, NOT_DECLARED, CUSTOMIZED)
+  
+  COPY_CTOR(CopyAssignableCustomizedDtorNonCompliant3) CUSTOMIZED
+  MOVE_CTOR(CopyAssignableCustomizedDtorNonCompliant3) CUSTOMIZED
+  // Copy assignment operator is not declared
+  MOVE_ASSIGN(CopyAssignableCustomizedDtorNonCompliant3) CUSTOMIZED
+  DTOR(CopyAssignableCustomizedDtorNonCompliant3) CUSTOMIZED
+
 };
 
 class CopyAssignableCustomizedDtorNonCompliant4 { // NON_COMPLIANT: copy-assignable class with only one of move operations not declared
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CopyAssignableCustomizedDtorNonCompliant4, CUSTOMIZED,
-                             NOT_DECLARED, CUSTOMIZED, CUSTOMIZED, CUSTOMIZED)
+  COPY_CTOR(CopyAssignableCustomizedDtorNonCompliant4) CUSTOMIZED
+  // Move constructor is not declared
+  COPY_ASSIGN(CopyAssignableCustomizedDtorNonCompliant4) CUSTOMIZED
+  MOVE_ASSIGN(CopyAssignableCustomizedDtorNonCompliant4) CUSTOMIZED
+  DTOR(CopyAssignableCustomizedDtorNonCompliant4) CUSTOMIZED
 };
 
 class CopyAssignableCustomizedDtorNonCompliant5 { // NON_COMPLIANT: copy-assignable class with only one of move operations not declared
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CopyAssignableCustomizedDtorNonCompliant5, CUSTOMIZED,
-                             DEFAULTED, CUSTOMIZED, NOT_DECLARED, CUSTOMIZED)
+  COPY_CTOR(CopyAssignableCustomizedDtorNonCompliant5) CUSTOMIZED
+  MOVE_CTOR(CopyAssignableCustomizedDtorNonCompliant5) DEFAULTED
+  COPY_ASSIGN(CopyAssignableCustomizedDtorNonCompliant5) CUSTOMIZED
+  // Move assignment operator is not declared
+  DTOR(CopyAssignableCustomizedDtorNonCompliant5) CUSTOMIZED
 };
 
 class CopyAssignableCustomizedDtorNonCompliant6 { // NON_COMPLIANT: copy-assignable class with only one of move operations not declared
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CopyAssignableCustomizedDtorNonCompliant6, CUSTOMIZED,
-                             NOT_DECLARED, CUSTOMIZED, DEFAULTED, CUSTOMIZED)
+  COPY_CTOR(CopyAssignableCustomizedDtorNonCompliant6) CUSTOMIZED
+  // Move constructor is not declared
+  COPY_ASSIGN(CopyAssignableCustomizedDtorNonCompliant6) CUSTOMIZED
+  MOVE_ASSIGN(CopyAssignableCustomizedDtorNonCompliant6) DEFAULTED
+  DTOR(CopyAssignableCustomizedDtorNonCompliant6) CUSTOMIZED
 };
-
 
 // A public unmovable base class shall have a public virtual destructor
 class UnmovableBaseNonvirtualDtor { // NON_COMPLIANT
