@@ -80,10 +80,10 @@ class B {
     return i; // NON_COMPLIANT
   }
   int &f6() {
-    return *ip; // COMPLIANT[FALSE_POSITIVE] -- reads pointer
+    return *ip; // COMPLIANT -- reads pointer
   }
   int &f7() {
-    return **ip2; // COMPLIANT[FALSE_POSITIVE]-- reads pointer
+    return **ip2; // COMPLIANT -- reads pointer
   }
 
   int *&f8() {
@@ -91,7 +91,7 @@ class B {
     return ip; // NON_COMPLIANT
   }
   int *&f9() {
-    return *ip2; // COMPLIANT[FALSE_POSITIVE] -- reads pointer
+    return *ip2; // COMPLIANT -- reads pointer
   }
 };
 
@@ -122,10 +122,10 @@ class D {
     return this->i; // NON_COMPLIANT
   }
   int &f6() {
-    return *this->ip; // COMPLIANT[FALSE_POSITIVE] -- reads pointer
+    return *this->ip; // COMPLIANT -- reads pointer
   }
   int &f7() {
-    return **this->ip2; // COMPLIANT[FALSE_POSITIVE] -- reads pointer
+    return **this->ip2; // COMPLIANT -- reads pointer
   }
 
   int *&f8() {
@@ -133,6 +133,6 @@ class D {
     return this->ip; // NON_COMPLIANT
   }
   int *&f9() {
-    return *this->ip2; // COMPLIANT[FALSE_POSITIVE] -- reads pointer
+    return *this->ip2; // COMPLIANT -- reads pointer
   }
 };

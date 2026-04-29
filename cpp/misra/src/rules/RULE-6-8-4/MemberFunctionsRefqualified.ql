@@ -36,14 +36,11 @@ class MembersReturningObject extends MembersReturningObjectOrSubobject {
     exists(ReturnStmt r, ThisExpr t |
       r.getEnclosingFunction() = this and
       (
-        //direct access only
+        //return `this`
         r.getAChild() = t
         or
-        //or one level of indirection
-        exists(PointerDereferenceExpr p |
-          p.getAChild() = t and
-          r.getAChild() = p
-        )
+        //accesses of subobjects through the `this` pointer
+        r.getAChild() = getASubobjectAccessOf(t)
       ) and
       t.getActualType().stripType() = this.getDeclaringType()
     )
@@ -60,16 +57,16 @@ class MembersReturningSubObject extends MembersReturningObjectOrSubobject {
   MembersReturningSubObject() {
     exists(ReturnStmt r, FieldAccess access, Expr e |
       r.getEnclosingFunction() = this and
-      //direct access only
-      r.getAChild() = e and
       (
-        //pointer or reference to pointer subobject returned
-        e = getASubobjectAccessOfPointee(access) and
-        (e.getType() instanceof PointerType or e.getType() instanceof ReferenceType)
+        //subobject returned by address
+        r.getAChild() = access.getParent() and
+        e = getASubobjectAccessOf(access) and
+        access.getParent() instanceof AddressOfExpr
         or
         //reference to subobject returned
-        (this.getType() instanceof ReferenceType or e.getType() instanceof ReferenceType) and
-        not access.getTarget().getType() instanceof PointerType
+        r.getAChild() = e and
+        e = getASubobjectAccessOf(access) and
+        this.getType() instanceof ReferenceType
       )
     )
   }
@@ -117,3 +114,6 @@ where
   not f instanceof AppropriatelyQualified and
   not f instanceof DefaultedAssignmentOperator
 select f, "Member function is not properly ref qualified."
+// from Expr e, PointerFieldAccess p
+// where e.getParent() = p
+// select e, p, p.getTarget(), p.getQualifier(), p.getParent()

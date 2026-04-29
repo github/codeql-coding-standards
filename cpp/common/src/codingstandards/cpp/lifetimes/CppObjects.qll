@@ -144,30 +144,29 @@ abstract class ObjectIdentityBase extends Element {
  * Note that this does not hold for `e->x` or `e[x]` where `e` is a pointer.
  */
 Expr getASubobjectAccessOf(Expr e) {
-  exists(Field f |
-    not f.getUnderlyingType() instanceof ReferenceType and
-    f.getAnAccess().(FieldAccess) = result.getAChild*()
-  ) and
-  (
-    result = e
-    or
-    result.(DotFieldAccess).getQualifier() = getASubobjectAccessOf(e)
-  )
+  result = e
+  or
+  result.(DotFieldAccess).getQualifier() = getASubobjectAccessOf(e) and
+  not result.(DotFieldAccess).getTarget().getUnderlyingType() instanceof ReferenceType
   or
   result.(ArrayExpr).getArrayBase() = getASubobjectAccessOf(e) and
   not result.(ArrayExpr).getArrayBase().getUnspecifiedType() instanceof PointerType
 }
 
 /**
- * gets an access where the pointee is the subobject
+ * Finds subobjects of the pointee for expression `e`,
+ * where `e` has the type pointer type.
+ *
+ * For `e` this will be subobject accesses of `*e`.
+ * Or for `e->x` the subobject access is `x`.
  */
 Expr getASubobjectAccessOfPointee(Expr e) {
-  e.getParent() instanceof AddressOfExpr and
+  e.getParent() instanceof PointerDereferenceExpr and
   result = getASubobjectAccessOf(e.getParent())
   or
-  // the accessed field is a pointer to a subobject
-  e.getParent().(PointerFieldAccess).getTarget().getUnspecifiedType() instanceof PointerType and
-  result = getASubobjectAccessOf(e.getParent())
+  // for e1->e2 : getASubobjectAccessOfPointee(e1) = e2 and or subobjects of e2
+  result = getASubobjectAccessOf(e.getParent().(PointerFieldAccess)) and
+  not result.(PointerFieldAccess).getTarget().getUnderlyingType() instanceof ReferenceType
 }
 
 /**
