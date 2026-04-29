@@ -151,46 +151,48 @@ public:
 
 namespace additional_requirements {
 
-class CustomizedCopyCtorCompliant { // COMPLIANT
-public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedCopyCtorCompliant, CUSTOMIZED, DEFAULTED,
-                             DEFAULTED, DEFAULTED, CUSTOMIZED)
-};
-
+// A class with a customized copy constructor requires a customized destructor
 class CustomizedMoveCtorCompliant { // COMPLIANT
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedMoveCtorCompliant, DEFAULTED, CUSTOMIZED,
-                             DEFAULTED, DEFAULTED, CUSTOMIZED)
+  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedMoveCtorCompliant, DELETED, CUSTOMIZED,
+                             DELETED, DELETED, CUSTOMIZED)
 };
 
-class CustomizedCopyAssignCompliant { // COMPLIANT
+class CustomizedCtorsCompliant { // COMPLIANT
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedCopyAssignCompliant, DEFAULTED,
-                             DEFAULTED, CUSTOMIZED, DEFAULTED, CUSTOMIZED)
+  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedCtorsCompliant, CUSTOMIZED, CUSTOMIZED,
+                             DELETED, DELETED, CUSTOMIZED)
 };
 
 class CustomizedMoveAssignCompliant { // COMPLIANT
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedMoveAssignCompliant, DEFAULTED,
-                             DEFAULTED, DEFAULTED, CUSTOMIZED, CUSTOMIZED)
+  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedMoveAssignCompliant, DELETED, CUSTOMIZED,
+                             DELETED, CUSTOMIZED, CUSTOMIZED)
 };
 
-class CustomizedCopyCtorDefaultDtor { // NON_COMPLIANT
+class CustomizedAssignsCompliant { // COMPLIANT
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedCopyCtorDefaultDtor, CUSTOMIZED,
-                             DEFAULTED, DEFAULTED, DEFAULTED, DEFAULTED)
+  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedAssignsCompliant, CUSTOMIZED, CUSTOMIZED,
+                             CUSTOMIZED, CUSTOMIZED, CUSTOMIZED)
 };
 
-class CustomizedCopyCtorDeletedDtor { // NON_COMPLIANT
+class CustomizedCopyCtorDefaultedNonCompliant { // NON_COMPLIANT
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedCopyCtorDeletedDtor, CUSTOMIZED,
+  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedCopyCtorDefaultedNonCompliant,
+                             CUSTOMIZED, DEFAULTED, DEFAULTED, DEFAULTED,
+                             DEFAULTED)
+};
+
+class CustomizedCopyCtorDeletedNonCompliant { // NON_COMPLIANT
+public:
+  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedCopyCtorDeletedNonCompliant, CUSTOMIZED,
                              DEFAULTED, DEFAULTED, DEFAULTED, DELETED)
 };
 
 class CustomizedMoveCtorNonCompliant { // NON_COMPLIANT
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedMoveCtorNonCompliant, CUSTOMIZED,
-                             DEFAULTED, DEFAULTED, DEFAULTED, DEFAULTED)
+  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedMoveCtorNonCompliant, DEFAULTED,
+                             CUSTOMIZED, DEFAULTED, DEFAULTED, DEFAULTED)
 };
 
 class CustomizedCopyAssignNonCompliant { // NON_COMPLIANT
@@ -201,8 +203,8 @@ public:
 
 class CustomizedMoveAssignNonCompliant { // NON_COMPLIANT
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedMoveAssignNonCompliant, DEFAULTED,
-                             DEFAULTED, DEFAULTED, CUSTOMIZED, DEFAULTED)
+  DEFINE_ALL_SPECIAL_MEMBERS(CustomizedMoveAssignNonCompliant, CUSTOMIZED,
+                             CUSTOMIZED, DEFAULTED, CUSTOMIZED, DEFAULTED)
 };
 
 // Move-only with a customized dtor requires customized move operations.
@@ -302,7 +304,7 @@ class BaseProtectedDtor { // COMPLIANT
 public:
   COPY_CTOR(BaseProtectedDtor) = default;
   MOVE_CTOR(BaseProtectedDtor) = default;
-  COPY_ASSIGN(BaseProtectedDtor) = default;
+  COPY_ASSIGN(BaseProtectedDtor) = delete;
   MOVE_ASSIGN(BaseProtectedDtor) = delete;
 
 protected:
@@ -315,7 +317,7 @@ class BaseVirtualProtectedDtor { // NON_COMPLIANT
 public:
   COPY_CTOR(BaseVirtualProtectedDtor) = default;
   MOVE_CTOR(BaseVirtualProtectedDtor) = default;
-  COPY_ASSIGN(BaseVirtualProtectedDtor) = default;
+  COPY_ASSIGN(BaseVirtualProtectedDtor) = delete;
   MOVE_ASSIGN(BaseVirtualProtectedDtor) = delete;
 
 protected:

@@ -42,7 +42,7 @@ predicate isMoveOnly(AnalyzableClass c) {
   not c.copyAssignable()
 }
 
-predicate unmovable(AnalyzableClass c) {
+predicate isUnmovable(AnalyzableClass c) {
   not c.moveConstructible() and
   not c.moveAssignable() and
   not c.copyConstructible() and
@@ -52,7 +52,31 @@ predicate unmovable(AnalyzableClass c) {
 predicate isValidCategory(AnalyzableClass c) {
   isCopyEnabled(c) or
   isMoveOnly(c) or
-  unmovable(c)
+  isUnmovable(c)
+}
+
+string specialMemberName(TSpecialMember f) {
+  f = TCopyConstructor() and result = "copy constructor"
+  or
+  f = TMoveConstructor() and result = "move constructor"
+  or
+  f = TCopyAssignmentOperator() and result = "copy assignment operator"
+  or
+  f = TMoveAssignmentOperator() and result = "move assignment operator"
+}
+
+predicate violatesCustomizedMoveOrCopyRequirements(AnalyzableClass c, string reason) {
+  not c.isCustomized(TDestructor()) and
+  exists(string concatenated |
+    concatenated =
+      strictconcat(TSpecialMember f |
+        not f = TDestructor() and
+        c.isCustomized(f)
+      |
+        specialMemberName(f), ", "
+      ) and
+    reason = "has customized " + concatenated + ", but does not customize the destructor."
+  )
 }
 
 predicate violatesCustomizedDestructorRequirements(AnalyzableClass c, string reason) {
@@ -60,35 +84,38 @@ predicate violatesCustomizedDestructorRequirements(AnalyzableClass c, string rea
   (
     c.moveConstructible() and
     not c.isCustomized(TMoveConstructor()) and
-    reason = "Move constructor is not customized"
+    reason = "has customized the destructor, but does not customize the move constructor."
     or
     c.moveAssignable() and
     not c.isCustomized(TMoveAssignmentOperator()) and
-    reason = "Move assignment operator is not customized"
+    reason = "has customized the destructor, but does not customize the move assignment operator."
     or
     c.copyConstructible() and
     not c.isCustomized(TCopyConstructor()) and
-    reason = "Copy constructor is not customized"
+    reason = "has customized the destructor, but does not customize the copy constructor."
     or
     c.copyAssignable() and
     not c.isCustomized(TCopyAssignmentOperator()) and
-    reason = "Copy assignment operator is not customized"
+    reason = "has customized the destructor, but does not customize the copy assignment operator."
   )
 }
 
-predicate violatesInheritanceRequirements(AnalyzableClass c) {
+predicate isPublicBase(AnalyzableClass c) {
   exists(ClassDerivation d |
     d.getBaseClass() = c and
     d.hasSpecifier("public")
-  ) and
-  (
-    isMoveOnly(c) and
-    c.getDestructor().isPublic() and
-    c.getDestructor().isVirtual()
-    or
-    c.getDestructor().isProtected() and
-    not c.getDestructor().isVirtual()
   )
+}
+
+predicate satisfiesInheritanceRequirements(AnalyzableClass c) {
+  not isPublicBase(c)
+  or
+  isUnmovable(c) and
+  c.getDestructor().isPublic() and
+  c.getDestructor().isVirtual()
+  or
+  c.getDestructor().isProtected() and
+  not c.getDestructor().isVirtual()
 }
 
 from AnalyzableClass c, string message
@@ -96,11 +123,13 @@ where
   not isExcluded(c, Classes3Package::improperlyProvidedSpecialMemberFunctionsQuery()) and
   (
     not isValidCategory(c) and
-    message = "Class does not fall into a valid category (unmovable, move-only, or copy-enabled)."
+    message = "does not fall into a valid category (isUnmovable, move-only, or copy-enabled)."
+    or
+    violatesCustomizedMoveOrCopyRequirements(c, message)
     or
     violatesCustomizedDestructorRequirements(c, message)
     or
-    violatesInheritanceRequirements(c) and
-    message = "Class violates inheritance requirements for special member functions."
+    not satisfiesInheritanceRequirements(c) and
+    message = "violates inheritance requirements for special member functions."
   )
-select c, message
+select c, "Class '" + c.getName() + "' " + message

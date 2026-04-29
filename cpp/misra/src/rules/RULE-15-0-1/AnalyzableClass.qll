@@ -7,7 +7,8 @@ private predicate isUsable(MemberFunction f) {
 
 private predicate isMemberCustomized(MemberFunction f) {
   exists(f.getDefinition()) and
-  not f.isDefaulted()
+  not f.isDefaulted() and
+  not f.isDeleted()
 }
 
 newtype TSpecialMember =
