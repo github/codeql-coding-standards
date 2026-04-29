@@ -18,6 +18,7 @@ import BannedSyntax
 import BannedTypes
 import Classes
 import Classes2
+import Classes3
 import Classes4
 import Comments
 import Concurrency
@@ -82,6 +83,7 @@ import OrderOfEvaluation
 import OutOfBounds
 import Pointers
 import Preconditions1
+import Preconditions2
 import Preconditions3
 import Preconditions4
 import Preconditions5
@@ -126,6 +128,7 @@ newtype TCPPQuery =
   TBannedTypesPackageQuery(BannedTypesQuery q) or
   TClassesPackageQuery(ClassesQuery q) or
   TClasses2PackageQuery(Classes2Query q) or
+  TClasses3PackageQuery(Classes3Query q) or
   TClasses4PackageQuery(Classes4Query q) or
   TCommentsPackageQuery(CommentsQuery q) or
   TConcurrencyPackageQuery(ConcurrencyQuery q) or
@@ -190,6 +193,7 @@ newtype TCPPQuery =
   TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointersPackageQuery(PointersQuery q) or
   TPreconditions1PackageQuery(Preconditions1Query q) or
+  TPreconditions2PackageQuery(Preconditions2Query q) or
   TPreconditions3PackageQuery(Preconditions3Query q) or
   TPreconditions4PackageQuery(Preconditions4Query q) or
   TPreconditions5PackageQuery(Preconditions5Query q) or
@@ -234,6 +238,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isBannedTypesQueryMetadata(query, queryId, ruleId, category) or
   isClassesQueryMetadata(query, queryId, ruleId, category) or
   isClasses2QueryMetadata(query, queryId, ruleId, category) or
+  isClasses3QueryMetadata(query, queryId, ruleId, category) or
   isClasses4QueryMetadata(query, queryId, ruleId, category) or
   isCommentsQueryMetadata(query, queryId, ruleId, category) or
   isConcurrencyQueryMetadata(query, queryId, ruleId, category) or
@@ -298,6 +303,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointersQueryMetadata(query, queryId, ruleId, category) or
   isPreconditions1QueryMetadata(query, queryId, ruleId, category) or
+  isPreconditions2QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions3QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions4QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions5QueryMetadata(query, queryId, ruleId, category) or

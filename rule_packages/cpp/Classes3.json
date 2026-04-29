@@ -1,0 +1,58 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-15-0-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Incorrect provision of special member functions can lead to unexpected or undefined behavior when objects of the class are copied, moved, or destroyed.",
+          "kind": "problem",
+          "name": "Special member functions shall be provided appropriately",
+          "precision": "medium",
+          "severity": "warning",
+          "short_name": "ImproperlyProvidedSpecialMemberFunctions",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ],
+          "implementation_scope": {
+            "description": "This query does not model `std::is_(copy|move)_(constructible|assignable)` traits or the implicit generation of certain special member functions.",
+            "items": [
+              "The only classes that will be analyzed are classes for which the CodeQL database contains an entry for each special member function. See the audit version of this query to find classes we do not analyze.",
+              "The CodeQL database does not contain certain special member function definitions, such as those that are trivial and not ODR-used. As a result, a query cannot determine whether such special member functions exist or are correctly provided.",
+              "The CodeQL database does not contain the necessary compiler intrinsics to query `std::is_(copy|move)_(constructible|assignable)` traits.",
+              "Fully implementing `std::is_(copy|move)_(constructible|assignable)` traits without access to these intrinsics requires a very thorough reimplementation of C++ overload resolution rules, which are spread across dozens of sections of the language specification.",
+              "Fully implementing implicit special member function generation also requires performing overload resolution on the member-wise direct initialization and assignment for potentially constructed base objects.",
+              "Therefore, this query considers classes with a public, non-deleted move/copy constructor/assignment operator, as being copy/move constructible/assignable.",
+              "And this query does not analyze classes for which we do not have a complete set of special member function definitions in the CodeQL database.",
+              "To analyze the remaining classes, one can run the audit version of this query to find those that are excluded, and for each excluded class, one can either explicitly define all as `= default` or `= delete` or perform a human review of compliance and correctness."
+            ]
+          }
+        },
+        {
+          "description": "Audit: incorrect provision of special member functions can lead to unexpected or undefined behavior when objects of the class are copied, moved, or destroyed.",
+          "kind": "problem",
+          "name": "Special member functions shall be provided appropriately, Audit",
+          "precision": "low",
+          "severity": "warning",
+          "short_name": "ImproperlyProvidedSpecialMemberFunctionsAudit",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "audit",
+            "maintainability"
+          ],
+          "implementation_scope": {
+            "description": "This query finds all classes for which the CodeQL database does not contain a complete set of special member function definitions, allowing a human reviewer to audit compliance where the automated query does not, or provide explicit `= default` or `= delete` definitions so the main query will analyze them.",
+            "items": [
+            ]
+          }
+        }
+      ],
+      "title": "Special member functions shall be provided appropriately"
+    }
+  }
+}
