@@ -42,7 +42,7 @@
           "tags": [
             "scope/single-translation-unit",
             "correctness",
-            "audit",
+            "external/misra/audit",
             "maintainability"
           ],
           "implementation_scope": {

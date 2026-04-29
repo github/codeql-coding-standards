@@ -9,7 +9,7 @@
  * @tags external/misra/id/rule-15-0-1
  *       scope/single-translation-unit
  *       correctness
- *       audit
+ *       external/misra/audit
  *       maintainability
  *       external/misra/enforcement/decidable
  *       external/misra/obligation/required
