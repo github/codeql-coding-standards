@@ -52,6 +52,7 @@ class MembersReturningSubObject extends MembersReturningObjectOrSubobject {
   MembersReturningSubObject() {
     exists(ReturnStmt r, FieldAccess access, Expr e |
       r.getEnclosingFunction() = this and
+      (not exists(access.getQualifier()) or access.getQualifier() instanceof ThisExpr) and
       (
         //subobject returned by address
         r.getAChild() = access.getParent() and
