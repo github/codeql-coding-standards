@@ -35,13 +35,8 @@ class MembersReturningObject extends MembersReturningObjectOrSubobject {
   MembersReturningObject() {
     exists(ReturnStmt r, ThisExpr t |
       r.getEnclosingFunction() = this and
-      (
-        //return `this`
-        r.getAChild() = t
-        or
-        //accesses of subobjects through the `this` pointer
-        r.getAChild() = getASubobjectAccessOf(t)
-      ) and
+      //return `this`
+      r.getAChild() = t and
       t.getActualType().stripType() = this.getDeclaringType()
     )
   }
@@ -114,6 +109,3 @@ where
   not f instanceof AppropriatelyQualified and
   not f instanceof DefaultedAssignmentOperator
 select f, "Member function is not properly ref qualified."
-// from Expr e, PointerFieldAccess p
-// where e.getParent() = p
-// select e, p, p.getTarget(), p.getQualifier(), p.getParent()

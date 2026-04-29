@@ -159,6 +159,9 @@ Expr getASubobjectAccessOf(Expr e) {
  *
  * For `e` this will be subobject accesses of `*e`.
  * Or for `e->x` the subobject access is `x`.
+ *
+ * This predicate is not used/tested extensively so
+ * verify it before use.
  */
 Expr getASubobjectAccessOfPointee(Expr e) {
   e.getParent() instanceof PointerDereferenceExpr and

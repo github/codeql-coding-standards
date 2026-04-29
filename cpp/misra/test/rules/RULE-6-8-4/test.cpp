@@ -25,7 +25,7 @@ struct A {
     return this;
   }
 
-  A &getstructbad2() { return *this; } // NON_COMPLIANT
+  A &getstructbad2() { return *this; } // NON_COMPLIANT[FALSE_NEGATIVE]
 };
 
 class C {
