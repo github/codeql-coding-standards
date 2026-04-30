@@ -82,6 +82,7 @@ import OrderOfEvaluation
 import OutOfBounds
 import Pointers
 import Preconditions1
+import Preconditions2
 import Preconditions3
 import Preconditions4
 import Preconditions5
@@ -190,6 +191,7 @@ newtype TCPPQuery =
   TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointersPackageQuery(PointersQuery q) or
   TPreconditions1PackageQuery(Preconditions1Query q) or
+  TPreconditions2PackageQuery(Preconditions2Query q) or
   TPreconditions3PackageQuery(Preconditions3Query q) or
   TPreconditions4PackageQuery(Preconditions4Query q) or
   TPreconditions5PackageQuery(Preconditions5Query q) or
@@ -298,6 +300,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointersQueryMetadata(query, queryId, ruleId, category) or
   isPreconditions1QueryMetadata(query, queryId, ruleId, category) or
+  isPreconditions2QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions3QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions4QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions5QueryMetadata(query, queryId, ruleId, category) or

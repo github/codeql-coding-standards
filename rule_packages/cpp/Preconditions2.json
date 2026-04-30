@@ -1,0 +1,25 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-8-2-11": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Passing arguments of certain class types via an ellipsis parameter is only conditionally-supported with implementation-defined behaviour.",
+          "kind": "problem",
+          "name": "An argument passed via ellipsis shall have an appropriate type",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "InappropriateArgumentTypePassedViaEllipsis",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness"
+          ]
+        }
+      ],
+      "title": "An argument passed via ellipsis shall have an appropriate type"
+    }
+  }
+}
