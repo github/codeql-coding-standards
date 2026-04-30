@@ -34,6 +34,7 @@
 | 0.25.0  | 2025-01-15 | Mike Fairhurst  | Add guidance for the usage of 'strict' queries.                                                                         |
 | 0.26.0  | 2025-02-12 | Luke Cartey     | Describe support for new deviation code identifier formats                                                              |
 | 0.27.0  | 2025-05-15 | Luke Cartey     | Documented completed support for MISRA C 2023.                                                                          |
+| 0.27.0  | 2025-05-15 | Mike Fairhurst  | Documented completed support for MISRA C++ 2023.                                                                        |
 
 ## Release information
 
@@ -70,7 +71,7 @@ The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying
 |             | [2012 Amendment 3](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD3.pdf)                                                                                                                       | 24    | 24                | 24                | Implemented       |
 |             | [2012 Amendment 4](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD4.pdf)                                                                                                                       | 22    | 22                | 21[^4]            | Implemented       |
 |             | [2023 Third Edition, Second Revision](https://misra.org.uk/product/misra-c2023/)                                                                                                                         | 221   | 210               | 207[^5]           | Implemented       |
-| MISRA C++   | [2023](https://misra.org.uk/product/misra-cpp2023/)                                                                                                                                                      | 179   | 176[^6]           | -                 | Under development |
+| MISRA C++   | [2023](https://misra.org.uk/product/misra-cpp2023/)                                                                                                                                                      | 179   | 175[^6]           | -                 | Implemented       |
 
 Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in our representation of the codebase under analysis. In addition, some rules are natively enforced by the supported compilers. As CodeQL requires that the program under analysis compiles, we are unable to implement queries for these rules, and doing so would be redundant.
 
@@ -89,7 +90,7 @@ The datasheet _"CodeQL Coding Standards: supported rules"_, provided with each r
 [^3]: The unimplemented supportable MISRA C 2012 rules are `Rule 9.5`, `Rule 17.13`. `Rule 9.5` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. Note: `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
 [^4]: The unimplemented supportable MISRA C 2012 Amendment 4 rule is `Rule 9.6`. `Rule 9.6` requires additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of this rule.
 [^5]: The unimplemented supportable MISRA C 2023 rules are `Rule 9.5`, `Rule 9.6`, `Rule 17.13`. `Rule 9.5`, `Rule 9.6` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. Note: `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
-[^6]: The rules `5.13.7`, `19.0.1` and `19.1.2` are not planned to be implemented by CodeQL as they are compiler checked in all supported compilers.
+[^6]: The rules `5.13.7`, `19.0.1` and `19.1.2` are not planned to be implemented by CodeQL as they are compiler checked in all supported compilers. Our implementation does not support `Dir 0.3.2`, and for customers who wish to validate function preconditions we recommend they consider using [this open source CodeQL project](https://github.com/advanced-security/codeql-contracts-smt-z3) that can find and validate preconditions with SMT constraint solving.
 
 ## Supported environment
 
@@ -116,11 +117,11 @@ In addition, the machine which performs the analysis must be able to complete a 
 
 For C++ the codebase under analysis must comply with C++14 and use one of the following supported compiler configurations:
 
-| Compiler | Version | Standard library    | Target architecture   | Required flags                   |
-| -------- | ------- | ------------------- | --------------------- | -------------------------------- |
-| clang    | 10.0.0  | libstdc++ (default) | x86_64-linux-gnu      | -std=c++14                       |
-| gcc      | 8.4.0   | libstdc++ (default) | x86_64-linux-gnu      | -std=c++14                       |
-| qcc      | 8.3.0   | libc++ (default)    | gcc_ntoaarch64le_cxx  | -std=c++14 -D_QNX_SOURCE -nopipe |
+| Compiler | Version | Standard library    | Target architecture   | Language standard flag       | Other required flags    |
+| -------- | ------- | ------------------- | --------------------- | ---------------------------- | ----------------------- |
+| clang    | 10.0.0  | libstdc++ (default) | x86_64-linux-gnu      | `-std=c++14` or `-std=c++17` | None                    |
+| gcc      | 8.4.0   | libstdc++ (default) | x86_64-linux-gnu      | `-std=c++14` or `-std=c++17` | None                    |
+| qcc      | 8.3.0   | libc++ (default)    | gcc_ntoaarch64le_cxx  | `-std=c++14` or `-std=c++17` | `-D_QNX_SOURCE -nopipe` |
 
 Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
 
@@ -133,11 +134,11 @@ Use of the queries outside these scenarios is possible, but not validated for fu
 
 For C the codebase under analysis must comply with C99 or C11 and use one of the following supported compiler configurations:
 
-| Compiler | Version | Standard library    | Target architecture   | Required Flags             |
-| -------- | ------- | ------------------- | --------------------- | -------------------------- |
-| clang    | 10.0.0  | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99`   |
-| gcc      | 8.4.0   | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99`   |
-| qcc      | 8.3.0   | glibc (default)     | gcc_ntoaarch64le      | `-std=c11 -nopipe` or `-std=c99 -nopipe` |
+| Compiler | Version | Standard library    | Target architecture   | Language standard flag   | Other required flags |
+| -------- | ------- | ------------------- | --------------------- | ------------------------ | -------------------- |
+| clang    | 10.0.0  | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99` | None                 |
+| gcc      | 8.4.0   | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99` | None                 |
+| qcc      | 8.3.0   | glibc (default)     | gcc_ntoaarch64le      | `-std=c11` or `-std=c99` | `-nopipe`            |
 
 Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
 
