@@ -9,7 +9,6 @@ on:
       - main
       - next
       - "rc/**"
-      - michaelrfairhurst/package-undefined-behavior
 
 jobs:
   validate-query-help-files:
