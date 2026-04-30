@@ -12,6 +12,38 @@ private predicate isMemberCustomized(MemberFunction f) {
   not f.isCompilerGenerated()
 }
 
+private predicate isUserDeclared(MemberFunction f) { not f.isCompilerGenerated() }
+
+/**
+ * Holds if the implicit move constructor or move assignment operator of the class `c` will not be
+ * declared.
+ *
+ * See [class.copy]/8 and [class.copy]
+ */
+private predicate implicitMoveIsSuppressed(Class c) {
+  isUserDeclared(c.getAConstructor().(CopyConstructor))
+  or
+  isUserDeclared(c.getAConstructor().(CopyAssignmentOperator))
+  or
+  isUserDeclared(c.getDestructor())
+}
+
+Constructor getMoveConstructor(Class c) {
+  if
+    not exists(MoveConstructor mc | mc = c.getAConstructor() and isUserDeclared(mc)) and
+    implicitMoveIsSuppressed(c)
+  then result = c.getAConstructor().(CopyConstructor)
+  else result = c.getAConstructor().(MoveConstructor)
+}
+
+Operator getMoveAssign(Class c) {
+  if
+    not exists(MoveAssignmentOperator mc | mc = c.getAMemberFunction() and isUserDeclared(mc)) and
+    implicitMoveIsSuppressed(c)
+  then result = c.getAMemberFunction().(CopyAssignmentOperator)
+  else result = c.getAMemberFunction().(MoveAssignmentOperator)
+}
+
 newtype TSpecialMember =
   TMoveConstructor() or
   TMoveAssignmentOperator() or
@@ -20,17 +52,19 @@ newtype TSpecialMember =
   TDestructor()
 
 class AnalyzableClass extends Class {
-  MoveConstructor moveCtor;
-  MoveAssignmentOperator moveAssign;
   CopyConstructor copyCtor;
+  // The move constructor may be suppressed, and the copy constructor may be used during moves.
+  Constructor moveCtor;
   CopyAssignmentOperator copyAssign;
+  // The move assignment operator may be suppressed, and the copy assignment operator may be used during moves.
+  Operator moveAssign;
   Destructor dtor;
 
   AnalyzableClass() {
-    moveCtor = this.getAConstructor() and
     copyCtor = this.getAConstructor() and
-    moveAssign = this.getAMemberFunction() and
+    moveCtor = getMoveConstructor(this) and
     copyAssign = this.getAMemberFunction() and
+    moveAssign = getMoveAssign(this) and
     dtor = this.getDestructor()
   }
 
@@ -57,9 +91,13 @@ class AnalyzableClass extends Class {
   predicate destructible() { isUsable(dtor) }
 
   predicate isCustomized(TSpecialMember s) {
-    s instanceof TMoveConstructor and isMemberCustomized(moveCtor)
+    s instanceof TMoveConstructor and
+    isMemberCustomized(moveCtor) and
+    declaresMoveConstructor()
     or
-    s instanceof TMoveAssignmentOperator and isMemberCustomized(moveAssign)
+    s instanceof TMoveAssignmentOperator and
+    isMemberCustomized(moveAssign) and
+    declaresMoveAssignmentOperator()
     or
     s instanceof TCopyConstructor and isMemberCustomized(copyCtor)
     or
@@ -67,4 +105,8 @@ class AnalyzableClass extends Class {
     or
     s instanceof TDestructor and isMemberCustomized(dtor)
   }
+
+  predicate declaresMoveConstructor() { not moveCtor = copyCtor }
+
+  predicate declaresMoveAssignmentOperator() { not moveAssign = copyAssign }
 }

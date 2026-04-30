@@ -79,14 +79,29 @@ predicate violatesCustomizedMoveOrCopyRequirements(AnalyzableClass c, string rea
   )
 }
 
+private predicate undeclaredMoveException(AnalyzableClass c) {
+  // A copy-enabled class may have an undeclared move constructor.
+  isCopyEnabled(c) and
+  not c.moveAssignable() and
+  not c.declaresMoveConstructor()
+  or
+  // A copy-assignable class may leave both move operations undeclared.
+  isCopyEnabled(c) and
+  c.moveAssignable() and
+  not c.declaresMoveConstructor() and
+  not c.declaresMoveAssignmentOperator()
+}
+
 predicate violatesCustomizedDestructorRequirements(AnalyzableClass c, string reason) {
   c.isCustomized(TDestructor()) and
   (
     c.moveConstructible() and
     not c.isCustomized(TMoveConstructor()) and
+    not undeclaredMoveException(c) and
     reason = "has customized the destructor, but does not customize the move constructor."
     or
     c.moveAssignable() and
+    not undeclaredMoveException(c) and
     not c.isCustomized(TMoveAssignmentOperator()) and
     reason = "has customized the destructor, but does not customize the move assignment operator."
     or

@@ -13,18 +13,25 @@
 | test.cpp:115:7:115:21 | PrivateMoveCtor | Class 'PrivateMoveCtor' does not fall into a valid category (isUnmovable, move-only, or copy-enabled). |
 | test.cpp:128:7:128:23 | PrivateCopyAssign | Class 'PrivateCopyAssign' does not fall into a valid category (isUnmovable, move-only, or copy-enabled). |
 | test.cpp:141:7:141:23 | PrivateMoveAssign | Class 'PrivateMoveAssign' does not fall into a valid category (isUnmovable, move-only, or copy-enabled). |
-| test.cpp:181:7:181:45 | CustomizedCopyCtorDefaultedNonCompliant | Class 'CustomizedCopyCtorDefaultedNonCompliant' has customized copy constructor, but does not customize the destructor. |
-| test.cpp:188:7:188:43 | CustomizedCopyCtorDeletedNonCompliant | Class 'CustomizedCopyCtorDeletedNonCompliant' has customized copy constructor, but does not customize the destructor. |
-| test.cpp:194:7:194:36 | CustomizedMoveCtorNonCompliant | Class 'CustomizedMoveCtorNonCompliant' has customized move constructor, but does not customize the destructor. |
-| test.cpp:200:7:200:38 | CustomizedCopyAssignNonCompliant | Class 'CustomizedCopyAssignNonCompliant' has customized copy assignment operator, but does not customize the destructor. |
-| test.cpp:206:7:206:38 | CustomizedMoveAssignNonCompliant | Class 'CustomizedMoveAssignNonCompliant' has customized copy constructor, move assignment operator, move constructor, but does not customize the destructor. |
-| test.cpp:213:7:213:39 | MoveOnlyNotCustomizedNonCompliant | Class 'MoveOnlyNotCustomizedNonCompliant' has customized the destructor, but does not customize the move constructor. |
-| test.cpp:220:7:220:49 | MoveOnlyAssignableNotCustomizedNonCompliant | Class 'MoveOnlyAssignableNotCustomizedNonCompliant' has customized the destructor, but does not customize the move assignment operator. |
-| test.cpp:220:7:220:49 | MoveOnlyAssignableNotCustomizedNonCompliant | Class 'MoveOnlyAssignableNotCustomizedNonCompliant' has customized the destructor, but does not customize the move constructor. |
-| test.cpp:251:7:251:43 | CopyEnabledCustomizedDtorNonCompliant | Class 'CopyEnabledCustomizedDtorNonCompliant' has customized the destructor, but does not customize the copy assignment operator. |
-| test.cpp:251:7:251:43 | CopyEnabledCustomizedDtorNonCompliant | Class 'CopyEnabledCustomizedDtorNonCompliant' has customized the destructor, but does not customize the copy constructor. |
-| test.cpp:251:7:251:43 | CopyEnabledCustomizedDtorNonCompliant | Class 'CopyEnabledCustomizedDtorNonCompliant' has customized the destructor, but does not customize the move assignment operator. |
-| test.cpp:251:7:251:43 | CopyEnabledCustomizedDtorNonCompliant | Class 'CopyEnabledCustomizedDtorNonCompliant' has customized the destructor, but does not customize the move constructor. |
-| test.cpp:270:7:270:33 | UnmovableBaseNonvirtualDtor | Class 'UnmovableBaseNonvirtualDtor' violates inheritance requirements for special member functions. |
-| test.cpp:291:7:291:33 | UnmovablePrivateVirtualDtor | Class 'UnmovablePrivateVirtualDtor' violates inheritance requirements for special member functions. |
-| test.cpp:318:7:318:30 | BaseVirtualProtectedDtor | Class 'BaseVirtualProtectedDtor' violates inheritance requirements for special member functions. |
+| test.cpp:182:7:182:45 | CustomizedCopyCtorDefaultedNonCompliant | Class 'CustomizedCopyCtorDefaultedNonCompliant' has customized copy constructor, but does not customize the destructor. |
+| test.cpp:189:7:189:43 | CustomizedCopyCtorDeletedNonCompliant | Class 'CustomizedCopyCtorDeletedNonCompliant' has customized copy constructor, but does not customize the destructor. |
+| test.cpp:195:7:195:36 | CustomizedMoveCtorNonCompliant | Class 'CustomizedMoveCtorNonCompliant' has customized move constructor, but does not customize the destructor. |
+| test.cpp:201:7:201:38 | CustomizedCopyAssignNonCompliant | Class 'CustomizedCopyAssignNonCompliant' has customized copy assignment operator, but does not customize the destructor. |
+| test.cpp:207:7:207:38 | CustomizedMoveAssignNonCompliant | Class 'CustomizedMoveAssignNonCompliant' has customized copy constructor, move assignment operator, move constructor, but does not customize the destructor. |
+| test.cpp:214:7:214:39 | MoveOnlyNotCustomizedNonCompliant | Class 'MoveOnlyNotCustomizedNonCompliant' has customized the destructor, but does not customize the move constructor. |
+| test.cpp:223:7:223:49 | MoveOnlyAssignableNotCustomizedNonCompliant | Class 'MoveOnlyAssignableNotCustomizedNonCompliant' has customized the destructor, but does not customize the move assignment operator. |
+| test.cpp:223:7:223:49 | MoveOnlyAssignableNotCustomizedNonCompliant | Class 'MoveOnlyAssignableNotCustomizedNonCompliant' has customized the destructor, but does not customize the move constructor. |
+| test.cpp:258:7:258:43 | CopyEnabledCustomizedDtorNonCompliant | Class 'CopyEnabledCustomizedDtorNonCompliant' has customized the destructor, but does not customize the copy assignment operator. |
+| test.cpp:258:7:258:43 | CopyEnabledCustomizedDtorNonCompliant | Class 'CopyEnabledCustomizedDtorNonCompliant' has customized the destructor, but does not customize the copy constructor. |
+| test.cpp:258:7:258:43 | CopyEnabledCustomizedDtorNonCompliant | Class 'CopyEnabledCustomizedDtorNonCompliant' has customized the destructor, but does not customize the move assignment operator. |
+| test.cpp:258:7:258:43 | CopyEnabledCustomizedDtorNonCompliant | Class 'CopyEnabledCustomizedDtorNonCompliant' has customized the destructor, but does not customize the move constructor. |
+| test.cpp:307:7:307:47 | CopyAssignableCustomizedDtorNonCompliant1 | Class 'CopyAssignableCustomizedDtorNonCompliant1' has customized the destructor, but does not customize the move assignment operator. |
+| test.cpp:317:7:317:47 | CopyAssignableCustomizedDtorNonCompliant2 | Class 'CopyAssignableCustomizedDtorNonCompliant2' has customized the destructor, but does not customize the move constructor. |
+| test.cpp:327:7:327:47 | CopyAssignableCustomizedDtorNonCompliant3 | Class 'CopyAssignableCustomizedDtorNonCompliant3' does not fall into a valid category (isUnmovable, move-only, or copy-enabled). |
+| test.cpp:337:7:337:47 | CopyAssignableCustomizedDtorNonCompliant4 | Class 'CopyAssignableCustomizedDtorNonCompliant4' has customized the destructor, but does not customize the move assignment operator. |
+| test.cpp:337:7:337:47 | CopyAssignableCustomizedDtorNonCompliant4 | Class 'CopyAssignableCustomizedDtorNonCompliant4' has customized the destructor, but does not customize the move constructor. |
+| test.cpp:347:7:347:47 | CopyAssignableCustomizedDtorNonCompliant5 | Class 'CopyAssignableCustomizedDtorNonCompliant5' has customized the destructor, but does not customize the move assignment operator. |
+| test.cpp:347:7:347:47 | CopyAssignableCustomizedDtorNonCompliant5 | Class 'CopyAssignableCustomizedDtorNonCompliant5' has customized the destructor, but does not customize the move constructor. |
+| test.cpp:357:7:357:33 | UnmovableBaseNonvirtualDtor | Class 'UnmovableBaseNonvirtualDtor' violates inheritance requirements for special member functions. |
+| test.cpp:378:7:378:33 | UnmovablePrivateVirtualDtor | Class 'UnmovablePrivateVirtualDtor' violates inheritance requirements for special member functions. |
+| test.cpp:405:7:405:30 | BaseVirtualProtectedDtor | Class 'BaseVirtualProtectedDtor' violates inheritance requirements for special member functions. |
