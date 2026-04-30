@@ -1,0 +1,13 @@
+| test.cpp:87:20:87:39 | call to VirtualMemberClass | Argument of type 'VirtualMemberClass' passed via ellipsis to $@ has virtual member functions. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:88:20:88:43 | call to VirtualDestructorClass | Argument of type 'VirtualDestructorClass' passed via ellipsis to $@ has virtual member functions. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:89:20:89:40 | 0 | Argument of type 'NonTrivialCopyClass' passed via ellipsis to $@ has non-trivial copy or move operations. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:90:20:90:40 | 0 | Argument of type 'NonTrivialMoveClass' passed via ellipsis to $@ has non-trivial copy or move operations. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:91:20:91:46 | 0 | Argument of type 'NonTrivialCopyAssignClass' passed via ellipsis to $@ has non-trivial copy or move operations. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:92:20:92:46 | 0 | Argument of type 'NonTrivialMoveAssignClass' passed via ellipsis to $@ has non-trivial copy or move operations. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:93:20:93:46 | 0 | Argument of type 'NonTrivialDestructorClass' passed via ellipsis to $@ has a non-trivial destructor. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:94:20:94:39 | call to DerivedFromVirtual | Argument of type 'DerivedFromVirtual' passed via ellipsis to $@ has virtual member functions. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:95:20:95:40 | call to MultipleIssuesClass | Argument of type 'MultipleIssuesClass' passed via ellipsis to $@ has virtual member functions. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:96:20:96:33 | call to VirtualMemberClass | Argument of type 'VirtualMemberClass' passed via ellipsis to $@ has virtual member functions. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:97:20:97:39 | call to VirtualMemberClass | Argument of type 'VirtualMemberClass' passed via ellipsis to $@ has virtual member functions. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:99:36:99:55 | call to VirtualMemberClass | Argument of type 'VirtualMemberClass' passed via ellipsis to $@ has virtual member functions. | test.cpp:78:6:78:18 | variadic_func | variadic_func |
+| test.cpp:119:25:119:44 | call to VirtualMemberClass | Argument of type 'VirtualMemberClass' passed via ellipsis to $@ has virtual member functions. | test.cpp:115:6:115:26 | variadic_take_objects | variadic_take_objects |
