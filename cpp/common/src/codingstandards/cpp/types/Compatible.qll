@@ -525,9 +525,11 @@ module FunctionDeclarationTypeEquivalence<
   }
 }
 
-signature predicate interestedInFunctions(Function f1, Function f2);
+signature predicate interestedInFunctionsByFunction(Function f1, Function f2);
 
-module FunctionEquivalence<TypeEquivalenceSig Config, interestedInFunctions/2 interestedInFuncs> {
+module FunctionEquivalence<
+  TypeEquivalenceSig Config, interestedInFunctionsByFunction/2 interestedInFuncs>
+{
   private predicate interestedInParameterTypes(Type a, Type b) {
     exists(Function aFun, Function bFun, int i |
       interestedInFuncs(pragma[only_bind_into](aFun), pragma[only_bind_into](bFun)) and
