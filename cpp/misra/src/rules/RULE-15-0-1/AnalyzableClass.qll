@@ -64,6 +64,23 @@ private predicate implicitMoveIsSuppressed(Class c) {
 /**
  * Returns the move constructor of the class `c` if it exists, or the copy constructor if it does
  * not exist and the implicit definition was suppressed by the compiler.
+ *
+ * For example:
+ * ```cpp
+ * class OnlyCopyCtor {
+ * public:
+ *   OnlyCopyCtor(const OnlyCopyCtor &) = default;
+ * };
+ *
+ * static_assert(std::is_copy_constructible_v<OnlyCopyCtor>); // Succeeds
+ * static_assert(std::is_move_constructible_v<OnlyCopyCtor>); // Also succeeds
+ * ```
+ *
+ * Note that without the declared copy constructor, the compiler may define an implicit move
+ * constructor.
+ *
+ * Additionally note that if the move constructor was declared as `= delete;`, then the second
+ * assertion in the above example would fail.
  */
 private Constructor getMoveConstructor(Class c) {
   if
@@ -76,6 +93,23 @@ private Constructor getMoveConstructor(Class c) {
 /**
  * Returns the move assignment operator of the class `c` if it exists, or the copy assignment
  * operator if it does not exist and the implicit definition was suppressed by the compiler.
+ *
+ * For example:
+ * ```cpp
+ * class OnlyCopyAssign {
+ * public:
+ *   OnlyCopyAssign& operator=(const OnlyCopyAssign &) = default;
+ * };
+ *
+ * static_assert(std::is_copy_assignable_v<OnlyCopyAssign>); // Succeeds
+ * static_assert(std::is_move_assignable_v<OnlyCopyAssign>); // Also succeeds
+ * ```
+ *
+ * Note that without the declared copy assignment operator, the compiler may define an implicit move
+ * assignment operator.
+ *
+ * Additionally note that if the move assignment operator was declared as `= delete;`, then the second
+ * assertion in the above example would fail.
  */
 private Operator getMoveAssign(Class c) {
   if
