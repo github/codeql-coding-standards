@@ -8,6 +8,12 @@ template <typename _Key, typename _Compare = std::less<_Key>,
           typename _Alloc = std::allocator<_Key>>
 class set {
 public:
+  set();
+  set(const set&);
+  set(set&&);
+  set(std::initializer_list<_Key>);
+  ~set();
+
   typedef std::iterator<random_access_iterator_tag, _Key> iterator;
   typedef std::iterator<random_access_iterator_tag, _Key> const_iterator;
 
@@ -15,13 +21,15 @@ public:
   iterator end();
   const_iterator cbegin();
   const_iterator cend();
-
-  set();
 };
 template <typename _Key, typename _Compare = std::less<_Key>,
           typename _Alloc = std::allocator<_Key>>
 class multiset {
 public:
+  multiset();
+  multiset(const multiset&);
+  multiset(multiset&&);
+  multiset(std::initializer_list<_Key>);
   typedef std::iterator<random_access_iterator_tag, _Key> iterator;
   typedef std::iterator<random_access_iterator_tag, _Key> const_iterator;
 
@@ -29,8 +37,6 @@ public:
   iterator end();
   const_iterator cbegin();
   const_iterator cend();
-
-  multiset();
 };
 
 } // namespace std

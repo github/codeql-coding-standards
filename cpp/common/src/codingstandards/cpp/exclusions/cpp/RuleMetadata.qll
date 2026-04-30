@@ -9,6 +9,7 @@ import Banned3
 import Banned4
 import Banned5
 import Banned6
+import Banned7
 import Banned8
 import BannedAPIs
 import BannedFunctions
@@ -117,6 +118,7 @@ newtype TCPPQuery =
   TBanned4PackageQuery(Banned4Query q) or
   TBanned5PackageQuery(Banned5Query q) or
   TBanned6PackageQuery(Banned6Query q) or
+  TBanned7PackageQuery(Banned7Query q) or
   TBanned8PackageQuery(Banned8Query q) or
   TBannedAPIsPackageQuery(BannedAPIsQuery q) or
   TBannedFunctionsPackageQuery(BannedFunctionsQuery q) or
@@ -225,6 +227,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isBanned4QueryMetadata(query, queryId, ruleId, category) or
   isBanned5QueryMetadata(query, queryId, ruleId, category) or
   isBanned6QueryMetadata(query, queryId, ruleId, category) or
+  isBanned7QueryMetadata(query, queryId, ruleId, category) or
   isBanned8QueryMetadata(query, queryId, ruleId, category) or
   isBannedAPIsQueryMetadata(query, queryId, ruleId, category) or
   isBannedFunctionsQueryMetadata(query, queryId, ruleId, category) or

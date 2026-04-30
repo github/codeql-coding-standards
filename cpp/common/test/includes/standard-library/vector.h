@@ -35,6 +35,9 @@ public:
   constexpr vector(const vector &, const Allocator &);
   constexpr vector(vector &&, const Allocator &);
   vector(initializer_list<T>, const Allocator & = Allocator());
+
+  ~vector();
+  
   constexpr vector &operator=(const vector &x);
   constexpr vector &operator=(vector &&x);
   constexpr void clear() noexcept;
@@ -67,8 +70,6 @@ public:
   const_reference front() const;
   reference back();
   const_reference back() const;
-
-  ~vector();
 };
 } // namespace std
 
