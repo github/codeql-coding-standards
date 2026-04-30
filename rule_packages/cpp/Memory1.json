@@ -1,0 +1,42 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-8-7-1": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Pointers obtained as result of performing arithmetic should point to an initialized object, or an element right next to the last element of an array.",
+          "kind": "path-problem",
+          "name": "Pointer arithmetic shall not form an invalid pointer",
+          "precision": "medium",
+          "severity": "error",
+          "short_name": "PointerArithmeticFormsAnInvalidPointer",
+          "tags": [
+            "scope/system",
+            "correctness",
+            "security"
+          ],
+          "implementation_scope": {
+            "description": "This implementation only concerns itself with array allocations whose length information is statically visible. Also, it produces false positives in certain cases where an address-of operator is applied to a non-array object and is assigned to an array element. Address-of-operator on references are not supported."
+          }
+        },
+        {
+          "description": "Pointer and index arguments passed to functions in <cstring> should result in valid reads and/or writes.",
+          "kind": "problem",
+          "name": "Pointer and index arguments passed to functions in <cstring> shall not be invalid",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PointerArgumentToCstringFunctionIsInvalid",
+          "tags": [
+            "scope/system",
+            "correctness",
+            "security"
+          ]
+        }
+      ],
+      "title": "Pointers obtained as result of performing arithmetic should point to an initialized object, or an element right next to the last element of an array."
+    }
+  }
+}
