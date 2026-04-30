@@ -34,6 +34,7 @@
 | 0.25.0  | 2025-01-15 | Mike Fairhurst  | Add guidance for the usage of 'strict' queries.                                                                         |
 | 0.26.0  | 2025-02-12 | Luke Cartey     | Describe support for new deviation code identifier formats                                                              |
 | 0.27.0  | 2025-05-15 | Luke Cartey     | Documented completed support for MISRA C 2023.                                                                          |
+| 0.28.0  | 2026-04-30 | Mike Fairhurst  | Documented completed support for MISRA C++ 2023.                                                                        |
 
 ## Release information
 
@@ -70,7 +71,7 @@ The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying
 |             | [2012 Amendment 3](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD3.pdf)                                                                                                                       | 24    | 24                | 24                | Implemented       |
 |             | [2012 Amendment 4](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD4.pdf)                                                                                                                       | 22    | 22                | 21[^4]            | Implemented       |
 |             | [2023 Third Edition, Second Revision](https://misra.org.uk/product/misra-c2023/)                                                                                                                         | 221   | 210               | 207[^5]           | Implemented       |
-| MISRA C++   | [2023](https://misra.org.uk/product/misra-cpp2023/)                                                                                                                                                      | 179   | 176[^6]           | -                 | Under development |
+| MISRA C++   | [2023](https://misra.org.uk/product/misra-cpp2023/)                                                                                                                                                      | 179   | 176[^6]           | 175[^7]           | Implemented       |
 
 Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in our representation of the codebase under analysis. In addition, some rules are natively enforced by the supported compilers. As CodeQL requires that the program under analysis compiles, we are unable to implement queries for these rules, and doing so would be redundant.
 
@@ -90,6 +91,7 @@ The datasheet _"CodeQL Coding Standards: supported rules"_, provided with each r
 [^4]: The unimplemented supportable MISRA C 2012 Amendment 4 rule is `Rule 9.6`. `Rule 9.6` requires additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of this rule.
 [^5]: The unimplemented supportable MISRA C 2023 rules are `Rule 9.5`, `Rule 9.6`, `Rule 17.13`. `Rule 9.5`, `Rule 9.6` and `Rule 17.13` require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules. Note: `Dir 4.14` is covered by the default CodeQL queries, which identify potential security vulnerabilities caused by not validating external input.
 [^6]: The rules `5.13.7`, `19.0.1` and `19.1.2` are not planned to be implemented by CodeQL as they are compiler checked in all supported compilers.
+[^7]: The rule `Dir 0.3.2` is not supported by our implementation. For customers who wish to validate function preconditions we recommend they consider using [this open source CodeQL project](https://github.com/advanced-security/codeql-contracts-smt-z3) that can find and validate preconditions with SMT constraint solving.
 
 ## Supported environment
 
@@ -114,30 +116,30 @@ In addition, the machine which performs the analysis must be able to complete a 
 
 #### C++
 
-For C++ the codebase under analysis must comply with C++14 and use one of the following supported compiler configurations:
+For C++ the codebase under analysis must comply with C++14 or C++17 and use one of the following supported compiler configurations:
 
-| Compiler | Version | Standard library    | Target architecture   | Required flags                   |
-| -------- | ------- | ------------------- | --------------------- | -------------------------------- |
-| clang    | 10.0.0  | libstdc++ (default) | x86_64-linux-gnu      | -std=c++14                       |
-| gcc      | 8.4.0   | libstdc++ (default) | x86_64-linux-gnu      | -std=c++14                       |
-| qcc      | 8.3.0   | libc++ (default)    | gcc_ntoaarch64le_cxx  | -std=c++14 -D_QNX_SOURCE -nopipe |
+| Compiler | Version | Standard library    | Target architecture   | Language standard flag       | Other required flags    |
+| -------- | ------- | ------------------- | --------------------- | ---------------------------- | ----------------------- |
+| clang    | 10.0.0  | libstdc++ (default) | x86_64-linux-gnu      | `-std=c++14` or `-std=c++17` | None                    |
+| gcc      | 8.4.0   | libstdc++ (default) | x86_64-linux-gnu      | `-std=c++14` or `-std=c++17` | None                    |
+| qcc      | 8.3.0   | libc++ (default)    | gcc_ntoaarch64le_cxx  | `-std=c++14` or `-std=c++17` | `-D_QNX_SOURCE -nopipe` |
 
 Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
 
 - Use of the queries against codebases written with more recent versions of C++ (as supported by CodeQL) are not validated in the following circumstances:
   - When new language features are used
-  - When language features are used which have a differing interpretation from C++14.
+  - When language features are used which have a differing interpretation from C++14 or C++17.
 - Use of the queries against codebases which use other compilers or other compiler versions supported by CodeQL is not tested or validated for functional safety.
 
 #### C
 
 For C the codebase under analysis must comply with C99 or C11 and use one of the following supported compiler configurations:
 
-| Compiler | Version | Standard library    | Target architecture   | Required Flags             |
-| -------- | ------- | ------------------- | --------------------- | -------------------------- |
-| clang    | 10.0.0  | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99`   |
-| gcc      | 8.4.0   | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99`   |
-| qcc      | 8.3.0   | glibc (default)     | gcc_ntoaarch64le      | `-std=c11 -nopipe` or `-std=c99 -nopipe` |
+| Compiler | Version | Standard library    | Target architecture   | Language standard flag   | Other required flags |
+| -------- | ------- | ------------------- | --------------------- | ------------------------ | -------------------- |
+| clang    | 10.0.0  | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99` | None                 |
+| gcc      | 8.4.0   | glibc (default)     | x86_64-linux-gnu      | `-std=c11` or `-std=c99` | None                 |
+| qcc      | 8.3.0   | glibc (default)     | gcc_ntoaarch64le      | `-std=c11` or `-std=c99` | `-nopipe`            |
 
 Use of the queries outside these scenarios is possible, but not validated for functional safety. In particular:
 
@@ -466,7 +468,7 @@ Note - considation should be taken to ensure the use of custom attributes for de
  * Confirm that unknown attributes are ignored by the compiler.
  * For MISRA C, add a project deviation against "Rule 1.2: Language extensions should not be used", if attribute support is a language extension in your language version. 
 
-**Use of attributes in C++ Coding Standards**: The C++ Standard supports attributes in C++14, however the handling of unknown attributes is implementation defined. From C++17 onwards, unknown attributes are mandated to be ignored. Unknown attributes will usually raise an "unknown attribute" warning. You should:
+**Use of attributes in C++ Coding Standards**: The C++ Standard supports attributes in C++14 and C++17, however the handling of unknown attributes is implementation defined. From C++17 onwards, unknown attributes are mandated to be ignored. Unknown attributes will usually raise an "unknown attribute" warning. You should:
  * If using C++14, confirm that your compiler ignores unknown attributes.
  * If using AUTOSAR and a compiler which produces warnings on unknown attributes, the compiler warning should be disabled (as per `A1-1-2: A warning level of the compilation process shall be set in compliance with project policies`),  to ensure compliance with `A1-4-3: All code should compiler free of compiler warnings`.
 
