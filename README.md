@@ -24,9 +24,9 @@ The following coding standards are supported:
 
 There are currently no new coding standards under active development.
 
-This product intends to begin development of the following standards in the near future:
+This project intends to begin development of the following standards in the near future:
 
-- [MISRA C 2025](https://misra.org.uk/product/misra-cpp2025/)
+- [MISRA C 2025](https://misra.org.uk/product/misra-c2025/)
 
 If you are interested in this standard or when it will be available, consider contacting us via email or by filing an issue.
 
