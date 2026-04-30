@@ -1,0 +1,4 @@
+| test.cpp:2:12:2:19 | array to pointer conversion | String literal assigned to non-const pointer. |
+| test.cpp:10:15:10:22 | array to pointer conversion | String literal assigned to non-const pointer. |
+| test.cpp:20:14:20:22 | array to pointer conversion | String literal assigned to non-const pointer. |
+| test.cpp:21:8:21:16 | array to pointer conversion | String literal assigned to non-const pointer. |
