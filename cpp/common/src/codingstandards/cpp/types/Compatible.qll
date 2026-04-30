@@ -486,11 +486,11 @@ signature predicate interestedInFunctionDeclarations(
 );
 
 module FunctionDeclarationTypeEquivalence<
-  TypeEquivalenceSig Config, interestedInFunctionDeclarations/2 interestedInFunctions>
+  TypeEquivalenceSig Config, interestedInFunctionDeclarations/2 interestedInFunDecls>
 {
   private predicate interestedInReturnTypes(Type a, Type b) {
     exists(FunctionDeclarationEntry aFun, FunctionDeclarationEntry bFun |
-      interestedInFunctions(pragma[only_bind_into](aFun), pragma[only_bind_into](bFun)) and
+      interestedInFunDecls(pragma[only_bind_into](aFun), pragma[only_bind_into](bFun)) and
       a = aFun.getType() and
       b = bFun.getType()
     )
@@ -498,19 +498,19 @@ module FunctionDeclarationTypeEquivalence<
 
   private predicate interestedInParameterTypes(Type a, Type b) {
     exists(FunctionDeclarationEntry aFun, FunctionDeclarationEntry bFun, int i |
-      interestedInFunctions(pragma[only_bind_into](aFun), pragma[only_bind_into](bFun)) and
+      interestedInFunDecls(pragma[only_bind_into](aFun), pragma[only_bind_into](bFun)) and
       a = aFun.getParameterDeclarationEntry(i).getType() and
       b = bFun.getParameterDeclarationEntry(i).getType()
     )
   }
 
   predicate equalReturnTypes(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
-    interestedInFunctions(f1, f2) and
+    interestedInFunDecls(f1, f2) and
     TypeEquivalence<Config, interestedInReturnTypes/2>::equalTypes(f1.getType(), f2.getType())
   }
 
   predicate equalParameterTypes(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
-    interestedInFunctions(f1, f2) and
+    interestedInFunDecls(f1, f2) and
     f1.getDeclaration() = f2.getDeclaration() and
     forall(int i | exists([f1, f2].getParameterDeclarationEntry(i)) |
       equalParameterTypesAt(f1, f2, pragma[only_bind_into](i))
@@ -518,10 +518,35 @@ module FunctionDeclarationTypeEquivalence<
   }
 
   predicate equalParameterTypesAt(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2, int i) {
-    interestedInFunctions(f1, f2) and
+    interestedInFunDecls(f1, f2) and
     f1.getDeclaration() = f2.getDeclaration() and
     TypeEquivalence<Config, interestedInParameterTypes/2>::equalTypes(f1.getParameterDeclarationEntry(pragma[only_bind_into](i))
           .getType(), f2.getParameterDeclarationEntry(pragma[only_bind_into](i)).getType())
+  }
+}
+
+signature predicate interestedInFunctions(Function f1, Function f2);
+
+module FunctionEquivalence<TypeEquivalenceSig Config, interestedInFunctions/2 interestedInFuncs> {
+  private predicate interestedInParameterTypes(Type a, Type b) {
+    exists(Function aFun, Function bFun, int i |
+      interestedInFuncs(pragma[only_bind_into](aFun), pragma[only_bind_into](bFun)) and
+      a = aFun.getParameter(i).getType() and
+      b = bFun.getParameter(i).getType()
+    )
+  }
+
+  predicate equalParameterTypes(Function f1, Function f2) {
+    interestedInFuncs(f1, f2) and
+    forall(int i | exists([f1, f2].getParameter(i)) |
+      equalParameterTypesAt(f1, f2, pragma[only_bind_into](i))
+    )
+  }
+
+  predicate equalParameterTypesAt(Function f1, Function f2, int i) {
+    interestedInFuncs(f1, f2) and
+    TypeEquivalence<Config, interestedInParameterTypes/2>::equalTypes(f1.getParameter(pragma[only_bind_into](i))
+          .getType(), f2.getParameter(pragma[only_bind_into](i)).getType())
   }
 }
 

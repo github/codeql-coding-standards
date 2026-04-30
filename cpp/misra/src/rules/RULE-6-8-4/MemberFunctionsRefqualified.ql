@@ -68,17 +68,12 @@ class MembersReturningSubObject extends MembersReturningObjectOrSubobject {
   }
 }
 
-predicate relevantTypes(Type a, Type b) {
-  exists(MembersReturningObjectOrSubobject f, MemberFunction overload |
-    f.getAnOverload() = overload and
-    exists(int i |
-      f.getParameter(i).getType() = a and
-      overload.getParameter(i).getType() = b
-    )
-  )
+predicate relevantFunctions(Function a, Function b) {
+  a instanceof MembersReturningObjectOrSubobject and
+  a.getAnOverload() = b
 }
 
-class AppropriatelyQualified extends MembersReturningObjectOrSubobject {
+class AppropriatelyQualified extends MemberFunction {
   AppropriatelyQualified() {
     //non-const-lvalue-ref-qualified
     this.isLValueRefQualified() and
@@ -92,10 +87,8 @@ class AppropriatelyQualified extends MembersReturningObjectOrSubobject {
       this.getAnOverload() = overload and
       overload.isRValueRefQualified() and
       //and has same param list
-      forall(int i | exists([this, overload].getParameter(i)) |
-        TypeEquivalence<TypesCompatibleConfig, relevantTypes/2>::equalTypes(this.getParameter(i)
-              .getType(), overload.getParameter(i).getType())
-      )
+      FunctionEquivalence<TypesCompatibleConfig, relevantFunctions/2>::equalParameterTypes(this,
+        overload)
     )
   }
 }
