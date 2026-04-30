@@ -1,0 +1,3 @@
+ - All queries using `Linkage.qll`:
+   - The logic for determining whether a namespace is within an anonymous namespace, directly or indirectly, has been refactored.
+   - No visible change in behavior or performance is expected.

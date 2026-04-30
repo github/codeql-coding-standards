@@ -1,0 +1,71 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-6-2-3": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Implementing an entity in multiple source locations increases the risk of ODR violations and undefined behavior.",
+          "kind": "problem",
+          "name": "The source code used to implement an entity shall appear only once",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DuplicateInlineFunctionDefinitions",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "scope/system"
+          ],
+          "implementation_scope": {
+            "description": "The implementation of this rule and the implementation of Rule 6.2.1 are heavily related.",
+            "items": [
+              "Generally speaking, false positives in Rule 6.2.1 will be true violations of this rule, and such results are not duplicated here.",
+              "Our implementation of Rule 6.2.1 detects duplicate definitions of non-inline entities, but excludes all inline functions to avoid false positives.",
+              "This query detects duplicate definitions of inline functions.",
+              "Note that our definition of Rule 6.2.1 cannot distinguish between inline and non-inline variables, and therefore reports all such duplications even if they are not ODR violations. For the same reason, we do not check inline variable definitions in this query.",
+              "This rule contains another query to detect duplicate definitions of types, another case that is excluded by our implementation of Rule 6.2.1."
+            ]
+          }
+        },
+        {
+          "description": "Template specializations must be defined in the same file as the primary template or where a specialized type is defined to ensure visibility and avoid ODR violations.",
+          "kind": "problem",
+          "name": "Template specializations in wrong location",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "TemplateSpecializationWrongLocation",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "scope/system"
+          ]
+        },
+        {
+          "description": "Defining a type with the same fully qualified name in multiple files increases the risk of ODR violations and undefined behavior.",
+          "kind": "problem",
+          "name": "Duplicate type definitions across files",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "DuplicateTypeDefinitions",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "scope/system"
+          ],
+          "implementation_scope": {
+            "description": "The implementation of this rule and the implementation of Rule 6.2.1 are heavily related.",
+            "items": [
+              "Generally speaking, false positives in Rule 6.2.1 will be true violations of this rule, and such results are not duplicated here.",
+              "Our implementation of Rule 6.2.1 excludes analysis of duplicate type definitions to avoid false positives, even for cases that are true ODR violations.",
+              "This query detects duplicate definitions of types.",
+              "This rule contains another query to detect duplicate definitions of inline functions, another case that is excluded by our implementation of Rule 6.2.1."
+            ]
+          }
+        }
+      ],
+      "title": "The source code used to implement an entity shall appear only once"
+    }
+  }
+}
