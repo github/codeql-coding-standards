@@ -18,6 +18,7 @@
 import cpp
 import codingstandards.cpp.misra
 import AnalyzableClass
+import qtil.Qtil
 
 string missingKind(Class c) {
   not c.getAConstructor() instanceof MoveConstructor and
@@ -45,5 +46,5 @@ where
   not c.isPod() and
   kinds = missingKinds(c)
 select c,
-  "Class '" + c.getName() + "' is not analyzable because the " + kinds +
-    " are not present in the CodeQL database."
+  "Class '" + c.getName() + "' is not analyzable because the " + kinds + " " +
+    Qtil::plural("is", "are", count(missingKind(c))) + " not present in the CodeQL database."

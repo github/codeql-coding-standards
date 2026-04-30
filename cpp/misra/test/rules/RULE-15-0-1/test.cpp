@@ -282,25 +282,14 @@ public:
   ~CopyEnabledCustomizedDtorCompliant2() CUSTOMIZED;
 };
 
-// copy-assignable class with both move operations customized
+// copy-assignable class with both move operations not declared
 class CopyAssignableCustomizedDtorCompliant1 { // COMPLIANT
 public:
   COPY_CTOR(CopyAssignableCustomizedDtorCompliant1) CUSTOMIZED;
-  MOVE_CTOR(CopyAssignableCustomizedDtorCompliant1) CUSTOMIZED;
-  // No move constructor declared
-  COPY_ASSIGN(CopyAssignableCustomizedDtorCompliant1) DELETED;
-  MOVE_ASSIGN(CopyAssignableCustomizedDtorCompliant1) DELETED;
-  ~CopyAssignableCustomizedDtorCompliant1() CUSTOMIZED;
-};
-
-// copy-assignable class with both move operations not declared
-class CopyAssignableCustomizedDtorCompliant2 { // COMPLIANT
-public:
-  COPY_CTOR(CopyAssignableCustomizedDtorCompliant2) CUSTOMIZED;
   // Move constructor is not declared
-  COPY_ASSIGN(CopyAssignableCustomizedDtorCompliant2) CUSTOMIZED;
+  COPY_ASSIGN(CopyAssignableCustomizedDtorCompliant1) CUSTOMIZED;
   // Move assignment operator is not declared
-  DTOR(CopyAssignableCustomizedDtorCompliant2) CUSTOMIZED
+  DTOR(CopyAssignableCustomizedDtorCompliant1) CUSTOMIZED
 };
 
 // copy-assignable class with only one of move operations not declared
@@ -360,6 +349,7 @@ public:
                              DELETED, DELETED, DEFAULTED)
 };
 
+// NON_COMPLIANT - reported by the audit query for having missing info.
 class UnmovableNonvirtualDerived : public UnmovableBaseNonvirtualDtor {};
 
 class UnmovableBasePublicVirtualDtor { // COMPLIANT
@@ -372,6 +362,7 @@ public:
   virtual ~UnmovableBasePublicVirtualDtor() = default;
 };
 
+// NON_COMPLIANT - reported by the audit query for having missing info.
 class UnmovableDerivedPublicVirtualDtor
     : public UnmovableBasePublicVirtualDtor {};
 
@@ -386,6 +377,7 @@ private:
   virtual ~UnmovablePrivateVirtualDtor() = default;
 };
 
+// NON_COMPLIANT - reported by the audit query for having missing info.
 class UnmovablePrivateVirtualDtorDerived : public UnmovablePrivateVirtualDtor {
 };
 
@@ -400,6 +392,7 @@ protected:
   ~BaseProtectedDtor() = default;
 };
 
+// NON_COMPLIANT - reported by the audit query for having missing info.
 class ProtectedDtorDerived : public BaseProtectedDtor {};
 
 class BaseVirtualProtectedDtor { // NON_COMPLIANT
@@ -413,6 +406,7 @@ protected:
   virtual ~BaseVirtualProtectedDtor() = default;
 };
 
+// NON_COMPLIANT - reported by the audit query for having missing info.
 class VirtualProtectedDtorDerived : public BaseVirtualProtectedDtor {};
 
 } // namespace additional_requirements
