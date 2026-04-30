@@ -267,10 +267,13 @@ public:
                              CUSTOMIZED, CUSTOMIZED, CUSTOMIZED, CUSTOMIZED)
 };
 
-class CopyEnabledCustomizedDtorCompliant2 { // COMPLIANT: copy-enabled (2)
+class CopyEnabledCustomizedDtorCompliant2 { // NON-COMPLIANT: copy-enabled (2)
 public:
-  DEFINE_ALL_SPECIAL_MEMBERS(CopyEnabledCustomizedDtorCompliant2, CUSTOMIZED,
-                             DEFAULTED, CUSTOMIZED, DEFAULTED, CUSTOMIZED)
+  COPY_CTOR(CopyEnabledCustomizedDtorCompliant2) CUSTOMIZED
+  // Move constructor is not declared
+  COPY_ASSIGN(CopyEnabledCustomizedDtorCompliant2) CUSTOMIZED
+  MOVE_ASSIGN(CopyEnabledCustomizedDtorCompliant2) DEFAULTED
+  DTOR(CopyEnabledCustomizedDtorCompliant2) CUSTOMIZED
 };
 
 class CopyAssignableCustomizedDtorCompliant1 {  // COMPLIANT: copy-assignable class with both move operations customized
