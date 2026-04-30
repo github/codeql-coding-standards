@@ -33,13 +33,16 @@ struct NonTrivialMoveClass {
 struct NonTrivialCopyAssignClass {
   int m1;
   NonTrivialCopyAssignClass &operator=(const NonTrivialCopyAssignClass &other) {
+    return *this;
   }
 };
 
 // Class with user-defined (non-trivial) move assignment operator
 struct NonTrivialMoveAssignClass {
   int m1;
-  NonTrivialMoveAssignClass &operator=(NonTrivialMoveAssignClass &&other) {}
+  NonTrivialMoveAssignClass &operator=(NonTrivialMoveAssignClass &&other) {
+    return *this;
+  }
 };
 
 // Class with user-defined (non-trivial) destructor
@@ -75,7 +78,7 @@ struct DefaultedClass {
 using VirtualAlias = VirtualMemberClass;
 
 // User-defined variadic function
-void variadic_func(int p1, ...) {}
+int variadic_func(int p1, ...);
 
 void f() {
   variadic_func(0, 42);              // COMPLIANT
