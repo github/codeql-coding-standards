@@ -51,7 +51,7 @@ private predicate isUserDeclared(MemberFunction f) { not f.isCompilerGenerated()
  * Holds if the implicit move constructor or move assignment operator of the class `c` will not be
  * declared.
  *
- * See [class.copy]/8 and [class.copy]
+ * Specified in [class.copy.ctor]/8 and [class.copy.assign]/4.
  */
 private predicate implicitMoveIsSuppressed(Class c) {
   isUserDeclared(c.getAConstructor().(CopyConstructor))

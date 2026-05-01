@@ -82,12 +82,11 @@ predicate violatesCustomizedMoveOrCopyRequirements(AnalyzableClass c, string rea
 private predicate undeclaredMoveException(AnalyzableClass c) {
   // A copy-enabled class may have an undeclared move constructor.
   isCopyEnabled(c) and
-  not c.moveAssignable() and
+  not c.copyAssignable() and
   not c.declaresMoveConstructor()
   or
   // A copy-assignable class may leave both move operations undeclared.
-  isCopyEnabled(c) and
-  c.moveAssignable() and
+  c.copyAssignable() and
   not c.declaresMoveConstructor() and
   not c.declaresMoveAssignmentOperator()
 }

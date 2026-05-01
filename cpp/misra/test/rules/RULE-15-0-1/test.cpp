@@ -413,7 +413,7 @@ class VirtualProtectedDtorDerived : public BaseVirtualProtectedDtor {};
 
 } // namespace fully_specified
 
-namespace audit_results {
+namespace implicit_special_members {
 
 struct PodClass { // COMPLIANT - we know PODs are OK.
   int x;
@@ -432,6 +432,17 @@ class NonTrivialClass { // NON_COMPLIANT - audit result
 
 public:
   ~NonTrivialClass() { x = 1; }
+};
+
+// CodeQL resolves and stores all of the special member functions in the
+// database for this class, so it is not an audit query result.
+class NonTrivialDestructor { // NON_COMPLIANT - uncustomized copy ops.
+  int x;
+  int y;
+
+public:
+  COPY_CTOR(NonTrivialDestructor) = default;
+  ~NonTrivialDestructor() { x = 1; }
 };
 
 // This class is not a valid category but hard to analyze in the general case.
@@ -460,4 +471,4 @@ void f(OdrUsedMoveEnabled o) {
   o3 = std::move(o);
 }
 
-} // namespace audit_results
+} // namespace implicit_special_members
