@@ -1,0 +1,8 @@
+| test.cpp:353:7:353:32 | UnmovableNonvirtualDerived | Class 'UnmovableNonvirtualDerived' is not analyzable because the destructor and move assignment operator and move constructor are not present in the CodeQL database. |
+| test.cpp:366:7:366:39 | UnmovableDerivedPublicVirtualDtor | Class 'UnmovableDerivedPublicVirtualDtor' is not analyzable because the move assignment operator and move constructor are not present in the CodeQL database. |
+| test.cpp:381:7:381:40 | UnmovablePrivateVirtualDtorDerived | Class 'UnmovablePrivateVirtualDtorDerived' is not analyzable because the move assignment operator and move constructor are not present in the CodeQL database. |
+| test.cpp:396:7:396:26 | ProtectedDtorDerived | Class 'ProtectedDtorDerived' is not analyzable because the destructor and move assignment operator are not present in the CodeQL database. |
+| test.cpp:410:7:410:33 | VirtualProtectedDtorDerived | Class 'VirtualProtectedDtorDerived' is not analyzable because the move assignment operator is not present in the CodeQL database. |
+| test.cpp:423:8:423:19 | TrivialClass | Class 'TrivialClass' is not analyzable because the destructor and move assignment operator and move constructor are not present in the CodeQL database. |
+| test.cpp:429:7:429:21 | NonTrivialClass | Class 'NonTrivialClass' is not analyzable because the copy constructor and move assignment operator and move constructor are not present in the CodeQL database. |
+| test.cpp:450:7:450:14 | CopyOnly | Class 'CopyOnly' is not analyzable because the destructor is not present in the CodeQL database. |
