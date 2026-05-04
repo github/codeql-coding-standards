@@ -27,8 +27,8 @@ template <typename T> class TplRedeclared {}; // COMPLIANT
 enum DuplicateEnum {};            // NON_COMPLIANT
 enum class DuplicateEnumClass {}; // NON_COMPLIANT
 enum {} anonymousEnum1;           // COMPLIANT
-typedef int16_t DuplicateTypedef; // NON_COMPLIANT
-using DuplicateUsing = int16_t;   // NON_COMPLIANT
+typedef int16_t DuplicateTypedef; // COMPLIANT -- Redeclared typedefs are OK
+using DuplicateUsing = int16_t;   // COMPLIANT -- Redeclared type aliases are OK
 union DuplicateUnion {};          // NON_COMPLIANT
 union {
 } anonymousUnion1; // COMPLIANT

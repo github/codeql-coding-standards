@@ -20,7 +20,7 @@ import codingstandards.cpp.Linkage
 
 class UserTypeDefinition extends TypeDeclarationEntry {
   UserTypeDefinition() {
-    (isDefinition() or getDeclaration() instanceof TypedefType) and
+    isDefinition() and
     not getDeclaration().(Class).isAnonymous() and
     not getDeclaration().(Union).isAnonymous() and
     not getDeclaration().(Enum).isAnonymous() and
