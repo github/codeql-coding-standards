@@ -1,0 +1,2 @@
+ - `A2-13-4` - `StringLiteralsAssignedToNonConstantPointers.ql`:
+   - Refactored query logic into a shared module (`StringLiteralsAssignedToNonConstantPointersShared`) to enable reuse by MISRA C++ `RULE-4-1-3`. The query logic is unchanged. No visible changes to results or performance are expected.
