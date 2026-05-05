@@ -48,17 +48,52 @@ private predicate isMemberCustomized(MemberFunction f) {
 private predicate isUserDeclared(MemberFunction f) { not f.isCompilerGenerated() }
 
 /**
- * Holds if the implicit move constructor or move assignment operator of the class `c` will not be
- * declared.
+ * Holds if the class `c` contains a user declared copy constructor, copy assignment operator,
+ * or destructor.
  *
- * Specified in [class.copy.ctor]/8 and [class.copy.assign]/4.
+ * Encapsulates common behavior related to implicit move operation suppression defined in
+ * [class.copy.ctor]/8 and [class.copy.assign]/4.
  */
-private predicate implicitMoveIsSuppressed(Class c) {
+predicate hasUserDeclaredCopyOrDestruct(Class c) {
   isUserDeclared(c.getAConstructor().(CopyConstructor))
   or
   isUserDeclared(c.getAMemberFunction().(CopyAssignmentOperator))
   or
   isUserDeclared(c.getDestructor())
+}
+
+/**
+ * Holds if the implicit move constructor of the class `c` will not be declared, as specified in
+ * [class.copy.ctor]/8.
+ */
+private predicate implicitMoveConstructorSuppressed(Class c) {
+  // Sanity check: if the move constructor exists, it must not have been suppressed.
+  not exists(c.getAConstructor().(MoveConstructor)) and
+  (
+    // Per the spec, the move constructor is suppressed if:
+    // There is a user declared copy constructor, copy assignment operator, or destructor,
+    hasUserDeclaredCopyOrDestruct(c)
+    or
+    // or, the move assignment operator is user declared.
+    isUserDeclared(c.getAMemberFunction().(MoveAssignmentOperator))
+  )
+}
+
+/**
+ * Holds if the implicit move assignment operator of the class `c` will not be declared, as specified
+ * in [class.copy.assign]/4.
+ */
+private predicate implicitMoveAssignmentSuppressed(Class c) {
+  // Sanity check: if the move assignment operator exists, it must not have been suppressed.
+  not exists(c.getAMemberFunction().(MoveAssignmentOperator)) and
+  (
+    // Per the spec, the move assignment operator is suppressed if:
+    // There is a user declared copy constructor, copy assignment operator, or destructor,
+    hasUserDeclaredCopyOrDestruct(c)
+    or
+    // or, the move constructor is user declared.
+    isUserDeclared(c.getAMemberFunction().(MoveConstructor))
+  )
 }
 
 /**
@@ -83,9 +118,7 @@ private predicate implicitMoveIsSuppressed(Class c) {
  * assertion in the above example would fail.
  */
 private Constructor getMoveConstructor(Class c) {
-  if
-    not exists(MoveConstructor mc | mc = c.getAConstructor() and isUserDeclared(mc)) and
-    implicitMoveIsSuppressed(c)
+  if implicitMoveConstructorSuppressed(c)
   then result = c.getAConstructor().(CopyConstructor)
   else result = c.getAConstructor().(MoveConstructor)
 }
@@ -112,9 +145,7 @@ private Constructor getMoveConstructor(Class c) {
  * assertion in the above example would fail.
  */
 private Operator getMoveAssign(Class c) {
-  if
-    not exists(MoveAssignmentOperator mc | mc = c.getAMemberFunction() and isUserDeclared(mc)) and
-    implicitMoveIsSuppressed(c)
+  if implicitMoveAssignmentSuppressed(c)
   then result = c.getAMemberFunction().(CopyAssignmentOperator)
   else result = c.getAMemberFunction().(MoveAssignmentOperator)
 }

@@ -80,18 +80,85 @@ predicate violatesCustomizedMoveOrCopyRequirements(AnalyzableClass c, string rea
 }
 
 private predicate undeclaredMoveException(AnalyzableClass c) {
-  // A copy-enabled class may have an undeclared move constructor.
   isCopyEnabled(c) and
-  not c.copyAssignable() and
-  not c.declaresMoveConstructor()
-  or
-  // A copy-assignable class may leave both move operations undeclared.
-  c.copyAssignable() and
-  not c.declaresMoveConstructor() and
-  not c.declaresMoveAssignmentOperator()
+  (
+    if c.copyAssignable()
+    then
+      // A copy-assignable class may have an undeclared move constructor.
+      not c.declaresMoveConstructor() and
+      not c.declaresMoveAssignmentOperator()
+    else
+      // A copy-enabled class may have an undeclared move constructor.
+      not c.declaresMoveConstructor()
+  )
 }
 
 predicate violatesCustomizedDestructorRequirements(AnalyzableClass c, string reason) {
+  // This is is simplified from the exact MISRA spec in order to more closely enforce the general
+  // idea that, if you customize the destructor, you generally need to customize the other special
+  // member functions (e.g., ISO C++ Core Guidelines C.21 and C.22).
+  //
+  // The MISRA specification is subtle and arguably ambiguous. In our interpretation of the rules,
+  // bullet 2 sentence 2 is deemed to only apply to move-only classes, otherwise it would conflict
+  // with bullet 3 sentence 2. We do not strictly need to enforce any additional constraints on
+  // bullet 3 sentence 2; all compliant copy-assignable classes must be copy-enabled.
+  //
+  // Here is a logical derivation that shows our logic is equivalent to the MISRA spec for classes
+  // that fall into one of the compliant categories. For classes outside of those categories, we
+  // essentially enforce C.21 and C.22 from the ISO C++ Core Guidelines.
+  //
+  // ```
+  // -- For all rules, assume hasCustomizedDestructor(class).
+  // isMoveOnly(class)         -> hasCustomMoveConstructor(class)
+  // isMoveOnly(class) &&
+  //   isMoveAssignable(class) -> hasCustomMoveConstructor(class) && hasCustomMoveAssignment(class)
+  // isCopyEnabled(class)      -> hasCustomCopyConstructor(class) && (hasCustomMoveConstructor(class)
+  //                           || ~isMoveConstructorDeclared(class))
+  // isCopyAssignable(class)   -> hasCustomCopyAssignment(class)
+  //                           && (   hasCustomMoveConstructor(class) && hasCustomMoveAssignment(class)
+  //                               || ~isMoveConstructorDeclared(class) && ~isMoveAssignmentDeclared(class))
+  //
+  // -- Invert
+  // hasCustomMoveConstructor(c) -> isMoveOnly(c)
+  //                             || isMoveAssignable(c)
+  //                             || (isCopyEnabled(c) && ~isMoveConstructorDeclared(c))
+  //                             || (isCopyAssignable(c) && ~isMoveConstructorDeclared(c)
+  //                                                     && ~isMoveAssignmentDeclared(c))
+  //
+  // hasCustomMoveAssignmentOperator(c) -> (isMoveOnly(class) && isMoveAssignable(c))
+  //                                    || isCopyAssignable(c) && ~isMoveConstructorDeclared(c)
+  //                                                           && ~isMoveAssignmentDeclared(c))
+  //
+  // hasCustomCopyConstructor(c) -> isCopyEnabled(c)
+  //                             || isCopyAssignable(c)
+  //
+  // hasCustomCopyAssignmentOperator(c) -> isCopyAssignable(c);
+  //
+  // -- Intermediate statements derived from table
+  // isCopyAssignable(c) -> isMoveAssignable(c)
+  // isMoveAssignable(c) -> isMoveConstructible(c)
+  // isCopyEnabled(c) || isCopyAssignable(c) -> isCopyConstructible(c)
+  // isMoveOnly(c) || isMoveAssignable(c) || isCopyEnabled(c) || isCopyAssignable(c) -> isMoveConstructible(c)
+  //
+  // -- Simplify
+  // hasCustomMoveConstructor(c)        -> isMoveConstructible(c)
+  //                                    || (isCopyEnabled(c) && ~isMoveConstructorDeclared(c))
+  //                                    || (isCopyAssignable(c) && ~isMoveConstructorDeclared(c) && ~isMoveAssignmentDeclared(c))
+  // hasCustomMoveAssignmentOperator(c) -> isMoveAssignable(c)
+  //                                    || isCopyAssignable(c) && (~isMoveConstructorDeclared(c) && ~isMoveAssignmentDeclared(c))
+  // hasCustomCopyConstructor(c)        -> isCopyConstructible(c)
+  // hasCustomCopyAssignmentOperator(c) -> isCopyAssignable(c)
+  //
+  // -- Extract exceptional cases
+  // Exception1(class) :- isCopyEnabled(c) && ~isMoveConstructorDeclared(c)
+  // Exception2(class) :- isCopyAssignable(c) && ~isMoveConstructorDeclared(c) && ~isMoveAssignmentDeclared(c)
+  //
+  // -- Simplify
+  // hasCustomMoveConstructor(class)    -> isMoveConstructible(c) || Exception1(c) || Exception2(c)
+  // hasCustomMoveAssignmentOperator(c) -> isMoveAssignable(c) || Exception2(c)
+  // hasCustomCopyConstructor(c)        -> isCopyConstructible(c)
+  // hasCustomCopyAssignmentOperator(c) -> isCopyAssignable(c);
+  // ```
   c.isCustomized(TDestructor()) and
   (
     c.moveConstructible() and
