@@ -1,0 +1,1 @@
+| test.cpp:6:13:6:26 | definition of func_redefined | Inline function 'func_redefined' is implemented in multiple files: $@ and $@. | test.cpp:6:13:6:26 | definition of func_redefined | test.cpp | test2.cpp:8:13:8:26 | definition of func_redefined | test2.cpp |
