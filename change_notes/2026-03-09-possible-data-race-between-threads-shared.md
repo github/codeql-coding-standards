@@ -1,0 +1,2 @@
+ - `DIR-5-1` - `PossibleDataRaceBetweenThreads.ql`:
+   - Refactored implementation into a shared library (`PossibleDataRaceBetweenThreadsShared.qll`) to allow reuse by MISRA C++ 2023 `RULE-4-1-3`. No change in results is expected for `DIR-5-1`.

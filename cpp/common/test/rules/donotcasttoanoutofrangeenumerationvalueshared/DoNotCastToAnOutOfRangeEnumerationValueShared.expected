@@ -1,0 +1,4 @@
+| test.cpp:9:11:9:16 | (Foo)... | Cast to enum $@ with value range 0...3 from expression with wider value range -2147483648...2147483647 in function test_unconstrained_cast. | test.cpp:3:6:3:8 | Foo | Foo |
+| test.cpp:15:13:15:18 | (Foo)... | Cast to enum $@ with value range 0...3 from expression with wider value range 0...2147483647 in function test_range_check. | test.cpp:3:6:3:8 | Foo | Foo |
+| test.cpp:20:16:20:21 | (Foo)... | Cast to enum $@ with value range 0...3 from expression with wider value range 0...4 in function test_range_check. | test.cpp:3:6:3:8 | Foo | Foo |
+| test.cpp:27:12:27:25 | (Foo)... | Cast to enum $@ with value range 0...3 from expression with wider value range 0...7 in function test_unsanitize. | test.cpp:3:6:3:8 | Foo | Foo |

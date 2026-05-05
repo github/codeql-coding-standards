@@ -17,6 +17,7 @@
           "name": "String literals shall not be assigned to non-constant pointers",
           "precision": "very-high",
           "severity": "warning",
+          "shared_implementation_short_name": "StringLiteralsAssignedToNonConstantPointersShared",
           "short_name": "StringLiteralsAssignedToNonConstantPointers",
           "tags": []
         }

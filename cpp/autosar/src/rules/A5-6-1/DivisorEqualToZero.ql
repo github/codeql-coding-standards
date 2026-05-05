@@ -15,10 +15,10 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.divisorequaltozeroshared.DivisorEqualToZeroShared
 
-from BinaryArithmeticOperation bao
-where
-  not isExcluded(bao, ExpressionsPackage::divisorEqualToZeroQuery()) and
-  (bao instanceof DivExpr or bao instanceof RemExpr) and
-  bao.getRightOperand().getValue().toFloat() = 0 // `toFloat()` holds for both integer and float literals.
-select bao, "Divisor is zero."
+module DivisorEqualToZeroConfig implements DivisorEqualToZeroSharedConfigSig {
+  Query getQuery() { result = ExpressionsPackage::divisorEqualToZeroQuery() }
+}
+
+import DivisorEqualToZeroShared<DivisorEqualToZeroConfig>

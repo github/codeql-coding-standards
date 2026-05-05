@@ -41,6 +41,7 @@ import Declarations1
 import Declarations2
 import Declarations3
 import Declarations4
+import Declarations5
 import Declarations6
 import Declarations7
 import ExceptionSafety
@@ -83,6 +84,7 @@ import OrderOfEvaluation
 import OutOfBounds
 import Pointers
 import Preconditions1
+import Preconditions2
 import Preconditions3
 import Preconditions4
 import Preconditions5
@@ -106,6 +108,7 @@ import Toolchain3
 import Trigraph
 import TrustBoundaries
 import TypeRanges
+import Undefined
 import Uninitialized
 import VirtualFunctions
 
@@ -150,6 +153,7 @@ newtype TCPPQuery =
   TDeclarations2PackageQuery(Declarations2Query q) or
   TDeclarations3PackageQuery(Declarations3Query q) or
   TDeclarations4PackageQuery(Declarations4Query q) or
+  TDeclarations5PackageQuery(Declarations5Query q) or
   TDeclarations6PackageQuery(Declarations6Query q) or
   TDeclarations7PackageQuery(Declarations7Query q) or
   TExceptionSafetyPackageQuery(ExceptionSafetyQuery q) or
@@ -192,6 +196,7 @@ newtype TCPPQuery =
   TOutOfBoundsPackageQuery(OutOfBoundsQuery q) or
   TPointersPackageQuery(PointersQuery q) or
   TPreconditions1PackageQuery(Preconditions1Query q) or
+  TPreconditions2PackageQuery(Preconditions2Query q) or
   TPreconditions3PackageQuery(Preconditions3Query q) or
   TPreconditions4PackageQuery(Preconditions4Query q) or
   TPreconditions5PackageQuery(Preconditions5Query q) or
@@ -215,6 +220,7 @@ newtype TCPPQuery =
   TTrigraphPackageQuery(TrigraphQuery q) or
   TTrustBoundariesPackageQuery(TrustBoundariesQuery q) or
   TTypeRangesPackageQuery(TypeRangesQuery q) or
+  TUndefinedPackageQuery(UndefinedQuery q) or
   TUninitializedPackageQuery(UninitializedQuery q) or
   TVirtualFunctionsPackageQuery(VirtualFunctionsQuery q)
 
@@ -259,6 +265,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isDeclarations2QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations3QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations4QueryMetadata(query, queryId, ruleId, category) or
+  isDeclarations5QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations6QueryMetadata(query, queryId, ruleId, category) or
   isDeclarations7QueryMetadata(query, queryId, ruleId, category) or
   isExceptionSafetyQueryMetadata(query, queryId, ruleId, category) or
@@ -301,6 +308,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isOutOfBoundsQueryMetadata(query, queryId, ruleId, category) or
   isPointersQueryMetadata(query, queryId, ruleId, category) or
   isPreconditions1QueryMetadata(query, queryId, ruleId, category) or
+  isPreconditions2QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions3QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions4QueryMetadata(query, queryId, ruleId, category) or
   isPreconditions5QueryMetadata(query, queryId, ruleId, category) or
@@ -324,6 +332,7 @@ predicate isQueryMetadata(Query query, string queryId, string ruleId, string cat
   isTrigraphQueryMetadata(query, queryId, ruleId, category) or
   isTrustBoundariesQueryMetadata(query, queryId, ruleId, category) or
   isTypeRangesQueryMetadata(query, queryId, ruleId, category) or
+  isUndefinedQueryMetadata(query, queryId, ruleId, category) or
   isUninitializedQueryMetadata(query, queryId, ruleId, category) or
   isVirtualFunctionsQueryMetadata(query, queryId, ruleId, category)
 }

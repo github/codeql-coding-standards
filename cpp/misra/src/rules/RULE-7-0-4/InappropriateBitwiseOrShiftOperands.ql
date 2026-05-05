@@ -22,6 +22,8 @@ predicate isConstantExpression(Expr e) {
   e.isConstant()
 }
 
+bindingset[right, leftType]
+pragma[inline_late]
 predicate isValidShiftConstantRange(Expr right, Type leftType) {
   exists(int value |
     value = right.getValue().toInt() and

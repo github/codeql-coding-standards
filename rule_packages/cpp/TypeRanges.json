@@ -206,6 +206,7 @@
           "name": "Do not cast to an out-of-range enumeration value",
           "precision": "high",
           "severity": "error",
+          "shared_implementation_short_name": "DoNotCastToAnOutOfRangeEnumerationValueShared",
           "short_name": "DoNotCastToAnOutOfRangeEnumerationValue",
           "tags": [
             "correctness",
