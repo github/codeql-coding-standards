@@ -1,0 +1,2 @@
+ - All MISRA C++ rules:
+   - MISRA C++ 2023 support is now fully implemented, and available in the pack `codeql/misra-cpp-coding-standards`
