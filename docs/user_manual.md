@@ -238,13 +238,13 @@ Reference: [CodeQL CLI: Creating a CodeQL database](https://codeql.github.com/do
 Once you have a CodeQL database for your project you can run the default analysis for a specified Coding Standard using the `codeql database analyze` command by specifying the names of the QL packs which you want to run as arguments, along with a version specifier:
 
 ```bash
-codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> codeql/<standard>-<language>-coding-standard@version
+codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> codeql/<standard>-<language>-coding-standards@version
 ```
 
 For example, this command would run MISRA C and CERT C with the default query sets:
 
 ```bash
-codeql database analyze --format=sarifv2.1.0 --output=results.sarif path/to/<output_database_name> codeql/misra-c-coding-standard@version codeql/cert-c-coding-standard@version
+codeql database analyze --format=sarifv2.1.0 --output=results.sarif path/to/<output_database_name> codeql/misra-c-coding-standards@version codeql/cert-c-coding-standards@version
 ```
 The output of this command will be a [SARIF file](https://sarifweb.azurewebsites.net/) called `<name-of-results-file>.sarif`.
 
@@ -262,13 +262,13 @@ Alternatively, the packs can be made available to CodeQL without specification o
 Each supported standard includes a variety of query suites, which enable the running of different sets of queries based on specified properties. In addition, a custom query suite can be defined as specified by the CodeQL CLI documentation, in order to select any arbitrary sets of queries in this repository. To run
 
 ```bash
-codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> codeql/<standard>-<language>-coding-standard@version:codeql-suites/<alternative-suite>.qls
+codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> codeql/<standard>-<language>-coding-standards@version:codeql-suites/<alternative-suite>.qls
 ```
 
 If modifying the query suite, ensure that all Rules you expect to be covered by CodeQL in your Guideline Enforcement Plan (or similar) are included in the query suite, by running:
 
 ```bash
-codeql resolve queries codeql/<standard>-<language>-coding-standard@version:codeql-suites/<alternative-suite>.qls
+codeql resolve queries codeql/<standard>-<language>-coding-standards@version:codeql-suites/<alternative-suite>.qls
 ```
 
 ##### Supported SARIF versions
