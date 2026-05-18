@@ -616,7 +616,7 @@ guideline-recategorizations:
 Application of the guideline re-categorization plan to the analysis results requires an additional post-processing step.
 The post-processing step is implemented by the Python script `path/to/codeql-coding-standards/scripts/guideline_recategorization/recategorize.py`.
 The script will update the `external/<standard>/obligation/<category>` tag for each query implementing a recategorized guideline such that `<category>` is equal to the new category and
-add the tag `external/<standard>/original-obligation/<category` to each query implementing a recategorized guideline such that `<category>` reflects the original category.
+add the tag `external/<standard>/original-obligation/<category>` to each query implementing a recategorized guideline such that `<category>` reflects the original category.
 
 The script should be invoked as follows:
 
