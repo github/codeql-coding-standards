@@ -338,7 +338,7 @@ This will produce a directory (`<output_directory>`) containing the following re
   - A list of recoverable errors, where a specific piece of syntax was not handled, but the error could be recovered from. These are further sub-divided into "user code" errors and "third-party" errors.
   - A list of unrecoverable errors, which affect either entire files or entire compilations. These are also further sub-divided into "user code" errors and "third-party" errors.
   - A list of the files analyzed.
-- A **Deviations Report** which reports the deviation records that were included during the creation of the database, which can be used to audit the applied deviations. The includes:
+- A **Deviations Report** which reports the deviation records that were included during the creation of the database, which can be used to audit the applied deviations. This includes:
   - A table of deviation records for which we list:
     - An identifier for the coding standards rule the deviation applies to.
     - The query identifier that implements the guideline.
