@@ -238,13 +238,13 @@ Reference: [CodeQL CLI: Creating a CodeQL database](https://codeql.github.com/do
 Once you have a CodeQL database for your project you can run the default analysis for a specified Coding Standard using the `codeql database analyze` command by specifying the names of the QL packs which you want to run as arguments, along with a version specifier:
 
 ```bash
-codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> codeql/<standard>-<language>-coding-standard@version
+codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> codeql/<standard>-<language>-coding-standards@<version>
 ```
 
 For example, this command would run MISRA C and CERT C with the default query sets:
 
 ```bash
-codeql database analyze --format=sarifv2.1.0 --output=results.sarif path/to/<output_database_name> codeql/misra-c-coding-standard@version codeql/cert-c-coding-standard@version
+codeql database analyze --format=sarifv2.1.0 --output=results.sarif path/to/<output_database_name> codeql/misra-c-coding-standards@<version> codeql/cert-c-coding-standards@<version>
 ```
 The output of this command will be a [SARIF file](https://sarifweb.azurewebsites.net/) called `<name-of-results-file>.sarif`.
 
@@ -255,20 +255,20 @@ If you have downloaded a release artifact containing the packs, you will need to
 --search-path path/to/pack1:path/to/pack2
 ```
 
-Alternatively, the packs can be made available to CodeQL without specification on the comamnd line by placing them inside the distribution under the `qlpacks/codeql/` directory, or placed inside a directory adjacent to the folder containing the distribution.
+Alternatively, the packs can be made available to CodeQL without specification on the command line by placing them inside the distribution under the `qlpacks/codeql/` directory, or placed inside a directory adjacent to the folder containing the distribution.
 
 ##### Alternative query sets
 
 Each supported standard includes a variety of query suites, which enable the running of different sets of queries based on specified properties. In addition, a custom query suite can be defined as specified by the CodeQL CLI documentation, in order to select any arbitrary sets of queries in this repository. To run
 
 ```bash
-codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> codeql/<standard>-<language>-coding-standard@version:codeql-suites/<alternative-suite>.qls
+codeql database analyze --format=sarifv2.1.0 --output=<name-of-results-file>.sarif path/to/<output_database_name> codeql/<standard>-<language>-coding-standards@<version>:codeql-suites/<alternative-suite>.qls
 ```
 
 If modifying the query suite, ensure that all Rules you expect to be covered by CodeQL in your Guideline Enforcement Plan (or similar) are included in the query suite, by running:
 
 ```bash
-codeql resolve queries codeql/<standard>-<language>-coding-standard@version:codeql-suites/<alternative-suite>.qls
+codeql resolve queries codeql/<standard>-<language>-coding-standards@<version>:codeql-suites/<alternative-suite>.qls
 ```
 
 ##### Supported SARIF versions
@@ -335,10 +335,10 @@ This will produce a directory (`<output_directory>`) containing the following re
   - A list of the guidelines checked, and the status of each guideline ("Compliant", "Violations", "Deviations").
     - **Note:** The `Deviations` status is **only** shown when the database has been build with a configuration to _report deviated alerts_ and analyzed with a _deviation alert suppression query_. The section on _Deviation records_ outlines how this can be achieved.
 - An **Analysis Integrity Report** which summarizes any issues that were identified in the creation of the database, which can be reviewed to determine the extent to which these issues may have impacted the generated results. This includes:
-  - A list of recoverable errors, where a specific piece of syntax was not handled, but the error could be recovered from. These a further sub-divided into "user code" errors and "third-party" errors.
+  - A list of recoverable errors, where a specific piece of syntax was not handled, but the error could be recovered from. These are further sub-divided into "user code" errors and "third-party" errors.
   - A list of unrecoverable errors, which affect either entire files or entire compilations. These are also further sub-divided into "user code" errors and "third-party" errors.
   - A list of the files analyzed.
-- A **Deviations Report** which reports the deviation records that where included during the creation of the database, which can be used to audit the applied deviations. The includes:
+- A **Deviations Report** which reports the deviation records that were included during the creation of the database, which can be used to audit the applied deviations. This includes:
   - A table of deviation records for which we list:
     - An identifier for the coding standards rule the deviation applies to.
     - The query identifier that implements the guideline.
@@ -379,7 +379,7 @@ A _deviation record_ can be specified in a `coding-standards.yml` configuration 
 The deviation mechanism, by default, works by **excluding** alerts for which there exists an associated _deviation record_, with exclusion being defined as not reporting the alert.
 This default behavior can be changed by specify the top level property `report-deviated-alerts: true` in any `coding-standards.yml` that is added to the database.
 This property can be combined with the query `path/to/codeql-coding-standards/cpp/common/src/codingstandards/cpp/deviations/DeviationsSuppression.ql` that can be added to a CodeQL database analyze command to generate suppression information that is added to the resulting SARIF output in the form of [suppressions](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317661) that is part of [result](https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/sarif-v2.1.0-os.html#_Toc34317638) object.
-The rational for the default behavior is that GitHub Code Scanning does not support the `suppressions` property of a `result` object and displays the alert even though it is suppressed.
+The rationale for the default behavior is that GitHub Code Scanning does not support the `suppressions` property of a `result` object and displays the alert even though it is suppressed.
 
 **Note:** It is important to create a database with the property `report-deviated-alerts: true` set and analyzed with the alert suppression query `path/to/codeql-coding-standards/cpp/common/src/codingstandards/cpp/deviations/DeviationsSuppression.ql` when the **Guideline Compliance Summary Report** **must** include deviation statuses!
 
@@ -461,7 +461,7 @@ Multiple code identifiers may be passed in a single attribute to apply multiple 
 [[codeql::misra_deviation("code-identifier-1", "code-identifier-2")]]
 ```
 
-Note - considation should be taken to ensure the use of custom attributes for deviations is compatible with your chosen language version, compiler, compiler configuration and coding standard.
+Note - consideration should be taken to ensure the use of custom attributes for deviations is compatible with your chosen language version, compiler, compiler configuration and coding standard.
 
 **Use of attributes in C Coding Standards**: The C Standard introduces attributes in C23, however some compilers support attributes as a language extension in prior versions. You should:
  * Confirm that your compiler supports attributes for your chosen compiler configuration, if necessary as a language extension.
@@ -536,7 +536,7 @@ Deviation permits are a mechanism to simplify the documentation of many deviatio
 
 A _deviation permit_ **must** be specified in a `deviation-records` section part of a `coding-standards.yml` file that **must** be anywhere in the source repository. Every _deviation permit_ **must** specify a free-form `permit-id` property that **must** contain a globally unique identifier and **may** specify any of the allowed properties listed above.
 
-The following example illustrate a possible _deviation permit_:
+The following example illustrates a possible _deviation permit_:
 
 ```yaml
 deviation-permits:
@@ -575,7 +575,7 @@ deviations:
 
 **Importing permits**:
 The used _deviation permits_ **must** be present in the source directory during the build of the CodeQL database.
-Unlike _deviation records_ their location in the source directory does not impact their scope which is determined solemnly by the _deviation records_ referring to the _deviation permits_.
+Unlike _deviation records_ their location in the source directory does not impact their scope which is determined solely by the _deviation records_ referring to the _deviation permits_.
 
 This means that _deviation permits_ can be made available at build time by any means available.
 An example of importing _deviation permits_ is through a [Git Submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules) that contains a repository of allowed _deviation permits_.
@@ -616,7 +616,7 @@ guideline-recategorizations:
 Application of the guideline re-categorization plan to the analysis results requires an additional post-processing step.
 The post-processing step is implemented by the Python script `path/to/codeql-coding-standards/scripts/guideline_recategorization/recategorize.py`.
 The script will update the `external/<standard>/obligation/<category>` tag for each query implementing a recategorized guideline such that `<category>` is equal to the new category and
-add the tag `external/<standard>/original-obligation/<category` to each query implementing a recategorized guideline such that `<category>` reflects the orignal category.
+add the tag `external/<standard>/original-obligation/<category>` to each query implementing a recategorized guideline such that `<category>` reflects the original category.
 
 The script should be invoked as follows:
 
