@@ -5,13 +5,15 @@
  */
 module Cpp14Literal {
   private import cpp as StandardLibrary
+  private import codingstandards.cpp.UserDefinedLiteral
 
-  /** A numeric literal. */
+  /** An numeric literal. */
   abstract class NumericLiteral extends StandardLibrary::Literal {
     NumericLiteral() {
       // exclude user-defined literals as they define custom suffixes
       not exists(StandardLibrary::FunctionCall fc |
-        this = fc.getArgument(0) and fc.getTarget().getName().matches("operator \"\"%")
+        this = fc.getArgument(0) and
+        fc.getTarget() instanceof UserDefinedLiteral
       ) and
       // exclude literals derived from template instantiations
       not this.isFromTemplateInstantiation(_)
