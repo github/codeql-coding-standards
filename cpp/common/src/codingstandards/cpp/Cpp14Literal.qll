@@ -6,7 +6,7 @@
 module Cpp14Literal {
   private import cpp as StandardLibrary
 
-  /** An numeric literal. */
+  /** A numeric literal. */
   abstract class NumericLiteral extends StandardLibrary::Literal {
     NumericLiteral() {
       // exclude user-defined literals as they define custom suffixes
