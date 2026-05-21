@@ -7,7 +7,16 @@ module Cpp14Literal {
   private import cpp as StandardLibrary
 
   /** An numeric literal. */
-  abstract class NumericLiteral extends StandardLibrary::Literal { }
+  abstract class NumericLiteral extends StandardLibrary::Literal {
+    NumericLiteral() {
+      // exclude user-defined literals as they define custom suffixes
+      not exists(StandardLibrary::FunctionCall fc |
+        this = fc.getArgument(0) and fc.getTarget().getName().matches("operator \"\"%")
+      ) and
+      // exclude literals derived from template instantiations
+      not this.isFromTemplateInstantiation(_)
+    }
+  }
 
   /** Convenience for implementing class `UnrecognizedNumericLiteral` */
   abstract private class RecognizedNumericLiteral extends StandardLibrary::Literal { }
@@ -49,7 +58,7 @@ module Cpp14Literal {
    * Octal literals must always start with the digit `0`.
    */
   class OctalLiteral extends IntegerLiteral, RecognizedNumericLiteral {
-    OctalLiteral() { getValueText().regexpMatch("\\s*0[0-7']+[uUlL]*\\s*") }
+    OctalLiteral() { getValueText().regexpMatch("\\s*0[0-7']*[uUlL]*\\s*") }
 
     override string getAPrimaryQlClass() { result = "OctalLiteral" }
   }
