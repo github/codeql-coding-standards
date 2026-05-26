@@ -291,7 +291,7 @@ private module IdentifierIntroductionImpl {
         // A template parameter may itself be a template (`template <template<typename> class T>`).
         // The inner template parameter `template<typename>` is anonymous and does not introduce an
         // identifier.
-        not type.(TemplateParameter).isAnonymous()
+        not type.(TypeTemplateParameter).isAnonymous()
         or
         // In the above case, the template template parameter `T` is incorrectly marked as anonymous
         // in the database. But it does introduce the identifier `T`, so it must not be excluded.
