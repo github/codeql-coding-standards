@@ -105,6 +105,21 @@ void test_decimal_constants() {
                           // than max long long int
 }
 
+constexpr unsigned long long operator""_km(unsigned long long value) {
+  return value;
+}
+
+void test_user_defined_literal_exclusion() {
+  0x80000000_km; // COMPLIANT - user-defined literal argument should be excluded
+}
+
+template <typename T>
+unsigned long long instantiated_literal_exclusion() {
+  return 0x80000000; // COMPLIANT - template instantiation should be excluded
+}
+
+void instantiate_literal_exclusion() { (void)instantiated_literal_exclusion<int>(); }
+
 void test_hexadecimal_constants() {
   0x0;        // COMPLIANT - uses signed int
   0x7FFFFFFF; // COMPLIANT - max value held by signed int
