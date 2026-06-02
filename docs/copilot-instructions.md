@@ -1,4 +1,4 @@
-[//]: # "Include this file in the repository to provide instructions to GitHub Copilot AUtofix. For more information, see https://docs.github.com/copilot/copilot-for-business/copilot-instructions."
+[//]: # "Include this file in the repository to provide instructions to GitHub Copilot Autofix. For more information, see https://docs.github.com/copilot/copilot-for-business/copilot-instructions."
 # GitHub Copilot instructions
 
 This file contains repository-wide guidance for GitHub Copilot. Each top-level
@@ -67,7 +67,7 @@ The full list of supported rules per standard is published as
 ### 3. Do not touch build outputs, generated files, or `.gitignore`
 
 Autofix pull requests must only change source files that are part of the
-checked-in project. They must **not** include:
+checked-in project or add deviation records. They must **not** include:
 
 - Build directories or files generated during compilation.
 - Editor / IDE state (`.vscode/`, `.idea/`, `.DS_Store`, etc.).
