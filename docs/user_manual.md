@@ -646,7 +646,6 @@ The only use cases that will be certified under ISO 26262 are those listed above
 
 - Creating databases and running the CodeQL Coding Standards queries with the [CodeQL Action](https://github.com/github/codeql-action) (for GitHub Actions CI/CD system).
 - Uploading the SARIF results files for a CodeQL Coding Standards analysis to the GitHub [Code Scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning) feature.
-- Using [Agentic Autofix in Code Scanning](https://docs.github.com/en/code-security/concepts/code-scanning/copilot-autofix-for-code-scanning) (use the reference [copilot-instructions.md](copilot-instructions.md) file provided). 
 
 ### Hazard and risk analysis
 
