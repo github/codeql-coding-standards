@@ -11,7 +11,7 @@ module Cpp14Literal {
   abstract class NumericLiteral extends StandardLibrary::Literal {
     NumericLiteral() {
       // exclude user-defined literals as they define custom suffixes
-      not this instanceof UserDefinedLiteral 
+      not this instanceof UserDefinedLiteral
     }
   }
 
