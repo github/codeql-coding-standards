@@ -118,7 +118,7 @@ unsigned long long instantiated_literal_exclusion() {
   return 0x80000000; // COMPLIANT - template instantiation should be excluded
 }
 
-void instantiate_literal_exclusion() { (void)instantiated_literal_exclusion<int>(); }
+void test_instantiated_literal_exclusion() { (void)instantiated_literal_exclusion<int>(); }
 
 void test_hexadecimal_constants() {
   0x0;        // COMPLIANT - uses signed int
