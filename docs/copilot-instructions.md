@@ -85,7 +85,7 @@ not always expressed through the same mechanism: a project may use the
 **standard CodeQL Coding Standards deviation mechanism**, a **custom
 annotation or attribute** convention, **in-source line / block comments**,
 or a **separate documentation file** (for example a `DEVIATIONS.md`,
-`MISRA-deviations.md`, compliance matrix, or similar).
+`MISRA-deviations.md`, `coding-standards.yml`, compliance matrix, or similar).
 
 The fix proposal must take what is found into account and treat it as an existing deviation if it clearly covers the alert location and rule.
 
