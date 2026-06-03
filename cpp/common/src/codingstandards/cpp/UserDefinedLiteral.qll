@@ -5,7 +5,7 @@
 import cpp
 
 /**
- * A user defined literal operator is a function that defines the behavior of a user defined literal. 
+ * A user defined literal operator is a function that defines the behavior of a user defined literal.
  * It is declared using the `operator ""` syntax.
  * ```
  * constexpr long operator""_km(unsigned long value) {
