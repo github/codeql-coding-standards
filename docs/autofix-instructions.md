@@ -53,12 +53,12 @@ The full list of supported rules per standard is published as
   The presence of certain design issues (e.g. dynamic memory allocation) might
   indicate that the code is not intended to be compliant with the standard, and
   that a deviation should be added instead of a code fix.
-- **New code must comply with the same standard.** Any code introduced by the
-  fix must itself satisfy the coding standard being verified (e.g. MISRA C++
-  2023). Cross-check the inserted code against the COMPLIANT examples in the
-  corresponding `test/rules/<rule-id>/` directory and against neighbouring
-  rules that are obviously relevant (e.g. don’t fix an integer-conversion rule
-  by introducing a cast that violates a different MISRA rule).
+- **New code must comply with the same standard.** Any code modified by the
+  fix must itself satisfy every rule of the coding standard being verified. 
+  Cross-check the changed code against the COMPLIANT examples in the
+  corresponding `test/rules/<rule-id>/` directory and against every other
+  relevant rules (e.g. don’t fix an integer-conversion rule by introducing a
+  cast that violates a different MISRA rule).
 - **Preserve safe and desired functional behavior.** ensure the resulting code
   handles all reasonable real-world scenarios as the code originally intended.
   This may involve precisely maintaining the existing code behavior, or it may
@@ -152,20 +152,20 @@ When an alert is judged to be a false positive, the autofix PR must:
 
 1. **Not modify the flagged code** to “work around” the alert.
 2. **Add or update a deviation record** that scopes precisely to the alert.
-   Prefer the narrowest scope that is appropriate:
-   - a `code-identifier` deviation referenced from the exact line, statement,
+   Prefer the narrowest scope that is appropriate in this order:
+   1. a `code-identifier` deviation referenced from the exact line, statement,
      function, or block, via an attribute
      (`[[codeql::<standard>_deviation("...")]]`) or a comment marker
      (`// codeql::<standard>_deviation(...)`,
      `// codeql::<standard>_deviation_next_line(...)`, or a
      `..._deviation_begin` / `..._deviation_end` pair); or
-   - a `paths:`-scoped deviation in `coding-standards.yml` when the rule should
+   2. a `paths:`-scoped deviation in `coding-standards.yml` when the rule should
      not be applied to a whole file or directory or
-   - a project-wide deviation only when the rule is genuinely inapplicable to
+   3. a project-wide deviation only when the rule is genuinely inapplicable to
      the project.
      Use `<standard>` ∈ {`misra`, `autosar`, `cert`} as appropriate for the
      alert.
-3. **Populate the deviation record** with at least:
+3. **Populate the deviation record** for deviation records with at least:
    - `rule-id` matching the alert’s rule identifier;
    - `query-id` matching the alert’s `@id` (when the deviation is meant to
      cover a single sub-query of the rule);
@@ -174,12 +174,12 @@ When an alert is judged to be a false positive, the autofix PR must:
    - `scope`, `background`, and `requirements` when they help a reviewer
      audit the decision;
    - a `raised-by` entry (and leave `approved-by` for a human reviewer).
-4. **Place the deviation entry** in an existing `coding-standards.yml` if one
-   exists in an appropriate directory; otherwise create one at the most
-   specific directory whose subtree is affected. When using a `permit-id`,
-   reference an existing permit if one matches; do not invent new permit IDs
-   unless necessary.
-5. **In the PR description**, explicitly state that the alert is being
+4. **Place the deviation entry** of types 2. and 3. in an existing
+   `coding-standards.yml` if one exists in an appropriate directory; 
+   otherwise create one at the most specific directory whose subtree is
+   affected. When using a `permit-id`, reference an existing permit
+   if one matches; do not invent new permit IDs unless necessary.
+6. **In the PR description**, explicitly state that the alert is being
    handled as a false positive via a deviation (not by code change), link to
    the
   [deviation mechanism documentation](https://github.com/github/codeql-coding-standards/blob/main/docs/user_manual.md#applying-deviations),
