@@ -152,7 +152,7 @@ When an alert is judged to be a false positive, the autofix PR must:
 
 1. **Not modify the flagged code** to “work around” the alert.
 2. **Add or update a deviation record** that scopes precisely to the alert.
-   Prefer the narrowest scope that is appropriate in this order:
+   Prefer the one narrowest scope that is appropriate in the following order:
    1. a `code-identifier` deviation referenced from the exact line, statement,
      function, or block, via an attribute
      (`[[codeql::<standard>_deviation("...")]]`) or a comment marker
