@@ -72,7 +72,7 @@ The full list of supported rules per standard is published as
 Autofix pull requests must only change source files that are part of the
 checked-in project. They must **not** include:
 
-- Build directories or files generated during compilation.
+- Build directories or files generated during compilation (`.build/`, etc.).
 - Editor / IDE state (`.vscode/`, `.idea/`, `.DS_Store`, etc.).
 - **`.gitignore` itself.** Do not add, remove, or reorder entries in
   `.gitignore` as part of an autofix.
