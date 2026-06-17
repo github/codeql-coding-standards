@@ -159,8 +159,8 @@ When an alert is judged to be a false positive, the autofix PR must:
      (`// codeql::<standard>_deviation(...)`,
      `// codeql::<standard>_deviation_next_line(...)`, or a
      `..._deviation_begin` / `..._deviation_end` pair); or
-   - a `paths:`-scoped deviation in `coding-standards.yml` when a whole file
-     or directory is affected;
+   - a `paths:`-scoped deviation in `coding-standards.yml` when the rule should
+     not be applied to a whole file or directory or
    - a project-wide deviation only when the rule is genuinely inapplicable to
      the project.
      Use `<standard>` ∈ {`misra`, `autosar`, `cert`} as appropriate for the
