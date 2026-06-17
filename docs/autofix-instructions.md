@@ -23,9 +23,6 @@ Project layout (per language / standard):
 <language>/<standard>/test/rules/<rule-id>/   # test cases, with COMPLIANT / NON_COMPLIANT markers
 ```
 
-When referring to the alerts you are addressing, include a clickable link
-to the Code Scanning result (e.g. `./security/code-scanning/<id>`).
-
 When generating a fix:
 
 1. Locate the rule directory matching the alert’s rule id / query id.
