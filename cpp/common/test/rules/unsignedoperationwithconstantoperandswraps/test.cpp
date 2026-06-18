@@ -80,11 +80,11 @@ void test_sub_postcheck(unsigned int i1, unsigned int i2) {
   if (i1 > i2) {
     // handle error
   }
+}
 
-  void test_mod_rem(unsigned int i1, unsigned int i2) {
-    i1 / i2;  // COMPLIANT - exception 2
-    i1 /= i2; // COMPLIANT - exception 2
-    i1 % i2;  // COMPLIANT - exception 2
-    i1 %= i2; // COMPLIANT - exception 2
-  }
+void test_mod_rem(unsigned int i1, unsigned int i2) {
+  i1 / i2;  // COMPLIANT - exception 2
+  i1 /= i2; // COMPLIANT - exception 2
+  i1 % i2;  // COMPLIANT - exception 2
+  i1 %= i2; // COMPLIANT - exception 2
 }
