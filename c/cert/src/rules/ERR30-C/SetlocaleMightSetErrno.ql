@@ -18,7 +18,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Errno
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 class SetlocaleFunctionCall extends FunctionCall {
   SetlocaleFunctionCall() { this.getTarget().hasGlobalName("setlocale") }

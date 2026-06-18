@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Operator
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 predicate returnsThisPointer(UserAssignmentOperator o) {
   exists(PointerDereferenceExpr p, ThisExpr t, ReturnStmt r |
