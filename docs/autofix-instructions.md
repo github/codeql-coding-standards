@@ -43,9 +43,11 @@ The full list of supported rules per standard is published as
   eliminates the alert. Do not refactor surrounding code, rename symbols,
   reformat unrelated lines, or change public APIs unless strictly required to
   satisfy the rule.
-- **No drive-by changes.** Do not add features, fix unrelated warnings, change
-  build flags, update dependencies, or “improve” code that the alert does not
-  point at.
+- **Multiple alerts.** Check if there are other code scanning alerts
+  for the same coding standard reported for the same code location, fix all
+  the relevant alerts at once in the same PR.
+- **No drive-by changes.** Do not add features, change build flags, update
+  dependencies, or “improve” code that the alert does not point at.
 - **Do not attempt at fixing design issues.** A fix should not attempt to
   “improve” the design of the code or address architectural issues.
   Always verify that the code section around the alert is intended to follow
@@ -55,8 +57,6 @@ The full list of supported rules per standard is published as
   that a deviation should be added instead of a code fix.
 - **New code must comply with the same standard.** Any code modified by the
   fix must itself satisfy every rule of the coding standard being verified.
-  Check if there are other code scanning alerts open for the same code location,
-  try to fix all the relevant issues at once in the same PR.
   Cross-check the changed code against the COMPLIANT examples in the
   corresponding `test/rules/<rule-id>/` directory and against every other
   relevant rules (e.g. don’t fix an integer-conversion rule by introducing a
