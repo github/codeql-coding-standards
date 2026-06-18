@@ -61,12 +61,28 @@ predicate isReachable(BasicBlock bb) {
   )
 }
 
+/**
+ * Holds if `bb` is an orphan basic block that is disconnected from the CFG and
+ * does not represent a statement. These are artifacts of the extractor/CFG
+ * construction (e.g., variable access expressions, function name nodes, or
+ * temporary object reuse nodes) and not genuine unreachable statements.
+ * A block with no predecessors that is a Stmt is legitimately unreachable code
+ * (e.g., code after an infinite loop or noreturn call).
+ */
+predicate isDisconnectedNonStmtBlock(BasicBlock bb) {
+  not exists(bb.getAPredecessor()) and
+  not exists(bb.getASuccessor()) and
+  not bb = any(Function f).getEntryPoint() and
+  not bb instanceof Stmt
+}
+
 from BasicBlock bb
 where
   not isExcluded(bb, DeadCode3Package::unreachableStatementQuery()) and
   not isReachable(bb) and
   not isCompilerGenerated(bb) and
-  not affectedByMacro(bb)
+  not affectedByMacro(bb) and
+  not isDisconnectedNonStmtBlock(bb)
 // Note that the location of a BasicBlock will in some cases have an incorrect end location, often
 // preceding the end and including live code. We cast the block to an `Element` to get locations
 // that are not broken.
