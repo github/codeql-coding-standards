@@ -54,7 +54,9 @@ The full list of supported rules per standard is published as
   indicate that the code is not intended to be compliant with the standard, and
   that a deviation should be added instead of a code fix.
 - **New code must comply with the same standard.** Any code modified by the
-  fix must itself satisfy every rule of the coding standard being verified. 
+  fix must itself satisfy every rule of the coding standard being verified.
+  Check if there are other code scanning alerts open for the same code location,
+  try to fix all the relevant issues at once in the same PR.
   Cross-check the changed code against the COMPLIANT examples in the
   corresponding `test/rules/<rule-id>/` directory and against every other
   relevant rules (e.g. don’t fix an integer-conversion rule by introducing a
