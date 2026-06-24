@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-28-6-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Calling std::move on a const lvalue will not result in a move, and calling std::move on an rvalue is redundant.",
+          "kind": "problem",
+          "name": "The argument to std::move shall be a non-const lvalue",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "StdMoveWithNonConstLvalue",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "The argument to std::move shall be a non-const lvalue"
+    }
+  }
+}

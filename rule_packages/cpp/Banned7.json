@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-21-6-1": {
+      "properties": {
+        "enforcement": "undecidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Heap allocation is prohibited unless explicitly justified.",
+          "kind": "problem",
+          "name": "Dynamic memory should not be used",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "DynamicMemoryShouldNotBeUsed",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
+          ]
+        }
+      ],
+      "title": "Dynamic memory should not be used"
+    }
+  }
+}

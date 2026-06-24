@@ -1,0 +1,70 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-6-2-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Declaring incompatible objects, in other words same named objects of different types, then accessing those objects can lead to undefined behavior.",
+          "kind": "problem",
+          "name": "Do not create incompatible declarations of the same function or object",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "IncompatibleObjectDeclarationsCpp",
+          "shared_implementation_short_name": "IncompatibleObjectDeclaration",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ],
+          "implementation_scope": {
+            "description": "This query does not detect variables designated with C linkage as distinct as that is something that is not currently extracted by CodeQL."
+          }
+        },
+        {
+          "description": "Declaring incompatible functions, in other words same named function of different return types or with different numbers of parameters or parameter types, then accessing those functions can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "Do not create incompatible declarations of the same function or object",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "IncompatibleFunctionDeclarationsCpp",
+          "shared_implementation_short_name": "IncompatibleFunctionDeclaration",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability"
+          ],
+          "implementation_scope": {
+            "description": "This query does not currently consider function return exception status as a factor of return type and therefore it will have false negatives for cases where a function is noexcept and another is not."
+          }
+        }
+      ],
+      "title": "All declarations of a variable or function shall have the same type"
+    },
+    "RULE-6-7-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Local variables that have static storage duration can be harder to reason about and can lead to undefined behavior.",
+          "kind": "problem",
+          "name": "Local variables shall not have static storage duration",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "LocalVariableStaticStorageDuration",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "Local variables shall not have static storage duration"
+    }
+  }
+}

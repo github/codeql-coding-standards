@@ -1,0 +1,27 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-12-2-1": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "The exact layout and the order of bits resulting from bit-fields in a struct is implementation-defined and therefore not portable.",
+          "kind": "problem",
+          "name": "Bit-fields should not be declared",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BitFieldsShouldNotBeDeclaredMisraCpp",
+          "shared_implementation_short_name": "BitFieldsShouldNotBeDeclared",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "portability"
+          ]
+        }
+      ],
+      "title": "Bit-fields should not be declared"
+    }
+  }
+}

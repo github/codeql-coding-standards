@@ -1,6 +1,6 @@
 /**
  * @id cpp/misra/avoid-standard-integer-type-names
- * @name RULE-6-9-2: The names of the standard signed integer types and standard unsigned integer types should not be
+ * @name RULE-6-9-2: The names of the standard integer types should not be used
  * @description Using standard signed and unsigned integer type names instead of specified width
  *              types makes storage requirements unclear and implementation-dependent.
  * @kind problem

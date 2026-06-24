@@ -194,6 +194,7 @@
           "name": "Properly deallocate dynamically allocated resources",
           "precision": "medium",
           "severity": "error",
+          "shared_implementation_short_name": "ProperlyDeallocateDynamicallyAllocatedResourcesShared",
           "short_name": "ProperlyDeallocateDynamicallyAllocatedResources",
           "tags": [
             "correctness",

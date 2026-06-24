@@ -1,0 +1,48 @@
+| test.cpp:14:3:14:9 | call to get_val | prvalue |
+| test.cpp:15:3:15:9 | call to get_ref | lvalue |
+| test.cpp:16:3:16:10 | call to get_rref | xvalue |
+| test.cpp:19:12:19:14 | val | lvalue |
+| test.cpp:20:12:20:14 | val | lvalue |
+| test.cpp:21:13:21:16 | call to move | xvalue |
+| test.cpp:21:18:21:20 | val | lvalue |
+| test.cpp:22:12:22:14 | val | lvalue |
+| test.cpp:23:12:23:15 | call to move | xvalue |
+| test.cpp:23:17:23:19 | val | lvalue |
+| test.cpp:25:12:25:18 | call to get_val | prvalue |
+| test.cpp:26:13:26:19 | call to get_val | prvalue |
+| test.cpp:27:13:27:16 | call to move | xvalue |
+| test.cpp:27:18:27:24 | call to get_val | prvalue |
+| test.cpp:28:12:28:18 | call to get_val | prvalue |
+| test.cpp:29:12:29:15 | call to move | xvalue |
+| test.cpp:29:17:29:23 | call to get_val | prvalue |
+| test.cpp:31:14:31:16 | val | lvalue |
+| test.cpp:32:12:32:14 | ref | lvalue |
+| test.cpp:33:12:33:14 | ref | lvalue |
+| test.cpp:34:13:34:16 | call to move | xvalue |
+| test.cpp:34:18:34:20 | ref | lvalue |
+| test.cpp:35:12:35:14 | ref | lvalue |
+| test.cpp:36:12:36:15 | call to move | xvalue |
+| test.cpp:36:17:36:19 | ref | lvalue |
+| test.cpp:38:12:38:18 | call to get_ref | lvalue |
+| test.cpp:39:12:39:18 | call to get_ref | lvalue |
+| test.cpp:40:13:40:16 | call to move | xvalue |
+| test.cpp:40:18:40:24 | call to get_ref | lvalue |
+| test.cpp:41:12:41:18 | call to get_ref | lvalue |
+| test.cpp:42:12:42:15 | call to move | xvalue |
+| test.cpp:42:17:42:23 | call to get_ref | lvalue |
+| test.cpp:44:16:44:19 | call to move | xvalue |
+| test.cpp:44:21:44:23 | val | lvalue |
+| test.cpp:45:12:45:15 | rref | lvalue |
+| test.cpp:46:12:46:15 | rref | lvalue |
+| test.cpp:47:13:47:16 | call to move | xvalue |
+| test.cpp:47:18:47:21 | rref | lvalue |
+| test.cpp:48:12:48:15 | rref | lvalue |
+| test.cpp:49:12:49:15 | call to move | xvalue |
+| test.cpp:49:17:49:20 | rref | lvalue |
+| test.cpp:51:12:51:19 | call to get_rref | lvalue |
+| test.cpp:52:13:52:20 | call to get_rref | xvalue |
+| test.cpp:53:13:53:16 | call to move | xvalue |
+| test.cpp:53:18:53:25 | call to get_rref | xvalue |
+| test.cpp:54:12:54:19 | call to get_rref | xvalue |
+| test.cpp:55:12:55:15 | call to move | xvalue |
+| test.cpp:55:17:55:24 | call to get_rref | xvalue |

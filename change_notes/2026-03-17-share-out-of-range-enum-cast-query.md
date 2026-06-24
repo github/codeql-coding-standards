@@ -1,0 +1,2 @@
+ - `INT50-CPP` - `DoNotCastToAnOutOfRangeEnumerationValue.ql`:
+   - Refactored query logic into a shared library (`DoNotCastToAnOutOfRangeEnumerationValueShared.qll`) to enable reuse by MISRA C++ `RULE-4-1-3`. The query logic is unchanged and no visible changes to results or performance are expected.

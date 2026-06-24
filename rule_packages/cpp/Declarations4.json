@@ -1,0 +1,27 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-10-1-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Using the volatile qualifier on certain entities has behavior that is not well-defined and can make code harder to understand, especially as its application to these entities does not prevent data races or guarantee safe multithreading.",
+          "kind": "problem",
+          "name": "The volatile qualifier shall be used appropriately",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "VolatileQualifierNotUsedAppropriately",
+          "tags": [
+            "correctness",
+            "readability",
+            "maintainability",
+            "scope/single-translation-unit"
+          ]
+        }
+      ],
+      "title": "The volatile qualifier shall be used appropriately"
+    }
+  }
+}

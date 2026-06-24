@@ -1,7 +1,7 @@
 /**
  * @id cpp/autosar/unions-used
  * @name A9-5-1: Unions shall not be used
- * @description Unions shall not be used.  Tagged untions can be used if std::variant is not
+ * @description Unions shall not be used. Tagged unions can be used if 'std::variant' is not
  *              available.
  * @kind problem
  * @precision very-high
@@ -34,8 +34,9 @@ class TaggedUnion extends UserType {
   }
 }
 
-from Union u
+from Union u, string message
 where
   not isExcluded(u, BannedSyntaxPackage::unionsUsedQuery()) and
-  not u.getParentScope() instanceof TaggedUnion
-select u, u.getName() + " is not a tagged union."
+  not u.getParentScope() instanceof TaggedUnion and
+  message = "'" + u.getName() + "' is not a tagged union."
+select u, message

@@ -1,0 +1,4 @@
+ - `EXP51-CPP` - `DoNotDeleteAnArrayThroughAPointerOfTheIncorrectType.ql`:
+   - Updated alert text to add single quotes according to project guidelines.
+   - Refactored query logic into a shared library (`DoNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeShared.qll`) to enable reuse by MISRA C++ `RULE-4-1-3`. The query logic is unchanged and no visible changes to results or performance are expected.
+   - The query now uses a `query predicate problems` instead of a `from/where/select`. In path-problem BQRS output, the results section header changes from `#select` to `problems`. Alert results and their content are otherwise identical.

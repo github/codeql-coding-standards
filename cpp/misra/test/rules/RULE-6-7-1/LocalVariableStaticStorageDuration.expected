@@ -1,0 +1,2 @@
+| test.cpp:7:14:7:15 | i1 | Local variable with static storage duration. |
+| test.cpp:14:14:14:14 | a | Local variable with static storage duration. |

@@ -1,0 +1,26 @@
+{
+  "MISRA-C++-2023": {
+    "RULE-8-3-2": {
+      "properties": {
+        "enforcement": "decidable",
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using the built-in unary '+' operator may trigger unexpected implicit type conversions.",
+          "kind": "problem",
+          "name": "The built-in unary + operator should not be used",
+          "precision": "very-high",
+          "severity": "error",
+          "short_name": "BuiltInUnaryPlusOperatorShouldNotBeUsed",
+          "tags": [
+            "scope/single-translation-unit",
+            "correctness",
+            "readability"
+          ]
+        }
+      ],
+      "title": "The built-in unary + operator should not be used"
+    }
+  }
+}
