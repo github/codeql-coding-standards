@@ -33,6 +33,10 @@ query predicate problems(Element e, string message) {
       // Fixed Width Types are recorded after stripping their typedef'd type,
       // thereby, causing false positives (#540).
       not v.isFromTemplateInstantiation(_) and
+      // Dont consider variables declared with `auto` or `decltype(auto)` because
+      // the deduced type may resolve through fixed-width typedefs (e.g. uint32_t)
+      // to a built-in type, even though the programmer never wrote that type name.
+      not v.declaredUsingAutoType() and
       //post-increment/post-decrement operators are required by the standard to have a dummy int parameter
       not v.(Parameter).getFunction() instanceof PostIncrementOperator and
       not v.(Parameter).getFunction() instanceof PostDecrementOperator and
