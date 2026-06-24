@@ -170,7 +170,7 @@ where
   ) and
   // Omit using alias (cf. https://github.com/github/codeql-coding-standards/issues/739)
   // Exclude Using alias which refer directly to a TypeParameter
-  not d.(TypeAliasType).getBaseType() instanceof TypeTemplateParameter
+  not d.(UsingAliasTypedefType).getBaseType() instanceof TypeTemplateParameter
 select d,
   "Member " + d.getName() + " template class does not use any of template arguments of its $@.",
   d.getDeclaringType(), "declaring type"

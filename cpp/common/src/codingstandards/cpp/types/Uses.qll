@@ -98,7 +98,7 @@ private Locatable getATypeUse_i(Type type, string reason) {
     or
     // Unless it's an alias template instantiation, as they do not have correct locations (last
     // verified in CodeQL CLI 2.7.6)
-    result instanceof TypeAliasType and
+    result instanceof UsingAliasTypedefType and
     not exists(result.getLocation())
   ) and
   (
@@ -203,7 +203,7 @@ private Locatable getATypeUse_i(Type type, string reason) {
     // Alias templates - alias templates and instantiations are not properly captured by the
     // extractor (last verified in CodeQL CLI 2.7.6). The only distinguishing factor is that
     // instantiations of alias templates do not have a location.
-    exists(TypeAliasType template, TypeAliasType instantiation |
+    exists(UsingAliasTypedefType template, UsingAliasTypedefType instantiation |
       // Instantiation is a "use" of the template
       used = instantiation and
       type = template and
