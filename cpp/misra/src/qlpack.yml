@@ -5,5 +5,5 @@ default-suite: codeql-suites/misra-cpp-default.qls
 license: MIT
 dependencies:
   codeql/common-cpp-coding-standards: '*'
-  codeql/cpp-all: 5.6.1
+  codeql/cpp-all: 6.0.0 
   advanced-security/qtil: 0.0.3
