@@ -109,7 +109,7 @@ template <class T> class Y {}; // COMPLIANT - used in the test case below
 // Alias templates
 template <typename T> using Z = Y<T>; // COMPLIANT - used below
 template <typename T>
-using AA = Y<T>; // NON_COMPLIANT[FALSE_NEGATIVE] - never instantiated
+using AA = Y<T>; // NON_COMPLIANT - never instantiated
 
 void test_alias_template() { Z<int> v; }
 
