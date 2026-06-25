@@ -3,6 +3,7 @@
 | test.cpp:13:11:13:11 | D | Type declaration D is not used. |
 | test.cpp:77:11:77:11 | R | Type declaration R is not used. |
 | test.cpp:90:12:90:12 | (unnamed class/struct/union) | Type declaration (unnamed class/struct/union) is not used. |
+| test.cpp:112:7:112:8 | AA | Type declaration AA is not used. |
 | test.cpp:127:7:127:12 | Nested | Type declaration Nested is not used. |
 | test.cpp:136:9:136:20 | UnusedNested | Type declaration UnusedNested is not used. |
 | test.cpp:139:7:139:22 | NestedBlockScope | Type declaration NestedBlockScope is not used. |
