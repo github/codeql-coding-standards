@@ -17,7 +17,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.UserDefinedLiteral as udl
 
-from udl::UserDefinedLiteral udl
+from udl::UserDefinedLiteralDeclaration udl
 where
   not isExcluded(udl, NamingPackage::userDefinedLiteralOperatorSuffixViolationQuery()) and
   not udl.hasCompliantSuffix()
