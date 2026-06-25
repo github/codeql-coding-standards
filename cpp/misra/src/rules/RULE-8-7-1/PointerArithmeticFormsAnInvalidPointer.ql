@@ -18,7 +18,6 @@ import cpp
 import codingstandards.cpp.misra
 import semmle.code.cpp.ir.IR
 import semmle.code.cpp.dataflow.new.DataFlow
-import semmle.code.cpp.ir.dataflow.internal.DataFlowUtil
 import semmle.code.cpp.security.BufferAccess
 
 /**
@@ -200,7 +199,7 @@ class ArrayAllocation extends TArrayAllocation {
 
 import semmle.code.cpp.ir.dataflow.internal.SsaImpl as SsaImpl
 
-class IndirectUninitializedNode extends Node {
+class IndirectUninitializedNode extends DataFlow::Node {
   LocalVariable v;
   int indirection;
 
