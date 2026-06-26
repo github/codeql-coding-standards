@@ -29,4 +29,5 @@ where
     complexArgumentPassedToRealParameter(fc, f, p)
   )
 select fc,
-  "Argument $@ in call to " + f.toString() + " is incompatible with the function parameter type.", fc.getArgument(p.getIndex()) as arg, arg.toString()
+  "Argument $@ in call to " + f.toString() + " is incompatible with the function parameter type.",
+  fc.getArgument(p.getIndex()) as arg, arg.toString()
