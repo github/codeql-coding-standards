@@ -311,7 +311,7 @@ abstract class ContainerAccess extends VariableAccess {
   abstract Variable getOwningContainer();
 }
 
-pragma[noinline, nomagic]
+pragma[inline]
 private predicate localTaint(DataFlow::Node n1, DataFlow::Node n2) {
   TaintTracking::localTaint(n1, n2)
 }
