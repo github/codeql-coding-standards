@@ -184,7 +184,7 @@ query predicate problems(
     not InvalidNaNFlow::PathGraph::edges(sink, _, _, _) and
     not sourceExpr.isFromTemplateInstantiation(_) and
     not usage.asExpr().isFromTemplateInstantiation(_) and
-    elem = MacroUnwrapper<Expr>::unwrapElement(sink.getNode().asExpr()) and
+    elem = sink.getNode().asExpr() and
     usage = sink.getNode() and
     sourceExpr = source.getNode().asExpr() and
     sourceString = source.getNode().asExpr().(PotentiallyNaNExpr).getReason() and

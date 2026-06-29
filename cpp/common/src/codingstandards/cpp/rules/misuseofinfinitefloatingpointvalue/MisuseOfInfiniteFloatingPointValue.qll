@@ -114,7 +114,7 @@ query predicate problems(
 ) {
   not isExcluded(elem, getQuery()) and
   exists(InvalidInfinityUsage usage, string computedInFunction |
-    elem = MacroUnwrapper<Expr>::unwrapElement(sink.getNode().asExpr()) and
+    elem = sink.getNode().asExpr() and
     not InvalidInfinityFlow::PathGraph::edges(_, source, _, _) and
     not InvalidInfinityFlow::PathGraph::edges(sink, _, _, _) and
     not sourceExpr.isFromTemplateInstantiation(_) and
