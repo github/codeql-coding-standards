@@ -15,9 +15,9 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.c.Objects
-import codingstandards.c.SubObjects
-import codingstandards.cpp.ConcurrencyNew
+import codingstandards.c.Objects as CObjects
+import codingstandards.c.SubObjects as CSubObjects
+import codingstandards.cpp.rules.possibledataracebetweenthreadsshared.PossibleDataRaceBetweenThreadsShared
 
 module PossibleDataRaceBetweenThreadsConfig implements PossibleDataRaceBetweenThreadsSharedConfigSig
 {
