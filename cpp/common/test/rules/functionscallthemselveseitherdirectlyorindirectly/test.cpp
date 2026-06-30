@@ -18,8 +18,14 @@ int test_nonrecursive_function(int i) { // COMPLIANT
 
 int test_indirect_recursive_function(int i) {
   if (i > 10) {
-    i = test_recursive_function(i * i); // NON_COMPLIANT
+    i = test_recursive_function(
+        i * i); // COMPLIANT - merely calls a recursive function
   }
+}
+
+int test_calls_recursive_function(int i) {
+  return test_recursive_function(
+      i); // COMPLIANT - not part of a recursive cycle
 }
 
 int test_indirect_recursive_f1(int i) {
