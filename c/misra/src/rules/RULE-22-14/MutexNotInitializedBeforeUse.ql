@@ -17,7 +17,7 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.c.Objects
 import codingstandards.cpp.Concurrency
-import codingstandards.cpp.Type
+import codingstandards.cpp.types.Resolve
 import codingstandards.c.initialization.GlobalInitializationAnalysis
 
 module MutexInitializationConfig implements GlobalInitializationAnalysisConfigSig {
@@ -68,8 +68,8 @@ where
   ) and
   (
     if
-      obj.getType() instanceof PossiblySpecified<C11MutexType>::Type or
-      obj.getType() instanceof PossiblySpecified<C11ConditionType>::Type
+      obj.getType() instanceof ResolvesTo<C11MutexType>::IgnoringSpecifiers or
+      obj.getType() instanceof ResolvesTo<C11ConditionType>::IgnoringSpecifiers
     then description = typeString
     else description = typeString + " in object"
   )

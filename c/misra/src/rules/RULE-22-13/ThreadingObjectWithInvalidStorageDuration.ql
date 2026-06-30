@@ -17,7 +17,7 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.c.Objects
 import codingstandards.cpp.Concurrency
-import codingstandards.cpp.Type
+import codingstandards.cpp.types.Resolve
 
 from ObjectIdentity obj, StorageDuration storageDuration, Type type
 where
@@ -25,7 +25,7 @@ where
   storageDuration = obj.getStorageDuration() and
   not storageDuration.isStatic() and
   type = obj.getASubObjectType() and
-  type instanceof PossiblySpecified<C11ThreadingObjectType>::Type
+  type instanceof ResolvesTo<C11ThreadingObjectType>::IgnoringSpecifiers
 select obj,
   "Object of type '" + obj.getType().getName() + "' has invalid storage duration type '" +
     storageDuration.getStorageTypeName() + "'."
