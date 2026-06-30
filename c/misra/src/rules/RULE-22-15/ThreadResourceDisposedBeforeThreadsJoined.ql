@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.c.SubObjects
-import codingstandards.cpp.ConcurrencyNew
+import codingstandards.cpp.Concurrency
 
 newtype TThreadKind =
   TSpawned(C11ThreadCreateCall tcc) or

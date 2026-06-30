@@ -20,8 +20,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Objects
-import codingstandards.cpp.ConcurrencyNew
-import semmle.code.cpp.dataflow.new.DataFlow
+import codingstandards.cpp.Concurrency
 import semmle.code.cpp.commons.Alloc
 
 from C11ThreadCreateCall tcc, Expr arg

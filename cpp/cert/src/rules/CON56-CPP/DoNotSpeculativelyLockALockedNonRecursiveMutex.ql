@@ -19,7 +19,7 @@
 
 import cpp
 import codingstandards.cpp.cert
-import codingstandards.cpp.ConcurrencyNew
+import codingstandards.cpp.Concurrency
 
 from LockProtectedControlFlowNode n
 where

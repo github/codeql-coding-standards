@@ -19,7 +19,7 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.ConcurrencyNew
+import codingstandards.cpp.Concurrency
 
 from MacroInvocation mi, Variable v, Locatable whereFound
 where

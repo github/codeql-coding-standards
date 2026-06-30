@@ -6,7 +6,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import codingstandards.cpp.ConcurrencyNew
+import codingstandards.cpp.Concurrency
 
 abstract class GuardAccessToBitFieldsSharedQuery extends Query { }
 

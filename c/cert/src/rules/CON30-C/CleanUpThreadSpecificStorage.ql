@@ -19,8 +19,7 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.ConcurrencyNew
-import semmle.code.cpp.dataflow.new.DataFlow
+import codingstandards.cpp.Concurrency
 
 newtype Direction =
   Incoming() or
