@@ -19,7 +19,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Objects
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 class Source extends Expr {
   ObjectIdentity rootObject;
@@ -34,7 +34,7 @@ class Sink extends DataFlow::Node {
   Sink() {
     //output parameter
     exists(Parameter f |
-      f.getAnAccess() = this.(DataFlow::PostUpdateNode).getPreUpdateNode().asExpr() and
+      this.isFinalValueOfParameter(f) and
       f.getUnderlyingType() instanceof PointerType
     )
     or
