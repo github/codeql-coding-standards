@@ -20,8 +20,8 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.Concurrency
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.ConcurrencyNew
+import semmle.code.cpp.dataflow.new.DataFlow
 
 from TSSGetFunctionCall tsg, ThreadedFunction tf
 where
@@ -31,7 +31,8 @@ where
   // however, there does not exist a proper sequencing.
   not exists(TSSSetFunctionCall tss, DataFlow::Node src |
     // there should be dataflow from somewhere (the same somewhere)
-    // into each of the first arguments
+    // into each of the first argument
+    exists(Expr e | e = src.asDefinition() or e = src.asDefiningArgument()) and
     DataFlow::localFlow(src, DataFlow::exprNode(tsg.getArgument(0))) and
     DataFlow::localFlow(src, DataFlow::exprNode(tss.getArgument(0)))
   )

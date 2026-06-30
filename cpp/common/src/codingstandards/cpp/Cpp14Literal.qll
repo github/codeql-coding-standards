@@ -5,9 +5,15 @@
  */
 module Cpp14Literal {
   private import cpp as StandardLibrary
+  private import codingstandards.cpp.UserDefinedLiteral
 
   /** An numeric literal. */
-  abstract class NumericLiteral extends StandardLibrary::Literal { }
+  abstract class NumericLiteral extends StandardLibrary::Literal {
+    NumericLiteral() {
+      // exclude user-defined literals as they define custom suffixes
+      not this instanceof UserDefinedLiteral
+    }
+  }
 
   /** Convenience for implementing class `UnrecognizedNumericLiteral` */
   abstract private class RecognizedNumericLiteral extends StandardLibrary::Literal { }

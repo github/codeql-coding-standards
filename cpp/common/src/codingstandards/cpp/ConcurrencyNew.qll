@@ -1,0 +1,15 @@
+import cpp
+import semmle.code.cpp.dataflow.new.TaintTracking
+import codingstandards.cpp.concurrency.Atomic
+import codingstandards.cpp.concurrency.CConditionOperation
+import codingstandards.cpp.concurrency.ControlFlow
+import codingstandards.cpp.concurrency.ConditionalWait
+import codingstandards.cpp.concurrency.LockingOperationNew
+import codingstandards.cpp.concurrency.LockProtectedControlFlow
+import codingstandards.cpp.concurrency.MutexDestroyer
+import codingstandards.cpp.concurrency.ThreadCreation
+import codingstandards.cpp.concurrency.ThreadedFunction
+import codingstandards.cpp.concurrency.ThreadDependentMutexNew
+import codingstandards.cpp.concurrency.ThreadSpecificStorageNew
+import codingstandards.cpp.concurrency.ThreadWaitDetach
+import codingstandards.cpp.concurrency.Types

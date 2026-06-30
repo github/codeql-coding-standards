@@ -18,7 +18,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 
 from CThreadCreateCall tc, Function enclosingFunction
 where
