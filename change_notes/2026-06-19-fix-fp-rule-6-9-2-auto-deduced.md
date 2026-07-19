@@ -1,0 +1,2 @@
+- `RULE-6-9-2`, `A3-9-1` - `VariableWidthIntegerTypesUsed.qll`:
+  - Fixed false positives for variables declared with `auto` or `decltype(auto)` where the deduced type resolves through fixed-width typedefs (e.g., `std::uint32_t`) to a built-in integer type. The programmer never wrote a variable-width type name in these cases.
