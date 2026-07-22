@@ -19,7 +19,7 @@ import codingstandards.cpp.autosar
 import codingstandards.cpp.UserDefinedLiteral as udl
 import codingstandards.cpp.SideEffect
 
-from udl::UserDefinedLiteral udl, Expr retExpr
+from udl::UserDefinedLiteralDeclaration udl, Expr retExpr
 where
   not isExcluded(udl,
     SideEffects2Package::userDefinedLiteralsOperatorsShallOnlyPerformConversionOfPassedParametersQuery()) and
