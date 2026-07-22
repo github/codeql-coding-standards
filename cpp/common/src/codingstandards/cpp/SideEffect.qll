@@ -1,7 +1,7 @@
 /** A module to reason about side effects. */
 
 import cpp
-private import semmle.code.cpp.dataflow.DataFlow
+private import semmle.code.cpp.dataflow.new.DataFlow
 private import exceptions.ExceptionFlow
 private import codingstandards.cpp.Expr
 private import codingstandards.cpp.Variable

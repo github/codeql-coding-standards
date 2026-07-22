@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SmartPointers
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import codingstandards.cpp.standardlibrary.Utility
 
 Expr lifetimeAffectingSmartPointerExpr(Function f) {

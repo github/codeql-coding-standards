@@ -18,7 +18,7 @@ query predicate problems(InterestingOverflowingOperation op, string message) {
   not isExcluded(op, getQuery()) and
   op.getType().getUnderlyingType().(IntegralType).isUnsigned() and
   // Not within a guard condition
-  not exists(GuardCondition gc | gc.getAChild*() = op) and
+  not op.getParent*().(GuardCondition).valueControlsEdge(_, _, _) and
   // Not guarded by a check, where the check is not an invalid overflow check
   not op.hasValidPreCheck() and
   // Is not checked after the operation

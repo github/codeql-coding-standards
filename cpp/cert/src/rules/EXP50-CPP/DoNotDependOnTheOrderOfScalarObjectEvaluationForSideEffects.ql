@@ -33,5 +33,5 @@ where
   va1 = ve.getAnAccess() and
   FullExprOrdering::isUnsequenced(va1, va2) and
   v = va1.getTarget()
-select e, "Scalar object referenced by $@ has a $@ that is unsequenced in relative to another $@.",
-  v, v.getName(), ve, "side-effect", va2, "side-effect or value computation"
+select e, "Scalar object referenced by $@ has a $@ that is unsequenced relative to another $@.", v,
+  v.getName(), ve, "side-effect", va2, "side-effect or value computation"

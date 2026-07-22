@@ -1,20 +1,29 @@
 problems
-| test.c:11:8:11:12 | c_str | test.c:18:16:18:21 | call to getenv | test.c:11:8:11:12 | c_str | The object returned by the function getenv should not be modified. |
+| test.c:11:7:11:12 | * ... | test.c:18:16:18:21 | call to getenv | test.c:11:7:11:12 | * ... | The object returned by the function getenv should not be modified. |
+| test.c:11:8:11:12 | c_str | test.c:18:16:18:21 | call to getenv | test.c:11:7:11:12 | * ... | The object returned by the function getenv should not be modified. |
 | test.c:67:5:67:9 | conv4 | test.c:64:11:64:20 | call to localeconv | test.c:67:5:67:9 | conv4 | The object returned by the function localeconv should not be modified. |
 | test.c:76:5:76:8 | conv | test.c:72:25:72:34 | call to localeconv | test.c:76:5:76:8 | conv | The object returned by the function localeconv should not be modified. |
 edges
-| test.c:8:18:8:22 | c_str | test.c:11:8:11:12 | c_str | provenance |  |
+| test.c:8:18:8:22 | c_str | test.c:11:7:11:12 | * ... | provenance |  |
+| test.c:18:16:18:21 | call to getenv | test.c:18:16:18:21 | call to getenv | provenance |  |
 | test.c:18:16:18:21 | call to getenv | test.c:24:9:24:12 | env1 | provenance |  |
 | test.c:24:9:24:12 | env1 | test.c:8:18:8:22 | c_str | provenance |  |
-| test.c:64:11:64:20 | call to localeconv | test.c:67:5:67:9 | conv4 | provenance |  |
-| test.c:72:25:72:34 | call to localeconv | test.c:76:5:76:8 | conv | provenance |  |
+| test.c:64:3:64:22 | ... = ... | test.c:67:5:67:9 | conv4 | provenance |  |
+| test.c:64:11:64:20 | call to localeconv | test.c:64:3:64:22 | ... = ... | provenance |  |
+| test.c:72:25:72:34 | call to localeconv | test.c:72:25:72:34 | call to localeconv | provenance |  |
+| test.c:72:25:72:34 | call to localeconv | test.c:73:24:73:28 | conv4 | provenance |  |
+| test.c:73:24:73:28 | conv4 | test.c:76:5:76:8 | conv | provenance |  |
 nodes
 | test.c:8:18:8:22 | c_str | semmle.label | c_str |
-| test.c:11:8:11:12 | c_str | semmle.label | c_str |
+| test.c:11:7:11:12 | * ... | semmle.label | * ... |
+| test.c:18:16:18:21 | call to getenv | semmle.label | call to getenv |
 | test.c:18:16:18:21 | call to getenv | semmle.label | call to getenv |
 | test.c:24:9:24:12 | env1 | semmle.label | env1 |
+| test.c:64:3:64:22 | ... = ... | semmle.label | ... = ... |
 | test.c:64:11:64:20 | call to localeconv | semmle.label | call to localeconv |
 | test.c:67:5:67:9 | conv4 | semmle.label | conv4 |
 | test.c:72:25:72:34 | call to localeconv | semmle.label | call to localeconv |
+| test.c:72:25:72:34 | call to localeconv | semmle.label | call to localeconv |
+| test.c:73:24:73:28 | conv4 | semmle.label | conv4 |
 | test.c:76:5:76:8 | conv | semmle.label | conv |
 subpaths

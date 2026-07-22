@@ -78,8 +78,8 @@ predicate isUpperBoundEndCheckedIteratorAccess(IteratorSource source, ContainerI
     basicBlockOfIteratorAccess.contains(it) and
     //guard is comprised of end check and an iterator access
     DataFlow::localFlow(DataFlow::exprNode(referenceToOnePassedTheEndElement),
-      DataFlow::exprNode(upperBoundCheck.getChild(_))) and
-    upperBoundCheck.getChild(_) = checkedIteratorAccess and
+      DataFlow::exprNode(upperBoundCheck.(Expr).getChild(_))) and
+    upperBoundCheck.(Expr).getChild(_) = checkedIteratorAccess and
     //make sure its the same iterator being checked in the guard as accessed
     checkedIteratorAccess.getOwningContainer() = it.getOwningContainer() and
     //if its the end call itself (or its parts), make sure its the same container providing its end as giving the iterator
