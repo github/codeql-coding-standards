@@ -61,6 +61,7 @@
           "name": "Ensure that operations on signed integers do not result in overflow",
           "precision": "medium",
           "severity": "error",
+          "shared_implementation_short_name": "SignedIntegerOverflowShared",
           "short_name": "SignedIntegerOverflow",
           "tags": [
             "correctness",

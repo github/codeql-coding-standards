@@ -1,3 +1,4 @@
 | test.cpp:9:7:9:12 | ... = ... | Use of an assignment operator's result. |
 | test.cpp:13:11:13:16 | ... = ... | Use of an assignment operator's result. |
 | test.cpp:15:8:15:13 | ... = ... | Use of an assignment operator's result. |
+| test.cpp:17:6:17:13 | ... += ... | Use of an assignment operator's result. |

@@ -1,0 +1,13 @@
+| test.cpp:12:14:12:20 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:24:12:24:23 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:42:16:42:16 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:42:16:42:16 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:42:16:42:16 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:61:8:61:8 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:71:9:71:10 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:79:8:79:9 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:89:9:89:10 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:103:8:103:8 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:113:9:113:10 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:121:8:121:9 | Members returning object or subobject | Member function is not properly ref qualified. |
+| test.cpp:131:9:131:10 | Members returning object or subobject | Member function is not properly ref qualified. |

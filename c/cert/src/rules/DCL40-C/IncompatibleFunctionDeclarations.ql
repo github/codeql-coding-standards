@@ -21,42 +21,11 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.types.Compatible
-import ExternalIdentifiers
+import codingstandards.cpp.rules.incompatiblefunctiondeclaration.IncompatibleFunctionDeclaration
 
-predicate interestedInFunctions(
-  FunctionDeclarationEntry f1, FunctionDeclarationEntry f2, ExternalIdentifiers d
-) {
-  not f1 = f2 and
-  d = f1.getDeclaration() and
-  d = f2.getDeclaration()
+module IncompatibleFunctionDeclarationsCppConfig implements IncompatibleFunctionDeclarationConfigSig
+{
+  Query getQuery() { result = Declarations2Package::incompatibleFunctionDeclarationsQuery() }
 }
 
-predicate interestedInFunctions(FunctionDeclarationEntry f1, FunctionDeclarationEntry f2) {
-  interestedInFunctions(f1, f2, _)
-}
-
-module FuncDeclEquiv =
-  FunctionDeclarationTypeEquivalence<TypesCompatibleConfig, interestedInFunctions/2>;
-
-from ExternalIdentifiers d, FunctionDeclarationEntry f1, FunctionDeclarationEntry f2
-where
-  not isExcluded(f1, Declarations2Package::incompatibleFunctionDeclarationsQuery()) and
-  not isExcluded(f2, Declarations2Package::incompatibleFunctionDeclarationsQuery()) and
-  interestedInFunctions(f1, f2, d) and
-  (
-    //return type check
-    not FuncDeclEquiv::equalReturnTypes(f1, f2)
-    or
-    //parameter type check
-    not FuncDeclEquiv::equalParameterTypes(f1, f2)
-  ) and
-  // Apply ordering on start line, trying to avoid the optimiser applying this join too early
-  // in the pipeline
-  exists(int f1Line, int f2Line |
-    f1.getLocation().hasLocationInfo(_, f1Line, _, _, _) and
-    f2.getLocation().hasLocationInfo(_, f2Line, _, _, _) and
-    f1Line >= f2Line
-  )
-select f1, "The object $@ is not compatible with re-declaration $@", f1, f1.getName(), f2,
-  f2.getName()
+import IncompatibleFunctionDeclaration<IncompatibleFunctionDeclarationsCppConfig>

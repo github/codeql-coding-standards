@@ -62,6 +62,7 @@
           "name": "The right operand of the integer division or remainder operators shall not be equal to zero",
           "precision": "high",
           "severity": "error",
+          "shared_implementation_short_name": "DivisorEqualToZeroShared",
           "short_name": "DivisorEqualToZero",
           "tags": [
             "correctness"

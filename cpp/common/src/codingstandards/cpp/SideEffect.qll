@@ -295,7 +295,7 @@ class AliasParameter extends Parameter {
         this.getUnspecifiedType() instanceof ReferenceType
         or
         // Exclude effects that change the who we point to, since we care about changes to the referenced object.
-        not result.(AssignExpr).getLValue() = va and
+        not result.(Assignment).getLValue() = va and
         not result.(CrementOperation).getOperand() = va
       )
     )

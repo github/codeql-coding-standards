@@ -291,6 +291,7 @@
           "precision": "very-high",
           "severity": "warning",
           "short_name": "FunctionsDeclaredAtBlockScope",
+          "shared_implementation_short_name": "FunctionDeclaredAtBlockScope",
           "tags": [
             "correctness",
             "maintainability"

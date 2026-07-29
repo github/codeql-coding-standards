@@ -11,6 +11,7 @@
           "name": "There shall be no data races between threads",
           "precision": "medium",
           "severity": "error",
+          "shared_implementation_short_name": "PossibleDataRaceBetweenThreadsShared",
           "short_name": "PossibleDataRaceBetweenThreads",
           "tags": [
             "correctness",

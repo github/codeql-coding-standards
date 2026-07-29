@@ -125,3 +125,89 @@ Type baseType(Type t) {
   // Make sure that the type has a size and that it isn't ambiguous.
   strictcount(result.getSize()) = 1
 }
+
+/**
+ * A `Type` that may be a pointer, array, or reference, to a const or a non-const type.
+ *
+ * For example, `const int*`, `int* const`, `const int* const`, `int*`, `int&`, `const int&` are all
+ * `PointerLikeType`s, while `int`, `int&&`, and `const int` are not.
+ *
+ * To check if a `PointerLikeType` points/refers to a const-qualified type, use the `pointsToConst()`
+ * predicate.
+ */
+class PointerLikeType extends Type {
+  Type innerType;
+  Type outerType;
+
+  PointerLikeType() {
+    innerType = this.(UnspecifiedPointerOrArrayType).getBaseType() and
+    outerType = this
+    or
+    innerType = this.(LValueReferenceType).getBaseType() and
+    outerType = this
+    or
+    exists(PointerLikeType stripped |
+      stripped = this.stripTopLevelSpecifiers() and not stripped = this
+    |
+      innerType = stripped.getInnerType() and
+      outerType = stripped.getOuterType()
+    )
+  }
+
+  /**
+   * Gets the pointed to or referred to type, for instance `int` for `int*` or `const int&`.
+   */
+  Type getInnerType() { result = innerType }
+
+  /**
+   * Gets the resolved pointer, array, or reference type itself, for instance `int*` in `int* const`.
+   *
+   * Removes cv-qualification and resolves typedefs and decltypes and specifiers via
+   * `stripTopLevelSpecifiers()`.
+   */
+  Type getOuterType() { result = outerType }
+
+  /**
+   * Holds when this type points to const -- for example, `const int*` and `const int&` point to
+   * const, while `int*`, `int *const` and `int&` do not.
+   */
+  predicate pointsToConst() { innerType.isConst() }
+
+  /**
+   * Holds when this type points to non-const -- for example, `int*` and `int&` and `int *const`
+   * point to non-const, while `const int*`, `const int&` do not.
+   */
+  predicate pointsToNonConst() { not innerType.isConst() }
+}
+
+/**
+ * Gets usages of this parameter that maintain pointer-like semantics -- typically this means
+ * either a normal access, or switching between pointers and reference semantics.
+ *
+ * Examples of accesses with pointer-like semantics include:
+ * - `ref` in `int &x = ref`, or `&ref` in `int *x = &ref`;
+ * - `ptr` in `int *x = ptr`, or `*ptr` in `int &x = *ptr`;
+ *
+ * In the above examples, we can still access the value pointed to by `ref` or `ptr` through the
+ * expression.
+ *
+ * Examples of non-pointer-like semantics include:
+ * - `ref` in `int x = ref` and `*ptr` in `int x = *ptr`;
+ *
+ * In the above examples, the value pointed to by `ref` or `ptr` is copied and the expression
+ * refers to a new/different object.
+ */
+Expr getAPointerLikeAccessOf(Expr expr) {
+  exists(PointerLikeType pointerLikeType | pointerLikeType = expr.getType() |
+    result = expr
+    or
+    // For reference parameters, also consider accesses to the parameter itself as accesses to the referent
+    pointerLikeType.getOuterType() instanceof ReferenceType and
+    result.(AddressOfExpr).getOperand() = expr
+    or
+    // A pointer is dereferenced, but the result is not copied
+    pointerLikeType.getOuterType() instanceof PointerType and
+    result.(PointerDereferenceExpr).getOperand() = expr and
+    not any(ReferenceDereferenceExpr rde).getExpr() = result.getConversion+()
+  )
+}

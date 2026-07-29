@@ -17,11 +17,12 @@
 
 import cpp
 import codingstandards.cpp.autosar
+import codingstandards.cpp.rules.stringliteralsassignedtononconstantpointersshared.StringLiteralsAssignedToNonConstantPointersShared
 
-from ArrayToPointerConversion apc
-where
-  not isExcluded(apc, StringsPackage::stringLiteralsAssignedToNonConstantPointersQuery()) and
-  apc.getExpr() instanceof StringLiteral and
-  apc.getExpr().getUnderlyingType().(ArrayType).getBaseType().isConst() and
-  not apc.getFullyConverted().getType().getUnderlyingType().(PointerType).getBaseType().isConst()
-select apc, "String literal assigned to non-const pointer."
+module StringLiteralsAssignedToNonConstantPointersConfig implements
+  StringLiteralsAssignedToNonConstantPointersSharedConfigSig
+{
+  Query getQuery() { result = StringsPackage::stringLiteralsAssignedToNonConstantPointersQuery() }
+}
+
+import StringLiteralsAssignedToNonConstantPointersShared<StringLiteralsAssignedToNonConstantPointersConfig>

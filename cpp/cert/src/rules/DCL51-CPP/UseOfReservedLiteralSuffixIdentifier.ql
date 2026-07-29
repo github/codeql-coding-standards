@@ -22,7 +22,7 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.UserDefinedLiteral as udl
 
-from udl::UserDefinedLiteral udl
+from udl::UserDefinedLiteralDeclaration udl
 where
   not isExcluded(udl, NamingPackage::useOfReservedLiteralSuffixIdentifierQuery()) and
   not udl.hasCompliantSuffix()

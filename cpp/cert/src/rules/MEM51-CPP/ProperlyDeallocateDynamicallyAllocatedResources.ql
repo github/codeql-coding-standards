@@ -19,20 +19,14 @@
 
 import cpp
 import codingstandards.cpp.cert
-import codingstandards.cpp.Allocations
+import codingstandards.cpp.rules.properlydeallocatedynamicallyallocatedresourcesshared.ProperlyDeallocateDynamicallyAllocatedResourcesShared
 
-predicate matching(string allocKind, string deleteKind) {
-  allocKind = "new" and deleteKind = "delete"
-  or
-  allocKind = "new[]" and deleteKind = "delete[]"
-  or
-  allocKind = "malloc" and deleteKind = "free"
+module ProperlyDeallocateDynamicallyAllocatedResourcesConfig implements
+  ProperlyDeallocateDynamicallyAllocatedResourcesSharedConfigSig
+{
+  Query getQuery() {
+    result = AllocationsPackage::properlyDeallocateDynamicallyAllocatedResourcesQuery()
+  }
 }
 
-from Expr alloc, Expr free, Expr freed, string allocKind, string deleteKind
-where
-  not isExcluded(freed, AllocationsPackage::properlyDeallocateDynamicallyAllocatedResourcesQuery()) and
-  allocReaches(freed, alloc, allocKind) and
-  freeExprOrIndirect(free, freed, deleteKind) and
-  not matching(allocKind, deleteKind)
-select free, "Memory allocated with $@ but deleted with " + deleteKind + ".", alloc, allocKind
+import ProperlyDeallocateDynamicallyAllocatedResourcesShared<ProperlyDeallocateDynamicallyAllocatedResourcesConfig>

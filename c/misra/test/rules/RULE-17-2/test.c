@@ -8,7 +8,7 @@ void f3() {
   f3(); // NON_COMPLIANT
 }
 void f6() {
-  f3(); // NON_COMPLIANT
+  f3(); // COMPLIANT - merely calls a recursive function
 }
 
 void f5() {

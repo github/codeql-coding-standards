@@ -11,8 +11,9 @@ abstract class ResultOfAnAssignmentOperatorShouldNotBeUsedSharedQuery extends Qu
 
 Query getQuery() { result instanceof ResultOfAnAssignmentOperatorShouldNotBeUsedSharedQuery }
 
-query predicate problems(AssignExpr e, string message) {
+query predicate problems(Assignment e, string message) {
   not isExcluded(e, getQuery()) and
   not exists(ExprStmt s | s.getExpr() = e) and
+  not exists(ForStmt for | for.getUpdate() = e) and
   message = "Use of an assignment operator's result."
 }

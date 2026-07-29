@@ -544,3 +544,19 @@ void test_macro() {
   NON_COMPLIANT_VAL; // NON_COMPLIANT[FALSE_NEGATIVE] - cannot determine suffix
                      // in macro expansions
 }
+
+constexpr unsigned long long operator""_km(unsigned long long value) {
+  return value;
+}
+
+void test_user_defined_literal_exclusion() {
+  0x80000000_km; // COMPLIANT - user-defined literal argument should be excluded
+}
+
+template <typename T> unsigned long long instantiated_literal_exclusion() {
+  return T{}; // COMPLIANT - template instantiation should be excluded
+}
+
+void test_instantiated_literal_exclusion() {
+  instantiated_literal_exclusion<int>();
+}

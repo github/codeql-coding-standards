@@ -23,7 +23,7 @@ class RecursiveFunction extends Function {
   RecursiveFunction() { exists(RecursiveCall fc | fc.getEnclosingFunction() = this) }
 }
 
-query predicate problems(FunctionCall fc, string message, RecursiveFunction f, string functionName) {
+query predicate problems(RecursiveCall fc, string message, Function f, string functionName) {
   not isExcluded(fc, getQuery()) and
   f = fc.getTarget() and
   functionName = f.getName() and

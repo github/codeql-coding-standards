@@ -18,7 +18,7 @@ import codingstandards.cpp.UserDefinedLiteral as udl
 import codingstandards.cpp.SideEffect
 import codingstandards.cpp.sideeffect.DefaultEffects
 
-from udl::UserDefinedLiteral udl, SideEffect e
+from udl::UserDefinedLiteralDeclaration udl, SideEffect e
 where
   not isExcluded(udl,
     SideEffects2Package::userDefinedLiteralsOperatorsShallNotHaveSideEffectsQuery()) and

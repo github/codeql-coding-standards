@@ -26,6 +26,8 @@ query predicate problems(Cpp14Literal::NumericLiteral nl, string message) {
     nl.getType().getUnspecifiedType().(IntegralType).isUnsigned() and
     // The literal already has a `u` or `U` suffix.
     not nl.getValueText().regexpMatch(".*[lL]*[uU][lL]*") and
+    // exclude literals derived from template instantiations
+    not nl.isFromTemplateInstantiation(_) and
     message = literalKind + " literal is an unsigned integer but does not include a 'U' suffix."
   )
 }
