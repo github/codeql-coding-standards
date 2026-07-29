@@ -371,7 +371,7 @@ std::int32_t f12(std::int8_t l1) {
   std::int16_t l2 = l1;     // COMPLIANT
   std::int16_t l3{l1};      // COMPLIANT
   std::int16_t l4(l1);      // COMPLIANT
-  std::int16_t l5{l1 + l1}; // NON_COMPLIANT
+  // std::int16_t l5{l1 + l1}; // NON_COMPLIANT - Not accepted by clang or by CodeQL when mimicking clang
   return l1;                // COMPLIANT
 }
 

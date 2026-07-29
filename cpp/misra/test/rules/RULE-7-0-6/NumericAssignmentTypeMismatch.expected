@@ -53,7 +53,6 @@
 | test.cpp:340:12:340:13 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'int32_t'. |
 | test.cpp:342:32:342:33 | s8 | Assignment between incompatible numeric types from 'int8_t' to 'int32_t'. |
 | test.cpp:362:25:362:27 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'unsigned long'. |
-| test.cpp:374:19:374:25 | ... + ... | Assignment between incompatible numeric types from 'int' to 'int16_t'. |
 | test.cpp:379:10:379:12 | u32 | Assignment between incompatible numeric types from 'uint32_t' to 'int32_t'. |
 | test.cpp:412:8:412:9 | l6 | Assignment between incompatible numeric types from 'uint32_t &' to 'uint8_t'. |
 | test.cpp:413:8:413:9 | l7 | Assignment between incompatible numeric types from 'int8_t &' to 'uint8_t'. |
