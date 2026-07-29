@@ -108,8 +108,8 @@ class CPPTerseTernaryExtension extends CPPCompilerExtension, ConditionalExpr {
 }
 
 /**
- * A non-standard `Type` that is only available as a compiler extension, such as `__int128`,
- * `_Decimal32`, `_Decimal64`, `_Decimal128`, or `__float128`.
+ * A non-standard `Type` that is only available as a compiler extension, such as `__int128`
+ * or `__float128`.
  *
  * Reference: https://gcc.gnu.org/onlinedocs/gcc/__int128.html
  * Reference: https://gcc.gnu.org/onlinedocs/gcc/Decimal-Float.html
@@ -117,9 +117,6 @@ class CPPTerseTernaryExtension extends CPPCompilerExtension, ConditionalExpr {
 class CPPExtensionType extends Type {
   CPPExtensionType() {
     this instanceof Int128Type or
-    this instanceof Decimal128Type or
-    this instanceof Decimal32Type or
-    this instanceof Decimal64Type or
     this instanceof Float128Type
   }
 }

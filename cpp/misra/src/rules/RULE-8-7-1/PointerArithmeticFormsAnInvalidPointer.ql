@@ -159,10 +159,10 @@ class ArrayAllocation extends TArrayAllocation {
    * array, and the minimum estimated value for a heap-allocated one.
    */
   int getLength(DataFlow::Node node) {
-    exists(IndirectUninitializedNode inode |
+    exists(DataFlow::IndirectUninitializedNode inode |
       inode = node and
       inode.getLocalVariable() = this.asStackAllocation().getVariable() and
-      result = this.asStackAllocation().getLength(inode.getIndirection())
+      result = this.asStackAllocation().getLength(inode.getIndirectionIndex())
     )
     or
     node.asUninitialized() = this.asStackAllocation().getVariable() and
@@ -191,33 +191,6 @@ class ArrayAllocation extends TArrayAllocation {
     result = this.asDynamicAllocation() or
     result = this.asAddressOfExpr()
   }
-}
-
-/*
- * NOTE: `IndirectUninitializedNode` has made its way into `github/codeql`. Once we upgrade it to
- * the version that has it, the class can be safely removed.
- */
-
-import semmle.code.cpp.ir.dataflow.internal.SsaInternals as SsaImpl
-
-class IndirectUninitializedNode extends Node {
-  LocalVariable v;
-  int indirection;
-
-  IndirectUninitializedNode() {
-    exists(SsaImpl::Definition def, SsaImpl::SourceVariable sv |
-      def.getIndirectionIndex() = indirection and
-      indirection > 0 and
-      def.getValue().asInstruction() instanceof UninitializedInstruction and
-      SsaImpl::defToNode(this, def, sv) and
-      v = sv.getBaseVariable().(SsaImpl::BaseIRVariable).getIRVariable().getAst()
-    )
-  }
-
-  /** Gets the uninitialized local variable corresponding to this node. */
-  LocalVariable getLocalVariable() { result = v }
-
-  int getIndirection() { result = indirection }
 }
 
 newtype TPointerFormation =
