@@ -18,7 +18,6 @@ import cpp
 import codingstandards.cpp.misra
 import semmle.code.cpp.ir.IR
 import semmle.code.cpp.dataflow.new.DataFlow
-import semmle.code.cpp.ir.dataflow.internal.DataFlowUtil
 import semmle.code.cpp.security.BufferAccess
 
 /**

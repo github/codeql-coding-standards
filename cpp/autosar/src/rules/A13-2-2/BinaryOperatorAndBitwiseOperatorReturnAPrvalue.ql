@@ -17,7 +17,6 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.Operator
-import semmle.code.cpp.Print
 
 from Operator o
 where
