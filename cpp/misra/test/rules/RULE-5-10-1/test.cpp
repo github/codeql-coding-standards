@@ -191,8 +191,9 @@ void test_reserved_names() {
 // extensions. They are synthesized per-function by the compiler, so despite
 // containing double underscores / leading underscores they must not be flagged.
 const char *test_predefined_function_identifiers() {
-  const char *a = __func__;            // COMPLIANT - compiler-predefined, not user-defined
-  const char *b = __PRETTY_FUNCTION__; // COMPLIANT - compiler-predefined, not user-defined
+  const char *a = __func__; // COMPLIANT - compiler-predefined, not user-defined
+  const char *b =
+      __PRETTY_FUNCTION__; // COMPLIANT - compiler-predefined, not user-defined
   return a ? a : b;
 }
 
