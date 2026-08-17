@@ -248,3 +248,40 @@ void f12() {
     }
   }
 }
+
+// Regression test: virtual call returning variant-based expected type should
+// not produce false positives from disconnected CFG nodes. With real GCC
+// headers and codeql/cpp-all <= 5.0.0, the extractor creates orphan BasicBlock
+// nodes (0 predecessors, 0 successors) for expressions inside functions that
+// use virtual calls returning std::variant-based types with
+// non-trivially-destructible alternatives (e.g. containing std::string). The
+// isDisconnectedNonStmtBlock predicate filters these artifacts. This test
+// validates the pattern compiles and is not flagged; the actual orphan block
+// generation requires real stdlib.
+#include <variant>
+
+struct TestError {
+  int code;
+};
+
+template <typename E> class test_expected_void {
+  std::variant<TestError, E> storage_;
+
+public:
+  test_expected_void() {}
+  bool has_value() const noexcept;
+};
+
+class ITestService {
+public:
+  virtual test_expected_void<TestError> DoWork(int x) const noexcept = 0;
+  virtual ~ITestService() = default;
+};
+
+bool f13(ITestService &svc) { // COMPLIANT
+  const auto result = svc.DoWork(42);
+  if (!result.has_value()) {
+    return false; // COMPLIANT
+  }
+  return true; // COMPLIANT
+}

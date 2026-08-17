@@ -50,3 +50,5 @@
 | test.cpp:123:6:123:21 | test_long_return | Function 'test_long_return' has variable-width return type. |
 | test.cpp:126:15:126:39 | test_unsigned_long_return | Function 'test_unsigned_long_return' has variable-width return type. |
 | test.cpp:129:13:129:35 | test_signed_long_return | Function 'test_signed_long_return' has variable-width return type. |
+| test.cpp:160:5:160:11 | get_int | Function 'get_int' has variable-width return type. |
+| test.cpp:166:7:166:18 | explicit_int | Variable 'explicit_int' has variable-width type. |

@@ -153,3 +153,15 @@ std::uint32_t test_uint32_t_return() { // COMPLIANT
 std::uint64_t test_uint64_t_return() { // COMPLIANT
   return 60;
 }
+
+// Regression test: auto-deduced types should not be flagged even when
+// the deduced type resolves through fixed-width typedefs to a built-in type.
+std::uint32_t get_uint32() { return 0; }
+int get_int() { return 0; }
+
+void test_auto_deduced_types() {
+  auto a1 = get_uint32(); // COMPLIANT - auto deduces through uint32_t
+  auto a2 = get_int();    // COMPLIANT - auto, programmer didn't write 'int'
+  const auto a3 = 42U;    // COMPLIANT - auto
+  int explicit_int = 0;   // NON_COMPLIANT - explicit variable-width type
+}
