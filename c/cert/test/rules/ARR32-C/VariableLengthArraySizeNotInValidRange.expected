@@ -1,3 +1,5 @@
+WARNING: module 'DataFlow' has been deprecated and may be removed in future (VariableLengthArraySizeNotInValidRange.ql:110,11-19)
+WARNING: module 'TaintTracking' has been deprecated and may be removed in future (VariableLengthArraySizeNotInValidRange.ql:93,5-18)
 | test.c:14:8:14:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
 | test.c:15:8:15:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
 | test.c:16:8:16:8 | VLA declaration | Variable-length array dimension size may be in an invalid range. |
