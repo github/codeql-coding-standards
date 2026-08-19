@@ -22,3 +22,9 @@ void test_loop(std::vector<ClassA> v) {
     b;
   }
 }
+
+#include <utility>
+void f2() {
+  std::pair<int, int> p1;
+  auto [a, b] = p1; // COMPLIANT - structured bindings.
+}
