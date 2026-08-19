@@ -186,6 +186,22 @@ void test_reserved_names() {
   int wint_t = 20;       // NON_COMPLIANT - reserved name
 }
 
+// Test case for compiler-predefined function identifiers (not user-defined).
+// __func__ is standard; __FUNCTION__ and __PRETTY_FUNCTION__ are GCC/Clang
+// extensions. They are synthesized per-function by the compiler, so despite
+// containing double underscores / leading underscores they must not be flagged.
+const char *test_predefined_function_identifiers() {
+  const char *a = __func__; // COMPLIANT - compiler-predefined, not user-defined
+  const char *b =
+      __PRETTY_FUNCTION__; // COMPLIANT - compiler-predefined, not user-defined
+  return a ? a : b;
+}
+
+// Test case for a user-defined macro that reuses a compiler-predefined name.
+// Redefining __PRETTY_FUNCTION__ as a macro is a user-defined identifier and
+// should be flagged (double underscores + lowercase).
+#define __PRETTY_FUNCTION__ "user_defined" // NON_COMPLIANT - user-defined macro
+
 // Test case for valid identifiers
 void test_valid_identifiers() {
   int validName = 1;      // COMPLIANT
