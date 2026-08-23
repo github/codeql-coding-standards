@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.c.misra
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 /**
  * Models a function parameter of type array with specified size
@@ -49,7 +49,7 @@ module SmallArrayConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node src) { src.asExpr() instanceof ArrayAggregateLiteral }
 
   predicate isSink(DataFlow::Node sink) {
-    sink.asExpr() = any(ArrayParameter p).getAMatchingArgument()
+    sink.asIndirectExpr() = any(ArrayParameter p).getAMatchingArgument()
   }
 }
 
@@ -68,8 +68,8 @@ where
     or
     // the argument is a pointer and its value does not come from a literal of the correct
     arg.getType() instanceof PointerType and
-    not exists(ArrayAggregateLiteral l |
-      SmallArrayFlow::flow(DataFlow::exprNode(l), DataFlow::exprNode(arg)) and
+    not exists(ArrayAggregateLiteral l, DataFlow::Node arg_node | arg_node.asIndirectExpr() = arg |
+      SmallArrayFlow::flow(DataFlow::exprNode(l), arg_node) and
       countElements(l) >= p.getArraySize()
     )
   )
