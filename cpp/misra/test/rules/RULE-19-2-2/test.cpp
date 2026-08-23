@@ -5,7 +5,7 @@
 #include <iostream>  // COMPLIANT
 #include STRING_PATH // NON-COMPLIANT
 // clang-format off
-#include "string" ".h" // NON-COMPLIANT[False negative]
+#include "string" ".h" // NON-COMPLIANT
 // clang-format on
 #include QSTRING DOTH // NON-COMPLIANT
 
