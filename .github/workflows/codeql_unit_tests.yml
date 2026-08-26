@@ -77,7 +77,7 @@ jobs:
       - name: Cache queries compilation
         uses: actions/cache@v6
         with:
-          path: ~/.codeql
+          path: ${{ github.workspace }}/codeql_cache
           key: ${{ runner.os }}-codeql-compilation-${{ github.run_id }}
           restore-keys: ${{ runner.os }}-codeql-compilation
 
@@ -89,7 +89,10 @@ jobs:
       - name: Pre-Compile Queries
         id: pre-compile-queries
         run: |
-          ${{ github.workspace }}/codeql_home/codeql/codeql query compile --threads 0 ${{ matrix.language }}
+          ${{ github.workspace }}/codeql_home/codeql/codeql query compile \
+            --common-caches=${{ github.workspace }}/codeql_cache \
+            --threads 0 \
+            ${{ matrix.language }}
 
       - name: Run test suites
         id: run-test-suites
@@ -140,7 +143,7 @@ jobs:
               os.makedirs(os.path.dirname(test_report_path), exist_ok=True)
               test_report_file = open(test_report_path, 'w')
               files_to_close.append(test_report_file)
-              procs.append(subprocess.Popen([codeql_bin, "test", "run", "--failing-exitcode=122", f"--slice={slice}/{num_slices}", "--ram=2048", "--format=json", *test_roots], stdout=test_report_file, stderr=subprocess.PIPE))
+              procs.append(subprocess.Popen([codeql_bin, "test", "run", "--common-caches=${{ github.workspace }}/codeql_cache", "--failing-exitcode=122", f"--slice={slice}/{num_slices}", "--ram=2048", "--format=json", *test_roots], stdout=test_report_file, stderr=subprocess.PIPE))
 
             for p in procs:
               _, err = p.communicate()
