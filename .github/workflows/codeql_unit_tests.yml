@@ -85,6 +85,7 @@ jobs:
         uses: ./.github/actions/install-codeql-packs
         with:
           cli_path: ${{ github.workspace }}/codeql_home/codeql
+          common_caches: ${{ github.workspace }}/codeql_cache
 
       - name: Pre-Compile Queries
         id: pre-compile-queries
