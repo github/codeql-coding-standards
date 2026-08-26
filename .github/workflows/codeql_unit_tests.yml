@@ -57,21 +57,29 @@ jobs:
         run: pip install -r scripts/requirements.txt
 
       - name: Cache CodeQL
+        id: cache-codeql
         uses: actions/cache@v6
         with:
-          path: ~/.codeql
-          key: ${{ runner.os }}-codeql-cache-${{ matrix.language }}-${{ matrix.codeql_cli }}-${{ github.run_id }}
-          restore-keys: |
-            ${{ runner.os }}-codeql-cache-${{ matrix.language }}-${{ matrix.codeql_cli }}
-            ${{ runner.os }}-codeql-cache-${{ matrix.language }}
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: ${{github.workspace}}/codeql_home
+          # An explicit key for restoring and saving the cache
+          key: codeql-home-${{matrix.os}}-${{matrix.codeql_cli}}-${{matrix.codeql_standard_library}}
 
       - name: Install CodeQL
+        if: steps.cache-codeql.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-codeql
         with:
           codeql-cli-version: ${{ matrix.codeql_cli }}
           codeql-stdlib-version: ${{ matrix.codeql_standard_library }}
           codeql-home: ${{ github.workspace }}/codeql_home
           add-to-path: false
+
+      - name: Cache codeql compilation
+        uses: actions/cache@v6
+        with:
+          path: ~/.codeql
+          key: ${{ runner.os }}-codeql-compilation-${{ github.run_id }}
+          restore-keys: ${{ runner.os }}-codeql-compilation
 
       - name: Install CodeQL packs
         uses: ./.github/actions/install-codeql-packs
