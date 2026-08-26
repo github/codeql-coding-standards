@@ -51,7 +51,7 @@ class ExplicitComparison extends EffectivelyComparison, FinalComparisonOperation
   override FunctionExpr getFunctionExpr() { result = funcExpr }
 }
 
-class ImplicitComparison extends EffectivelyComparison, GuardCondition {
+class ImplicitComparison extends EffectivelyComparison, GuardCondition instanceof Expr {
   ImplicitComparison() {
     this instanceof FunctionExpr and
     not getParent() instanceof ComparisonOperation

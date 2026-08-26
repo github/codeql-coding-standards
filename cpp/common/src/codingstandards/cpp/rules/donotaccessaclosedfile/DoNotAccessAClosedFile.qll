@@ -6,7 +6,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import codingstandards.cpp.standardlibrary.FileAccess
 import semmle.code.cpp.controlflow.SubBasicBlocks
 
@@ -40,9 +40,10 @@ SubBasicBlock followsFileClose(SubBasicBlock source, Expr closedFile) {
 
 // the argument of a call to function `fclose(FILE*)` is subsequently accessed
 predicate closedFileAccess(Expr closedFile, Expr fileAccess) {
-  exists(DataFlow::DefinitionByReferenceNode def |
+  exists(DataFlow::DefinitionByReferenceNode def, DataFlow::Node va |
+    va.asIndirectExpr() = fileAccess.(VariableAccess) and
     def.asDefiningArgument() = closedFile and
-    DataFlow::localFlow(def, DataFlow::exprNode(fileAccess.(VariableAccess)))
+    DataFlow::localFlow(def, va)
   )
 }
 
