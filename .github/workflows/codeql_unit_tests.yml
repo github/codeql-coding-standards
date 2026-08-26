@@ -17,7 +17,6 @@ on:
       - "rc/**"
 
 jobs:
- 
   prepare-unit-test-matrix:
     name: Prepare CodeQL unit test matrix
     runs-on: ubuntu-22.04
@@ -58,16 +57,15 @@ jobs:
         run: pip install -r scripts/requirements.txt
 
       - name: Cache CodeQL
-        id: cache-codeql
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
-          # A list of files, directories, and wildcard patterns to cache and restore
-          path: ${{github.workspace}}/codeql_home
-          # An explicit key for restoring and saving the cache
-          key: codeql-home-${{matrix.os}}-${{matrix.codeql_cli}}-${{matrix.codeql_standard_library}}
+          path: ~/.codeql
+          key: ${{ runner.os }}-codeql-cache-${{ matrix.language }}-${{ matrix.codeql_cli }}-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-codeql-cache-${{ matrix.language }}-${{ matrix.codeql_cli }}
+            ${{ runner.os }}-codeql-cache-${{ matrix.language }}
 
       - name: Install CodeQL
-        if: steps.cache-codeql.outputs.cache-hit != 'true'
         uses: ./.github/actions/install-codeql
         with:
           codeql-cli-version: ${{ matrix.codeql_cli }}
@@ -83,8 +81,7 @@ jobs:
       - name: Pre-Compile Queries
         id: pre-compile-queries
         run: |
-         ${{ github.workspace }}/codeql_home/codeql/codeql query compile --threads 0 ${{ matrix.language }}
-
+          ${{ github.workspace }}/codeql_home/codeql/codeql query compile --threads 0 ${{ matrix.language }}
 
       - name: Run test suites
         id: run-test-suites
