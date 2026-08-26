@@ -74,7 +74,7 @@ jobs:
           codeql-home: ${{ github.workspace }}/codeql_home
           add-to-path: false
 
-      - name: Cache codeql compilation
+      - name: Cache queries compilation
         uses: actions/cache@v6
         with:
           path: ~/.codeql
