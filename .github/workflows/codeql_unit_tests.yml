@@ -17,7 +17,6 @@ on:
       - "rc/**"
 
 jobs:
-
   prepare-unit-test-matrix:
     name: Prepare CodeQL unit test matrix
     runs-on: ubuntu-22.04
@@ -93,6 +92,7 @@ jobs:
         run: |
           ${{ github.workspace }}/codeql_home/codeql/codeql query compile \
             --common-caches=${{ github.workspace }}/codeql_cache \
+            --compilation-cache-size=1024 \
             --threads 0 \
             ${{ matrix.language }}
 
