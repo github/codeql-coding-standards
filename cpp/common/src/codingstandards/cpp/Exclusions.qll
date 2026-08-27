@@ -18,6 +18,10 @@ bindingset[e, query]
 predicate isExcluded(Element e, Query query) { isExcluded(e, query, _) }
 
 bindingset[e, query]
+pragma[inline_late]
+predicate isExcludedLate(Element e, Query query) { isExcluded(e, query, _) }
+
+bindingset[e, query]
 predicate isExcluded(Element e, Query query, string reason) {
   e instanceof ExcludedElement and reason = "Element is an excluded element."
   or

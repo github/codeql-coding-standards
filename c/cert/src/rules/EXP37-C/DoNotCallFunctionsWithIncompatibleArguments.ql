@@ -22,7 +22,7 @@ import codingstandards.cpp.MistypedFunctionArguments
 
 from FunctionCall fc, Function f, Parameter p
 where
-  not isExcluded(fc, ExpressionsPackage::doNotCallFunctionsWithIncompatibleArgumentsQuery()) and
+  not isExcludedLate(fc, ExpressionsPackage::doNotCallFunctionsWithIncompatibleArgumentsQuery()) and
   (
     mistypedFunctionArguments(fc, f, p)
     or
