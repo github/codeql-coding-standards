@@ -62,10 +62,19 @@ jobs:
           codeql-home: ${{ github.workspace }}/codeql_home
           add-to-path: false
 
+      - name: Cache queries compilation
+        id: cache-queries-compilation
+        uses: actions/cache/restore@v6
+        with:
+          path: ${{ github.workspace }}/codeql_cache
+          key: ${{ runner.os }}-codeql-compilation-code-scanning-pack-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library }}-${{ github.run_id }}
+          restore-keys: ${{ runner.os }}-codeql-compilation-code-scanning-pack-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library }}
+
       - name: Install CodeQL packs
         uses: ./.github/actions/install-codeql-packs
         with:
           cli_path: ${{ github.workspace }}/codeql_home/codeql
+          common_caches: ${{ github.workspace }}/codeql_cache
 
       - name: Determine ref for external help files
         id: determine-ref
@@ -105,10 +114,21 @@ jobs:
           PATH=$PATH:$CODEQL_HOME/codeql
           # Precompile all queries, and use a compilation cache larger than default
           # to ensure we cache all the queries for later steps
-          codeql query compile --precompile --threads 0 --compilation-cache-size=1024 cpp c
+          codeql query compile \
+            --common-caches=${{ github.workspace }}/codeql_cache \
+            --precompile \
+            --threads 0 \
+            --compilation-cache-size=1024 \
+            cpp c
 
           cd ..
           zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/configuration codeql-coding-standards/scripts/reports codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/guideline_recategorization codeql-coding-standards/schemas
+
+      - name: Save queries compilation cache
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ github.workspace }}/codeql_cache
+          key: ${{ steps.cache-queries-compilation.outputs.cache-primary-key }}
 
       - name: Upload GHAS Query Pack
         uses: actions/upload-artifact@v7
