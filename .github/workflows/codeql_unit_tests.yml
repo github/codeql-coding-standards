@@ -75,7 +75,8 @@ jobs:
           add-to-path: false
 
       - name: Cache queries compilation
-        uses: actions/cache@v6
+        id: cache-queries-compilation
+        uses: actions/cache/restore@v6
         with:
           path: ${{ github.workspace }}/codeql_cache
           key: ${{ runner.os }}-codeql-compilation-${{ matrix.language }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library_ident }}-${{ github.run_id }}
@@ -95,6 +96,12 @@ jobs:
             --compilation-cache-size=1024 \
             --threads 0 \
             ${{ matrix.language }}
+
+      - name: Save queries compilation cache
+        uses: actions/cache/save@v6
+        with:
+          path: ${{ github.workspace }}/codeql_cache
+          key: ${{ steps.cache-queries-compilation.outputs.cache-primary-key }}
 
       - name: Run test suites
         id: run-test-suites
