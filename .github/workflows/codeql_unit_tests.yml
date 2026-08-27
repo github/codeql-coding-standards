@@ -78,8 +78,8 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ${{ github.workspace }}/codeql_cache
-          key: ${{ runner.os }}-codeql-compilation-${{ github.run_id }}
-          restore-keys: ${{ runner.os }}-codeql-compilation
+          key: ${{ runner.os }}-codeql-compilation-${{ matrix.language }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library_ident }}-${{ github.run_id }}
+          restore-keys: ${{ runner.os }}-codeql-compilation-${{ matrix.language }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library_ident }}
 
       - name: Install CodeQL packs
         uses: ./.github/actions/install-codeql-packs
