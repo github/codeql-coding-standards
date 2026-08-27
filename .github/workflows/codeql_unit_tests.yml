@@ -17,6 +17,7 @@ on:
       - "rc/**"
 
 jobs:
+
   prepare-unit-test-matrix:
     name: Prepare CodeQL unit test matrix
     runs-on: ubuntu-22.04
