@@ -361,7 +361,20 @@ private module IdentifierIntroductionImpl {
 
     override string getAnIdent() { result = this.getName() }
 
-    override Namespace getNamespace() { result = variable.getNamespace() }
+    override Namespace getNamespace() {
+      // A parameter or local variable is scoped to the body of its enclosing function, not to
+      // that function's enclosing namespace. It does not itself become a new member of the
+      // namespace, so it cannot "pollute" a reserved namespace such as `std`, regardless of which
+      // namespace its enclosing function happens to be declared in. This matters in particular
+      // for the bodies of explicit template specializations that C++ explicitly permits users to
+      // add to namespace `std` (such as `std::hash<UserType>`), where parameter and local names
+      // are otherwise ordinary user-chosen identifiers that merely happen to be lexically nested
+      // inside `namespace std { ... }`. The function or class that actually introduces the
+      // specialization's name is still checked against `isReservedNamespace` independently, via
+      // `FunctionDeclarationEntryIdentifier` / `TypeDeclarationEntryIdentifier`.
+      not variable instanceof LocalScopeVariable and
+      result = variable.getNamespace()
+    }
   }
 
   /**
