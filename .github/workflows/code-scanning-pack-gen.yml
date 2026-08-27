@@ -20,7 +20,6 @@ env:
   XARGS_MAX_PROCS: 4
 
 jobs:
-
   prepare-code-scanning-pack-matrix:
     name: Prepare CodeQL Code Scanning pack matrix
     runs-on: ubuntu-22.04
@@ -139,20 +138,21 @@ jobs:
       - name: Create qlpack bundles
         env:
           CODEQL_HOME: ${{ github.workspace }}/codeql_home
+          CODEQL_CACHE: ${{ github.workspace }}/codeql_cache
         run: |
           PATH=$PATH:$CODEQL_HOME/codeql
 
-          codeql pack bundle --output=common-cpp-coding-standards.tgz cpp/common/src
-          codeql pack bundle --output=common-c-coding-standards.tgz c/common/src
-          codeql pack bundle --output=misra-c-coding-standards.tgz c/misra/src
-          codeql pack bundle --output=cert-c-coding-standards.tgz c/cert/src
-          codeql pack bundle --output=cert-cpp-coding-standards.tgz cpp/cert/src
-          codeql pack bundle --output=autosar-cpp-coding-standards.tgz cpp/autosar/src
-          codeql pack bundle --output=misra-cpp-coding-standards.tgz cpp/misra/src
-          codeql pack bundle --output=report-coding-standards.tgz cpp/report/src
+          codeql pack bundle --common-caches="$CODEQL_CACHE" --output=common-cpp-coding-standards.tgz cpp/common/src
+          codeql pack bundle --common-caches="$CODEQL_CACHE" --output=common-c-coding-standards.tgz c/common/src
+          codeql pack bundle --common-caches="$CODEQL_CACHE" --output=misra-c-coding-standards.tgz c/misra/src
+          codeql pack bundle --common-caches="$CODEQL_CACHE" --output=cert-c-coding-standards.tgz c/cert/src
+          codeql pack bundle --common-caches="$CODEQL_CACHE" --output=cert-cpp-coding-standards.tgz cpp/cert/src
+          codeql pack bundle --common-caches="$CODEQL_CACHE" --output=autosar-cpp-coding-standards.tgz cpp/autosar/src
+          codeql pack bundle --common-caches="$CODEQL_CACHE" --output=misra-cpp-coding-standards.tgz cpp/misra/src
+          codeql pack bundle --common-caches="$CODEQL_CACHE" --output=report-coding-standards.tgz cpp/report/src
 
       - name: Upload qlpack bundles
         uses: actions/upload-artifact@v7
         with:
           name: coding-standards-codeql-packs
-          path: '*-coding-standards.tgz'
+          path: "*-coding-standards.tgz"
