@@ -1,3 +1,4 @@
+- Upgraded CodeQL to v2.23.9, updating `codeql/cpp-all` and related dependencies. 
 - `RULE-1-2` - `LanguageExtensionsShouldNotBeUsed.ql`: fixed a false negative where `_Decimal32`,
   `_Decimal64` and `_Decimal128` declarations were no longer reported as compiler extensions.
 - `ENV30-C`, `RULE-21-19`, `RULE-25-5-2`: fixed a duplicate alert reported for the same pointer
