@@ -91,7 +91,7 @@ where
   ) and
   // A conversion of `-1` to `time_t` is permitted by the standard
   not (
-    c.getType().getUnspecifiedType().hasName("time_t") and
+    c.getType().hasName("time_t") and
     preConversionExpr.getValue() = "-1"
   ) and
   // Conversion to unsigned char is permitted from the range [SCHAR_MIN..UCHAR_MAX], as those can

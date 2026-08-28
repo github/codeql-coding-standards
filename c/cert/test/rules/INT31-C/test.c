@@ -74,7 +74,7 @@ void test_time_t_check_against_zero(time_t x) {
   if (now != -1) { // NON_COMPLIANT
   }
 
-  if (now != (time_t)-1) { // COMPLIANT[FALSE_POSITIVE]
+  if (now != (time_t)-1) { // COMPLIANT
   }
 }
 
