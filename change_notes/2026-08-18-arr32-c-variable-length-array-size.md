@@ -1,3 +1,0 @@
-- `ARR32-C` - `VariableLengthArraySizeNotInValidRange.ql`:
-  - Updated taint-tracking usage to keep `ARR32-C` results stable after the standard-library upgrade.
-  - Test output now includes deprecation warnings from legacy `TaintTracking` modules.
