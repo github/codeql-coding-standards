@@ -16,9 +16,11 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.cpp.Concurrency
-import codingstandards.cpp.Type
+import codingstandards.cpp.types.Resolve
 
-predicate isThreadingObject(Type t) { t instanceof PossiblySpecified<C11ThreadingObjectType>::Type }
+predicate isThreadingObject(Type t) {
+  t instanceof ResolvesTo<C11ThreadingObjectType>::IgnoringSpecifiers
+}
 
 predicate validUseOfStdThreadObject(Expr e) {
   e.getParent() instanceof AddressOfExpr
