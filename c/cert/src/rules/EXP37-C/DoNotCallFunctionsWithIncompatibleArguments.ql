@@ -20,14 +20,15 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.MistypedFunctionArguments
 
-from FunctionCall fc, Function f, Parameter p
+from FunctionCall fc, Parameter p
 where
   not isExcluded(fc, ExpressionsPackage::doNotCallFunctionsWithIncompatibleArgumentsQuery()) and
+  p = fc.getTarget().getAParameter() and
   (
-    mistypedFunctionArguments(fc, f, p)
+    mistypedFunctionArguments(fc, p)
     or
-    complexArgumentPassedToRealParameter(fc, f, p)
+    complexArgumentPassedToRealParameter(fc, p)
   )
 select fc,
-  "Argument $@ in call to " + f.toString() + " is incompatible with parameter " + p.getTypedName() +
-    ".", fc.getArgument(p.getIndex()) as arg, arg.toString()
+  "Argument $@ in " + fc.toString() + " is incompatible with parameter " + p.getTypedName() + ".",
+  fc.getArgument(p.getIndex()) as arg, arg.toString()
