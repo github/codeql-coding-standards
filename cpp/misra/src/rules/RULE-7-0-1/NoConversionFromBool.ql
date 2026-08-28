@@ -23,6 +23,18 @@ where
   conv = e.getConversion() and
   conv.getExpr().getType().stripTopLevelSpecifiers() instanceof BoolType and
   not conv.getType().stripTopLevelSpecifiers() instanceof BoolType and
+  // Exclude conversions that only bind a `bool` value to a reference to `bool`
+  // (e.g. `bool&`, `const bool&`). Binding a value to a reference of its own
+  // type does not change the type or representation of the value, so this is
+  // not a "conversion from bool" in the sense intended by the rule. This
+  // commonly occurs when a `bool` argument is forwarded through a generic
+  // `bool&`/`const bool&` parameter (e.g. logging helpers, `std::pair`-style
+  // structured bindings/aggregates).
+  not conv.getType()
+      .stripTopLevelSpecifiers()
+      .(ReferenceType)
+      .getBaseType()
+      .stripTopLevelSpecifiers() instanceof BoolType and
   // Exclude cases that are explicitly allowed
   not (
     // Exception: equality operators with both bool operands

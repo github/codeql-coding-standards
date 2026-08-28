@@ -169,3 +169,69 @@ void test_right_shift_signed_operands() {
   u32 >> 1U; // COMPLIANT
   s32 >> 1U; // NON_COMPLIANT
 }
+
+class TestStream {
+public:
+  TestStream &operator<<(std::int32_t value);
+  TestStream &operator>>(std::int32_t &value);
+};
+
+void test_overloaded_shift_operators() {
+  TestStream stream;
+  std::int32_t s32 = 1;
+
+  // User provided operators, not the built-in shift operators
+  stream << 1;   // COMPLIANT
+  stream << s32; // COMPLIANT
+  stream >> s32; // COMPLIANT
+}
+
+template <typename T>
+void test_overloaded_shift_operators_in_template(TestStream &stream,
+                                                 const T &value) {
+  // The left operand of the second `<<` is the `TestStream &` returned by the
+  // first one, and the right operand is dependent, so the operation is
+  // unresolved in the uninstantiated template body
+  stream << 1 << value; // COMPLIANT
+}
+
+template <typename T> void test_dependent_shift_operands(T value) {
+  // Dependent operands are unresolved in the uninstantiated template body, but
+  // reported through the instantiation below
+  value << 2; // NON_COMPLIANT
+}
+
+void test_template_instantiations() {
+  TestStream stream;
+  test_overloaded_shift_operators_in_template(stream, 1);
+  test_dependent_shift_operands<std::int32_t>(1);
+}
+enum UnscopedEnumNoFixedUnderlyingType { EnumeratorA = 1, EnumeratorB = 2 };
+
+enum UnscopedEnumUnsignedUnderlyingType : unsigned int { EnumeratorC = 1 };
+
+enum UnscopedEnumSignedUnderlyingType : int { EnumeratorD = 1 };
+
+void test_enum_operands() {
+  UnscopedEnumNoFixedUnderlyingType e1 = EnumeratorA;
+  UnscopedEnumUnsignedUnderlyingType e2 = EnumeratorC;
+  UnscopedEnumSignedUnderlyingType e3 = EnumeratorD;
+
+  // Without a fixed underlying type the enum has no MISRA numeric type, so the
+  // operands are not analysed by this rule
+  e1 &e1; // COMPLIANT
+
+  e2 &e2; // COMPLIANT
+
+  e3 &e3; // NON_COMPLIANT
+}
+
+void test_character_type_operands() {
+  char32_t c32 = 1;
+
+  // `char32_t` is of character type, not of numeric type, and is always
+  // unsigned
+  c32 &c32;  // COMPLIANT
+  c32 << 1U; // COMPLIANT
+  ~c32;      // COMPLIANT
+}
