@@ -18,7 +18,7 @@ import cpp
 import codeql.util.Boolean
 import codingstandards.c.misra
 import codingstandards.c.SubObjects
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 import codingstandards.cpp.Type
 
 predicate isTrackableMutex(CMutexFunctionCall lockCall, Boolean recursive) {
