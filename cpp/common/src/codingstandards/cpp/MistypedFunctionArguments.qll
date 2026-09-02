@@ -91,21 +91,22 @@ private predicate isTypeInComplexDomain(FloatingPointType type) {
   type.getUnderlyingType().(FloatingPointType).getDomain() instanceof ComplexDomain
 }
 
-predicate mistypedFunctionArguments(FunctionCall fc, Function f, Parameter p) {
-  f = fc.getTarget() and
-  p = f.getAParameter() and
-  hasZeroParamDecl(f) and
-  isCompiledAsC(f.getFile()) and
-  not f.isVarargs() and
-  not f instanceof BuiltInFunction and
-  p.getIndex() < fc.getNumberOfArguments() and
-  // Parameter p and its corresponding call argument must have mismatched types
-  not argMayBeUsed(fc.getArgument(p.getIndex()), p)
+predicate mistypedFunctionArguments(FunctionCall fc, Parameter p) {
+  exists(Function f |
+    f = fc.getTarget() and
+    p = f.getAParameter() and
+    hasZeroParamDecl(f) and
+    isCompiledAsC(f.getFile()) and
+    not f.isVarargs() and
+    not f instanceof BuiltInFunction and
+    p.getIndex() < fc.getNumberOfArguments() and
+    // Parameter p and its corresponding call argument must have mismatched types
+    not argMayBeUsed(fc.getArgument(p.getIndex()), p)
+  )
 }
 
-predicate complexArgumentPassedToRealParameter(FunctionCall fc, Function f, Parameter p) {
-  f = fc.getTarget() and
-  p = f.getAParameter() and
+predicate complexArgumentPassedToRealParameter(FunctionCall fc, Parameter p) {
+  p = fc.getTarget().getAParameter() and
   // Some implementations implicitly convert complex floating point values by
   // extracting the real part of the complex number (in-place or via a creal() call).
   // This predicate holds in those cases unless the value is explicitly converted.
