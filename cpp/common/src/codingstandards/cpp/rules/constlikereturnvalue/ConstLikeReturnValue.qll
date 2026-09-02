@@ -8,7 +8,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import DFFlow::PathGraph
 
 abstract class ConstLikeReturnValueSharedQuery extends Query { }
@@ -52,7 +52,9 @@ module DFConfig implements DataFlow::ConfigSig {
 
 module DFFlow = DataFlow::Global<DFConfig>;
 
-query predicate problems(Element e, DFFlow::PathNode source, DFFlow::PathNode sink, string message) {
+query predicate problems(
+  ObjectWrite e, DFFlow::PathNode source, DFFlow::PathNode sink, string message
+) {
   not isExcluded(e, getQuery()) and
   // the modified object comes from a call to one of the ENV functions
   DFFlow::flowPath(source, sink) and

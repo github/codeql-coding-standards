@@ -16,7 +16,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import codingstandards.cpp.misra
 import codingstandards.cpp.lifetimes.CppObjects
 import codingstandards.cpp.lifetimes.CppSubObjects

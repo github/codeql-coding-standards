@@ -218,7 +218,7 @@ class CandidateDeclaration extends Declaration {
     or
     this instanceof Type and
     not this instanceof ClassTemplateInstantiation and
-    not this instanceof TemplateParameter
+    not this instanceof TypeTemplateParameter
   }
 }
 

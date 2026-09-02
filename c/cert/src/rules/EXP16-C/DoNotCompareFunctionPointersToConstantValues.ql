@@ -51,10 +51,11 @@ class ExplicitComparison extends EffectivelyComparison, FinalComparisonOperation
   override FunctionExpr getFunctionExpr() { result = funcExpr }
 }
 
-class ImplicitComparison extends EffectivelyComparison, GuardCondition {
+class ImplicitComparison extends EffectivelyComparison, GuardCondition instanceof Expr {
   ImplicitComparison() {
+    this.valueControlsEdge(_, _, _) and
     this instanceof FunctionExpr and
-    not getParent() instanceof ComparisonOperation
+    not super.getParent() instanceof ComparisonOperation
   }
 
   override string getExplanation() { result = "$@ undergoes implicit constant comparison." }

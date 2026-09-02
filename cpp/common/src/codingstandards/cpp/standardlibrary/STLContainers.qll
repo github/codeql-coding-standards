@@ -1,8 +1,7 @@
 import cpp
 import codingstandards.cpp.StdNamespace
 private import codingstandards.cpp.standardlibrary.Iterators
-private import semmle.code.cpp.dataflow.DataFlow
-private import semmle.code.cpp.dataflow.TaintTracking
+private import semmle.code.cpp.dataflow.new.TaintTracking
 private import semmle.code.cpp.rangeanalysis.SimpleRangeAnalysis
 
 newtype TContainerKind =
