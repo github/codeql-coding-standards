@@ -1,0 +1,2 @@
+- `EXP37-C` - `DoNotCallFunctionsWithIncompatibleArguments.ql`:
+  - Improved query evaluation performance. Query results are unchanged.
