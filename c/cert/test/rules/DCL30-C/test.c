@@ -32,3 +32,26 @@ void f5(void) {
   g = a5; // COMPLIANT[FALSE_POSITIVE]
   g = NULL;
 }
+
+char *f6(void) {
+  char a6[10];
+  return a6 + 3; // NON_COMPLIANT
+}
+
+struct S {
+  char x;
+};
+
+char *f7(void) {
+  struct S s;
+  return &s.x; // NON_COMPLIANT
+}
+
+char *f8(char *p) {
+  return p; // COMPLIANT
+}
+
+void f9(void) {
+  char x;
+  char *p = f8(&x); // COMPLIANT
+}

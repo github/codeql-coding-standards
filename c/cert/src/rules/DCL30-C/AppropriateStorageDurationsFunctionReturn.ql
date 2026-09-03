@@ -3,7 +3,7 @@
  * @name DCL30-C: Declare objects with appropriate storage durations
  * @description When pointers to local variables are returned by a function it can lead to referring
  *              to objects outside of their lifetime, which is undefined behaviour.
- * @kind problem
+ * @kind path-problem
  * @precision high
  * @problem.severity error
  * @tags external/cert/id/dcl30-c
@@ -18,41 +18,65 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.c.Objects
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.ir.IR
+import semmle.code.cpp.ir.dataflow.MustFlow
+import PathGraph
 
-class Source extends Expr {
-  ObjectIdentity rootObject;
-
-  Source() {
-    rootObject.getStorageDuration().isAutomatic() and
-    this = rootObject.getASubobjectAddressExpr()
-  }
+/** Holds if `f` appears to intentionally return a stack pointer. */
+predicate intentionallyReturnsStackPointer(Function f) {
+  f.getName().toLowerCase().matches(["%stack%", "%sp%"])
 }
 
-class Sink extends DataFlow::Node {
-  Sink() {
-    //output parameter
-    exists(Parameter f |
-      f.getAnAccess() = this.(DataFlow::PostUpdateNode).getPreUpdateNode().asExpr() and
-      f.getUnderlyingType() instanceof PointerType
+/** Configuration for detecting stack-allocated memory returned by a function. */
+class ReturnStackAllocatedMemoryConfig extends MustFlowConfiguration {
+  ReturnStackAllocatedMemoryConfig() { this = "DCL30CReturnStackAllocatedMemoryConfig" }
+
+  override predicate isSource(Instruction source) {
+    exists(Function func |
+      not func.hasErrors() and
+      not intentionallyReturnsStackPointer(func) and
+      func = source.getEnclosingFunction()
+    |
+      exists(VariableAddressInstruction var |
+        var = source and
+        var.getAstVariable() instanceof StackVariable and
+        not var.getResultType() instanceof PointerToMemberType
+      )
+      or
+      exists(Call call |
+        call.getTarget().hasGlobalName(["alloca", "strdupa", "strndupa", "_alloca", "_malloca"]) and
+        source.getUnconvertedResultExpression() = call
+      )
     )
+  }
+
+  override predicate isSink(Operand sink) {
+    exists(StoreInstruction store |
+      store.getDestinationAddress().(VariableAddressInstruction).getIRVariable() instanceof
+        IRReturnVariable and
+      sink = store.getSourceValueOperand()
+    )
+  }
+
+  override predicate allowInterproceduralFlow() { none() }
+
+  override predicate isAdditionalFlowStep(Operand node1, Instruction node2) {
+    node2.(FieldAddressInstruction).getObjectAddressOperand() = node1
     or
-    //function returns pointer
-    exists(Function f, ReturnStmt r |
-      f.getType() instanceof PointerType and
-      r.getEnclosingFunction() = f and
-      r.getExpr() = this.asExpr()
-    )
+    node2.(PointerOffsetInstruction).getLeftOperand() = node1
   }
+
+  override predicate isBarrier(Instruction n) { n.getResultType() instanceof ErroneousType }
 }
 
-from DataFlow::Node src, DataFlow::Node sink
+from
+  MustFlowPathNode source, MustFlowPathNode sink, Instruction instr,
+  ReturnStackAllocatedMemoryConfig conf
 where
-  not isExcluded(sink.asExpr(),
-    Declarations8Package::appropriateStorageDurationsFunctionReturnQuery()) and
-  exists(Source s | src.asExpr() = s) and
-  sink instanceof Sink and
-  DataFlow::localFlow(src, sink)
-select sink, "$@ with automatic storage may be accessible outside of its lifetime.", src,
-  src.toString()
+  conf.hasFlowPath(pragma[only_bind_into](source), pragma[only_bind_into](sink)) and
+  source.getInstruction() = instr and
+  not isExcluded(sink.getInstruction().getAst(),
+    Declarations8Package::appropriateStorageDurationsFunctionReturnQuery())
+select sink.getInstruction(), source, sink,
+  "$@ with automatic storage may be accessible outside of its lifetime.", instr.getAst(),
+  instr.getAst().toString()

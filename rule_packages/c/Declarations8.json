@@ -27,7 +27,7 @@
         },
         {
           "description": "When pointers to local variables are returned by a function it can lead to referring to objects outside of their lifetime, which is undefined behaviour.",
-          "kind": "problem",
+          "kind": "path-problem",
           "name": "Declare objects with appropriate storage durations",
           "precision": "high",
           "severity": "error",
@@ -41,7 +41,7 @@
             "external/cert/level/l2"
           ],
           "implementation_scope": {
-            "description": "The rule checks specifically for pointers to objects with automatic storage duration that are returned by functions or assigned to function output parameters."
+            "description": "The rule checks specifically for pointers to objects with automatic storage duration that are returned by functions."
           }
         }
       ],
