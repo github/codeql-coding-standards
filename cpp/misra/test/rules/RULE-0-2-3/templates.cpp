@@ -90,7 +90,7 @@ namespace use_as_template_parameter_type {
  * parameter
  */
 namespace use_as_template_parameter_default_value {
-    class A1 { // COMPLIANT[False positive]
+    class A1 { // COMPLIANT
         static const int a = 42;
     };
 
