@@ -1,2 +1,0 @@
-// NON_COMPLIANT
-int g6;
