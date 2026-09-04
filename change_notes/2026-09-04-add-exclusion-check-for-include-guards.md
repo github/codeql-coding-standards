@@ -1,0 +1,2 @@
+- `DIR-4-10`, `M16-2-3`, and `RULE-19-2-1`:
+  - Header files matched by a configured exclusion are no longer reported.
