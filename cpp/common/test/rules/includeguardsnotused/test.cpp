@@ -13,4 +13,4 @@
 
 #include "headers/test7.hpp" //NON_COMPLIANT - missing include guard, not excluded
 
-#include "headers/excluded/test7.hpp" //COMPLIANT - missing include guard, but excluded via deviation
+#include "headers/excluded/test7.hpp" // COMPLIANT - excluded via deviation
