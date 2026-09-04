@@ -1,5 +1,4 @@
 | templates.cpp:42:12:42:13 | A1 | Type 'A1' with limited visibility is not used. |
-| templates.cpp:93:11:93:12 | A1 | Type 'A1' with limited visibility is not used. |
 | test.cpp:5:9:5:10 | T1 | Type 'T1' with limited visibility is not used. |
 | test.cpp:31:8:31:9 | A2 | Type 'A2' with limited visibility is not used. |
 | test.cpp:61:28:61:29 | C1<<unnamed>> | Type 'C1<<unnamed>>' with limited visibility is not used. |

@@ -15,6 +15,7 @@ void test_nullptr() {
   int l3 = 0;      // COMPLIANT - use of 0 literal with no conversion to pointer
   f3(f1, nullptr); // COMPLIANT - use of nullptr
   f1(NULL);        // NON_COMPLIANT - use of NULL macro
-  // f1('\0');        // NON_COMPLIANT - use of octal escape 0 - Not accepted by clang or by CodeQL when mimicking clang
-  f3("0");         // COMPLIANT - "0" is not a literal zero
+  // f1('\0');        // NON_COMPLIANT - use of octal escape 0 - Not accepted by
+  // clang or by CodeQL when mimicking clang
+  f3("0"); // COMPLIANT - "0" is not a literal zero
 }
