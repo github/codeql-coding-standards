@@ -12,3 +12,7 @@
 #include "headers/test6.h" //NON_COMPLIANT - non unique and reported in alert for the next
 
 #include "headers/test7.h" //NON_COMPLIANT - non unique
+
+#include "headers/test8.h" //NON_COMPLIANT - missing include guard, not excluded
+
+#include "headers/excluded/test8.h" //COMPLIANT - missing include guard, but excluded via deviation
