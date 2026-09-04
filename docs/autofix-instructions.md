@@ -174,7 +174,9 @@ When an alert is judged to be a false positive, the autofix PR must:
      (what the query missed, why the code is in fact compliant or safe);
    - `scope`, `background`, and `requirements` when they help a reviewer
      audit the decision;
-   - a `raised-by` entry (and leave `approved-by` for a human reviewer).
+   - omit both `raised-by` and `approved-by` from the initial fix because the
+     deviation format requires them to be specified together. A human reviewer
+     may add both entries when approving the deviation.
 4. **Place the deviation entry** of types 2. and 3. in an existing
    `coding-standards.yml` if one exists in an appropriate directory; 
    otherwise create one at the most specific directory whose subtree is
