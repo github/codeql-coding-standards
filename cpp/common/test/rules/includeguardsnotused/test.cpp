@@ -10,3 +10,7 @@
 #include "headers/test5.hpp" //COMPLIANT - non unique precedes malformed
 
 #include "headers/test6.hpp" //COMPLIANT - non unique
+
+#include "headers/test7.hpp" //NON_COMPLIANT - missing include guard, not excluded
+
+#include "headers/excluded/test7.hpp" // COMPLIANT - excluded via deviation
