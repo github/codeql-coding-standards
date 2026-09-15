@@ -1,0 +1,3 @@
+- `DCL30-C` - `AppropriateStorageDurationsFunctionReturn.ql`:
+  - Replaced the legacy local data-flow implementation with the improved stack-allocated-memory return analysis.
+  - Improved detection of stack-derived pointer returns, including pointer offsets.
