@@ -7,6 +7,11 @@ inputs:
       The path to the CodeQL CLI directory.
     required: false
 
+  common_caches:
+    description: |
+      The path to the CodeQL common caches directory.
+    required: false
+
   mode:
     description: |
       The `--mode` option to `codeql pack install`.
@@ -22,4 +27,6 @@ runs:
         CODEQL_CLI: ${{ inputs.cli_path }}
       run: |
         PATH=$PATH:$CODEQL_CLI
-        python scripts/install-packs.py --mode ${{ inputs.mode }}
+        python scripts/install-packs.py \
+          --mode ${{ inputs.mode }} \
+          --common-caches "${{ inputs.common_caches }}"

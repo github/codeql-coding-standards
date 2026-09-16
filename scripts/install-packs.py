@@ -6,6 +6,7 @@ import get_workspace_packs
 parser = argparse.ArgumentParser(description="Install CodeQL library pack dependencies.")
 parser.add_argument('--mode', required=False, choices=['use-lock', 'update', 'verify', 'no-lock'], default="use-lock", help="Installation mode, identical to the `--mode` argument to `codeql pack install`")
 parser.add_argument('--codeql', required=False, default='codeql', help="Path to the `codeql` executable.")
+parser.add_argument('--common-caches', required=False, help="Path to the CodeQL common caches directory.")
 args = parser.parse_args()
 
 # Find the root of the repo
@@ -19,5 +20,7 @@ for pack in packs:
     pack_path = os.path.join(root, pack)
     # Run `codeql pack install` to install dependencies.
     command = [args.codeql, 'pack', 'install', '--allow-prerelease', '--mode', args.mode, pack_path]
+    if args.common_caches:
+        command.insert(3, f'--common-caches={args.common_caches}')
     print(f'Running `{" ".join(command)}`')
     subprocess.check_call(command)

@@ -158,3 +158,81 @@ public:
   void f() {} // COMPLIANT - public external linkage
 };
 } // namespace N1
+
+class PureVirtualBase {
+public:
+  void callImpl() { impl(); }
+
+private:
+  virtual void impl() = 0; // COMPLIANT - pure virtual contract.
+};
+
+class PureVirtualDerived : public PureVirtualBase {
+private:
+  void impl() override {}
+};
+
+void test_pure_virtual_private_member() {
+  PureVirtualDerived derived;
+  derived.callImpl();
+}
+
+/**
+ * Class templates that are never instantiated anywhere in the analyzed
+ * compilation units.
+ *
+ * Clang never elaborates a body for the members of such patterns, so calls
+ * between sibling members (even genuine ones, like a public entry point calling
+ * a private helper) cannot be resolved by the call graph. We conservatively
+ * treat all of them as used, rather than risk reporting them as dead code.
+ */
+template <class NeverUsedT> class NeverInstantiatedFactory {
+public:
+  static void Create() { instanceHelper(); }
+
+private:
+  static void instanceHelper() {
+  } // COMPLIANT - class template is never instantiated anywhere in this
+    // translation unit, so the analysis has no visibility into whether
+    // `Create` (also never instantiated) really calls it; conservatively
+    // not reported.
+};
+
+/**
+ * A class template that *is* instantiated (and its caller genuinely used), so
+ * the ordinary per-instantiation call-graph reasoning applies and a
+ * truly-unused private helper is still correctly reported.
+ */
+template <class UsedT> class InstantiatedFactory {
+public:
+  UsedT get() { return makeValue(); }
+
+private:
+  UsedT makeValue() {
+    return UsedT();
+  }                    // COMPLIANT - called by get(), which is instantiated.
+  UsedT deadHelper() { // NON_COMPLIANT - never called, and the class template
+                       // is instantiated, so the analysis does have visibility
+                       // into this member.
+    return UsedT();
+  }
+};
+
+void test_instantiated_factory() {
+  InstantiatedFactory<int> factory;
+  factory.get();
+}
+/**
+ * A private pure virtual that is genuinely dead: it is never called through the
+ * non-virtual interface, and no derived class ever overrides it. Pure virtual
+ * functions are deliberately in scope for this query (see
+ * `UnusedFunctions::UsableFunction`), so this must still be reported.
+ */
+class DeadPureVirtualBase {
+public:
+  void unrelated() {}
+
+private:
+  virtual void neverUsedPure() = 0; // NON_COMPLIANT - never called, never
+                                    // overridden.
+};
