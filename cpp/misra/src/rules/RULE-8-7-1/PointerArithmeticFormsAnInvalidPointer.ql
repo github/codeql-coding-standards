@@ -198,7 +198,7 @@ class ArrayAllocation extends TArrayAllocation {
  * the version that has it, the class can be safely removed.
  */
 
-import semmle.code.cpp.ir.dataflow.internal.SsaInternals as SsaImpl
+import semmle.code.cpp.ir.dataflow.internal.SsaImpl as SsaImpl
 
 class IndirectUninitializedNode extends Node {
   LocalVariable v;

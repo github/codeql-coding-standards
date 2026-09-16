@@ -7,7 +7,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import ArrayToRelationalOperationOperandFlow::PathGraph
 
 abstract class DoNotUseRelationalOperatorsWithDifferingArraysSharedQuery extends Query { }
@@ -43,6 +43,8 @@ module ArrayToRelationalOperationOperandConfig implements DataFlow::ConfigSig {
     // Add a flow step from the base to the array expression to track pointers to elements of the array.
     exists(ArrayExpr e | e.getArrayBase() = pred.asExpr() and e = succ.asExpr())
   }
+
+  predicate isBarrierIn(DataFlow::Node node) { isSource(node) }
 }
 
 module ArrayToRelationalOperationOperandFlow =
