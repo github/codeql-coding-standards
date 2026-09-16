@@ -214,3 +214,58 @@ void test_member_function_pointer_conversion() {
   bool l4 = l2;              // NON_COMPLIANT
   bool l5 = (l1 != nullptr); // COMPLIANT
 }
+
+// Regression test for a false positive where the compiler-synthesized
+// `get<N>(...)` call used to implement structured binding decomposition (`auto
+// [a, b] = ...;`) was incorrectly flagged as a "conversion to bool", even
+// though the decomposed member is already `bool` - dereferencing a
+// `bool&`/`bool&&` reference is not a conversion from another type to `bool`.
+struct BoolPair {
+  std::int32_t first;
+  bool second;
+};
+
+template <std::size_t I> auto get(const BoolPair &p) {
+  if constexpr (I == 0) {
+    return p.first;
+  } else {
+    return p.second;
+  }
+}
+
+namespace std {
+template <class T> struct tuple_size;
+template <std::size_t I, class T> struct tuple_element;
+
+template <> struct tuple_size<BoolPair> {
+  static constexpr std::size_t value = 2;
+};
+template <> struct tuple_element<0, BoolPair> { using type = std::int32_t; };
+template <> struct tuple_element<1, BoolPair> { using type = bool; };
+} // namespace std
+
+BoolPair make_bool_pair();
+
+void test_structured_binding_bool_decomposition() {
+  auto [l1, l2] =
+      make_bool_pair(); // COMPLIANT - structured binding decomposition, not a
+                        // real conversion to bool
+  if (l2) {             // COMPLIANT
+  }
+  bool l3 = l2; // COMPLIANT - l2 is already bool
+}
+
+// Regression test for a false positive where a `constexpr bool` variable
+// template, whose initializer is itself a dependent expression built from
+// another variable template, was incorrectly flagged as a "conversion from
+// 'unknown' to bool". The extractor cannot resolve a concrete type for a
+// dependent, uninstantiated template expression, so it should not be treated as
+// an actual conversion.
+template <typename T> constexpr bool is_something_v = true;
+
+template <typename T>
+constexpr bool derived_from_template_v = is_something_v<T>; // COMPLIANT
+
+bool test_dependent_variable_template_instantiation() {
+  return derived_from_template_v<std::int32_t>; // COMPLIANT
+}

@@ -6,3 +6,5 @@
 | test.cpp:85:6:85:7 | h3 | Anonymous namespace function h3 is not statically called, or is in an unused template. |
 | test.cpp:144:8:144:8 | f | Anonymous namespace class member function f is not statically called, or is in an unused template. |
 | test.cpp:150:8:150:8 | f | Anonymous namespace class member function f is not statically called, or is in an unused template. |
+| test.cpp:214:9:214:18 | deadHelper | Private member function deadHelper is not statically called, or is in an unused template. |
+| test.cpp:236:16:236:28 | neverUsedPure | Private member function neverUsedPure is not statically called, or is in an unused template. |
