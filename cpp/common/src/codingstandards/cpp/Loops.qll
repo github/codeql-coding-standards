@@ -339,7 +339,8 @@ predicate isInvalidLoop(ForStmt forLoop, string reason, Locatable reasonLocation
   isForLoopWithMulipleCounters(forLoop) and
   reason = "it uses multiple loop counters$@" and
   reasonLabel = "" and
-  reasonLocation.getLocation() instanceof UnknownExprLocation
+  reasonLocation instanceof File and
+  reasonLocation.getLocation() instanceof UnknownLocation
   or
   isForLoopWithFloatingPointCounters(forLoop, reasonLocation) and
   reason = "it uses a loop counter '$@' of type floating-point" and

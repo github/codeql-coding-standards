@@ -40,7 +40,9 @@ where
         conditionAlwaysFalse(expr) and
         not (
           getEssentialTypeCategory(getEssentialType(expr)) instanceof EssentiallyBooleanType and
-          expr.getValue() = "0"
+          expr.getValue() = "0" and
+          // Only apply to expressions that do not reference variables.
+          not exists(VariableAccess va | va = expr.getAChild*())
         )
         or
         conditionAlwaysTrue(expr) and

@@ -31,7 +31,7 @@ Query getQuery() { result instanceof MultipleGlobalOrMemberDeclaratorsSharedQuer
 class NonLocalUserDeclaration extends Declaration {
   NonLocalUserDeclaration() {
     not this instanceof StackVariable and
-    not this instanceof TemplateParameter and
+    not this instanceof TypeTemplateParameter and
     not this instanceof EnumConstant and
     not this instanceof TypedefType and
     not any(LambdaCapture lc).getField() = this and

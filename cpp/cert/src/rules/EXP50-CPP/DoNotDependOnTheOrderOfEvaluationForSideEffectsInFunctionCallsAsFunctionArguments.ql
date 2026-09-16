@@ -19,7 +19,6 @@
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.SideEffect
-import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.dataflow.TaintTracking
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
