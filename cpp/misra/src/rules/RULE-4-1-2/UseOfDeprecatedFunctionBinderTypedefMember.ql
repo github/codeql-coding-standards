@@ -58,7 +58,7 @@ class FunctionTypeByNestedClass extends FunctionTypeWithBindings {
   }
 }
 
-class DeprecatedFunctionBinderTypedefMember extends UsingAliasTypedefType {
+class DeprecatedFunctionBinderTypedefMember extends TypeAliasType {
   ClassTemplateInstantiation cti;
 
   DeprecatedFunctionBinderTypedefMember() {
