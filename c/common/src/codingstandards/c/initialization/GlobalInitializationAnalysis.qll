@@ -1,6 +1,6 @@
 import cpp
 import codingstandards.c.Objects
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 import codingstandards.cpp.Type
 
 signature module GlobalInitializationAnalysisConfigSig {

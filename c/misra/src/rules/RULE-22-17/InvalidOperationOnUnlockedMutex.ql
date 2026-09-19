@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.c.SubObjects
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 import codingstandards.cpp.dominance.BehavioralSet
 
 /* A call to mtx_unlock() or cnd_wait() or cnd_timedwait(), which require a locked mutex */
