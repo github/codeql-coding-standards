@@ -13,7 +13,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 import codingstandards.c.misra
 import codingstandards.c.Ordering
 import codingstandards.c.orderofevaluation.VariableAccessOrdering

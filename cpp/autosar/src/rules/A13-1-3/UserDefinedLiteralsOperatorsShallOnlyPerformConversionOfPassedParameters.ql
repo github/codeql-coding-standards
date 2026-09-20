@@ -14,7 +14,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 import codingstandards.cpp.autosar
 import codingstandards.cpp.UserDefinedLiteral as udl
 import codingstandards.cpp.SideEffect

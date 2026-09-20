@@ -7,7 +7,7 @@
 import cpp
 import codingstandards.cpp.Customizations
 import codingstandards.cpp.Exclusions
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 signature module DoNotDeleteAnArrayThroughAPointerOfTheIncorrectTypeSharedConfigSig {
   Query getQuery();
