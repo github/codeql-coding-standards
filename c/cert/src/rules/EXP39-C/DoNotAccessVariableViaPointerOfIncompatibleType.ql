@@ -18,7 +18,7 @@
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import semmle.code.cpp.controlflow.Dominance
 import IndirectCastFlow::PathGraph
 
@@ -35,12 +35,12 @@ class MemsetFunction extends Function {
   }
 }
 
-class IndirectCastAnalysisUnconvertedCastExpr extends Expr {
-  IndirectCastAnalysisUnconvertedCastExpr() { this = any(Cast c).getUnconverted() }
+class CastedExpr extends Expr {
+  CastedExpr() { this = any(Cast c).getExpr() }
 }
 
-class IndirectCastAnalysisDereferenceSink extends Expr {
-  IndirectCastAnalysisDereferenceSink() { dereferenced(this) }
+class DereferencedExpr extends Expr {
+  DereferencedExpr() { dereferenced(this) }
 }
 
 class ReallocationFunction extends AllocationFunction {
@@ -68,14 +68,14 @@ module IndirectCastConfig implements DataFlow::StateConfigSig {
 
   predicate isSource(DataFlow::Node source, FlowState state) {
     state instanceof IndirectCastDefaultFlowState and
-    source.asExpr() instanceof IndirectCastAnalysisUnconvertedCastExpr
+    source.asExpr() instanceof CastedExpr
   }
 
   predicate isSink(DataFlow::Node sink, FlowState state) {
-    sink.asExpr() instanceof IndirectCastAnalysisUnconvertedCastExpr and
+    sink.asExpr() instanceof CastedExpr and
     state instanceof IndirectCastDefaultFlowState
     or
-    sink.asExpr() instanceof IndirectCastAnalysisDereferenceSink and
+    sink.asExpr() instanceof DereferencedExpr and
     state instanceof IndirectCastReallocatedFlowState and
     // The memset call won't always have an edge to subsequent dereferences.
     //
@@ -193,17 +193,18 @@ Type compatibleTypes(Type type) {
 }
 
 from
-  IndirectCastFlow::PathNode source, IndirectCastFlow::PathNode sink, Cast cast, Type fromType,
-  Type toType
+  Expr sinkExpr, IndirectCastFlow::PathNode source, IndirectCastFlow::PathNode sink, Cast cast,
+  Type fromType, Type toType
 where
-  not isExcluded(sink.getNode().asExpr(),
-    Pointers3Package::doNotAccessVariableViaPointerOfIncompatibleTypeQuery()) and
+  not isExcluded(sinkExpr, Pointers3Package::doNotAccessVariableViaPointerOfIncompatibleTypeQuery()) and
   cast.getFile().compiledAsC() and
   IndirectCastFlow::flowPath(source, sink) and
   // include only sinks which are not a compatible type to the associated source
   source.getNode().asExpr() = cast.getUnconverted() and
   fromType = cast.getUnconverted().getType().(PointerType).getBaseType() and
   toType = sink.getNode().asExpr().getActualType().(PointerType).getBaseType() and
-  not toType = compatibleTypes(fromType)
-select sink.getNode().asExpr().getUnconverted(), source, sink,
+  not toType = compatibleTypes(fromType) and
+  sinkExpr = sink.getNode().asExpr() and
+  (sinkExpr instanceof CastedExpr or sinkExpr instanceof DereferencedExpr)
+select sinkExpr, source, sink,
   "Cast from " + fromType + " to " + toType + " results in an incompatible pointer base type."

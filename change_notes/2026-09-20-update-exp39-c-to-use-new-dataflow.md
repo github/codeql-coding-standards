@@ -1,0 +1,3 @@
+ - `EXP39-C` - `DoNotAccessVariableViaPointerOfIncompatibleType.ql`
+   - Updated the underlying dataflow library to use the new dataflow from the deprecated old data flow. This may cause behavioral changes in some analyses, usually with improved results and performance.
+   - Some refactoring required to accommodate functional changes in how dataflow nodes attach to the AST. No functional changes to the analysis from this are expected.
