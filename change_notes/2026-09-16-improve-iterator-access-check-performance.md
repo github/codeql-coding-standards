@@ -1,0 +1,2 @@
+ - All queries using `Iterators.qll` or `STLContainers.qll`:
+   - The means of detecting iterator and container accesses has been optimized to improve performance by avoiding construction of the full transitive closure of local taint paths.
