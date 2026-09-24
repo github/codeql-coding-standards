@@ -11,7 +11,6 @@ import codingstandards.cpp.Allocations
 import codingstandards.cpp.Overflow
 import codingstandards.cpp.PossiblyUnsafeStringOperation
 import codingstandards.cpp.SimpleRangeAnalysisCustomizations
-private import semmle.code.cpp.dataflow.DataFlow
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 module OOB {
@@ -380,8 +379,13 @@ module OOB {
     StrncatLibraryFunction() { this.getName() = getNameOrInternalName(["strncat", "wcsncat"]) }
 
     override predicate getALengthParameterIndex(int i) {
-      // `strncat` and `wcsncat` exclude the size of a null terminator
-      i = 2
+      // The source need not contain a null terminator within the first `n` characters.
+      none()
+    }
+
+    override predicate getANullTerminatedParameterIndex(int i) {
+      // The destination must be null-terminated.
+      i = 0
     }
   }
 
@@ -645,42 +649,46 @@ module OOB {
   }
 
   /**
-   * A class for reasoning about the offset of a variable from the original value flowing to it
-   * as a result of arithmetic or pointer arithmetic expressions.
+   * Gets the offset of `expr` from `underlyingBase` due to arithmetic or pointer arithmetic.
+   *
+   * `underlyingBase` may be the arithmetic operand's base expression or `expr` itself, allowing
+   * callers to use whichever dataflow node is available.
    */
   bindingset[expr]
-  private int getArithmeticOffsetValue(Expr expr, Expr base) {
-    result = getMinStatedValue(expr.(PointerArithmeticExpr).getOperand()) and
-    base = expr.(PointerArithmeticExpr).getPointer()
-    or
-    // &(array[index]) expressions
-    result =
-      getMinStatedValue(expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getOperand()) and
-    base = expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getPointer()
-    or
-    result = getMinStatedValue(expr.(AddExpr).getRightOperand()) and
-    base = expr.(AddExpr).getLeftOperand()
-    or
-    result = -getMinStatedValue(expr.(SubExpr).getRightOperand()) and
-    base = expr.(SubExpr).getLeftOperand()
-    or
-    expr instanceof IncrementOperation and
-    result = 1 and
-    base = expr.(IncrementOperation).getOperand()
-    or
-    expr instanceof DecrementOperation and
-    result = -1 and
-    base = expr.(DecrementOperation).getOperand()
-    or
-    // fall-back if `expr` is not an arithmetic or pointer arithmetic expression
-    not expr instanceof PointerArithmeticExpr and
-    not expr.(AddressOfExpr).getOperand() instanceof PointerArithmeticExpr and
-    not expr instanceof AddExpr and
-    not expr instanceof SubExpr and
-    not expr instanceof IncrementOperation and
-    not expr instanceof DecrementOperation and
-    base = expr and
-    result = 0
+  private int getArithmeticOffsetValue(Expr expr, Expr underlyingBase) {
+    exists(Expr base | underlyingBase = [base, expr] |
+      result = getMinStatedValue(expr.(PointerArithmeticExpr).getOperand()) and
+      base = expr.(PointerArithmeticExpr).getPointer()
+      or
+      // &(array[index]) expressions
+      result =
+        getMinStatedValue(expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getOperand()) and
+      base = expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getPointer()
+      or
+      result = getMinStatedValue(expr.(AddExpr).getRightOperand()) and
+      base = expr.(AddExpr).getLeftOperand()
+      or
+      result = -getMinStatedValue(expr.(SubExpr).getRightOperand()) and
+      base = expr.(SubExpr).getLeftOperand()
+      or
+      expr instanceof IncrementOperation and
+      result = 1 and
+      base = expr.(IncrementOperation).getOperand()
+      or
+      expr instanceof DecrementOperation and
+      result = -1 and
+      base = expr.(DecrementOperation).getOperand()
+      or
+      // fall-back if `expr` is not an arithmetic or pointer arithmetic expression
+      not expr instanceof PointerArithmeticExpr and
+      not expr.(AddressOfExpr).getOperand() instanceof PointerArithmeticExpr and
+      not expr instanceof AddExpr and
+      not expr instanceof SubExpr and
+      not expr instanceof IncrementOperation and
+      not expr instanceof DecrementOperation and
+      base = expr and
+      result = 0
+    )
   }
 
   private int constOrZero(Expr e) {

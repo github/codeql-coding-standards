@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SmartPointers
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 import SingleObjectSmartPointerArrayConstructionFlow::PathGraph
 
 class AutosarSmartPointerArraySpecialisation extends AutosarSmartPointer {
@@ -32,7 +32,7 @@ module SingleObjectSmartPointerArrayConstructionConfig implements DataFlow::Conf
         mf.getDeclaringType() instanceof AutosarSmartPointerArraySpecialisation and
         mf instanceof AutosarSmartPointerReleaseMemberFunction
       |
-        fc.getParent()
+        fc
       )
   }
 
@@ -47,21 +47,14 @@ module SingleObjectSmartPointerArrayConstructionConfig implements DataFlow::Conf
     )
   }
 
-  predicate isAdditionalFlowStep(DataFlow::Node source, DataFlow::Node sink) {
-    exists(AutosarUniquePointer sp, FunctionCall fc |
-      fc = sp.getAReleaseCall() and
-      source.asExpr() = fc.getQualifier() and
-      sink.asExpr() = fc
-    )
-  }
-
   predicate isBarrierIn(DataFlow::Node node) {
-    // Exclude flow into header files outside the source archive which are summarized by the
-    // additional taint steps above.
+    // Exclude flow through `release()` implementations summarized by its taint model.
     exists(AutosarUniquePointer sp |
-      sp.getAReleaseCall().getTarget() = node.asExpr().(ThisExpr).getEnclosingFunction()
-    |
-      not exists(node.getLocation().getFile().getRelativePath())
+      sp.getAReleaseCall().getTarget() =
+        [
+          node.asExpr().(ThisExpr).getEnclosingFunction(),
+          node.asIndirectExpr().(ThisExpr).getEnclosingFunction()
+        ]
     )
   }
 }
