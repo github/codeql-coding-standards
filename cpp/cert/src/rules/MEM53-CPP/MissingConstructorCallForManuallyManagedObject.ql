@@ -19,7 +19,7 @@ import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.types.TrivialType
 import ManuallyManagedLifetime
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 import AllocToStaticCastFlow::PathGraph
 
 /*

@@ -19,8 +19,7 @@
 import cpp
 import codingstandards.cpp.cert
 import codingstandards.cpp.SideEffect
-import semmle.code.cpp.dataflow.DataFlow
-import semmle.code.cpp.dataflow.TaintTracking
+import semmle.code.cpp.dataflow.new.TaintTracking
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 /** Holds if the function's return value is derived from the `AliasParamter` p. */
@@ -74,6 +73,8 @@ predicate returnValueDependsOnMemberVariable(MemberFunction f, MemberVariable v)
     v.getDeclaringType() = f.getDeclaringType()
   |
     TaintTracking::localTaint(DataFlow::exprNode(va), DataFlow::exprNode(ret.getExpr()))
+    or
+    ret.getExpr().getAChild*() = va
   )
 }
 

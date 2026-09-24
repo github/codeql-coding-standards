@@ -104,3 +104,9 @@ void test(void) {
             sizeof(buf) - 1); // NON_COMPLIANT - not null-terminated
   }
 }
+
+void test_strncat_bounded_source(void) {
+  char destination[2] = {0};
+  char source[1] = {'x'};
+  strncat(destination, source, 1); // COMPLIANT
+}

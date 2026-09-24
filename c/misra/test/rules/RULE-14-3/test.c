@@ -13,8 +13,8 @@ void f1(int p1) {
 
 void f2() {
   while (20 > 10) { // NON_COMPLIANT
-    if (1 > 2) {
-    } // NON_COMPLIANT
+    if (1 > 2) {    // NON_COMPLIANT
+    }
   }
 
   for (int i = 10; i < 5; i++) { // NON_COMPLIANT
@@ -31,6 +31,8 @@ void f3() {
 void f4() {
   do {
   } while (0u == 1u); // COMPLIANT - by exception 2
+  do {
+  } while (0); // NON_COMPLIANT - a bare literal `0` is not essentially Boolean
 }
 
 void f5(bool b1) {
@@ -43,5 +45,7 @@ void f6(int p1) {
   while (p1 < 10 && p1 > 12) { // NON_COMPLIANT[FALSE_NEGATIVE]
   }
   while (1 == 0 && p1 > 12) { // NON_COMPLIANT
+  }
+  while (0 && p1 > 12) { // NON_COMPLIANT
   }
 }

@@ -3,6 +3,8 @@
 | test.c:16:9:16:13 | ... > ... | Controlling expression in if statement has an invariant value. |
 | test.c:20:20:20:24 | ... < ... | Controlling expression in loop statement has an invariant value. |
 | test.c:27:10:27:14 | ... < ... | Controlling expression in loop statement has an invariant value. |
-| test.c:37:3:37:6 | 1 | Controlling expression in conditional statement has an invariant value. |
-| test.c:38:3:38:3 | 1 | Controlling expression in conditional statement has an invariant value. |
-| test.c:45:10:45:26 | ... && ... | Controlling expression in loop statement has an invariant value. |
+| test.c:35:12:35:12 | 0 | Controlling expression in loop statement has an invariant value. |
+| test.c:39:3:39:6 | 1 | Controlling expression in conditional statement has an invariant value. |
+| test.c:40:3:40:3 | 1 | Controlling expression in conditional statement has an invariant value. |
+| test.c:47:10:47:26 | ... && ... | Controlling expression in loop statement has an invariant value. |
+| test.c:49:10:49:21 | ... && ... | Controlling expression in loop statement has an invariant value. |
