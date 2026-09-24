@@ -23,9 +23,7 @@ import semmle.code.cpp.dataflow.new.DataFlow
 
 /** A modeled buffer write through the first argument of a library call. */
 private class ModifiesFirstArgFunction extends BufferWrite, FunctionCall {
-  ModifiesFirstArgFunction() {
-    getTarget().getName() = ["mkstemp", "memset", "memcpy", "memmove"]
-  }
+  ModifiesFirstArgFunction() { getTarget().getName() = ["mkstemp", "memset", "memcpy", "memmove"] }
 
   override Type getBufferType() { none() }
 
