@@ -2,35 +2,59 @@
 #include <stdio.h>
 #include <string.h>
 
-int *restrict g1;
-int *restrict g2;
-int *restrict g1_1;
-int *g2_1;
-
 struct s1 {
   int x, y, z;
 };
 struct s1 v1;
 
-void test_global_local() {
+int *restrict g1;
+int *restrict g2;
+void test_global_local_1() {
   int *restrict i1 = g1; // COMPLIANT
   int *restrict i2 = g2; // COMPLIANT
   int *restrict i3 = i2; // NON_COMPLIANT
-  g1 = g2;               // NON_COMPLIANT
-  i1 = i2;               // NON_COMPLIANT
+}
+
+int *restrict g3;
+int *restrict g4;
+void test_global_local_2() {
+  // The second assignment in this block is non-compliant for subtle reasons.
+  //
+  // If we assume that `test_global_local_2` is only called once, then `g3` and
+  // `g4` will likely point to different values and therefore `i1` and `i2` do
+  // not alias each other. from g3 to g4 is too late to cause an issue. This was
+  // how this query worked under the old dataflow library.
+  //
+  // However, if we assume this function is called more than once, then the
+  // assignment that causes `g3` and `g4` to have the same value, at the end of
+  // this function, can predate the assignments that initialize `i1` and `i2`
+  // within this function, leading to aliasing that violates the rule. This is
+  // how the new dataflow library handles this case.
+  int *restrict i1 = g3; // COMPLIANT
+  int *restrict i2 = g4; // NON_COMPLIANT
+  g3 = g4;               // NON_COMPLIANT
+}
+
+int *restrict g5;
+int *restrict g6;
+void test_global_local_3() {
+  int *restrict i2 = g5; // COMPLIANT
+  int *restrict i3 = g6; // COMPLIANT
   {
     int *restrict i4;
     int *restrict i5;
     int *restrict i6;
-    i4 = g1;        // COMPLIANT
+    i4 = g5;        // COMPLIANT -- first assignment within this block
     i4 = (void *)0; // COMPLIANT
-    i5 = g1;        // NON_COMPLIANT - block rather than statement scope matters
-    i4 = g1;        // NON_COMPLIANT
-    i6 = g2;        // COMPLIANT
+    i5 = g5;        // NON_COMPLIANT - block rather than statement scope matters
+    i4 = g5;        // NON_COMPLIANT
+    i6 = g6;        // COMPLIANT -- first assignment within this block
   }
 }
 
-void test_global_local_1() {
+int *restrict g1_1;
+int *g2_1;
+void test_global_local_4() {
   g1_1 = g2_1; // COMPLIANT
 }
 
