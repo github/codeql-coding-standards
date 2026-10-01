@@ -4,7 +4,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import codingstandards.cpp.allocations.CustomOperatorNewDelete
 import codingstandards.cpp.exceptions.ExceptionSpecifications
 import codingstandards.cpp.Customizations

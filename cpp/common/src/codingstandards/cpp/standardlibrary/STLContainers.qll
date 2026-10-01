@@ -312,9 +312,30 @@ abstract class ContainerAccess extends VariableAccess {
   abstract Variable getOwningContainer();
 }
 
-pragma[noinline, nomagic]
-private predicate localTaint(DataFlow::Node n1, DataFlow::Node n2) {
-  TaintTracking::localTaint(n1, n2)
+pragma[nomagic]
+private predicate containerTaintSource(FunctionCall fc, DataFlow::Node n1) {
+  n1 = DataFlow::exprNode(fc) and
+  exists(STLContainer c |
+    fc = c.getACallToAFunction() and
+    // There are a few cases where the value is tainted
+    // but no actual link to the underlying container is established.
+    // For example, calling Vector<int>.size() returns an int but the
+    // resulting variable doesn't depend on the underlying container
+    // anymore.
+    (
+      fc.getTarget().getType() instanceof ReferenceType or
+      fc.getTarget().getType() instanceof PointerType or
+      fc.getTarget().getType() instanceof IteratorType
+    )
+  )
+}
+
+pragma[nomagic]
+private predicate containerTaint(FunctionCall fc, DataFlow::Node n2) {
+  exists(DataFlow::Node n1 |
+    containerTaintSource(fc, n1) and
+    TaintTracking::localTaint(n1, n2)
+  )
 }
 
 /**
@@ -326,19 +347,8 @@ class ContainerPointerOrReferenceAccess extends ContainerAccess {
   Variable owningContainer;
 
   ContainerPointerOrReferenceAccess() {
-    exists(STLContainer c, FunctionCall fc |
-      fc = c.getACallToAFunction() and
-      // There are a few cases where the value is tainted
-      // but no actual link to the underlying container is established.
-      // For example, calling Vector<int>.size() returns an int but the
-      // resulting variable doesn't depend on the underlying container
-      // anymore.
-      (
-        fc.getTarget().getType() instanceof ReferenceType or
-        fc.getTarget().getType() instanceof PointerType or
-        fc.getTarget().getType() instanceof IteratorType
-      ) and
-      localTaint(DataFlow::exprNode(fc), DataFlow::exprNode(this)) and
+    exists(FunctionCall fc |
+      containerTaint(fc, DataFlow::exprNode(this)) and
       (getUnderlyingType() instanceof ReferenceType or getUnderlyingType() instanceof PointerType) and
       fc.getQualifier().(VariableAccess).getTarget() = owningContainer and
       // Exclude cases where we see taint into the owning container

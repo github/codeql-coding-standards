@@ -19,7 +19,7 @@ import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.FgetsErrorManagement
 import codingstandards.cpp.Dereferenced
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 /*
  * CFG nodes that follows a successful call to `fgets`

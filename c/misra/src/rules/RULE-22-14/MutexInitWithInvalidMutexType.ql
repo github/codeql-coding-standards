@@ -14,7 +14,7 @@
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 
 predicate isBaseMutexType(EnumConstantAccess access) {
   access.getTarget().hasName(["mtx_plain", "mtx_timed"])

@@ -18,7 +18,7 @@
 
 import cpp
 import codingstandards.c.cert
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 
 from ThreadedCFN node
 where

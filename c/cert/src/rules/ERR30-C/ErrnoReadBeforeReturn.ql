@@ -19,7 +19,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Errno
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 /**
  * A call to an `OutOfBandErrnoSettingFunction`

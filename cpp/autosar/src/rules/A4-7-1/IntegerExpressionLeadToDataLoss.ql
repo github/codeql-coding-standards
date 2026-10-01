@@ -23,7 +23,7 @@ from InterestingOverflowingOperation e
 where
   not isExcluded(e, IntegerConversionPackage::integerExpressionLeadToDataLossQuery()) and
   // Not within a guard condition
-  not exists(GuardCondition gc | gc.getAChild*() = e) and
+  not e.getParent*().(GuardCondition).valueControlsEdge(_, _, _) and
   // Not guarded by a check, where the check is not an invalid overflow check
   not e.hasValidPreCheck() and
   // Covered by `IntMultToLong.ql` instead

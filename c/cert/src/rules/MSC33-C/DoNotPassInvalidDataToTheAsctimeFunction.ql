@@ -19,7 +19,7 @@
 
 import cpp
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 /**
  * The argument of a call to `asctime`
@@ -29,6 +29,8 @@ class AsctimeArg extends Expr {
     this =
       any(FunctionCall f | f.getTarget().hasGlobalName(["asctime", "asctime_r"])).getArgument(0)
   }
+
+  DataFlow::Node asSink() { this = result.asIndirectExpr() }
 }
 
 /**
@@ -37,13 +39,13 @@ class AsctimeArg extends Expr {
  */
 module TmStructSafeConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node src) {
-    src.asExpr()
+    src.asIndirectExpr()
         .(FunctionCall)
         .getTarget()
         .hasGlobalName(["localtime", "localtime_r", "localtime_s", "gmtime", "gmtime_r", "gmtime_s"])
   }
 
-  predicate isSink(DataFlow::Node sink) { sink.asExpr() instanceof AsctimeArg }
+  predicate isSink(DataFlow::Node sink) { exists(AsctimeArg arg | arg.asSink() = sink) }
 }
 
 module TmStructSafeFlow = DataFlow::Global<TmStructSafeConfig>;
@@ -51,6 +53,6 @@ module TmStructSafeFlow = DataFlow::Global<TmStructSafeConfig>;
 from AsctimeArg fc
 where
   not isExcluded(fc, Contracts7Package::doNotPassInvalidDataToTheAsctimeFunctionQuery()) and
-  not TmStructSafeFlow::flowToExpr(fc)
+  not TmStructSafeFlow::flowTo(fc.asSink())
 select fc,
   "The function `asctime` and `asctime_r` should be discouraged. Unsanitized input can overflow the output buffer."

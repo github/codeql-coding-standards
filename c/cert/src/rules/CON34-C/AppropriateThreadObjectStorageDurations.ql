@@ -20,8 +20,8 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.c.Objects
-import codingstandards.cpp.Concurrency
-import semmle.code.cpp.dataflow.DataFlow
+import codingstandards.cpp.ConcurrencyNew
+import semmle.code.cpp.dataflow.new.DataFlow
 import semmle.code.cpp.commons.Alloc
 
 from C11ThreadCreateCall tcc, Expr arg
@@ -53,6 +53,7 @@ where
       not exists(TSSSetFunctionCall tss, DataFlow::Node src |
         // there should be dataflow from somewhere (the same somewhere)
         // into each of the first arguments
+        exists(Expr e | e = src.asDefinition() or e = src.asDefiningArgument()) and
         DataFlow::localFlow(src, DataFlow::exprNode(tsg.getArgument(0))) and
         DataFlow::localFlow(src, DataFlow::exprNode(tss.getArgument(0)))
       )

@@ -71,10 +71,10 @@ time_t time(time_t *seconds);
 
 void test_time_t_check_against_zero(time_t x) {
   time_t now = time(0);
-  if (now != -1) { // NON_COMPLIANT[FALSE_NEGATIVE] - there is no conversion
-                   // here in our model
+  if (now != -1) { // NON_COMPLIANT
   }
-  if (now != (time_t)-1) { // COMPLIANT
+
+  if (now != (time_t)-1) { // COMPLIANT[FALSE_POSITIVE]
   }
 }
 
