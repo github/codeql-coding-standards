@@ -36,7 +36,7 @@ where
     kind = "variable"
     or
     de.getDeclaration() instanceof Type and
-    not de.getDeclaration() instanceof UsingAliasTypedefType and
+    not de.getDeclaration() instanceof TypeAliasType and
     kind = "type"
   ) and
   not otherDeclaration.isDefinition() and
