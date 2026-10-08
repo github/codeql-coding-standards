@@ -33,3 +33,6 @@
 | test.c:94:5:94:11 | call to strncmp | The size of the $@ passed to strncmp is 5 bytes, but the $@ is 6 bytes. | test.c:94:23:94:29 | ca5_bad | read buffer | test.c:94:32:94:32 | 6 | size argument |
 | test.c:101:5:101:11 | call to strxfrm | The size of the $@ passed to strxfrm is 64 bytes, but the $@ is 65 bytes. | test.c:101:13:101:15 | buf | write buffer | test.c:101:25:101:39 | ... + ... | size argument |
 | test.c:103:5:103:11 | call to strxfrm | The $@ passed to strxfrm might not be null-terminated. | test.c:103:22:103:25 | buf2 | argument | test.c:103:22:103:25 | buf2 |  |
+| test.c:114:5:114:11 | call to strncat | The size of the $@ passed to strncat is 1 bytes, but the $@ is 2 bytes. | test.c:114:26:114:31 | source | read buffer | test.c:114:34:114:34 | 2 | size argument |
+| test.c:119:5:119:11 | call to strncat | The size of the $@ passed to strncat is 3 bytes, but the size of the $@ is only 2 bytes. | test.c:119:26:119:31 | source | read buffer | test.c:119:13:119:23 | destination | write buffer |
+| test.c:124:5:124:11 | call to strncat | The size of the $@ passed to strncat is 3 bytes, but the size of the $@ is only 2 bytes. | test.c:124:26:124:31 | source | read buffer | test.c:124:13:124:23 | destination | write buffer |

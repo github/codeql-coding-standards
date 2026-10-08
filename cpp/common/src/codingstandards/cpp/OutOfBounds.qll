@@ -16,6 +16,7 @@ import codingstandards.cpp.Allocations
 import codingstandards.cpp.Overflow
 import codingstandards.cpp.PossiblyUnsafeStringOperation
 import codingstandards.cpp.SimpleRangeAnalysisCustomizations
+import semmle.code.cpp.ir.IR
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 
 module OOB {
@@ -324,15 +325,6 @@ module OOB {
     }
 
     /**
-     * Holds if `i` is the index of a parameter of this function that expects an element count rather than buffer size argument.
-     * This predicate should be overriden by extending classes to specify length parameters, if necessary.
-     */
-    predicate getALengthParameterIndex(int i) {
-      // by default, size parameters do not exclude the size of a null terminator
-      none()
-    }
-
-    /**
      * Holds if the read or write parameter at index `i` is allowed to be null.
      * This predicate should be overriden by extending classes to specify permissibly null parameters, if necessary.
      */
@@ -382,11 +374,6 @@ module OOB {
    */
   class StrncatLibraryFunction extends StringConcatenationFunctionLibraryFunction {
     StrncatLibraryFunction() { this.getName() = getNameOrInternalName(["strncat", "wcsncat"]) }
-
-    override predicate getALengthParameterIndex(int i) {
-      // The source need not contain a null terminator within the first `n` characters.
-      none()
-    }
 
     override predicate getANullTerminatedParameterIndex(int i) {
       // The destination must be null-terminated.
@@ -654,46 +641,41 @@ module OOB {
   }
 
   /**
-   * Gets the offset of `expr` from `underlyingBase` due to arithmetic or pointer arithmetic.
-   *
-   * `underlyingBase` may be the arithmetic operand's base expression or `expr` itself, allowing
-   * callers to use whichever dataflow node is available.
+   * Gets the offset of `expr` from `base` due to arithmetic or pointer arithmetic.
    */
   bindingset[expr]
-  private int getArithmeticOffsetValue(Expr expr, Expr underlyingBase) {
-    exists(Expr base | underlyingBase = [base, expr] |
-      result = getMinStatedValue(expr.(PointerArithmeticExpr).getOperand()) and
-      base = expr.(PointerArithmeticExpr).getPointer()
-      or
-      // &(array[index]) expressions
-      result =
-        getMinStatedValue(expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getOperand()) and
-      base = expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getPointer()
-      or
-      result = getMinStatedValue(expr.(AddExpr).getRightOperand()) and
-      base = expr.(AddExpr).getLeftOperand()
-      or
-      result = -getMinStatedValue(expr.(SubExpr).getRightOperand()) and
-      base = expr.(SubExpr).getLeftOperand()
-      or
-      expr instanceof IncrementOperation and
-      result = 1 and
-      base = expr.(IncrementOperation).getOperand()
-      or
-      expr instanceof DecrementOperation and
-      result = -1 and
-      base = expr.(DecrementOperation).getOperand()
-      or
-      // fall-back if `expr` is not an arithmetic or pointer arithmetic expression
-      not expr instanceof PointerArithmeticExpr and
-      not expr.(AddressOfExpr).getOperand() instanceof PointerArithmeticExpr and
-      not expr instanceof AddExpr and
-      not expr instanceof SubExpr and
-      not expr instanceof IncrementOperation and
-      not expr instanceof DecrementOperation and
-      base = expr and
-      result = 0
-    )
+  private int getArithmeticOffsetValue(Expr expr, Expr base) {
+    result = getMinStatedValue(expr.(PointerArithmeticExpr).getOperand()) and
+    base = expr.(PointerArithmeticExpr).getPointer()
+    or
+    // &(array[index]) expressions
+    result =
+      getMinStatedValue(expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getOperand()) and
+    base = expr.(AddressOfExpr).getOperand().(PointerArithmeticExpr).getPointer()
+    or
+    result = getMinStatedValue(expr.(AddExpr).getRightOperand()) and
+    base = expr.(AddExpr).getLeftOperand()
+    or
+    result = -getMinStatedValue(expr.(SubExpr).getRightOperand()) and
+    base = expr.(SubExpr).getLeftOperand()
+    or
+    expr instanceof IncrementOperation and
+    result = 1 and
+    base = expr.(IncrementOperation).getOperand()
+    or
+    expr instanceof DecrementOperation and
+    result = -1 and
+    base = expr.(DecrementOperation).getOperand()
+    or
+    // fall-back if `expr` is not an arithmetic or pointer arithmetic expression
+    not expr instanceof PointerArithmeticExpr and
+    not expr.(AddressOfExpr).getOperand() instanceof PointerArithmeticExpr and
+    not expr instanceof AddExpr and
+    not expr instanceof SubExpr and
+    not expr instanceof IncrementOperation and
+    not expr instanceof DecrementOperation and
+    base = expr and
+    result = 0
   }
 
   private int constOrZero(Expr e) {
@@ -919,6 +901,24 @@ module OOB {
     override predicate isNotNullTerminated() { none() }
   }
 
+  /** Gets a dataflow node at which to track the buffer or size used by `use`. */
+  private DataFlow::Node getBufferOrSizeUseNode(Expr use) {
+    exists(Expr base |
+      exists(getArithmeticOffsetValue(use, base)) and
+      (
+        result = DataFlow::exprNode(base)
+        or
+        // Returned-pointer flow can bypass the AST base call and reach the arithmetic
+        // instruction or its converted value instead.
+        exists(PointerOffsetInstruction arithmetic |
+          arithmetic.getAst() = [use, use.(AddressOfExpr).getOperand()] and
+          DataFlow::localFlow(DataFlow::instructionNode(arithmetic), result) and
+          (result.asInstruction() = arithmetic or result.asExpr() = use)
+        )
+      )
+    )
+  }
+
   private module PointerToObjectSourceOrSizeToBufferAccessFunctionConfig implements
     DataFlow::ConfigSig
   {
@@ -939,7 +939,7 @@ module OOB {
         ) and
         (
           sink.asExpr() = arg or
-          exists(getArithmeticOffsetValue(arg, sink.asExpr()))
+          sink = getBufferOrSizeUseNode(arg)
         )
       )
     }
@@ -969,11 +969,8 @@ module OOB {
     DataFlow::Global<PointerToObjectSourceOrSizeToBufferAccessFunctionConfig>;
 
   private predicate hasFlowFromBufferOrSizeExprToUse(Expr source, Expr use) {
-    exists(Expr useOrChild |
-      exists(getArithmeticOffsetValue(use, useOrChild)) and
-      PointerToObjectSourceOrSizeToBufferAccessFunctionFlow::flow(DataFlow::exprNode(source),
-        DataFlow::exprNode(useOrChild))
-    )
+    PointerToObjectSourceOrSizeToBufferAccessFunctionFlow::flow(DataFlow::exprNode(source),
+      getBufferOrSizeUseNode(use))
   }
 
   private predicate bufferUseComputableBufferSize(
@@ -1031,26 +1028,6 @@ module OOB {
   }
 
   /**
-   * Holds if `arg` refers to the number of characters excluding a null terminator
-   */
-  bindingset[fc, arg]
-  private predicate isArgNumCharacters(BufferAccessLibraryFunctionCall fc, Expr arg) {
-    exists(int i |
-      arg = fc.getArgument(i) and
-      fc.getTarget().(BufferAccessLibraryFunction).getALengthParameterIndex(i)
-    )
-  }
-
-  /**
-   * Returns '1' if `arg` refers to the number of characters excluding a null terminator,
-   * otherwise '0' if `arg` refers to the number of characters including a null terminator.
-   */
-  bindingset[fc, arg]
-  private int argNumCharactersOffset(BufferAccess fc, Expr arg) {
-    if isArgNumCharacters(fc, arg) then result = 1 else result = 0
-  }
-
-  /**
    * Holds if the call `fc` may result in an invalid buffer access due a read buffer being bigger
    * than the write buffer. This heuristic is useful for cases such as strcpy(dst, src).
    */
@@ -1081,9 +1058,7 @@ module OOB {
           not exists(Expr writeSizeArg, int writeSizeArgValue |
             writeSizeArg = fc.getWriteSizeArg(writeSizeMult) and
             sizeExprComputableSize(writeSizeArg, _, writeSizeArgValue) and
-            writeSizeMult.(float) *
-              (writeSizeArgValue + argNumCharactersOffset(fc, writeSizeArg)).(float) <=
-              writeBufferSize
+            writeSizeMult.(float) * writeSizeArgValue.(float) <= writeBufferSize
           )
         )
       )
@@ -1115,14 +1090,8 @@ module OOB {
       // Handle cases such as *(ptr - 1)
       (
         if isSizeArgPointerSubExprRightOperand(sizeArg)
-        then
-          computedSizeAccessed =
-            sizeMult.(float) *
-              (-sizeArgValue + argNumCharactersOffset(bufferAccess, sizeArg)).(float)
-        else
-          computedSizeAccessed =
-            sizeMult.(float) *
-              (sizeArgValue + argNumCharactersOffset(bufferAccess, sizeArg)).(float)
+        then computedSizeAccessed = sizeMult.(float) * (-sizeArgValue).(float)
+        else computedSizeAccessed = sizeMult.(float) * sizeArgValue.(float)
       ) and
       computedBufferSize < computedSizeAccessed
     )
