@@ -63,7 +63,7 @@ void f7(int p1) {
   } while (sizeof(get_flag()) == 0u); // COMPLIANT
   do {
   } while (sizeof((p1++, get_flag())) == 0u); // COMPLIANT
-  while (get_flag() && (0u == 1u)) { // NON_COMPLIANT
+  while (get_flag() && (0u == 1u)) {          // NON_COMPLIANT
   }
   while ((0, 0u == 1u)) { // NON_COMPLIANT
   }
