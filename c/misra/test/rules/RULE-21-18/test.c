@@ -116,7 +116,7 @@ void test(void) {
   {
     char destination[2] = {0};
     char source[3] = {'x', 'y', 'z'};
-    strncat(destination, source, 1); // COMPLIANT[FALSE_POSITIVE]
+    strncat(destination, source, 1); // COMPLIANT
   }
   {
     char destination[2] = {0};

@@ -1044,6 +1044,13 @@ module OOB {
         writeBufferSizeBase - writeSizeMult * getArithmeticOffsetValue(writeBuffer, _) and
       // the read buffer size is larger than the write buffer size
       readBufferSize > writeBufferSize and
+      // bounded concatenation appends at most `n` elements and a null terminator
+      not exists(Expr readSizeArg, int readSizeArgValue |
+        fc.getTarget() instanceof StrncatLibraryFunction and
+        readSizeArg = fc.getReadSizeArg(readSizeMult) and
+        sizeExprComputableSize(readSizeArg, _, readSizeArgValue) and
+        writeSizeMult.(float) * (readSizeArgValue + 1).(float) <= writeBufferSize
+      ) and
       (
         // if a size arg exists and it is computable, then it must be <= to the write buffer size
         exists(fc.getWriteSizeArg(writeSizeMult))

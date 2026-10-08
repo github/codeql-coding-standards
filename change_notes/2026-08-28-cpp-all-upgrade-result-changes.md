@@ -8,6 +8,7 @@
   expression.
 - `ARR38-C`, `RULE-21-17`, `RULE-21-18`, `RULE-8-7-1`: corrected the modeling of `strncat` and
   `wcsncat`. Their destination must be null-terminated, while their source does not need a null
-  terminator within the specified character limit.
+  terminator within the specified character limit. Avoided comparing the full source buffer with
+  the destination when the bounded append and its null terminator fit.
   Removed the unused `getALengthParameterIndex` customization point and its terminator-adjustment
   helpers from the shared bounds libraries.
