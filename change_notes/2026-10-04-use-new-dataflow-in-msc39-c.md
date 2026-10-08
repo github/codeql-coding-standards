@@ -1,2 +1,0 @@
- - `MSC39-C` - `DoNotCallVaArgOnAVaListThatHasAnIndeterminateValue.ql`:
-   - Updated to use the new ir-based `DataFlow` module for tracking `va_list` usage. The new data flow will provide a different set of false positives and negatives compared to the previous implementation, but generally has higher precision.
