@@ -1,5 +1,4 @@
 problems
-| test.cpp:11:7:11:12 | * ... | test.cpp:18:16:18:21 | call to getenv | test.cpp:11:7:11:12 | * ... | The object returned by the function getenv should not be modified. |
 | test.cpp:11:8:11:12 | c_str | test.cpp:18:16:18:21 | call to getenv | test.cpp:11:7:11:12 | * ... | The object returned by the function getenv should not be modified. |
 | test.cpp:67:5:67:9 | conv4 | test.cpp:64:11:64:20 | call to localeconv | test.cpp:67:5:67:9 | conv4 | The object returned by the function localeconv should not be modified. |
 | test.cpp:76:5:76:8 | conv | test.cpp:72:25:72:34 | call to localeconv | test.cpp:76:5:76:8 | conv | The object returned by the function localeconv should not be modified. |

@@ -3,13 +3,13 @@
  */
 
 import cpp
-private import semmle.code.cpp.dataflow.DataFlow
-private import semmle.code.cpp.dataflow.TaintTracking
+private import semmle.code.cpp.dataflow.new.TaintTracking
 import codingstandards.cpp.StdNamespace
 import codingstandards.cpp.rules.containeraccesswithoutrangecheck.ContainerAccessWithoutRangeCheck as ContainerAccessWithoutRangeCheck
 import semmle.code.cpp.controlflow.Guards
 import semmle.code.cpp.valuenumbering.GlobalValueNumbering
 import semmle.code.cpp.rangeanalysis.RangeAnalysisUtils
+import codingstandards.cpp.standardlibrary.STLContainers
 
 abstract class ContainerAccess extends VariableAccess {
   abstract Variable getOwningContainer();

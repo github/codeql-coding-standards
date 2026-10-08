@@ -37,3 +37,4 @@
 | test.cpp:477:5:477:10 | call to memcpy | The size of the $@ passed to memcpy is 63 bytes, but the $@ is 128 bytes. | test.cpp:477:17:477:24 | ... + ... | read buffer | test.cpp:477:27:477:41 | ... * ... | size argument |
 | test.cpp:477:5:477:10 | call to memcpy | The size of the $@ passed to memcpy is 64 bytes, but the $@ is 128 bytes. | test.cpp:477:12:477:14 | buf | write buffer | test.cpp:477:27:477:41 | ... * ... | size argument |
 | test.cpp:484:3:484:8 | call to memcpy | The $@ passed to memcpy is accessed at an excessive offset of 1 element(s) from the $@. | test.cpp:484:10:484:10 | p | write buffer | test.cpp:482:30:482:50 | ... * ... | allocation size base |
+| test.cpp:552:3:552:9 | call to strncat | The $@ passed to strncat might not be null-terminated. | test.cpp:552:11:552:21 | destination | argument | test.cpp:552:11:552:21 | destination |  |

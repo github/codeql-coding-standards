@@ -18,6 +18,17 @@ import cpp
 import codingstandards.c.misra
 import codingstandards.c.misra.EssentialTypes
 
+/** Holds if `expr` has an evaluated operand that prevents the constant-expression exception. */
+private predicate hasEvaluatedNonConstantOperand(Expr expr) {
+  not expr.isUnevaluated() and
+  (
+    expr instanceof VariableAccess or
+    expr instanceof FunctionCall or
+    expr instanceof CommaExpr or
+    hasEvaluatedNonConstantOperand(expr.getAChild())
+  )
+}
+
 from Expr expr, string message
 where
   not isExcluded(expr, Statements5Package::controllingExprInvariantQuery()) and
@@ -40,7 +51,8 @@ where
         conditionAlwaysFalse(expr) and
         not (
           getEssentialTypeCategory(getEssentialType(expr)) instanceof EssentiallyBooleanType and
-          expr.getValue() = "0"
+          expr.getValue() = "0" and
+          not hasEvaluatedNonConstantOperand(expr)
         )
         or
         conditionAlwaysTrue(expr) and

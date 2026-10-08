@@ -442,7 +442,7 @@ void test_wrong_buf_size(void) {
 
   // strncat
   {
-    char buf[65];
+    char buf[65] = {0};
     char buf2[32];
     strncat(buf, buf2, sizeof(buf2));         // COMPLIANT
     strncat(buf, buf2, sizeof(buf2) + 1);     // NON_COMPLIANT
@@ -545,4 +545,9 @@ int main(int argc, char *argv[]) {
   test_address_of_expr(&lvalue_example);
 
   return 0;
+}
+
+void test_strncat_null_termination() {
+  char destination[2];
+  strncat(destination, "x", 1); // NON_COMPLIANT
 }
