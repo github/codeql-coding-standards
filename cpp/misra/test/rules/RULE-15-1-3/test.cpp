@@ -45,3 +45,15 @@ public:
   operator const char *() const;    // NON_COMPLIANT
   explicit operator void *() const; // COMPLIANT
 };
+
+void test_lambdas() {
+  // The conversion to a function pointer of a captureless lambda's closure
+  // type is compiler-generated and cannot be declared explicit.
+  auto l1 = [](std::int32_t a) { return a; }; // COMPLIANT
+  auto l2 = [](auto a) { return a; };         // COMPLIANT
+  l2(1);
+  std::int32_t captured = 0;
+  auto l3 = [captured](std::int32_t a) { return a + captured; }; // COMPLIANT
+  (void)l1;
+  (void)l3;
+}
