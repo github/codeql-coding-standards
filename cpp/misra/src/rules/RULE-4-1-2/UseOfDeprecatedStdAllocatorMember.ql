@@ -24,7 +24,7 @@ abstract class DeprecatedUse extends Element {
   abstract string getAUseDescription();
 }
 
-class DeprecatedAllocatorUsingMember extends UsingAliasTypedefType, DeprecatedUse {
+class DeprecatedAllocatorUsingMember extends TypeAliasType, DeprecatedUse {
   ClassTemplateInstantiation cti;
 
   DeprecatedAllocatorUsingMember() {

@@ -120,12 +120,7 @@ class CTerseTernaryExtension extends CCompilerExtension, ConditionalExpr {
 // Reference: https://gcc.gnu.org/onlinedocs/gcc/_005f_005fint128.html#g_t_005f_005fint128
 // Reference: https://gcc.gnu.org/onlinedocs/gcc/Decimal-Float.html#Decimal-Float
 class CRealTypeExtensionExtension extends CCompilerExtension, DeclarationEntry {
-  CRealTypeExtensionExtension() {
-    getType() instanceof Decimal128Type or
-    getType() instanceof Decimal32Type or
-    getType() instanceof Decimal64Type or
-    getType() instanceof Float128Type
-  }
+  CRealTypeExtensionExtension() { getType() instanceof Float128Type }
 
   override string getMessage() {
     result = "Decimal floats are a compiler extension and are not portable to other compilers."

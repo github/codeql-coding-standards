@@ -162,7 +162,7 @@
 | test.cpp:244:7:244:27 | TemplateTemplateClass | test.cpp:244:7:244:27 | TemplateTemplateClass<Container, T> |
 | test.cpp:245:16:245:24 | container | test.cpp:245:16:245:24 | definition of container |
 | test.cpp:249:20:249:20 | T | test.cpp:249:20:249:20 | definition of T |
-| test.cpp:249:53:249:53 | variable_template | test.cpp:249:53:249:53 | definition of variable_template |
+| test.cpp:249:35:249:51 | variable_template | test.cpp:249:35:249:51 | definition of variable_template |
 | test.cpp:252:20:252:20 | T | test.cpp:252:20:252:20 | definition of T |
 | test.cpp:252:29:252:39 | VectorAlias | test.cpp:252:29:252:39 | definition of VectorAlias |
 | test.cpp:255:7:255:15 | BaseClass | test.cpp:255:7:255:15 | definition of BaseClass |

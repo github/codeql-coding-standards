@@ -14,7 +14,7 @@ Query getQuery() { result instanceof UnusedTypeDeclarationsSharedQuery }
 query predicate problems(UserType ut, string message) {
   not isExcluded(ut, getQuery()) and
   message = "Type declaration " + ut.getName() + " is not used." and
-  not ut instanceof TemplateParameter and
+  not ut instanceof TypeTemplateParameter and
   not ut instanceof ProxyClass and
   not exists(getATypeUse(ut)) and
   not ut.isFromUninstantiatedTemplate(_)
