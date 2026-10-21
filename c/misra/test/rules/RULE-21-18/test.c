@@ -103,4 +103,24 @@ void test(void) {
     strxfrm(buf + 1, buf2,
             sizeof(buf) - 1); // NON_COMPLIANT - not null-terminated
   }
+  {
+    char destination[2] = {0};
+    char source[1] = {'x'};
+    strncat(destination, source, 1); // COMPLIANT
+  }
+  {
+    char destination[10] = {0};
+    char source[1] = {'x'};
+    strncat(destination, source, 2); // NON_COMPLIANT
+  }
+  {
+    char destination[2] = {0};
+    char source[3] = {'x', 'y', 'z'};
+    strncat(destination, source, 1); // COMPLIANT
+  }
+  {
+    char destination[2] = {0};
+    char source[3] = {'x', 'y', 'z'};
+    strncat(destination, source, 2); // NON_COMPLIANT - null-terminator past end
+  }
 }
