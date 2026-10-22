@@ -19,141 +19,83 @@
 import cpp
 import codingstandards.c.cert
 import semmle.code.cpp.security.BufferWrite
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
-/**
- * Class that includes into `BufferWrite` functions that will modify their
- * first argument. This is an extension of `BufferWrite` which covers the case
- * of opaque writes via library functions.
- */
-class ModifiesFirstArgFunction extends BufferWrite, FunctionCall {
-  Expr modifiedExpr;
-
-  ModifiesFirstArgFunction() {
-    getTarget().getName() = ["mkstemp", "memset", "memcpy", "memmove"] and
-    getArgument(0) = modifiedExpr
-  }
+/** A modeled buffer write through the first argument of a library call. */
+private class ModifiesFirstArgFunction extends BufferWrite, FunctionCall {
+  ModifiesFirstArgFunction() { getTarget().getName() = ["mkstemp", "memset", "memcpy", "memmove"] }
 
   override Type getBufferType() { none() }
 
-  override Expr getDest() { result = modifiedExpr }
+  override Expr getDest() { result = getArgument(0) }
 }
 
-/**
- * Models a dataflow wherein a source is either a implicit or explicit string
- * literal that is assigned to a non modifiable type or wherein the string
- * literal arises as a argument to a function that may modify its argument.
- */
-module ImplicitOrExplicitStringLiteralModifiedConfig implements DataFlow::ConfigSig {
+/** Provides dataflow from assigned string literals to writes. */
+private module StringLiteralConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node node) {
-    // usage through variables
     exists(Variable v |
       v.getAnAssignedValue() = node.asExpr() and
-      (
-        node.asExpr() instanceof ImplicitStringLiteral or
-        node.asExpr() instanceof StringLiteralOrConstChar
-      ) and
+      mayBeStringLiteral(node.asExpr()) and
       v.getType().getUnderlyingType() instanceof CharPointerType
-    )
-    or
-    // direct usage of string literals as function parameters
-    exists(BufferWrite bw |
-      bw.getDest() = node.asExpr() and
-      (
-        node.asExpr() instanceof ImplicitStringLiteral or
-        node.asExpr() instanceof StringLiteralOrConstChar
-      )
     )
   }
 
   predicate isSink(DataFlow::Node node) {
-    // it's either a buffer write of some kind that we
-    // know about
-    exists(BufferWrite bw | bw.getDest() = node.asExpr())
+    node.asExpr() = any(BufferWrite bw).getDest()
     or
-    // or it is a direct assignment of some kind - including reassignment of the pointer
-    exists(AssignExpr aexp | aexp.getLValue().(ArrayExpr).getArrayBase() = node.asExpr())
+    node.asExpr() = any(AssignExpr a).getLValue().(ArrayExpr).getArrayBase()
     or
-    exists(AssignExpr aexp | aexp.getLValue().(PointerDereferenceExpr).getOperand() = node.asExpr())
+    node.asExpr() = any(AssignExpr a).getLValue().(PointerDereferenceExpr).getOperand()
   }
 }
 
-module ImplicitOrExplicitStringLiteralModifiedFlow =
-  DataFlow::Global<ImplicitOrExplicitStringLiteralModifiedConfig>;
+/** Provides dataflow from possible string literals to writes. */
+private module StringLiteralFlow {
+  private module Global = DataFlow::Global<StringLiteralConfig>;
 
-class MaybeReturnsStringLiteralFunctionCall extends FunctionCall {
-  MaybeReturnsStringLiteralFunctionCall() {
+  /** Holds if `source` may point to a string literal that is written at `sink`. */
+  predicate flow(Expr source, Expr sink) {
+    // Report the pointer operand rather than a dereference represented by the same dataflow node.
+    not sink instanceof PointerDereferenceExpr and
+    (
+      Global::flow(DataFlow::exprNode(source), DataFlow::exprNode(sink))
+      or
+      source = sink and
+      mayBeStringLiteral(sink) and
+      sink = any(BufferWrite bw).getDest()
+    )
+  }
+}
+
+/** A call that may return a pointer into a possible string literal. */
+private class ImplicitStringLiteral extends FunctionCall {
+  ImplicitStringLiteral() {
     getTarget().getName() in [
         "strpbrk", "strchr", "strrchr", "strstr", "wcspbrk", "wcschr", "wcsrchr", "wcsstr",
         "memchr", "wmemchr"
-      ]
-  }
-}
-
-class ImplicitStringLiteral extends Expr {
-  ImplicitStringLiteral() {
-    exists(MaybeReturnsStringLiteralFunctionCall fc, Variable e |
-      e.getAnAssignedValue() = fc and
-      this = fc and
-      // additionally, we require that the first argument is either an explicit
-      // or implicit string literal
-      (
-        // directly a string literal
-        fc.getArgument(0) instanceof StringLiteralOrConstChar
-        or
-        // a string literal flows into it
-        exists(StringLiteralOrConstChar sl |
-          DataFlow::localFlow(DataFlow::exprNode(sl), DataFlow::exprNode(fc.getArgument(0)))
-        )
-        or
-        // or a base flows into it
-        exists(ImplicitStringLiteralBase base |
-          DataFlow::localFlow(DataFlow::exprNode(base), DataFlow::exprNode(fc.getArgument(0)))
-        )
-      )
+      ] and
+    exists(Variable v | v.getAnAssignedValue() = this) and
+    exists(Expr source |
+      mayBeStringLiteral(source) and DataFlow::localExprFlow(source, getArgument(0))
     )
   }
 }
 
-class StringLiteralOrConstChar extends Expr {
-  StringLiteralOrConstChar() {
-    this instanceof StringLiteral
-    or
-    getUnspecifiedType() instanceof CharPointerType and
-    getType().(PointerType).getBaseType().isConst()
-  }
-}
-
-/**
- * Since it is possible to produce an implicit literal by either
- * an explicit literal being passed to one of these functions this
- * class exists to establish the "base" type, that is an explicit
- * string literal passed or flowing into the first argument. The other
- * Implicit string literal class will then check to see if it is inductively
- * an implicit string literal.
- */
-class ImplicitStringLiteralBase extends Expr {
-  ImplicitStringLiteralBase() {
-    exists(MaybeReturnsStringLiteralFunctionCall fc, Variable e |
-      e.getAnAssignedValue() = fc and
-      this = fc and
-      // it either directly gets a string literal or one via flow
-      (
-        fc.getArgument(0) instanceof StringLiteralOrConstChar or
-        exists(StringLiteralOrConstChar sl |
-          DataFlow::localFlow(DataFlow::exprNode(sl), DataFlow::exprNode(fc.getArgument(0)))
-        )
-      )
-    )
-  }
+/** Holds if `e` may point to a string literal. */
+private predicate mayBeStringLiteral(Expr e) {
+  e instanceof StringLiteral
+  or
+  e.getUnspecifiedType() instanceof CharPointerType and
+  e.getType().(PointerType).getBaseType().isConst()
+  or
+  e instanceof ImplicitStringLiteral
 }
 
 from Expr literal, Expr literalWrite
 where
   not isExcluded(literal, Strings1Package::doNotAttemptToModifyStringLiteralsQuery()) and
   not isExcluded(literalWrite, Strings1Package::doNotAttemptToModifyStringLiteralsQuery()) and
-  ImplicitOrExplicitStringLiteralModifiedFlow::flow(DataFlow::exprNode(literal),
-    DataFlow::exprNode(literalWrite))
+  StringLiteralFlow::flow(literal, literalWrite)
 select literalWrite,
   "This operation may write to a string that may be a string literal that was $@.", literal,
   "created here"
