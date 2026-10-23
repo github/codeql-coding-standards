@@ -1,0 +1,2 @@
+ - `EXP43-C` - `RestrictPointerReferencesOverlappingObject.ql`:
+   - Updated to use the new dataflow library for tracking assignments to restrict-qualified pointers. Using the new dataflow library may introduce a different set of false positives and false negatives compared to the previous implementation, though it has higher precision overall.
