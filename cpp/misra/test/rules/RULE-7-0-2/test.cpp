@@ -269,3 +269,33 @@ constexpr bool derived_from_template_v = is_something_v<T>; // COMPLIANT
 bool test_dependent_variable_template_instantiation() {
   return derived_from_template_v<std::int32_t>; // COMPLIANT
 }
+void test_condition_declaration() {
+  if (std::int32_t *l1 = f3()) { // COMPLIANT - exception #2
+  }
+  if (auto *const l2 = f3()) { // COMPLIANT - exception #2
+  }
+  while (std::int32_t *l3 = f3()) { // COMPLIANT - exception #2
+  }
+  if (TestClassExplicit l4 = TestClassExplicit{}) { // COMPLIANT
+  }
+  if (std::int32_t *l5 = f3(); l5) { // COMPLIANT - exception #2
+  }
+  if (std::int32_t l6 = f1()) { // NON_COMPLIANT
+  }
+}
+
+template <typename T> class TestTemplateExplicit {
+public:
+  explicit operator bool() const { return true; }
+};
+
+template <typename T>
+bool test_static_cast_template(const TestTemplateExplicit<T> &l1) {
+  return !static_cast<bool>(l1); // COMPLIANT - exception #1
+}
+
+bool test_static_cast_template_use(
+    const TestTemplateExplicit<std::int32_t> &l1) {
+  bool l2 = static_cast<bool>(l1); // COMPLIANT - exception #1
+  return l2 && test_static_cast_template(l1);
+}

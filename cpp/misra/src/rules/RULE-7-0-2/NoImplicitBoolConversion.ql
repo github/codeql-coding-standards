@@ -16,6 +16,21 @@
 import cpp
 import codingstandards.cpp.misra
 
+/**
+ * The initializer of a condition declaration is contextually converted to bool, e.g.
+ * `if (T* p = f())` or `if (auto sp = weak.lock())`.
+ */
+predicate isInConditionDeclarationInitializer(Expr expr) {
+  exists(ConditionDeclExpr condDecl |
+    condDecl.getExpr() = expr and
+    (
+      exists(IfStmt ifStmt | ifStmt.getCondition() = condDecl) or
+      exists(WhileStmt whileStmt | whileStmt.getCondition() = condDecl) or
+      exists(ForStmt forStmt | forStmt.getCondition() = condDecl)
+    )
+  )
+}
+
 predicate isInContextualBoolContext(Expr expr) {
   exists(IfStmt ifStmt | ifStmt.getCondition() = expr) or
   exists(WhileStmt whileStmt | whileStmt.getCondition() = expr) or
@@ -24,7 +39,8 @@ predicate isInContextualBoolContext(Expr expr) {
   exists(ConditionalExpr condExpr | condExpr.getCondition() = expr) or
   exists(LogicalAndExpr logicalAnd | logicalAnd.getAnOperand() = expr) or
   exists(LogicalOrExpr logicalOr | logicalOr.getAnOperand() = expr) or
-  exists(NotExpr notExpr | notExpr.getOperand() = expr)
+  exists(NotExpr notExpr | notExpr.getOperand() = expr) or
+  isInConditionDeclarationInitializer(expr)
 }
 
 predicate isInWhileConditionDeclaration(Expr expr) {
@@ -87,6 +103,20 @@ where
         // This handles the cases where we have multiple stacked conversions, e.g. when converting
         // an array to a pointer, then the pointer to bool
         isInContextualBoolContext(conv.getUnconverted())
+      ) and
+      // Exception 1: Static cast to bool from a class with an explicit operator bool. In an
+      // uninstantiated template the cast has no resolved call to the conversion operator, so it
+      // appears only as a `Conversion` from the class type.
+      not (
+        conv instanceof StaticCast and
+        exists(ConversionOperator op |
+          op.isExplicit() and
+          op.getType().getUnspecifiedType() instanceof BoolType and
+          exists(Class source | source = conv.getExpr().getType().getUnspecifiedType() |
+            op = source.getAMember() or
+            op = source.(ClassTemplateInstantiation).getTemplate().getAMember()
+          )
+        )
       ) and
       // Exception 3: Unconverted expression is a bit-field of size 1
       not isBitFieldOfSizeOne(conv.getUnconverted()) and
