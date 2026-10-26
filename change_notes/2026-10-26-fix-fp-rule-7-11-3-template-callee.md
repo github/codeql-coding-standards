@@ -1,0 +1,2 @@
+- `RULE-7-11-3` - `FunctionPointerConversionContext.ql`:
+   - Fixed false positives on unqualified calls to member and free functions inside class and function templates, where the callee is modelled as a function access that is the called expression of a call rather than a conversion to a function pointer.

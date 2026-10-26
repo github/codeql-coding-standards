@@ -33,7 +33,10 @@ class FunctionAccessConversionToFunctionPointer extends FunctionAccess,
   FunctionToFunctionPointerConversion
 {
   FunctionAccessConversionToFunctionPointer() {
-    this.getType().getUnspecifiedType() instanceof FunctionPointerIshType
+    this.getType().getUnspecifiedType() instanceof FunctionPointerIshType and
+    // In templates, the callee of a dependent call is modelled as a function access that is the
+    // called expression of an ExprCall. This is a function call, not a conversion.
+    not any(ExprCall call).getExpr() = this
   }
 }
 
