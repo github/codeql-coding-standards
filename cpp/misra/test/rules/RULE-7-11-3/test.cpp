@@ -96,3 +96,32 @@ void test_logical_expressions() {
   if (lam || false) { // NON_COMPLIANT
   }
 }
+template <typename T> class TemplateWithMemberCalls {
+public:
+  void callMembers() {
+    helper();       // COMPLIANT: callee of a call, not a conversion
+    this->helper(); // COMPLIANT
+    staticHelper(); // COMPLIANT
+    TemplateWithMemberCalls::staticHelper(); // COMPLIANT
+  }
+
+  auto takeAddress() {
+    return &TemplateWithMemberCalls::helper; // COMPLIANT: member pointer, not a
+                                             // function pointer
+  }
+
+private:
+  void helper() {}
+  static void staticHelper() {}
+};
+
+template <typename T> void templateCallsFree() {
+  f(); // COMPLIANT
+}
+
+void instantiate() {
+  TemplateWithMemberCalls<int> t;
+  t.callMembers();
+  t.takeAddress();
+  templateCallsFree<int>();
+}
