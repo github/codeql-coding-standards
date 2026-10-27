@@ -18,7 +18,7 @@
 import cpp
 import codingstandards.cpp.cert
 import semmle.code.cpp.controlflow.Guards
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import codingstandards.cpp.exceptions.ExceptionSpecifications
 
 /**
