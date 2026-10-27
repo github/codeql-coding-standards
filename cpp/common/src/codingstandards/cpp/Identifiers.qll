@@ -332,7 +332,20 @@ private module IdentifierIntroductionImpl {
       not variable.isCompilerGenerated() and
       // Some variables are not correctly marked as compiler generated, such as parameters of lambda
       // conversion operators.
-      not variable.(Parameter).getFunction().isCompilerGenerated()
+      not variable.(Parameter).getFunction().isCompilerGenerated() and
+      // The compiler-provided predefined function identifiers (`__func__`, and the GCC/Clang
+      // extensions `__FUNCTION__` and `__PRETTY_FUNCTION__`) are synthesized once per enclosing
+      // function, but the extractor does not flag them as compiler generated, so they leak through
+      // the check above. They are not user-defined identifiers and should not be reported. Rather
+      // than hard-coding these names (which would wrongly suppress a genuine user declaration of
+      // such an identifier on a compiler that does not predefine it), we identify them
+      // structurally: they are `static` local variables with no definition (their only declaration
+      // entry is located at a use site), whereas a real `static` local always has an in-source
+      // definition.
+      not (
+        variable.(LocalVariable).isStatic() and
+        not variable.hasDefinition()
+      )
       // Note: Some duplicate and/or unflagged compiler-generated variables seem to exist in tests,
       // which may be related to constexpr in templates. These redundant variables seem to only be
       // distinguishable by the fact that their start location is the same as their end location.
@@ -348,7 +361,20 @@ private module IdentifierIntroductionImpl {
 
     override string getAnIdent() { result = this.getName() }
 
-    override Namespace getNamespace() { result = variable.getNamespace() }
+    override Namespace getNamespace() {
+      // A parameter or local variable is scoped to the body of its enclosing function, not to
+      // that function's enclosing namespace. It does not itself become a new member of the
+      // namespace, so it cannot "pollute" a reserved namespace such as `std`, regardless of which
+      // namespace its enclosing function happens to be declared in. This matters in particular
+      // for the bodies of explicit template specializations that C++ explicitly permits users to
+      // add to namespace `std` (such as `std::hash<UserType>`), where parameter and local names
+      // are otherwise ordinary user-chosen identifiers that merely happen to be lexically nested
+      // inside `namespace std { ... }`. The function or class that actually introduces the
+      // specialization's name is still checked against `isReservedNamespace` independently, via
+      // `FunctionDeclarationEntryIdentifier` / `TypeDeclarationEntryIdentifier`.
+      not variable instanceof LocalScopeVariable and
+      result = variable.getNamespace()
+    }
   }
 
   /**

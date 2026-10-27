@@ -16,5 +16,7 @@ query predicate problems(DeclStmt ds, string message) {
   count(Declaration d | d = ds.getADeclaration()) > 1 and
   // Not a compiler generated `DeclStmt`, such as in the range-based for loop
   not ds.isCompilerGenerated() and
+  // Not a structured binding
+  not ds.getADeclaration().(Variable).isStructuredBinding() and
   message = "Declaration list contains more than one declaration."
 }

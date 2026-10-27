@@ -1,0 +1,2 @@
+- `RULE-10-0-1`, `M8-0-1` - `MultipleLocalDeclarators.qll`:
+  - Added a check to ignore structured bindings from C++17, which are explicitly allowed by RULE 10-0-1 and serve a unique useful purpose.

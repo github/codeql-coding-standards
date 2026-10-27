@@ -123,3 +123,38 @@ void test_bool_conversion_compliant() {
   // Bit-field assignment exception - compliant
   bf.bit = b1; // COMPLIANT
 }
+
+void f3(bool &b) {}
+void f4(const bool &b) {}
+
+template <typename T> void f5(T &&t) {}
+
+template <typename T1, typename T2> struct Pair {
+  template <typename U1, typename U2> Pair(U1 &&x, U2 &&y) : a(x), b(y) {}
+  T1 a;
+  T2 b;
+};
+
+void test_bool_reference_conversion_compliant() {
+  bool b1 = true;
+
+  // Binding a bool lvalue to a bool reference parameter - compliant, no
+  // actual type conversion takes place.
+  f3(b1); // COMPLIANT
+
+  // Binding a bool value to a const bool reference parameter - compliant.
+  f4(b1);   // COMPLIANT
+  f4(true); // COMPLIANT
+
+  // Binding a bool value to a forwarding reference parameter deduced as
+  // bool - compliant.
+  f5(b1);   // COMPLIANT
+  f5(true); // COMPLIANT
+
+  // Binding a bool value through a generic forwarding-reference constructor,
+  // where the second template parameter is deduced as bool - compliant. This
+  // mirrors idiomatic `return {value, overflow_flag};` and structured-binding
+  // patterns (e.g. std::pair and std::map::insert()'s return value).
+  Pair<int, bool> p1{1, true};  // COMPLIANT
+  Pair<int, bool> p2 = {1, b1}; // COMPLIANT
+}

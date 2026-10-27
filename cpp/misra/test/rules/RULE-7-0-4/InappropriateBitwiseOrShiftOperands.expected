@@ -47,3 +47,6 @@
 | test.cpp:156:3:156:12 | 1073741824 | Shift operator '<<' requires unsigned left operand, but has type 'int'. |
 | test.cpp:162:3:162:5 | s32 | Shift operator '<<' requires unsigned left operand, but has type 'int32_t'. |
 | test.cpp:170:3:170:5 | s32 | Shift operator '>>' requires unsigned left operand, but has type 'int32_t'. |
+| test.cpp:201:3:201:7 | value | Shift operator '<<' requires unsigned left operand, but has type 'signed int'. |
+| test.cpp:226:3:226:4 | e3 | Bitwise operator '&' requires unsigned numeric operands, but the left operand has type 'UnscopedEnumSignedUnderlyingType'. |
+| test.cpp:226:7:226:8 | e3 | Bitwise operator '&' requires unsigned numeric operands, but the right operand has type 'UnscopedEnumSignedUnderlyingType'. |

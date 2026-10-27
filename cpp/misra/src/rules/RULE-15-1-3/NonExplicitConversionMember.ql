@@ -42,6 +42,9 @@ where
     exists(ConversionOperator co |
       x = co and
       not co.isExplicit() and
+      // The conversion to a function pointer of a captureless lambda is
+      // compiler-generated and cannot be declared explicit.
+      not co.getDeclaringType() instanceof Closure and
       message = "Conversion operator shall be explicit."
     )
   )

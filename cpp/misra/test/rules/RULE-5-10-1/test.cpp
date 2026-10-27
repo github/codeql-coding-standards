@@ -186,6 +186,22 @@ void test_reserved_names() {
   int wint_t = 20;       // NON_COMPLIANT - reserved name
 }
 
+// Test case for compiler-predefined function identifiers (not user-defined).
+// __func__ is standard; __FUNCTION__ and __PRETTY_FUNCTION__ are GCC/Clang
+// extensions. They are synthesized per-function by the compiler, so despite
+// containing double underscores / leading underscores they must not be flagged.
+const char *test_predefined_function_identifiers() {
+  const char *a = __func__; // COMPLIANT - compiler-predefined, not user-defined
+  const char *b =
+      __PRETTY_FUNCTION__; // COMPLIANT - compiler-predefined, not user-defined
+  return a ? a : b;
+}
+
+// Test case for a user-defined macro that reuses a compiler-predefined name.
+// Redefining __PRETTY_FUNCTION__ as a macro is a user-defined identifier and
+// should be flagged (double underscores + lowercase).
+#define __PRETTY_FUNCTION__ "user_defined" // NON_COMPLIANT - user-defined macro
+
 // Test case for valid identifiers
 void test_valid_identifiers() {
   int validName = 1;      // COMPLIANT
@@ -207,3 +223,42 @@ struct hash<int> { // COMPLIANT - rule does not apply to template
     return static_cast<std::size_t>(x);
   }
 };
+
+// Test case for RULE-5-10-1 false positive fix: a local variable or function
+// parameter is scoped to the body of its enclosing function, not to the
+// namespace that function happens to be declared in. This matters for the
+// body of an explicit template specialization that C++ explicitly permits
+// users to add to namespace `std` (such as `std::hash<UserType>`): the
+// parameter and local names below are ordinary user-chosen identifiers and
+// do not themselves become new members of namespace `std`.
+struct UserTypeForHash {
+  int payload;
+};
+
+namespace std {
+template <typename T>
+struct hash; // forward declaration of the primary
+             // template that is specialized below
+
+template <> struct hash<UserTypeForHash> {
+  std::size_t
+  operator()(const UserTypeForHash &value) const noexcept { // COMPLIANT -
+                                                            // 'value' is a
+                                                            // parameter
+                                                            // scoped to the
+                                                            // function body,
+                                                            // not a member
+                                                            // of namespace
+                                                            // std
+    std::size_t result = static_cast<std::size_t>(
+        value.payload); // COMPLIANT - 'result' is a local variable scoped to
+                        // the function body, not a member of namespace std
+    return result;
+  }
+};
+
+// A genuinely new function declared directly in namespace std remains a
+// violation: this is not a permitted specialization, and it does introduce a
+// new name into the reserved namespace.
+void new_std_function() {} // NON_COMPLIANT - namespace std is reserved
+} // namespace std

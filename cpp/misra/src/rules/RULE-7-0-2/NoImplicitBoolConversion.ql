@@ -56,6 +56,30 @@ where
       e = conv and
       conv.getType().getUnspecifiedType() instanceof BoolType and
       not conv.getExpr().getType().getUnspecifiedType() instanceof BoolType and
+      // Exclude conversions whose source expression type could not be resolved to a concrete
+      // type (`UnknownType`). This shape occurs only in template-dependent contexts that the
+      // extractor has not (and, for uninstantiated templates, cannot) resolve to an actual type
+      // - e.g. a `constexpr bool` variable template / `noexcept(...)` specifier built from
+      // another variable template such as `std::conjunction_v<...>`. There is no actual,
+      // concrete conversion to `bool` that a developer wrote or that the compiler ultimately
+      // performs; flagging it produces a false positive because the "conversion from 'unknown'"
+      // is an artifact of incomplete extraction of template-dependent/library code, not a
+      // genuine violation.
+      not conv.getExpr().getType() instanceof UnknownType and
+      // Exclude reference-dereference conversions (`T& -> T` / `T&& -> T`) whose referenced type
+      // is itself `bool` once its reference-ness is stripped, e.g. the compiler-synthesized
+      // `std::get<N>(...)` call used to implement structured binding decomposition
+      // (`auto [a, b] = some_pair_or_tuple_expr;` where `b` is `bool`). `getUnspecifiedType()`
+      // resolves typedefs/specifiers but does not strip reference qualification, so a `bool&`/
+      // `bool&&` is not itself recognised as already being `bool` by the check above. But
+      // dereferencing a reference to `bool` does not represent a conversion from a different
+      // type to `bool` - the referenced value is already a `bool` - so this is not a violation.
+      not conv.getExpr()
+          .getType()
+          .getUnspecifiedType()
+          .(ReferenceType)
+          .getBaseType()
+          .getUnspecifiedType() instanceof BoolType and
       // Exception 2: Contextual conversion from pointer
       not (
         isPointerType(conv.getExpr().getType()) and

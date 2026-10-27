@@ -49,3 +49,6 @@
 | test.cpp:184:7:184:15 | wctrans_t | Identifier 'wctrans_t' is a reserved name. |
 | test.cpp:185:7:185:14 | wctype_t | Identifier 'wctype_t' is a reserved name. |
 | test.cpp:186:7:186:12 | wint_t | Identifier 'wint_t' is a reserved name. |
+| test.cpp:203:1:203:42 | __PRETTY_FUNCTION__ | Identifier '__PRETTY_FUNCTION__' contains double underscores. |
+| test.cpp:203:1:203:42 | __PRETTY_FUNCTION__ | Identifier '__PRETTY_FUNCTION__' starts with underscore. |
+| test.cpp:263:6:263:21 | new_std_function | Identifier 'new_std_function' is defined in reserved namespace. |

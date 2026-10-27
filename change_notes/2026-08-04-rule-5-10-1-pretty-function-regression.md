@@ -1,0 +1,2 @@
+- `RULE-5-10-1` - `PoorlyFormedIdentifier.ql`:
+  - Avoid false positives for none user defined identifiers like __PRETTY_FUNCTION__
