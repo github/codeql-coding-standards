@@ -1,0 +1,2 @@
+- `RULE-15-1-4` - `NonStaticMemberNotInitBeforeUse.ql`:
+  - Remove false positives for constructors of uninstantiated class templates, where delegating constructors are not modelled as such. The instantiations are still checked.
