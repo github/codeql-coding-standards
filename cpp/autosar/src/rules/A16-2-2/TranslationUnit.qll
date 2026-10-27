@@ -8,7 +8,7 @@ import semmle.code.cpp.commons.Dependency
  */
 private predicate include(TranslationUnit tu, int index, File file) {
   exists(string i, string f |
-    fileannotations(unresolveElement(tu), 98, f, i) and
+    fileannotations(unresolveElement(tu), _, 98, f, i) and
     index = i.toInt() and
     file.getAbsolutePath() = f
   )
@@ -45,7 +45,7 @@ class TranslationUnit extends File {
    */
 
   File getAFileInTranslationUnit() {
-    fileannotations(underlyingElement(this), 98, result.getAbsolutePath(), _) or
+    fileannotations(underlyingElement(this), _, 98, result.getAbsolutePath(), _) or
     result = this
   }
 
