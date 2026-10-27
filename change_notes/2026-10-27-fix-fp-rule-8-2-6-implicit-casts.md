@@ -1,0 +1,2 @@
+- `RULE-8-2-6` - `IntToPointerCastProhibited.ql`:
+  - Remove false positives for implicit conversions, such as the implicit `this` in unevaluated operands (e.g. `sizeof(member)`).

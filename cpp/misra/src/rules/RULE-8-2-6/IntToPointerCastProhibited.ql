@@ -20,6 +20,9 @@ import codingstandards.cpp.misra
 from Cast cast, Type sourceType, PointerType targetType, string typeKind
 where
   not isExcluded(cast, Conversions2Package::intToPointerCastProhibitedQuery()) and
+  // Implicit conversions are not casts, e.g. null pointer constants or the implicit `this` in an
+  // unevaluated operand.
+  not cast.isImplicit() and
   sourceType = cast.getExpr().getType().getUnspecifiedType() and
   targetType = cast.getType().getUnspecifiedType() and
   (
