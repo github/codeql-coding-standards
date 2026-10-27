@@ -116,6 +116,9 @@ class IncompleteConstructor extends Constructor, IncompleteInitialization {
     not getDeclaringType() instanceof Union and
     this.getDeclaringType().hasDefinition() and
     not this.isDeleted() and
+    // Constructors of uninstantiated class templates cannot be analysed reliably, because for
+    // instance a delegating constructor is not modelled as such. The instantiations are checked.
+    not this.getDeclaringType() instanceof TemplateClass and
     // Delegating constructors do not need to initialize members
     not any(ConstructorDelegationInit init) = this.getAnInitializer() and
     // exclude defaulted move and copy constructors.

@@ -24,3 +24,4 @@
 | test.cpp:267:18:267:18 | a | Aggregate variable does not initialize non-static data member $@ (and 9 more). | test.cpp:262:43:262:45 | m10 | m10 |
 | test.cpp:290:18:290:18 | a | Aggregate variable does not initialize non-static data member $@ (and 1 more). | test.cpp:285:9:285:10 | m1 | m1 |
 | test.cpp:290:18:290:18 | a | Aggregate variable does not initialize non-static data member $@ (and 1 more). | test.cpp:286:11:286:12 | m2 | m2 |
+| test.cpp:318:3:318:3 | TemplateMemberUninit | Constructor does not initialize non-static data member $@. | test.cpp:322:7:322:8 | m2 | m2 |

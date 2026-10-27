@@ -303,3 +303,51 @@ union UnionWithConstructor {
   // this is not implemented.
   UnionWithConstructor() {} // NON_COMPLIANT[False negative]
 };
+template <typename T> class TemplateAllInit {
+public:
+  TemplateAllInit(T value) : m1(value), m2(0) {} // COMPLIANT
+  TemplateAllInit(const TemplateAllInit &) = delete;
+
+private:
+  T m1;
+  int m2;
+};
+
+template <typename T> class TemplateMemberUninit {
+public:
+  TemplateMemberUninit(T value) : m1(value) {} // NON_COMPLIANT
+
+private:
+  T m1;
+  int m2;
+};
+
+template <typename T> class TemplateOutOfLineInit {
+public:
+  TemplateOutOfLineInit(T value);
+
+private:
+  T m1;
+  int m2;
+};
+
+template <typename T>
+TemplateOutOfLineInit<T>::TemplateOutOfLineInit(T value)
+    : m1(value), m2(0) {} // COMPLIANT
+
+template <typename T> class TemplateDelegating {
+public:
+  TemplateDelegating() : TemplateDelegating(0) {}   // COMPLIANT
+  TemplateDelegating(T value) : m1(value), m2(0) {} // COMPLIANT
+
+private:
+  T m1;
+  int m2;
+};
+
+void instantiateTemplates() {
+  TemplateAllInit<int> a(1);
+  TemplateMemberUninit<int> b(1);
+  TemplateOutOfLineInit<int> c(1);
+  TemplateDelegating<int> d;
+}
