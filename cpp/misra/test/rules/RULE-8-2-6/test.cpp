@@ -88,3 +88,15 @@ void test_compliant_regular_pointer_operations() {
   TestStruct *l4 = l2;   // COMPLIANT
   std::int32_t *l5 = l3; // COMPLIANT
 }
+// The implicit `this` of a member access in an unevaluated operand is
+// extracted as a conversion of 0 to a pointer. It is not a cast.
+struct ImplicitThis {
+  std::int32_t m1;
+  static constexpr unsigned long size() noexcept {
+    return sizeof(m1); // COMPLIANT
+  }
+  TestStruct *nonCompliant(std::int64_t l1) {
+    // The implicit `this` of m1 is compliant, the explicit cast is not
+    return reinterpret_cast<TestStruct *>(l1 + sizeof(m1)); // NON_COMPLIANT
+  }
+};
