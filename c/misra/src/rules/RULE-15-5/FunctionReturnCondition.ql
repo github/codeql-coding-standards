@@ -10,35 +10,16 @@
  *       readability
  *       correctness
  *       external/misra/c/2012/third-edition-first-revision
+ *       external/misra/legacy
  *       external/misra/obligation/advisory
  */
 
 import cpp
 import codingstandards.c.misra
+import codingstandards.c.misra.SinglePointOfExit
 
-class UserWrittenReturnStmt extends ReturnStmt {
-  UserWrittenReturnStmt() { not this.isCompilerGenerated() }
-}
-
-from Function func, string message, UserWrittenReturnStmt returnStmt
+from Function func, string message, ReturnStmt returnStmt
 where
   not isExcluded(func, Statements5Package::functionReturnConditionQuery()) and
-  func.hasDefinition() and
-  // Ignore functions which have multiple bodies
-  count(func.getBlock()) = 1 and
-  // Ignore functions which are compiler generated
-  not func.isCompilerGenerated() and
-  // Report all the return statements in the function
-  returnStmt.getEnclosingFunction() = func and
-  (
-    // There is more than one return statement
-    count(UserWrittenReturnStmt return | return.getEnclosingFunction() = func) > 1 and
-    message = "Function has more than one $@."
-    or
-    // There is exactly one return statement
-    count(UserWrittenReturnStmt return | return.getEnclosingFunction() = func) = 1 and
-    // But it is not the last statement in the function
-    not func.getBlock().getLastStmt() instanceof UserWrittenReturnStmt and
-    message = "The $@ is not the last statement of the function."
-  )
+  problems(func, message, returnStmt)
 select func, message, returnStmt, "return statement"

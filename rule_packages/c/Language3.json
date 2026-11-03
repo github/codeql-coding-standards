@@ -1,4 +1,30 @@
 {
+  "MISRA-C-2025": {
+    "DIR-1-2": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Language extensions are not portable to other compilers and their use should be minimized.",
+          "kind": "problem",
+          "name": "Language extensions should be minimized",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "LanguageExtensionsShouldBeMinimized",
+          "tags": [
+            "maintainability",
+            "readability",
+            "external/misra/c/2025"
+          ],
+          "implementation_scope": {
+            "description": "This implementation reuses the compiler-extension detector for MISRA C:2012 Rule 1.2. It reports detected extensions for review but does not assess their justification or provide comprehensive compiler-extension coverage."
+          }
+        }
+      ],
+      "title": "Language extensions should be minimized"
+    }
+  },
   "MISRA-C-2012": {
     "RULE-1-2": {
       "properties": {
@@ -15,7 +41,8 @@
           "tags": [
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "external/misra/legacy"
           ],
           "implementation_scope": {
             "description": "This implementation attempts to cover a broad section of the compiler specific extensions documented in: https://clang.llvm.org/docs/LanguageExtensions.html and https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html but is not comprehensive. The following topics are addressed in this query: Builtin macros, Variable Attributes, Function Attributes, Statement Expressions, Non-Local Gotos, Conditionals, Extended Integer / Numeric Types, Zero Length Structures, Zero Length Arrays, Variable Length Arrays, Case Attributes, Alignment, __sync and __fetch builtins. Other topics listed in the extension references are not covered by this query."

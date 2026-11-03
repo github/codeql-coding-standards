@@ -1,5 +1,6 @@
-// semmle-extractor-options:--clang -std=c11 -nostdinc
-// -I../../../../common/test/includes/standard-library
+// clang-format off
+// semmle-extractor-options:--clang -std=c11 -nostdinc -Wno-implicit
+// clang-format on
 double f1(double x); // COMPLIANT
 f2(double x);        // NON_COMPLIANT
 

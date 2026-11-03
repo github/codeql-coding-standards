@@ -45,6 +45,23 @@ Get-RulesInPackageAndSuite -Suite cert-c -Package (Get-Packages -Language c | Wh
 (Get-RulesInSuite -Language cpp -Suite autosar | Where-Object { $_.severity -eq 'error' }) | ForEach-Object { Get-TestDirectory -Language c -RuleObject $_ }
 ```
 
+**Get the runnable test file, following reused-fixture references**
+
+```
+(Get-RulesInSuite -Language c -Suite MISRA-C-2025) | ForEach-Object { Get-TestFile -Language c -RuleObject $_ }
+```
+
+A `.testref` contains a repository-relative path to a runnable `.ql` or `.qlref` file
+with matching `.expected` results. A new query variant needs its own runnable test,
+but can reuse an existing C/C++ fixture. The matrix runner uses the referenced
+file's directory, query name, and expected results.
+
+Run the test-reference regression checks with:
+
+```
+pwsh -NoLogo -NoProfile -File scripts/matrix_testing/Get-TestFile.Tests.ps1
+```
+
 **Get the Root of Coding Standards**
 ```
 Get-RepositoryRoot

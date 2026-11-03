@@ -1,0 +1,26 @@
+language,standard,amendment,rule_id,supportable,implementation_category,implemented,difficulty
+c,MISRA-C-2025,Edition2025,DIR-1-2,Yes,Renumber,Yes,Easy
+c,MISRA-C-2025,Edition2025,DIR-4-6,Yes,Refine,Yes,Medium
+c,MISRA-C-2025,Edition2025,DIR-4-10,Yes,Expand,No,Medium
+c,MISRA-C-2025,Edition2025,RULE-1-2,Yes,Renumber,Yes,Easy
+c,MISRA-C-2025,Edition2025,RULE-5-10,Yes,Renumber,Yes,Easy
+c,MISRA-C-2025,Edition2025,RULE-8-18,Yes,New,Yes,Medium
+c,MISRA-C-2025,Edition2025,RULE-8-19,Yes,New,No,Medium
+c,MISRA-C-2025,Edition2025,RULE-10-1,Yes,Refine,No,Hard
+c,MISRA-C-2025,Edition2025,RULE-11-3,Yes,Refine,No,Medium
+c,MISRA-C-2025,Edition2025,RULE-11-4,Yes,Merge,No,Hard
+c,MISRA-C-2025,Edition2025,RULE-11-5,Yes,Refine,No,Medium
+c,MISRA-C-2025,Edition2025,RULE-11-6,Yes,Refine,No,Medium
+c,MISRA-C-2025,Edition2025,RULE-11-7,Yes,Merge,No,Easy
+c,MISRA-C-2025,Edition2025,RULE-11-11,Yes,New,No,Medium
+c,MISRA-C-2025,Edition2025,RULE-14-3,Yes,Refine,No,Medium
+c,MISRA-C-2025,Edition2025,RULE-15-5,Yes,Disapply,Yes,Medium
+c,MISRA-C-2025,Edition2025,RULE-17-3,Yes,Expand,Yes,Easy
+c,MISRA-C-2025,Edition2025,RULE-17-5,Yes,Merge,Yes,Medium
+c,MISRA-C-2025,Edition2025,RULE-17-6,Yes,Merge,Yes,Easy
+c,MISRA-C-2025,Edition2025,RULE-19-3,Yes,New,No,Very Hard
+c,MISRA-C-2025,Edition2025,RULE-20-7,Yes,Refine,No,Hard
+c,MISRA-C-2025,Edition2025,RULE-20-15,Yes,Renumber,Yes,Easy
+c,MISRA-C-2025,Edition2025,RULE-21-1,Yes,Renumber,Yes,Easy
+c,MISRA-C-2025,Edition2025,RULE-21-2,Yes,Renumber,Yes,Easy
+c,MISRA-C-2025,Edition2025,RULE-21-8,Yes,Clarification,Yes,Easy

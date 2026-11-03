@@ -1,4 +1,13 @@
 {
+  "MISRA-C-2025": {
+    "RULE-19-3": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [],
+      "title": "A union member shall not be read unless it has been previously set"
+    }
+  },
   "CERT-C": {
     "MSC33-C": {
       "properties": {

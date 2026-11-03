@@ -6,7 +6,8 @@ import codingstandards.cpp.exclusions.RuleMetadata
 newtype Statements5Query =
   TControllingExprInvariantQuery() or
   TFunctionReturnConditionQuery() or
-  TNonVoidFunctionReturnConditionQuery()
+  TNonVoidFunctionReturnConditionQuery() or
+  TSinglePointOfExitQuery()
 
 predicate isStatements5QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -35,6 +36,15 @@ predicate isStatements5QueryMetadata(Query query, string queryId, string ruleId,
     "c/misra/non-void-function-return-condition" and
   ruleId = "RULE-17-4" and
   category = "mandatory"
+  or
+  query =
+    // `Query` instance for the `singlePointOfExit` query
+    Statements5Package::singlePointOfExitQuery() and
+  queryId =
+    // `@id` for the `singlePointOfExit` query
+    "c/misra/single-point-of-exit" and
+  ruleId = "RULE-15-5" and
+  category = "disapplied"
 }
 
 module Statements5Package {
@@ -57,5 +67,12 @@ module Statements5Package {
     result =
       // `Query` type for `nonVoidFunctionReturnCondition` query
       TQueryC(TStatements5PackageQuery(TNonVoidFunctionReturnConditionQuery()))
+  }
+
+  Query singlePointOfExitQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `singlePointOfExit` query
+      TQueryC(TStatements5PackageQuery(TSinglePointOfExitQuery()))
   }
 }

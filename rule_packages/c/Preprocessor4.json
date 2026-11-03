@@ -60,11 +60,34 @@
             "correctness",
             "readability",
             "maintainability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "external/misra/legacy"
           ]
         }
       ],
       "title": "#define and #undef shall not be used on a reserved identifier or reserved macro name"
+    }
+  },
+  "MISRA-C-2025": {
+    "RULE-20-15": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Defining or undefining reserved names can cause undefined behavior.",
+          "kind": "problem",
+          "name": "Reserved identifiers shall not be defined or undefined",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "ReservedMacroName",
+          "tags": [
+            "correctness",
+            "external/misra/c/2025"
+          ]
+        }
+      ],
+      "title": "Reserved identifiers shall not be defined or undefined"
     }
   }
 }

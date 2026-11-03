@@ -10,21 +10,25 @@
  *       correctness
  *       security
  *       external/misra/c/2012/third-edition-first-revision
+ *       external/misra/c/2025
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
+import semmle.code.cpp.commons.Assertions
 
-class BannedFunction extends Function {
-  BannedFunction() {
-    this.getName() = ["abort", "exit", "system"] and
-    this.getFile().getBaseName() = "stdlib.h"
-  }
-}
-
-from FunctionCall fc, BannedFunction f
+from FunctionCall fc, string message
 where
   not isExcluded(fc, BannedPackage::terminationFunctionsOfStdlibhUsedQuery()) and
-  f = fc.getTarget()
-select fc, "Call to banned function " + f.getName() + "."
+  exists(Function f | f = fc.getTarget() |
+    if f.hasGlobalOrStdName(["abort", "exit", "system"]) and f.getFile().getBaseName() = "stdlib.h"
+    then message = "Call to banned function " + f.getName() + "."
+    else
+      exists(Options options, LibcAssert assertion |
+        options.exits(f) and
+        assertion.getAnExpandedElement() = fc and
+        message = "Enabled assertion calls non-returning function '" + f.getName() + "'."
+      )
+  )
+select fc, message
