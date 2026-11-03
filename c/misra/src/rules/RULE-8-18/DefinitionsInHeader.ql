@@ -15,12 +15,25 @@
 import cpp
 import codingstandards.c.misra
 
-from VariableDeclarationEntry declaration, GlobalVariable variable
+/**
+ * A tentative definition of a file-scope variable, for example:
+ * ```c
+ * int global_object;
+ * static int internal_object;
+ * ```
+ */
+class TentativeDefinition extends VariableDeclarationEntry {
+  TentativeDefinition() {
+    this.getVariable() instanceof GlobalVariable and
+    not this.hasSpecifier("extern") and
+    // An initializer on another declaration does not make this declaration non-tentative.
+    not (this.isDefinition() and exists(this.getVariable().getInitializer()))
+  }
+}
+
+from TentativeDefinition definition
 where
-  not isExcluded(declaration, Declarations5Package::definitionsInHeaderQuery()) and
-  declaration.getVariable() = variable and
-  not declaration.hasSpecifier("extern") and
-  not (declaration.isDefinition() and exists(variable.getInitializer())) and
-  exists(Include include | include.getIncludedFile() = declaration.getFile())
-select declaration,
-  "Tentative definition of '" + declaration.getName() + "' appears in a header file."
+  not isExcluded(definition, Declarations5Package::definitionsInHeaderQuery()) and
+  exists(Include include | include.getIncludedFile() = definition.getFile())
+select definition,
+  "Tentative definition of '" + definition.getName() + "' appears in a header file."
