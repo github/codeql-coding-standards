@@ -17,15 +17,21 @@ void f2() {
   MULTIPLY(1, 2); // COMPLIANT
 }
 
-#include "assert.h"
+#include <assert.h>
 
 void enabled_assertions(int condition) {
   assert(condition); // NON_COMPLIANT
 }
 
 #define NDEBUG
-#include "assert.h"
+#include <assert.h>
 
 void disabled_assertions(int condition) {
   assert(condition); // COMPLIANT
+}
+
+_Noreturn void non_assertion_termination(void);
+
+void non_assertion_calls(void) {
+  non_assertion_termination(); // COMPLIANT
 }

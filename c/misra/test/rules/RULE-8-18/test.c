@@ -1,4 +1,5 @@
 // semmle-extractor-options:--clang -std=c11 -nostdinc
+#include "conditional.h"
 #include "sample.h"
 
 // Source definitions are allowed, including completion of header declarations.

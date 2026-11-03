@@ -5,6 +5,19 @@ from pathlib import Path
 import sys
 import json
 
+
+def has_misra_c_edition_tag(standard_name, tags):
+    """Checks that the tags identify the metadata's MISRA C edition."""
+    if standard_name == "MISRA-C-2012":
+        return any(tag.startswith("external/misra/c/2012/") for tag in tags)
+    if standard_name == "MISRA-C-2025":
+        return any(
+            tag == "external/misra/c/2025" or tag.startswith("external/misra/c/2025/")
+            for tag in tags
+        )
+    raise ValueError(f"Unsupported MISRA C edition: {standard_name}")
+
+
 help_statement = """
 Usage: {script_name}
 
@@ -101,13 +114,13 @@ for rule_package_file_name in os.listdir(rule_packages_file_path):
                             f" - ERROR: Rule {rule_id} included in {package_name}.json but not marked as supportable in rules.csv.")
                         failed = True
                     for query in rule_details["queries"]:
-                        if standard_name in {"MISRA-C-2025", "MISRA-C-2012"} and not any(tag for tag in query["tags"] if tag.startswith("external/misra/c/")):
+                        if standard_name in {"MISRA-C-2025", "MISRA-C-2012"} and not has_misra_c_edition_tag(standard_name, query["tags"]):
                             print(
-                                f' - ERROR: MISRA C 2012 query {query["short_name"]}.ql for Rule {rule_id} in {package_name}.json is missing a `external/misra/c/2012/...` tag.')
+                                f' - ERROR: {standard_name} query {query["short_name"]}.ql for Rule {rule_id} in {package_name}.json is missing a matching MISRA C edition tag.')
                             failed = True
                         if standard_name not in {"MISRA-C-2025", "MISRA-C-2012"} and any(tag for tag in query["tags"] if tag.startswith("external/misra/c/")):
                             print(
-                                f' - ERROR: {standard_name} query {query["short_name"]}.ql for Rule {rule_id} in {package_name}.json has a spurious `external/misra/c/2012/...` tag.')
+                                f' - ERROR: {standard_name} query {query["short_name"]}.ql for Rule {rule_id} in {package_name}.json has a spurious `external/misra/c/...` tag.')
                             failed = True
                         if standard_name == "CERT-C" or standard_name == "CERT-C++":
                             expected_properties = [

@@ -1,3 +1,5 @@
+| conditional.h:4:5:4:21 | definition of conditional_after | Tentative definition of 'conditional_after' appears in a header file. |
+| conditional.h:8:5:8:22 | definition of conditional_before | Tentative definition of 'conditional_before' appears in a header file. |
 | sample.h:4:5:4:20 | definition of header_tentative | Tentative definition of 'header_tentative' appears in a header file. |
 | sample.h:5:12:5:24 | definition of static_object | Tentative definition of 'static_object' appears in a header file. |
 | sample.h:6:11:6:22 | definition of const_object | Tentative definition of 'const_object' appears in a header file. |
@@ -6,3 +8,4 @@
 | sample.h:13:5:13:22 | declaration of same_header_object | Tentative definition of 'same_header_object' appears in a header file. |
 | sample.h:18:5:18:21 | definition of redeclared_object | Tentative definition of 'redeclared_object' appears in a header file. |
 | sample.h:23:16:23:34 | definition of macro_header_object | Tentative definition of 'macro_header_object' appears in a header file. |
+| sample.h:25:5:25:19 | definition of cross_tu_object | Tentative definition of 'cross_tu_object' appears in a header file. |

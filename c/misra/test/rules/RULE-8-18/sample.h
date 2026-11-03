@@ -21,3 +21,8 @@ extern int redeclared_object; // COMPLIANT
 // Macro-generated declarations follow their expansion file.
 #define DECLARE_OBJECT(name) int name
 DECLARE_OBJECT(macro_header_object); // NON_COMPLIANT
+
+int cross_tu_object; // NON_COMPLIANT
+
+#define DEFINE_INITIALIZED_OBJECT(name) int name = 0
+DEFINE_INITIALIZED_OBJECT(macro_initialized_object); // COMPLIANT

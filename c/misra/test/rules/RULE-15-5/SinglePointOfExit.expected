@@ -1,0 +1,5 @@
+| test.c:1:6:1:7 | f1 | Function has more than one $@. | test.c:3:5:3:11 | return ... | return statement |
+| test.c:1:6:1:7 | f1 | Function has more than one $@. | test.c:5:3:5:9 | return ... | return statement |
+| test.c:14:6:14:7 | f3 | The $@ is not the last statement of the function. | test.c:17:3:17:9 | return ... | return statement |
+| test.c:21:6:21:7 | f4 | Function has more than one $@. | test.c:23:5:23:11 | return ... | return statement |
+| test.c:21:6:21:7 | f4 | Function has more than one $@. | test.c:25:3:25:9 | return ... | return statement |

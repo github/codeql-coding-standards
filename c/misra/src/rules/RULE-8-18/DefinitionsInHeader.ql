@@ -16,6 +16,36 @@ import cpp
 import codingstandards.c.misra
 
 /**
+ * An initialized definition of a variable, for example:
+ * ```c
+ * int global_object = 1;
+ * ```
+ */
+class InitializedDefinition extends VariableDeclarationEntry {
+  InitializedDefinition() {
+    exists(Initializer initializer |
+      this.isDefinition() and
+      initializer = this.getVariable().getInitializer() and
+      (
+        initializer.getLocation().subsumes(this.getLocation())
+        or
+        // Initializers follow their own declarators, not definitions in other translation units.
+        this.getLocation().isBefore(initializer.getLocation(), _) and
+        not exists(VariableDeclarationEntry later |
+          later.getVariable() = this.getVariable() and
+          later.isDefinition() and
+          this.getLocation().isBefore(later.getLocation(), _) and
+          (
+            later.getLocation().isBefore(initializer.getLocation(), _) or
+            initializer.getLocation().subsumes(later.getLocation())
+          )
+        )
+      )
+    )
+  }
+}
+
+/**
  * A tentative definition of a file-scope variable, for example:
  * ```c
  * int global_object;
@@ -26,8 +56,7 @@ class TentativeDefinition extends VariableDeclarationEntry {
   TentativeDefinition() {
     this.getVariable() instanceof GlobalVariable and
     not this.hasSpecifier("extern") and
-    // An initializer on another declaration does not make this declaration non-tentative.
-    not (this.isDefinition() and exists(this.getVariable().getInitializer()))
+    not this instanceof InitializedDefinition
   }
 }
 

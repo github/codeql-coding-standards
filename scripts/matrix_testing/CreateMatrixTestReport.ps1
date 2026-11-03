@@ -293,6 +293,9 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
     $CurrentQueryName = $q.short_name
     $CurrentPackageName = $q.__memberof_package
 
+    $testFile = Get-TestFile -RuleObject $q -Language $using:Language
+    $testFileName = Split-Path -Path $testFile -Leaf
+    $testQueryName = [IO.Path]::GetFileNameWithoutExtension($testFile)
 
     # all the test directories -- there may be more than one for a given rule 
     $testDirs = (Get-ATestDirectory -RuleObject $q -Language $using:Language)
@@ -327,12 +330,7 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
             # Push context 
             ###########################################################
 
-            if ($q.shared_implementation_short_name) {      
-                $fileSet = (Get-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language  -TestDirectory $testDirectory -Query $q.shared_implementation_short_name)            
-            }
-            else {
-                $fileSet = (Get-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language  -TestDirectory $testDirectory -Query $CurrentQueryName)            
-            }
+            $fileSet = Get-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language -TestDirectory $testDirectory -Query $testQueryName
             
             if($fileSet){
                 $context = Push-CompilerSpecificFiles -Configuration $using:Configuration -Language $using:Language -FileSet $fileSet
@@ -382,12 +380,7 @@ $jobRows = $queriesToCheck | ForEach-Object -ThrottleLimit $NumThreads -Parallel
             # Actually do the qltest run. 
             # codeql test run <qltest file> --dataset "relpath"
 
-            if ($q.shared_implementation_short_name) {      
-                $qlRefFile = Join-Path $rulePath "$($q.shared_implementation_short_name).ql"
-            }
-            else {
-                $qlRefFile = Join-Path $rulePath "$CurrentQueryName.qlref" 
-            }
+            $qlRefFile = Join-Path $rulePath $testFileName
 
             Write-Host "codeql test run $qlRefFile --search-path . --dataset=`"$datasetRelPath`""
 

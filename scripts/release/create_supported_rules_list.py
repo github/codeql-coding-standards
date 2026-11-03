@@ -12,6 +12,9 @@ A tool for producing a canonical list of rules supported by the Coding Standards
 When run without any arguments, the script iterates through each of the rule package description
 files stored in the `rule_packages` directory, and identifies which rules are supported by one or
 more queries.
+
+MISRA C edition membership follows applicability tags and current-suite legacy exclusions,
+rather than only the package metadata's owning standard.
 """
 
 if (len(sys.argv) == 2 and sys.argv[1] == "--help"):
@@ -43,9 +46,21 @@ for language_name in ["cpp", "c"]:
                 package_definition = json.load(rule_package_file)
                 for standard_name, rules in package_definition.items():
                     for rule_id, rule_details in rules.items():
-                        # If we have at least one query specified
-                        if len(rule_details["queries"]) > 0:
-                            rules_covered[standard_name][rule_id] = get_query_short_names(rule_details)
+                        for query in rule_details["queries"]:
+                            if standard_name in {"MISRA-C-2012", "MISRA-C-2025"}:
+                                applicable_standards = []
+                                tags = query["tags"]
+                                if any(tag.startswith("external/misra/c/2012/") for tag in tags):
+                                    applicable_standards.append("MISRA-C-2012")
+                                # Current suites reuse unchanged queries but exclude legacy variants.
+                                if "external/misra/legacy" not in tags:
+                                    applicable_standards.append("MISRA-C-2025")
+                            else:
+                                applicable_standards = [standard_name]
+                            for applicable_standard in applicable_standards:
+                                queries = rules_covered[applicable_standard].setdefault(rule_id, [])
+                                if query["short_name"] not in queries:
+                                    queries.append(query["short_name"])
 
 
 if is_csv:

@@ -16,7 +16,9 @@
 
 import cpp
 import codingstandards.c.misra
+import semmle.code.cpp.commons.Assertions
 
+/** A Standard Library termination function prohibited by this rule. */
 class BannedFunction extends Function {
   BannedFunction() {
     this.getName() = ["abort", "exit", "system"] and
@@ -24,8 +26,19 @@ class BannedFunction extends Function {
   }
 }
 
-from FunctionCall fc, BannedFunction f
+from FunctionCall fc, Function f, string message
 where
   not isExcluded(fc, BannedPackage::terminationFunctionsOfStdlibhUsedQuery()) and
-  f = fc.getTarget()
-select fc, "Call to banned function " + f.getName() + "."
+  f = fc.getTarget() and
+  (
+    f instanceof BannedFunction
+    or
+    any(Options options).exits(f) and
+    exists(LibcAssert assertion | assertion.getAnExpandedElement() = fc)
+  ) and
+  (
+    if f instanceof BannedFunction
+    then message = "Call to banned function " + f.getName() + "."
+    else message = "Enabled assertion calls non-returning function '" + f.getName() + "'."
+  )
+select fc, message

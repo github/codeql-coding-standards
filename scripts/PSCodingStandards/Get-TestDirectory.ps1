@@ -9,33 +9,5 @@ function Get-TestDirectory {
         $Language
     )
 
-    if ($RuleObject.shared_implementation_short_name) {
-        $standardString = "common"
-        $ruleDir = $RuleObject.shared_implementation_short_name.ToLower()
-    }
-    else {
-
-        if ($RuleObject.__memberof_suite -eq "AUTOSAR") {
-            $standardString = "autosar"
-        }
-        elseif ($RuleObject.__memberof_suite -eq "CERT-C++") {
-            $standardString = "cert"
-        }
-        elseif ($RuleObject.__memberof_suite -eq "CERT-C") {
-            $standardString = "cert"
-        }
-        elseif ($RuleObject.__memberof_suite -in @("MISRA-C-2012", "MISRA-C-2025")) {
-            $standardString = "misra"
-        }
-        elseif ($RuleObject.__memberof_suite -eq "MISRA-C++-2023") {
-            $standardString = "misra"
-        }
-        else {
-            throw "Unknown standard $($RuleObject.__memberof_suite)"
-        }
-
-        $ruleDir = $RuleObject.__memberof_rule
-    }
-
-    return Join-Path (Join-Path (Join-Path (Join-Path $Language $standardString) "test") "rules") $ruleDir
+    return Split-Path -Path (Get-TestFile -RuleObject $RuleObject -Language $Language) -Parent
 }
