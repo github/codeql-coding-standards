@@ -8,7 +8,8 @@ newtype Types1Query =
   TConvertingAPointerToIntegerOrIntegerToPointerQuery() or
   TPlainNumericalTypeUsedOverExplicitTypedefQuery() or
   TSizeofOperatorUsedOnArrayTypeParamQuery() or
-  TStringLiteralAssignedToNonConstCharQuery()
+  TStringLiteralAssignedToNonConstCharQuery() or
+  TPlainIntegerTypeUsedOverExplicitTypedefQuery()
 
 predicate isTypes1QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -55,6 +56,15 @@ predicate isTypes1QueryMetadata(Query query, string queryId, string ruleId, stri
     "c/misra/string-literal-assigned-to-non-const-char" and
   ruleId = "RULE-7-4" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `plainIntegerTypeUsedOverExplicitTypedef` query
+    Types1Package::plainIntegerTypeUsedOverExplicitTypedefQuery() and
+  queryId =
+    // `@id` for the `plainIntegerTypeUsedOverExplicitTypedef` query
+    "c/misra/plain-integer-type-used-over-explicit-typedef" and
+  ruleId = "DIR-4-6" and
+  category = "advisory"
 }
 
 module Types1Package {
@@ -91,5 +101,12 @@ module Types1Package {
     result =
       // `Query` type for `stringLiteralAssignedToNonConstChar` query
       TQueryC(TTypes1PackageQuery(TStringLiteralAssignedToNonConstCharQuery()))
+  }
+
+  Query plainIntegerTypeUsedOverExplicitTypedefQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `plainIntegerTypeUsedOverExplicitTypedef` query
+      TQueryC(TTypes1PackageQuery(TPlainIntegerTypeUsedOverExplicitTypedefQuery()))
   }
 }

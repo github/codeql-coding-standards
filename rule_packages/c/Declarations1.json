@@ -1,4 +1,32 @@
 {
+  "MISRA-C-2025": {
+    "RULE-5-10": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [
+        {
+          "description": "Declaring a reserved identifier can lead to undefined behaviour.",
+          "kind": "problem",
+          "name": "A reserved identifier or reserved macro name shall not be declared",
+          "precision": "very-high",
+          "severity": "warning",
+          "short_name": "ReservedIdentifierDeclared",
+          "shared_implementation_short_name": "DeclaredAReservedIdentifier",
+          "tags": [
+            "correctness",
+            "maintainability",
+            "readability",
+            "external/misra/c/2025"
+          ],
+          "implementation_scope": {
+            "description": "This implementation reuses the reserved-identifier detector for MISRA C:2012 Rule 21.2. This renumbering does not extend its reserved-name coverage."
+          }
+        }
+      ],
+      "title": "A reserved identifier or reserved macro name shall not be declared"
+    }
+  },
   "CERT-C": {
     "DCL31-C": {
       "properties": {
@@ -80,7 +108,8 @@
             "correctness",
             "maintainability",
             "readability",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "external/misra/legacy"
           ]
         }
       ],

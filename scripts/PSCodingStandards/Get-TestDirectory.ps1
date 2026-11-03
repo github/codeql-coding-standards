@@ -24,7 +24,7 @@ function Get-TestDirectory {
         elseif ($RuleObject.__memberof_suite -eq "CERT-C") {
             $standardString = "cert"
         }
-        elseif ($RuleObject.__memberof_suite -eq "MISRA-C-2012") {
+        elseif ($RuleObject.__memberof_suite -in @("MISRA-C-2012", "MISRA-C-2025")) {
             $standardString = "misra"
         }
         elseif ($RuleObject.__memberof_suite -eq "MISRA-C++-2023") {

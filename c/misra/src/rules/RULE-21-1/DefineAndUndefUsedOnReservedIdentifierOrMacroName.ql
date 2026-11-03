@@ -11,28 +11,16 @@
  *       readability
  *       maintainability
  *       external/misra/c/2012/third-edition-first-revision
+ *       external/misra/legacy
  *       external/misra/obligation/required
  */
 
 import cpp
 import codingstandards.c.misra
-import codingstandards.cpp.Naming
+import codingstandards.c.misra.ReservedMacroNames
 
 from PreprocessorDirective p, string name
 where
   not isExcluded(p, Preprocessor4Package::defineAndUndefUsedOnReservedIdentifierOrMacroNameQuery()) and
-  (
-    p.(Macro).hasName(name)
-    or
-    p.(PreprocessorUndef).getName() = name
-  ) and
-  (
-    Naming::Cpp14::hasStandardLibraryMacroName(name)
-    or
-    Naming::Cpp14::hasStandardLibraryObjectName(name)
-    or
-    name.regexpMatch("_.*")
-    or
-    name = "defined"
-  )
+  name = getReservedMacroName(p)
 select p, "Reserved identifier '" + name + "' has been undefined or redefined."

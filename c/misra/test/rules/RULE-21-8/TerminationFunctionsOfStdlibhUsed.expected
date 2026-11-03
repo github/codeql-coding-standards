@@ -4,3 +4,4 @@
 | test.c:14:3:14:9 | call to exit | Call to banned function exit. |
 | test.c:15:3:15:7 | call to abort | Call to banned function abort. |
 | test.c:16:3:16:14 | call to system | Call to banned function system. |
+| test.c:23:3:23:19 | call to abort | Call to banned function abort. |

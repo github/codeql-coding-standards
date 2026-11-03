@@ -149,7 +149,7 @@ param(
     # For a suite, the suites we support. Valid values are 'CERT-C++' and
     # 'AUTOSAR' and MISRA-C-2012, MISRA-C++-2023 and CERT-C
     [Parameter(Mandatory, ParameterSetName = 'Suite')] 
-    [ValidateSet("CERT-C++", "AUTOSAR", "MISRA-C-2012", "CERT-C", "MISRA-C++-2023")]
+    [ValidateSet("CERT-C++", "AUTOSAR", "MISRA-C-2012", "MISRA-C-2025", "CERT-C", "MISRA-C++-2023")]
     [string]
     $SuiteName,
 

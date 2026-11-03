@@ -101,11 +101,11 @@ for rule_package_file_name in os.listdir(rule_packages_file_path):
                             f" - ERROR: Rule {rule_id} included in {package_name}.json but not marked as supportable in rules.csv.")
                         failed = True
                     for query in rule_details["queries"]:
-                        if standard_name == "MISRA-C-2012" and not any(tag for tag in query["tags"] if tag.startswith("external/misra/c/2012/")):
+                        if standard_name in {"MISRA-C-2025", "MISRA-C-2012"} and not any(tag for tag in query["tags"] if tag.startswith("external/misra/c/")):
                             print(
                                 f' - ERROR: MISRA C 2012 query {query["short_name"]}.ql for Rule {rule_id} in {package_name}.json is missing a `external/misra/c/2012/...` tag.')
                             failed = True
-                        if not standard_name == "MISRA-C-2012" and any(tag for tag in query["tags"] if tag.startswith("external/misra/c/2012/")):
+                        if standard_name not in {"MISRA-C-2025", "MISRA-C-2012"} and any(tag for tag in query["tags"] if tag.startswith("external/misra/c/")):
                             print(
                                 f' - ERROR: {standard_name} query {query["short_name"]}.ql for Rule {rule_id} in {package_name}.json has a spurious `external/misra/c/2012/...` tag.')
                             failed = True

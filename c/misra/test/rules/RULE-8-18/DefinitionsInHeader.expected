@@ -1,0 +1,8 @@
+| sample.h:4:5:4:20 | definition of header_tentative | Tentative definition of 'header_tentative' appears in a header file. |
+| sample.h:5:12:5:24 | definition of static_object | Tentative definition of 'static_object' appears in a header file. |
+| sample.h:6:11:6:22 | definition of const_object | Tentative definition of 'const_object' appears in a header file. |
+| sample.h:9:22:9:34 | definition of uninitialized | Tentative definition of 'uninitialized' appears in a header file. |
+| sample.h:12:5:12:25 | declaration of initialized_elsewhere | Tentative definition of 'initialized_elsewhere' appears in a header file. |
+| sample.h:13:5:13:22 | declaration of same_header_object | Tentative definition of 'same_header_object' appears in a header file. |
+| sample.h:18:5:18:21 | definition of redeclared_object | Tentative definition of 'redeclared_object' appears in a header file. |
+| sample.h:23:16:23:34 | definition of macro_header_object | Tentative definition of 'macro_header_object' appears in a header file. |

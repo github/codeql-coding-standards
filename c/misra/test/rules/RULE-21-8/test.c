@@ -16,3 +16,16 @@ void f2() {
   SYSTEM("ls");   // NON_COMPLIANT - twice, one for function and one for macro
   MULTIPLY(1, 2); // COMPLIANT
 }
+
+#include "assert.h"
+
+void enabled_assertions(int condition) {
+  assert(condition); // NON_COMPLIANT
+}
+
+#define NDEBUG
+#include "assert.h"
+
+void disabled_assertions(int condition) {
+  assert(condition); // COMPLIANT
+}

@@ -6,7 +6,8 @@ import codingstandards.cpp.exclusions.RuleMetadata
 newtype Preprocessor4Query =
   TMacroDefinedWithTheSameNameAsKeywordQuery() or
   TFunctionLikeMacroArgsContainHashTokenCQueryQuery() or
-  TDefineAndUndefUsedOnReservedIdentifierOrMacroNameQuery()
+  TDefineAndUndefUsedOnReservedIdentifierOrMacroNameQuery() or
+  TReservedMacroNameQuery()
 
 predicate isPreprocessor4QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -35,6 +36,15 @@ predicate isPreprocessor4QueryMetadata(Query query, string queryId, string ruleI
     "c/misra/define-and-undef-used-on-reserved-identifier-or-macro-name" and
   ruleId = "RULE-21-1" and
   category = "required"
+  or
+  query =
+    // `Query` instance for the `reservedMacroName` query
+    Preprocessor4Package::reservedMacroNameQuery() and
+  queryId =
+    // `@id` for the `reservedMacroName` query
+    "c/misra/reserved-macro-name" and
+  ruleId = "RULE-20-15" and
+  category = "required"
 }
 
 module Preprocessor4Package {
@@ -57,5 +67,12 @@ module Preprocessor4Package {
     result =
       // `Query` type for `defineAndUndefUsedOnReservedIdentifierOrMacroName` query
       TQueryC(TPreprocessor4PackageQuery(TDefineAndUndefUsedOnReservedIdentifierOrMacroNameQuery()))
+  }
+
+  Query reservedMacroNameQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `reservedMacroName` query
+      TQueryC(TPreprocessor4PackageQuery(TReservedMacroNameQuery()))
   }
 }
