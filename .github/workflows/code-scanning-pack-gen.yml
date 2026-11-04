@@ -27,7 +27,7 @@ jobs:
       matrix: ${{ steps.export-code-scanning-pack-matrix.outputs.matrix }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - name: Export Code Scanning pack matrix
         id: export-code-scanning-pack-matrix
         run: |
@@ -43,11 +43,11 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJSON(needs.prepare-code-scanning-pack-matrix.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
       - name: Cache CodeQL
         id: cache-codeql
-        uses: actions/cache@v5
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
         with:
           path: ${{ github.workspace }}/codeql_home
           key: codeql-home-${{ matrix.os }}-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library }}
@@ -63,7 +63,7 @@ jobs:
 
       - name: Cache queries compilation
         id: cache-queries-compilation
-        uses: actions/cache/restore@v6
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ github.workspace }}/codeql_cache
           key: ${{ runner.os }}-codeql-compilation-code-scanning-pack-${{ matrix.codeql_cli }}-${{ matrix.codeql_standard_library }}-${{ github.run_id }}
@@ -92,7 +92,7 @@ jobs:
         id: checkout-external-help-files
         # PRs from forks and dependabot do not have access to an appropriate token for cloning the help files repos
         if: ${{ !github.event.pull_request.head.repo.fork && github.actor != 'dependabot[bot]' }}
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           ssh-key: ${{ secrets.CODEQL_CODING_STANDARDS_HELP_KEY }}
           repository: "github/codeql-coding-standards-help"
@@ -124,13 +124,13 @@ jobs:
           zip -r codeql-coding-standards/code-scanning-cpp-query-pack.zip codeql-coding-standards/c/ codeql-coding-standards/cpp/ codeql-coding-standards/.codeqlmanifest.json codeql-coding-standards/supported_codeql_configs.json codeql-coding-standards/scripts/configuration codeql-coding-standards/scripts/reports codeql-coding-standards/scripts/shared codeql-coding-standards/scripts/guideline_recategorization codeql-coding-standards/schemas
 
       - name: Save queries compilation cache
-        uses: actions/cache/save@v6
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ${{ github.workspace }}/codeql_cache
           key: ${{ steps.cache-queries-compilation.outputs.cache-primary-key }}
 
       - name: Upload GHAS Query Pack
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: code-scanning-cpp-query-pack.zip
           path: code-scanning-cpp-query-pack.zip
@@ -152,7 +152,7 @@ jobs:
           codeql pack bundle --common-caches="$CODEQL_CACHE" --output=report-coding-standards.tgz cpp/report/src
 
       - name: Upload qlpack bundles
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: coding-standards-codeql-packs
           path: "*-coding-standards.tgz"
