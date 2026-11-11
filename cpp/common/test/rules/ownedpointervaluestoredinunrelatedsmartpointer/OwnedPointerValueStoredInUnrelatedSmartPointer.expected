@@ -21,6 +21,8 @@ edges
 | test.cpp:5:24:5:25 | call to shared_ptr | test.cpp:6:28:6:29 | p1 | provenance |  |
 | test.cpp:5:27:5:28 | v1 | test.cpp:5:24:5:25 | call to shared_ptr | provenance | Config |
 | test.cpp:5:27:5:28 | v1 | test.cpp:5:24:5:25 | call to shared_ptr | provenance | Config |
+| test.cpp:5:27:5:28 | v1 | test.cpp:5:24:5:25 | call to shared_ptr | provenance | TaintFunction |
+| test.cpp:5:27:5:28 | v1 | test.cpp:5:24:5:25 | call to shared_ptr | provenance | TaintFunction |
 | test.cpp:6:28:6:29 | p1 | test.cpp:6:31:6:33 | call to get | provenance | Config |
 | test.cpp:6:28:6:29 | p1 | test.cpp:6:31:6:33 | call to get | provenance | Config |
 | test.cpp:8:3:8:14 | ... = ... | test.cpp:9:28:9:29 | v2 | provenance |  |
