@@ -24,7 +24,9 @@ where
   p.getUnderlyingType().isDeeplyConst() and
   p.getType() instanceof DerivedType and
   p.getFunction().getType().stripTopLevelSpecifiers() instanceof DerivedType and
-  DataFlow::localFlow(DataFlow::parameterNode(p), DataFlow::exprNode(ret.getExpr()))
+  // `parameterNode` on a reference parameter gives back the node representing the indirection of the
+  // reference, so we pick the indirect node for the return expression.
+  DataFlow::localFlow(DataFlow::parameterNode(p), DataFlow::indirectExprNode(ret.getExpr()))
 select ret,
   "Function " + p.getFunction().getName() +
     " returns a reference or a pointer to $@ that is passed by reference to const.", p, "parameter"
