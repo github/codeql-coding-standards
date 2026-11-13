@@ -31,12 +31,16 @@ class GuidelineRecategorization extends XmlElement {
       recategorization = getCategory()
     |
       result = TMandatory() and
-      category = ["advisory", "required"] and
+      category = ["disapplied", "advisory", "required"] and
       recategorization = "mandatory"
       or
       result = TRequired() and
-      category = "advisory" and
+      category = ["disapplied", "advisory"] and
       recategorization = "required"
+      or
+      result = TAdvisory() and
+      category = "disapplied" and
+      recategorization = "advisory"
       or
       result = TDisapplied() and
       category = "advisory" and
@@ -45,11 +49,14 @@ class GuidelineRecategorization extends XmlElement {
   }
 
   private predicate isValidRecategorization(string category, string recategorization) {
-    category = ["advisory", "required"] and
+    category = ["disapplied", "advisory", "required"] and
     recategorization = "mandatory"
     or
-    category = "advisory" and
+    category = ["disapplied", "advisory"] and
     recategorization = "required"
+    or
+    category = "disapplied" and
+    recategorization = "advisory"
     or
     category = "advisory" and
     recategorization = "disapplied"

@@ -61,7 +61,8 @@
           "severity": "error",
           "short_name": "PlainNumericalTypeUsedOverExplicitTypedef",
           "tags": [
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "external/misra/legacy"
           ]
         }
       ],
@@ -104,6 +105,27 @@
         }
       ],
       "title": "A string literal shall not be assigned to an object unless the object's type is 'pointer to const-qualified char'"
+    }
+  },
+  "MISRA-C-2025": {
+    "DIR-4-6": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [
+        {
+          "description": "Using integer typedefs makes their size and signedness explicit.",
+          "kind": "problem",
+          "name": "Plain integer types should use explicit typedefs",
+          "precision": "high",
+          "severity": "error",
+          "short_name": "PlainIntegerTypeUsedOverExplicitTypedef",
+          "tags": [
+            "external/misra/c/2025"
+          ]
+        }
+      ],
+      "title": "typedefs that indicate size and signedness should be used in place of the basic integer types"
     }
   }
 }

@@ -1,0 +1,1 @@
+| test_MISRA_C_2025.c:2:26:2:31 | values | Parameter values is declared as an array type using the static keyword. |

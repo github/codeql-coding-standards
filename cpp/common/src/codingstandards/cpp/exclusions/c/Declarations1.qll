@@ -4,6 +4,7 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Declarations1Query =
+  TReservedIdentifierDeclaredQuery() or
   TDeclareIdentifiersBeforeUsingThemQuery() or
   TDoNotDeclareOrDefineAReservedIdentifierQuery() or
   TDoNotDeclareAReservedIdentifierQuery() or
@@ -12,6 +13,15 @@ newtype Declarations1Query =
   TMacroIdentifierNotDistinctFromParameterQuery()
 
 predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleId, string category) {
+  query =
+    // `Query` instance for the `reservedIdentifierDeclared` query
+    Declarations1Package::reservedIdentifierDeclaredQuery() and
+  queryId =
+    // `@id` for the `reservedIdentifierDeclared` query
+    "c/misra/reserved-identifier-declared" and
+  ruleId = "RULE-5-10" and
+  category = "required"
+  or
   query =
     // `Query` instance for the `declareIdentifiersBeforeUsingThem` query
     Declarations1Package::declareIdentifiersBeforeUsingThemQuery() and
@@ -68,6 +78,13 @@ predicate isDeclarations1QueryMetadata(Query query, string queryId, string ruleI
 }
 
 module Declarations1Package {
+  Query reservedIdentifierDeclaredQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `reservedIdentifierDeclared` query
+      TQueryC(TDeclarations1PackageQuery(TReservedIdentifierDeclaredQuery()))
+  }
+
   Query declareIdentifiersBeforeUsingThemQuery() {
     //autogenerate `Query` type
     result =

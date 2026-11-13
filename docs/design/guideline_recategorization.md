@@ -35,11 +35,16 @@ Guideline recategorization is possible by means of a guideline recategorization 
 The GRP defines the additional category Disapplied to be used for Advisory guidelines which are to be ignored. Any other category can be recategorized into stricter categories to ensure that a guideline adheres to the associated policy.
 The following table summarizes the possible recategorizations.
 
-| Category  | Recategorizations               |
-| --------- | ------------------------------- |
-| Mandatory |                                 |
-| Required  | Mandatory                       |
-| Advisory  | Disapplied, Required, Mandatory |
+| Category   | Recategorizations               |
+| ---------- | ------------------------------- |
+| Mandatory  |                                 |
+| Required   | Mandatory                       |
+| Advisory   | Disapplied, Required, Mandatory |
+| Disapplied | Advisory, Required, Mandatory   |
+
+MISRA C:2025 can assign Disapplied as a guideline's default category. Such a query
+remains selectable but produces no alerts until the existing configuration promotes
+it to Advisory, Required or Mandatory.
 
 Other recategorizations are invalid, not applied, and reported to the user.
 

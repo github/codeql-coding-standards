@@ -4,6 +4,20 @@ import sys
 import json
 from utils import *
 
+
+def get_applicable_standards(standard_name, query):
+    """Yield applicable standards, including unchanged queries reused by MISRA C:2025."""
+    if standard_name not in {"MISRA-C-2012", "MISRA-C-2025"}:
+        yield standard_name
+        return
+
+    tags = query["tags"]
+    if any(tag.startswith("external/misra/c/2012/") for tag in tags):
+        yield "MISRA-C-2012"
+    if "external/misra/legacy" not in tags:
+        yield "MISRA-C-2025"
+
+
 help_statement = """
 Usage: {script_name}
 
@@ -12,6 +26,9 @@ A tool for producing a canonical list of rules supported by the Coding Standards
 When run without any arguments, the script iterates through each of the rule package description
 files stored in the `rule_packages` directory, and identifies which rules are supported by one or
 more queries.
+
+MISRA C edition membership follows applicability tags and current-suite legacy exclusions,
+rather than only the package metadata's owning standard.
 """
 
 if (len(sys.argv) == 2 and sys.argv[1] == "--help"):
@@ -27,25 +44,26 @@ is_csv = len(sys.argv) == 2 and sys.argv[1] == "--csv"
 
 repo_root = Path(__file__).parent.parent.parent
 
-rules_covered = {"AUTOSAR" : {}, "CERT-C++" : {}, "MISRA-C-2012" : {}, "CERT-C" : {}, "MISRA-C++-2023" : {},}
+rules_covered = {"AUTOSAR" : {}, "CERT-C++" : {}, "MISRA-C-2025" : {}, "MISRA-C-2012" : {}, "CERT-C" : {}, "MISRA-C++-2023" : {},}
 
 # Iterate over rule packages
 for language_name in ["cpp", "c"]:
     rule_packages_file_path = repo_root.joinpath('rule_packages', language_name)
     for rule_package_file_name in os.listdir(rule_packages_file_path):
         try:
-            rule_package_file = open(rule_packages_file_path.joinpath(rule_package_file_name), "r")
+            package_definition = json.loads(
+                rule_packages_file_path.joinpath(rule_package_file_name).read_text()
+            )
         except PermissionError:
             print("Error: No permission to read the rule package file located at '" + str(rule_package_file_name) + "'")
             sys.exit(1)
-        else:
-            with rule_package_file:
-                package_definition = json.load(rule_package_file)
-                for standard_name, rules in package_definition.items():
-                    for rule_id, rule_details in rules.items():
-                        # If we have at least one query specified
-                        if len(rule_details["queries"]) > 0:
-                            rules_covered[standard_name][rule_id] = get_query_short_names(rule_details)
+        for standard_name, rules in package_definition.items():
+            for rule_id, rule_details in rules.items():
+                for query in rule_details["queries"]:
+                    for applicable_standard in get_applicable_standards(standard_name, query):
+                        queries = rules_covered[applicable_standard].setdefault(rule_id, [])
+                        if query["short_name"] not in queries:
+                            queries.append(query["short_name"])
 
 
 if is_csv:

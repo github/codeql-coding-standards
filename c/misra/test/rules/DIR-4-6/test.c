@@ -16,12 +16,12 @@ typedef unsigned long long
     uint4_t; // NON_COMPLIANT: typedef does not have its indicated size
 
 typedef float float32_t; // COMPLIANT: exception, typedefs are permitted
-typedef double _Complex float64_t; // NON-COMPLIANT: not complex floating type
+typedef double _Complex float64_t; // NON_COMPLIANT (MISRA-C-2012 only)
 typedef long double float128_t; // COMPLIANT: exception, typedefs are permitted
 
-typedef float cfloat32_t; // NON-COMPLIANT: not a complex floating type
+typedef float cfloat32_t;            // NON_COMPLIANT (MISRA-C-2012 only)
 typedef double _Complex cfloat64_t;  // COMPLIANT: correct complex floating type
-typedef double _Complex cfloat128_t; // NON-COMPLIANT: incorrect complex size
+typedef double _Complex cfloat128_t; // NON_COMPLIANT (MISRA-C-2012 only)
 
 typedef int8_t
     astronomical_number_t; // COMPLIANT: aliasing a fixed-width numeric typedef
@@ -59,15 +59,15 @@ main(int argc, // COMPLIANT: exception, argc's type can be plain int
   unsigned long long ll3 = 1; // NON_COMPLIANT: use typedef uint64_t
   int64_t ll4 = 1;            // COMPLIANT: typedef used instead
 
-  float f1 = 1; // NON_COMPLIANT: float is a basic numeric type, use a typedef
+  float f1 = 1;     // NON_COMPLIANT (MISRA-C-2012 only)
   float32_t f2 = 1; // COMPLIANT: typedef used instead
 
-  double d1 = 1;    // NON_COMPLIANT: int is a basic numeric type
+  double d1 = 1;    // NON_COMPLIANT (MISRA-C-2012 only)
   float64_t d2 = 1; // COMPLIANT: typedef used instead
 
-  long double ld1 = 1; // NON_COMPLIANT: int is a basic numeric type
+  long double ld1 = 1; // NON_COMPLIANT (MISRA-C-2012 only)
   float128_t ld2 = 1;  // COMPLIANT: typedef used instead
 
-  float _Complex cf1 = 1; // NON_COMPLIANT: complex basic numeric type
+  float _Complex cf1 = 1; // NON_COMPLIANT (MISRA-C-2012 only)
   cfloat64_t cf2 = 1;     // COMPLIANT: typedef used instead
 }

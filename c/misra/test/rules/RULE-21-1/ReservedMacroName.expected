@@ -1,0 +1,3 @@
+| test.c:1:1:1:17 | #define _NOT_OKAY | Reserved identifier '_NOT_OKAY' has been undefined or redefined. |
+| test.c:2:1:2:16 | #undef _NOT_OKAY | Reserved identifier '_NOT_OKAY' has been undefined or redefined. |
+| test.c:5:1:5:13 | #define errno | Reserved identifier 'errno' has been undefined or redefined. |

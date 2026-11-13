@@ -4,10 +4,20 @@ import RuleMetadata
 import codingstandards.cpp.exclusions.RuleMetadata
 
 newtype Language3Query =
+  TLanguageExtensionsShouldBeMinimizedQuery() or
   TLanguageExtensionsShouldNotBeUsedQuery() or
   TOccurrenceOfUndefinedBehaviorQuery()
 
 predicate isLanguage3QueryMetadata(Query query, string queryId, string ruleId, string category) {
+  query =
+    // `Query` instance for the `languageExtensionsShouldBeMinimized` query
+    Language3Package::languageExtensionsShouldBeMinimizedQuery() and
+  queryId =
+    // `@id` for the `languageExtensionsShouldBeMinimized` query
+    "c/misra/language-extensions-should-be-minimized" and
+  ruleId = "DIR-1-2" and
+  category = "advisory"
+  or
   query =
     // `Query` instance for the `languageExtensionsShouldNotBeUsed` query
     Language3Package::languageExtensionsShouldNotBeUsedQuery() and
@@ -28,6 +38,13 @@ predicate isLanguage3QueryMetadata(Query query, string queryId, string ruleId, s
 }
 
 module Language3Package {
+  Query languageExtensionsShouldBeMinimizedQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `languageExtensionsShouldBeMinimized` query
+      TQueryC(TLanguage3PackageQuery(TLanguageExtensionsShouldBeMinimizedQuery()))
+  }
+
   Query languageExtensionsShouldNotBeUsedQuery() {
     //autogenerate `Query` type
     result =

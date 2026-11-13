@@ -1,0 +1,17 @@
+| test.c:14:5:14:10 | int4_t | The typedef type int4_t does not have its indicated size. |
+| test.c:16:5:16:11 | uint4_t | The typedef type uint4_t does not have its indicated size. |
+| test.c:31:5:31:26 | _astronomical_number_t | The type _astronomical_number_t is not an alias to a fixed-width numeric type. |
+| test.c:38:15:38:16 | c2 | The type signed char is not a fixed-width numeric type. |
+| test.c:39:17:39:18 | c3 | The type unsigned char is not a fixed-width numeric type. |
+| test.c:42:9:42:10 | s1 | The type short is not a fixed-width numeric type. |
+| test.c:43:16:43:17 | s2 | The type signed short is not a fixed-width numeric type. |
+| test.c:44:18:44:19 | s3 | The type unsigned short is not a fixed-width numeric type. |
+| test.c:47:7:47:8 | i1 | The type int is not a fixed-width numeric type. |
+| test.c:48:14:48:15 | i2 | The type signed int is not a fixed-width numeric type. |
+| test.c:49:16:49:17 | i3 | The type unsigned int is not a fixed-width numeric type. |
+| test.c:52:8:52:9 | l1 | The type long is not a fixed-width numeric type. |
+| test.c:53:15:53:16 | l2 | The type signed long is not a fixed-width numeric type. |
+| test.c:54:17:54:18 | l3 | The type unsigned long is not a fixed-width numeric type. |
+| test.c:57:13:57:15 | ll1 | The type long long is not a fixed-width numeric type. |
+| test.c:58:20:58:22 | ll2 | The type signed long long is not a fixed-width numeric type. |
+| test.c:59:22:59:24 | ll3 | The type unsigned long long is not a fixed-width numeric type. |

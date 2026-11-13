@@ -71,6 +71,7 @@ The _CodeQL Coding Standards_ product is a set of CodeQL queries for identifying
 |             | [2012 Amendment 3](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD3.pdf)                                                                                                                       | 24    | 24                | 24                | Implemented       |
 |             | [2012 Amendment 4](https://misra.org.uk/app/uploads/2021/06/MISRA-C-2012-AMD4.pdf)                                                                                                                       | 22    | 22                | 21[^4]            | Implemented       |
 |             | [2023 Third Edition, Second Revision](https://misra.org.uk/product/misra-c2023/)                                                                                                                         | 221   | 210               | 207[^5]           | Implemented       |
+|             | 2025 (default suite)                                                                                                                                                                                  | 223   | Under review      | Under development | Under development |
 | MISRA C++   | [2023](https://misra.org.uk/product/misra-cpp2023/)                                                                                                                                                      | 179   | 176[^6]           | 175[^7]           | Implemented       |
 
 Not all rules in these standards are amenable to static analysis by CodeQL - some rules require external or domain specific knowledge to validate, or refer to properties which are not present in our representation of the codebase under analysis. In addition, some rules are natively enforced by the supported compilers. As CodeQL requires that the program under analysis compiles, we are unable to implement queries for these rules, and doing so would be redundant.
@@ -84,6 +85,11 @@ For each rule we therefore identify whether it is supportable or not. Furthermor
 Each supported rule is implemented as one or more CodeQL queries, with each query covering an aspect of the rule. In many coding standards, the rules cover non-trivial semantic properties of the codebase under analysis.
 
 The datasheet _"CodeQL Coding Standards: supported rules"_, provided with each release, lists which rules are supported for that particular release, and the _scope of analysis_ for that rule.
+
+The generic MISRA C query suites now select MISRA C:2025. The migration is under
+development; selecting the 2025 default does not establish complete rule coverage
+or extend the functional-safety qualification scope. Use the supported-rules list
+for the selected release to determine its implemented coverage.
 
 [^1]: AUTOSAR C++ versions R22-11, R21-11, R20-11, R19-11 and R19-03 are all identical as indicated in the document change history.
 [^2]: The unimplemented supportable AUTOSAR rules are `A7-1-8` and `A8-2-1`. These rules require additional support in the CodeQL CLI to ensure the required information is available in the CodeQL database to identify violations of these rules.
@@ -270,6 +276,28 @@ If modifying the query suite, ensure that all Rules you expect to be covered by 
 ```bash
 codeql resolve queries codeql/<standard>-<language>-coding-standards@<version>:codeql-suites/<alternative-suite>.qls
 ```
+
+##### Selecting a MISRA C edition
+
+The default MISRA C suite and its generic obligation, audit and strict suites target
+MISRA C:2025. The pack name remains `codeql/misra-c-coding-standards`.
+Older guideline sets can be selected explicitly without downloading a different pack:
+
+```bash
+codeql database analyze --format=sarifv2.1.0 --output=results.sarif <database> codeql/misra-c-coding-standards@<version>:codeql-suites/misra-c-2023.qls
+```
+
+For MISRA C:2012 including Amendment 2, select:
+
+```bash
+codeql database analyze --format=sarifv2.1.0 --output=results.sarif <database> codeql/misra-c-coding-standards@<version>:codeql-suites/misra-c-2012-third-edition-with-amendment-2.qls
+```
+
+Older suites retain their guideline sets and legacy query identifiers; interpretations
+may incorporate later clarifications. Current suites omit superseded legacy wrappers.
+For example, the default uses Rule 20.15 instead of Rule 21.1 and does not select the
+retired Rule 17.6 static-array-parameter prohibition. Rule 17.5 array contracts remain
+checked. Run `codeql resolve queries` for the chosen suite to review its exact membership.
 
 ##### Supported SARIF versions
 
@@ -596,6 +624,12 @@ The following tables described the re-categorizations are permitted.
 | Mandatory | Permitted |  | | |
 | Required | Permitted | Permitted | | |
 | Advisory | Permitted | Permitted | Permitted | Permitted |
+| Disapplied | Permitted | Permitted | Permitted | |
+
+A guideline that is Disapplied by default, such as MISRA C:2025 Rule 15.5, reports no
+violations unless it is recategorized. Its query remains in the default suite so it
+can be reactivated as Advisory, Required or Mandatory. This does not change the
+Advisory default for the legacy Rule 15.5 wrapper selected by older-edition suites.
 
 Each guideline re-categorization **must** be specified in the `guideline-recategorizations` section of a `coding-standards.yml` file that **must** be anywhere in the source repository.
 
@@ -612,6 +646,19 @@ guideline-recategorizations:
   - rule-id: "A11-0-1"
     category: "mandatory"
 ```
+
+For example, reactivate Rule 15.5 in the 2025 default analysis with:
+
+```yaml
+guideline-recategorizations:
+  - rule-id: "RULE-15-5"
+    category: "advisory"
+```
+
+Process this configuration during database creation using
+`process_coding_standards_config.py`, as described under _Deviation records_, so the
+query can apply it during evaluation. SARIF post-processing updates report metadata;
+it cannot recover violations that were suppressed during query evaluation.
 
 Application of the guideline re-categorization plan to the analysis results requires an additional post-processing step.
 The post-processing step is implemented by the Python script `path/to/codeql-coding-standards/scripts/guideline_recategorization/recategorize.py`.

@@ -22,3 +22,5 @@
 | test.c:65:10:65:11 | d1 | The type double is not a fixed-width numeric type. |
 | test.c:68:15:68:17 | ld1 | The type long double is not a fixed-width numeric type. |
 | test.c:71:18:71:20 | cf1 | The type _Complex float is not a fixed-width numeric type. |
+| test_MISRA_C_2025.c:1:15:1:23 | real_type | The type real_type is not an alias to a fixed-width numeric type. |
+| test_MISRA_C_2025.c:2:19:2:28 | real_alias | The type real_alias is not an alias to a fixed-width numeric type. |
