@@ -3,7 +3,7 @@
 void f2(int *v1) {
   int *v2 = v1;
   std::shared_ptr<int> p1(v1);        // NON_COMPLIANT
-  new std::shared_ptr<int>(p1.get()); // NON_COMPLIANT
+  new std::shared_ptr<int>(p1.get()); // NON_COMPLIANT [MISSING]
   new std::shared_ptr<int>(v2);       // NON_COMPLIANT
   v2 = nullptr;
   new std::shared_ptr<int>(v2); // COMPLIANT

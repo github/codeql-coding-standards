@@ -14,7 +14,7 @@ void test_closed() {
   file.close();
   if (file.fail()) {
   }
-  std::terminate(); // COMPLIANT
+  std::terminate(); // COMPLIANT [FALSE POSITIVE]
 }
 
 void test_fail() {
@@ -27,7 +27,7 @@ void test_fail() {
     if (file.fail()) {
     }
   }
-  std::terminate(); // COMPLIANT
+  std::terminate(); // COMPLIANT [FALSE POSITIVE]
 }
 
 void test_scope() {
@@ -41,7 +41,7 @@ void test_scope() {
     if (file.fail()) {
     }
   }
-  std::terminate(); // COMPLIANT
+  std::terminate(); // COMPLIANT [FALSE POSITIVE]
 }
 
 void test_sequence() {
