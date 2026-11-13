@@ -37,8 +37,10 @@ function Get-TestFile {
     }
 
     $testDirectory = Join-Path (Join-Path (Join-Path (Join-Path $Language $standardString) "test") "rules") $ruleDir
+    $testFile = Join-Path $testDirectory "$queryName$extension"
     $referenceFile = Join-Path $testDirectory "$queryName.testref"
-    if (Test-Path -LiteralPath $referenceFile -PathType Leaf) {
+    if (-not (Test-Path -LiteralPath $testFile -PathType Leaf) -and
+        (Test-Path -LiteralPath $referenceFile -PathType Leaf)) {
         $reference = Get-Content -LiteralPath $referenceFile -Raw -ErrorAction Stop
         if ([string]::IsNullOrWhiteSpace($reference)) {
             throw "Empty test reference: $referenceFile"
@@ -47,7 +49,8 @@ function Get-TestFile {
             throw "Test reference must be repository-relative: $referenceFile"
         }
 
-        $testFile = Join-Path (Get-RepositoryRoot) $reference.Trim()
+        $repositoryRoot = Get-RepositoryRoot
+        $testFile = Join-Path $repositoryRoot $reference.Trim()
         if ([IO.Path]::GetExtension($testFile) -notin @(".ql", ".qlref")) {
             throw "Test reference must name a .ql or .qlref file: $referenceFile"
         }
@@ -58,8 +61,8 @@ function Get-TestFile {
         if (-not (Test-Path -LiteralPath $expectedFile -PathType Leaf)) {
             throw "Referenced test has no expected results: $expectedFile"
         }
-        return (Resolve-Path -LiteralPath $testFile).Path
+        return [IO.Path]::GetRelativePath($repositoryRoot, (Resolve-Path -LiteralPath $testFile).Path)
     }
 
-    return Join-Path $testDirectory "$queryName$extension"
+    return $testFile
 }

@@ -232,7 +232,7 @@ foreach ($s in $AVAILABLE_SUITES) {
 # filter the set down based on the selections 
 
 if ($Suite) {
-    $queriesToCheck = $allQueries | Where-Object { $_.__memberof_suite -eq $SuiteName }
+    $queriesToCheck = $allQueries | Where-Object { $_.__applicable_suites -contains $SuiteName }
 }
 elseif ($Package) {
     $queriesToCheck = $allQueries | Where-Object { $_.__memberof_package -eq $PackageName }

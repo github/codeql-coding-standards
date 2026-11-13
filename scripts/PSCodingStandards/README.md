@@ -56,7 +56,16 @@ with matching `.expected` results. A new query variant needs its own runnable te
 but can reuse an existing C/C++ fixture. The matrix runner uses the referenced
 file's directory, query name, and expected results.
 
-Run the test-reference regression checks with:
+Direct runnable tests take precedence over `.testref` files. Returned test files
+and their base fixture directories are repository-relative paths, so wrappers
+sharing a fixture use the same matrix lock.
+
+`__applicable_suites` controls matrix suite selection without changing
+`__memberof_suite` ownership. Add suites to `$SUITE_DEFINITIONS` in `Config.ps1`;
+`IncludeSuites` lists additional owning suites, and `ExcludeTags` filters their
+queries. MISRA C:2025 uses this configuration to include non-legacy MISRA C:2012-owned queries.
+
+Run the matrix tooling regression checks with:
 
 ```
 pwsh -NoLogo -NoProfile -File scripts/matrix_testing/Get-TestFile.Tests.ps1
