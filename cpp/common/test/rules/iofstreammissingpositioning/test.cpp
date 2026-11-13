@@ -7,8 +7,8 @@ std::string str("output:");
 void test_local() {
   std::fstream f_local("file");
   f_local << "some data"; // COMPLIANT
-  f_local >> str;         // NON_COMPLIANT
-  f_local << "more data"; // NON_COMPLIANT
+  f_local >> str;         // NON_COMPLIANT [MISSING]
+  f_local << "more data"; // NON_COMPLIANT [MISSING]
   f_local.seekp(0);
   f_local >> str; // COMPLIANT
 };
@@ -16,7 +16,7 @@ void test_local2() {
   std::fstream f_local("file");
   f_local << "some data"; // COMPLIANT
   f_local << "more data"; // COMPLIANT
-  f_local >> str;         // NON_COMPLIANT
+  f_local >> str;         // NON_COMPLIANT [MISSING]
   f_local >> str;         // COMPLIANT
 };
 
@@ -28,7 +28,7 @@ void test_2streams() {
   f_s1 << "some data";
   f_s2 >> str; // COMPLIANT
   f_s1.seekp(0);
-  f_s2 << "some data"; // NON_COMPLIANT
+  f_s2 << "some data"; // NON_COMPLIANT [MISSING]
   f_s1 >> str;         // COMPLIANT
 }
 
@@ -38,8 +38,8 @@ void test_alias() {
   std::fstream &alias_f1 = f1;
 
   f1 << "some data";
-  alias_f1 >> str;   // NON_COMPLIANT
-  f1 << "more data"; // NON_COMPLIANT
+  alias_f1 >> str;   // NON_COMPLIANT [MISSING]
+  f1 << "more data"; // NON_COMPLIANT [MISSING]
 }
 
 // class member variable
@@ -100,5 +100,5 @@ void test_branch(int rand) {
   if (rand > 10) {
     f_branch.seekp(0);
   }
-  f_branch << "more data"; // NON_COMPLIANT
+  f_branch << "more data"; // NON_COMPLIANT [MISSING]
 }

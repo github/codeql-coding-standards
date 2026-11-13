@@ -48,7 +48,7 @@ void test_correct_exceptions() {
   std::basic_istream<char> s(0);
   s.exceptions(std::istream::failbit | std::istream::badbit);
   int x;
-  s >> x; // COMPLIANT - will throw an exceptions
+  s >> x; // COMPLIANT - will throw an exceptions [FALSE POSITIVE]
 }
 
 void test_incomplete_exceptions_non_compliant() {
@@ -61,7 +61,7 @@ void test_incomplete_exceptions_non_compliant() {
 void test_exceptions_but_after() {
   std::basic_istream<char> s(0);
   int x;
-  s >> x; // COMPLIANT - will throw an exception on `exceptions` below
+  s >> x; // COMPLIANT - will throw an exception on `exceptions` below [FALSE POSITIVE]
   // exceptions will cause an exception to be thrown if any of the failbits are
   // already set
   s.exceptions(std::istream::failbit | std::istream::badbit);
@@ -126,7 +126,7 @@ void init_stream(std::basic_istream<char> &s) {
 
 void readInt(std::basic_istream<char> &s) {
   int x;
-  s >> x; // COMPLIANT - all sources have exceptions enabled
+  s >> x; // COMPLIANT - all sources have exceptions enabled [FALSE POSITIVE]
 }
 
 void readInt2(std::basic_istream<char> &s) {
@@ -138,7 +138,7 @@ void test_non_local_exceptions_enabled_compliant() {
   std::basic_istream<char> s(0);
   init_stream(s);
   int x;
-  s >> x; // COMPLIANT - throws an exception
+  s >> x; // COMPLIANT - throws an exception [FALSE POSITIVE]
   std::basic_istream<char> s1(0);
   init_stream(s1);
   readInt(s1);

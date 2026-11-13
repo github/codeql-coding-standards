@@ -10,7 +10,7 @@ void test_basic(std::vector<int> from) {
 
 void test_basic_good(std::vector<int> &src) {
   std::vector<int> dest(src.size());
-  std::copy(src.begin(), src.end(), dest.begin()); // COMPLIANT
+  std::copy(src.begin(), src.end(), dest.begin()); // COMPLIANT [FALSE POSITIVE]
 }
 
 void test_non_local_bad(std::vector<int> &src, std::vector<int> &dest) {
@@ -46,7 +46,7 @@ void test_back_inserter(std::vector<int> &src) {
 void test_fixed_size_correct() {
   std::vector<int> dest(10);
   std::vector<int> src(10);
-  std::copy(src.begin(), src.end(), dest.begin()); // COMPLIANT
+  std::copy(src.begin(), src.end(), dest.begin()); // COMPLIANT [FALSE POSITIVE]
 }
 
 void test_fixed_size_broken() {

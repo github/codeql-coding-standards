@@ -15,7 +15,7 @@ std::shared_ptr<int> f1() {
   std::shared_ptr<int> sp4 = std::make_shared<int>(0); // COMPLIANT
   std::shared_ptr<int> sp5 = std::make_shared<int>(0); // NON_COMPLIANT
   std::shared_ptr<int> sp6;                            // NON_COMPLIANT
-  std::shared_ptr<int> sp7;                            // COMPLIANT
+  std::shared_ptr<int> sp7;                            // COMPLIANT [FALSE POSITIVE]
 
   shared_ptr_obj_param(sp1);
   shared_ptr_ref_param(sp2);
