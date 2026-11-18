@@ -51,7 +51,7 @@
           "short_name": "BannedDynamicThreadCreation",
           "tags": [
             "external/misra/c/2012/amendment4",
-            "external/misra/c/audit",
+            "external/misra/audit",
             "correctness",
             "maintainability",
             "concurrency",
