@@ -14,13 +14,13 @@
 import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.standardlibrary.Utility
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 from StdForwardCall f, Access a
 where
   not isExcluded(a, MoveForwardPackage::movedFromObjectReadAccessedQuery()) and
   exists(DataFlow::DefinitionByReferenceNode def |
-    def.asDefiningArgument() = f and
+    def.asDefiningArgument() = f.getArgument(0) and
     DataFlow::localFlow(def, DataFlow::exprNode(a))
   )
 select a, "The argument $@ of `std::forward` may be indeterminate when accessed at this location.",

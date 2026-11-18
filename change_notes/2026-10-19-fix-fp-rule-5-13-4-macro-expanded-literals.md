@@ -1,0 +1,2 @@
+- `RULE-5-13-4`, `M2-13-3` - `UnsignedIntegerLiteralsNotAppropriatelySuffixed.ql`, `MissingUSuffix.ql`:
+  - Remove false positives for literals in macro expansions (e.g. `0U`), as the suffix information is lost in this case. This is consistent with `RULE-7-2`.

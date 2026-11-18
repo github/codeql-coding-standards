@@ -20,7 +20,7 @@
 import cpp
 import codingstandards.c.cert
 import codingstandards.cpp.Alignment
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 import AlignedAllocToReallocFlow::PathGraph
 
 int getStatedValue(Expr e) {

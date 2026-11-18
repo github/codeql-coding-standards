@@ -560,3 +560,11 @@ template <typename T> unsigned long long instantiated_literal_exclusion() {
 void test_instantiated_literal_exclusion() {
   instantiated_literal_exclusion<int>();
 }
+
+#define TEST_MACRO(value) (value)
+
+void test_literals_in_macro_argument() {
+  TEST_MACRO(1U == 0U);     // COMPLIANT
+  TEST_MACRO(020000000000); // NON_COMPLIANT[FALSE_NEGATIVE] - cannot determine
+                            // suffix in macro expansions
+}

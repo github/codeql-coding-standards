@@ -24,6 +24,7 @@ class BlockedIncludeGuard extends HeaderFile {
 }
 
 query predicate problems(HeaderFile file, string message, HeaderFile other, string name) {
+  not isExcluded(file, getQuery()) and
   not file instanceof CorrectIncludeGuard and
   if file instanceof BlockedIncludeGuard
   then

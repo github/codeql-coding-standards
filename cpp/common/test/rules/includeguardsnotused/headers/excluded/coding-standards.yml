@@ -1,0 +1,3 @@
+deviations:
+  - rule-id: cpp-test-dummy
+    justification: This header is deliberately excluded to test the exclusion mechanism.

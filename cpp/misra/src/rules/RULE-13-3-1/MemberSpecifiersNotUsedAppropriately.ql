@@ -20,6 +20,9 @@ import codingstandards.cpp.misra
 from MemberFunction f, string message
 where
   not isExcluded(f, Classes2Package::memberSpecifiersNotUsedAppropriatelyQuery()) and
+  // Only user-declared member functions are in scope, not implicitly declared
+  // ones such as an implicit destructor.
+  not f.isCompilerGenerated() and
   (
     // Case 1: Specifiers incompatible with explicitly virtual
     f.isDeclaredVirtual() and

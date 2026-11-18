@@ -18,7 +18,7 @@ import cpp
 import codingstandards.cpp.autosar
 import codingstandards.cpp.SmartPointers
 import codingstandards.cpp.standardlibrary.Utility
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 Expr underlyingObjectAffectingUniquePointerExpr(Function f) {
   result =

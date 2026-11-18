@@ -16,7 +16,7 @@
 import cpp
 import codingstandards.c.misra
 import codingstandards.c.Objects
-import codingstandards.cpp.Concurrency
+import codingstandards.cpp.ConcurrencyNew
 import codingstandards.cpp.Type
 
 from ObjectIdentity obj, StorageDuration storageDuration, Type type

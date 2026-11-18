@@ -21,7 +21,7 @@ import cpp
 import codingstandards.cpp.FgetsErrorManagement
 import codingstandards.cpp.Dereferenced
 import codingstandards.c.cert
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 /*
  * Models calls to `memcpy` `strcpy` `strncpy` and their wrappers

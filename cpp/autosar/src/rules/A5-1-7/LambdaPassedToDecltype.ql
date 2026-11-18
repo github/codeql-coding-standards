@@ -15,7 +15,7 @@
 
 import cpp
 import codingstandards.cpp.autosar
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.new.DataFlow
 
 module LambdaExpressionToInitializerConfig implements DataFlow::ConfigSig {
   predicate isSource(DataFlow::Node source) { source.asExpr() instanceof LambdaExpression }

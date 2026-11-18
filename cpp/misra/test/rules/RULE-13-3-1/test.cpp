@@ -105,3 +105,12 @@ public:
   virtual ~C15() =
       default; // COMPLIANT: Note that this does not violate rule 6.4.2
 };
+
+class C16 : public VirtualDestructorBase {
+  // COMPLIANT: the destructor is implicitly declared, not user-declared
+};
+
+class C17 : public VirtualDestructorBase {
+public:
+  C17() = default; // COMPLIANT: implicit virtual destructor not user-declared
+};
