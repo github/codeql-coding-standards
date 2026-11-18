@@ -5,4 +5,4 @@
     - problem
     - path-problem
     tags contain:
-    - external/misra/c/audit
+    - external/misra/audit
