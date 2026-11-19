@@ -1,6 +1,6 @@
 language,standard,amendment,rule_id,supportable,implementation_category,implemented,difficulty
 c,MISRA-C-2025,Edition2025,DIR-1-2,Yes,Renumber,Yes,Easy
-c,MISRA-C-2025,Edition2025,DIR-4-6,Yes,Refine,No,Medium
+c,MISRA-C-2025,Edition2025,DIR-4-6,Yes,Refine,Yes,Medium
 c,MISRA-C-2025,Edition2025,DIR-4-10,Yes,Expand,No,Medium
 c,MISRA-C-2025,Edition2025,RULE-1-2,Yes,Renumber,Yes,Easy
 c,MISRA-C-2025,Edition2025,RULE-5-10,Yes,Renumber,Yes,Easy
