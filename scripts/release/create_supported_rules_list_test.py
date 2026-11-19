@@ -85,7 +85,7 @@ def test_applicability_is_filtered_per_query(tmp_path):
     assert rows["MISRA-C-2025", "RULE-1-1"] == "Current.ql"
 
 
-def test_renumbered_rules_do_not_leak_into_older_editions(tmp_path):
+def test_renumbered_and_new_rules_do_not_leak_into_older_editions(tmp_path):
     rows = supported_rules(tmp_path, {
         "MISRA-C-2012": {
             "RULE-21-1": {"queries": [{
@@ -94,14 +94,16 @@ def test_renumbered_rules_do_not_leak_into_older_editions(tmp_path):
             }]},
         },
         "MISRA-C-2025": {
-            "RULE-20-15": {"queries": [{
-                "short_name": "ReservedMacroName",
-                "tags": [CURRENT_EDITION],
-            }]},
+            rule: {"queries": [{"short_name": name, "tags": [CURRENT_EDITION]}]}
+            for rule, name in (
+                ("RULE-20-15", "ReservedMacroName"),
+                ("RULE-8-18", "DefinitionsInHeader"),
+            )
         },
     })
     assert ("MISRA-C-2025", "RULE-21-1") not in rows
     assert ("MISRA-C-2012", "RULE-20-15") not in rows
+    assert ("MISRA-C-2012", "RULE-8-18") not in rows
     assert rows["MISRA-C-2025", "RULE-20-15"] == "ReservedMacroName.ql"
 
 

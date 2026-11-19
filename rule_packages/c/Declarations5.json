@@ -107,7 +107,23 @@
       "properties": {
         "obligation": "required"
       },
-      "queries": [],
+      "queries": [
+        {
+          "description": "Tentative definitions in headers can introduce unintended definitions in multiple translation units.",
+          "kind": "problem",
+          "name": "There shall be no tentative definitions in a header file",
+          "precision": "high",
+          "severity": "warning",
+          "short_name": "DefinitionsInHeader",
+          "tags": [
+            "correctness",
+            "external/misra/c/2025"
+          ],
+          "implementation_scope": {
+            "description": "Reports tentative file-scope declarations in included files of any extension. Excludes extern declarations and initialized definitions."
+          }
+        }
+      ],
       "title": "There shall be no tentative definitions in a header file"
     },
     "RULE-8-19": {
