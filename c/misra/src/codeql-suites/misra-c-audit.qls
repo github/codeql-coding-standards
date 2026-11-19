@@ -1,8 +1,11 @@
-- description: MISRA C 2023 (Audit)
+- description: MISRA C 2025 (Audit)
 - qlpack: codeql/misra-c-coding-standards
 - include:
     kind:
     - problem
     - path-problem
     tags contain:
-    - external/misra/c/audit
+    - external/misra/audit
+- exclude:
+    tags contain:
+    - external/misra/legacy

@@ -25,44 +25,41 @@ class GuidelineRecategorization extends XmlElement {
   /** Get a query for which a recategorization is specified. */
   Query getQuery() { result.getRuleId() = getRuleId() }
 
-  private EffectiveCategory getValidEffectiveCategory() {
-    exists(string category, string recategorization |
-      category = getQuery().getCategory() and
-      recategorization = getCategory()
-    |
-      result = TMandatory() and
-      category = ["advisory", "required"] and
-      recategorization = "mandatory"
-      or
-      result = TRequired() and
-      category = "advisory" and
-      recategorization = "required"
-      or
-      result = TDisapplied() and
-      category = "advisory" and
-      recategorization = "disapplied"
-    )
+  /** Gets a matching query whose default category permits this recategorization. */
+  Query getApplicableQuery() {
+    result = getQuery() and isValidRecategorization(result.getCategory(), getCategory())
   }
 
   private predicate isValidRecategorization(string category, string recategorization) {
-    category = ["advisory", "required"] and
+    category = ["disapplied", "advisory", "required"] and
     recategorization = "mandatory"
     or
-    category = "advisory" and
+    category = ["disapplied", "advisory"] and
     recategorization = "required"
+    or
+    category = "disapplied" and
+    recategorization = "advisory"
     or
     category = "advisory" and
     recategorization = "disapplied"
   }
 
+  /** Gets the reason why this recategorization is invalid for all matching queries. */
   string getAnInvalidReason() {
-    not isValidRecategorization(this.getQuery().getCategory(), this.getCategory()) and
+    not exists(getApplicableQuery()) and
     if exists(this.getQuery())
     then
       result =
-        "Invalid recategorization from '" + this.getQuery().getCategory() + "' to '" +
-          this.getCategory() + "'."
+        "Invalid recategorization from '" + strictconcat(getQuery().getCategory(), "' or '") +
+          "' to '" + this.getCategory() + "'."
     else result = "Unknown rule id '" + this.getRuleId() + "'."
+  }
+
+  /** Gets the original category (or categories) of queries matched by this recategorization. */
+  string getMatchingOriginalCategory() {
+    if exists(getApplicableQuery())
+    then result = strictconcat(getApplicableQuery().getCategory(), "/")
+    else result = strictconcat(getQuery().getCategory(), "/")
   }
 
   predicate isValid() { not isInvalid() }
@@ -70,10 +67,8 @@ class GuidelineRecategorization extends XmlElement {
   predicate isInvalid() { getEffectiveCategory() = TInvalid(_) }
 
   EffectiveCategory getEffectiveCategory() {
-    (
-      if exists(getValidEffectiveCategory())
-      then result = getValidEffectiveCategory()
-      else result = TInvalid(getAnInvalidReason())
-    )
+    if exists(getApplicableQuery())
+    then result.toString() = getCategory()
+    else result = TInvalid(getAnInvalidReason())
   }
 }

@@ -10,7 +10,7 @@
  *       maintainability
  *       performance
  *       external/misra/c/2012/amendment4
- *       external/misra/c/strict
+ *       external/misra/strict
  *       external/misra/obligation/advisory
  */
 

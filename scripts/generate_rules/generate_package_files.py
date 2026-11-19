@@ -59,6 +59,10 @@ standard_metadata = {
         "standard_title" : "MISRA-C:2012 Guidelines for the use of the C language in critical systems",
         "standard_url"   : "https://www.misra.org.uk/"
     },
+    "MISRA-C-2025" : {
+        "standard_title" : "MISRA C:2025 Guidelines for the use of the C language in critical systems",
+        "standard_url"   : "https://www.misra.org.uk/"
+    },
     "MISRA-C++-2023" : {
         "standard_title" : "MISRA C++:2023 Guidelines for the use C++:17 in critical systems",
         "standard_url"   : "https://misra.org.uk/product/misra-cpp2023/"
@@ -66,7 +70,7 @@ standard_metadata = {
 }
 
 # The help files of these standards cannot be distributed in our repository.
-external_help_file_standards = ["AUTOSAR", "MISRA-C-2012", "MISRA-C++-2023"]
+external_help_file_standards = ["AUTOSAR", "MISRA-C-2025", "MISRA-C-2012", "MISRA-C++-2023"]
 
 # Mapping from the QL language to source file extension used to generate a help example file.
 ql_language_ext_mappings = {
@@ -213,7 +217,10 @@ def write_shared_implementation(package_name, rule_id, query, language_name, ql_
                     repo_root)).replace("\\", "/"))
 
 def write_non_shared_testfiles(rule_id, query, language_name, query_path, test_src_dir, src_pack_dir):
-        # Add qlref test file
+    # A testref reuses existing coverage, so do not generate duplicate test files.
+    if test_src_dir.joinpath(query["short_name"] + ".testref").exists():
+        return
+    # Add qlref test file
     print(
         rule_id + ": Writing out query test files to " + str(test_src_dir))
     with open(test_src_dir.joinpath(query["short_name"] + ".qlref"), "w", newline="\n") as f:
@@ -282,6 +289,9 @@ def generate_package_files(package_name: str) -> None:
                 # Identify the source pack for this standard
                 src_pack_dir = standard_dir.joinpath("src")
                 for rule_id, rule_details in rules.items():
+                    # Skip planned rules to avoid creating empty source and test directories.
+                    if not rule_details["queries"]:
+                        continue
                     # Identify and create the directories required for this rule
                     rule_src_dir = src_pack_dir.joinpath("rules").joinpath(rule_id)
                     rule_src_dir.mkdir(exist_ok=True, parents=True)

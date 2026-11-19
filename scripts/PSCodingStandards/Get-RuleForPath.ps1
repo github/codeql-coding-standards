@@ -22,11 +22,8 @@
 # cpp/common/test/rules/informationleakageacrossboundaries/multilayer.cpp
 # cpp/common/test/rules/informationleakageacrossboundaries/test.cpp
 
-# And produces one or more rules for it. It does this by loading every rule
-# and computing the test directory for it. This test directory is then 
-# used to see if a) it is a substring of the supplied path or if b) it 
-# is a substring of the path once the substitution `/src/` -> `/test/` is
-# applied  
+# Matches original rule directories and resolved fixture directories, including
+# shared tests and compiler-specific variants.
 
 function Get-RuleForPath {
     param([Parameter(Mandatory)] 
@@ -47,31 +44,31 @@ function Get-RuleForPath {
     }
 
 
-    $modifiedPathWithReplacement = Join-Path (Resolve-Path . -Relative) $Path 
+    $repositoryRoot = Get-RepositoryRoot
+    $modifiedPath = [IO.Path]::GetRelativePath(
+        $repositoryRoot, [IO.Path]::GetFullPath($Path, $repositoryRoot))
     # replace "src" with "test" to make it match up
     $sep = [IO.Path]::DirectorySeparatorChar
-    $modifiedPathWithReplacement = $modifiedPathWithReplacement.Replace( ($sep + "src" + $sep + "rules"), ($sep + "test" + $sep + "rules"))    
-    $modifiedPath = Join-Path (Resolve-Path . -Relative) $Path 
+    $modifiedPathWithReplacement = $modifiedPath.Replace(
+        ($sep + "src" + $sep + "rules"), ($sep + "test" + $sep + "rules"))
 
     
     $matchingRules = @()
 
     # for each query, create the test directory 
     foreach($q in $allQueries){
-        # get test directory
-        $testDirs = (Get-ATestDirectory -RuleObject $q -Language $Language)
+        # Keep the wrapper's own directory even when its fixture is elsewhere.
+        $standard = ($q.__memberof_suite -split "-")[0].ToLowerInvariant()
+        $testDirs = @(Join-Path $Language "$standard/test/rules/$($q.__memberof_rule)")
+        $testDirs += Get-ATestDirectory -RuleObject $q -Language $Language
         foreach($testDirectory in $testDirs){
-            # resolve path to be compatible 
-            $testPath = (Join-Path (Resolve-Path . -Relative) $testDirectory)
+            $testPath = [IO.Path]::GetRelativePath(
+                $repositoryRoot, [IO.Path]::GetFullPath($testDirectory, $repositoryRoot))
 
-            if((Split-Path $modifiedPath -Parent) -eq $testPath){
+            if ((Split-Path $modifiedPath -Parent) -eq $testPath -or
+                (Split-Path $modifiedPathWithReplacement -Parent) -eq $testPath) {
                 $matchingRules += $q 
-                continue 
-            }
-
-            if((Split-Path $modifiedPathWithReplacement -Parent) -eq $testPath){
-                $matchingRules += $q 
-                continue 
+                break
             }
         }
     }

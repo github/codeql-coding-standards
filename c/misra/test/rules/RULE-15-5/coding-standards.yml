@@ -1,0 +1,3 @@
+guideline-recategorizations:
+  - rule-id: "RULE-15-5"
+    category: "required"
