@@ -1,19 +1,29 @@
 # Software tool qualification under ISO 26262
 
-## Document management
+
+## ISO 26262 Qualified Releases
+
+The following table identifies CodeQL Coding Standards releases
+designated as certified under ISO 26262.
+
+| Certified Release | Certification Date | Certification Period | Status | Release Reference |
+|---|---|---|---|---|
+| `v2.55.0-certified` | To be confirmed | Year| Certified release | [v2.55.0-certified](https://github.com/github/codeql-coding-standards/releases/tag/v2.55.0-certified) |
+
+## Document Management
 
 **Document ID:** codeql-coding-standards/iso-26262-tool-qualification
 
-| Version | Date       | Author          | Changes                                                                                  |
-| ------- | ---------- | --------------- | ---------------------------------------------------------------------------------------- |
-| 0.1.0   | 2021-09-07 | Luke Cartey     | Initial version.                                                                         |
-| 0.2.0   | 2021-09-08 | Luke Cartey     | Update CodeQL qualification methods.                                                     |
-| 0.3.0   | 2021-09-08 | Luke Cartey     | Update the customer table.                                                               |
-| 0.4.0   | 2021-09-19 | Luke Cartey     | Add more detail on approach to V&V. Update section around increased confidence from use. |
-| 0.5.0   | 2021-11-29 | Remco Vermeulen | Add document management section.                                                         |
-| 0.6.0   | 2023-08-14 | Luke Cartey     | Update use and testing statement after LGTM.com deprecation.                             |
-| 0.7.0   | 2024-07-23 | Luke Cartey     | Fix development handbook link                                                            |
-| 0.8.0   | 2025-08-29 | Luke Cartey     | Update Safety Manager                                                                    |
+| Version | Date       | Author          | Changes                                                                                    |
+| ------- | ---------- | --------------- | ------------------------------------------------------------------------------------------ |
+| 0.1.0   | 2021-09-07 | Luke Cartey       | Initial version.                                                                         |
+| 0.2.0   | 2021-09-08 | Luke Cartey       | Update CodeQL qualification methods.                                                     |
+| 0.3.0   | 2021-09-08 | Luke Cartey       | Update the customer table.                                                               |
+| 0.4.0   | 2021-09-19 | Luke Cartey       | Add more detail on approach to V&V. Update section around increased confidence from use. |
+| 0.5.0   | 2021-11-29 | Remco Vermeulen   | Add document management section.                                                         |
+| 0.6.0   | 2023-08-14 | Luke Cartey       | Update use and testing statement after LGTM.com deprecation.                             |
+| 0.7.0   | 2024-07-23 | Luke Cartey       | Fix development handbook link                                                            |
+| 0.8.0   | 2025-08-29 | Luke Cartey       | Update Safety Manager                                                                    |
 
 ## Introduction
 
