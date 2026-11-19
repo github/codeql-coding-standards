@@ -1,0 +1,3 @@
+- The MISRA C audit suite now includes all audit queries (`DIR-4-9`, `DIR-5-3`, and the audit variant of `RULE-22-18`). These queries use `external/misra/audit`, matching MISRA C++. The `DIR-5-3` audit query no longer runs in the default suite.
+- `RULE-2-8` - `UnusedObjectDefinitionStrict.ql`:
+  - Standardized the tag to `external/misra/strict`. The query now runs in the MISRA C strict suite instead of the default and advisory suites.

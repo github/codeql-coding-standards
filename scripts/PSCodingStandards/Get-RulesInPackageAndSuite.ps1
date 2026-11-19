@@ -35,6 +35,15 @@ function Get-RulesInPackageAndSuite {
         $queries | Add-Member -NotePropertyName __memberof_package -NotePropertyValue $Package.BaseName
         $queries | Add-Member -NotePropertyName __memberof_rule -NotePropertyValue $n.Name 
         $queries | Add-Member -NotePropertyName __memberof_language -NotePropertyValue $Language 
+        $queries | Add-Member -NotePropertyName __applicable_suites -NotePropertyValue @($Suite)
+        foreach ($targetSuite in $SUITE_DEFINITIONS.Keys) {
+            $definition = $SUITE_DEFINITIONS[$targetSuite]
+            if ($definition.IncludeSuites -contains $Suite) {
+                $queries | Where-Object {
+                    -not ($_.tags | Where-Object { $definition.ExcludeTags -contains $_ })
+                } | ForEach-Object { $_.__applicable_suites += $targetSuite }
+            }
+        }
         
         $rulesInPackage += $queries 
     }

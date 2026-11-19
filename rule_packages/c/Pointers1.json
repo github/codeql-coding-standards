@@ -1,4 +1,13 @@
 {
+  "MISRA-C-2025": {
+    "RULE-11-11": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [],
+      "title": "Pointers shall not be implicitly compared to NULL"
+    }
+  },
   "MISRA-C-2012": {
     "RULE-11-1": {
       "properties": {

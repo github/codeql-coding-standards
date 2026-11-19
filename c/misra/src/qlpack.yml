@@ -1,6 +1,6 @@
 name: codeql/misra-c-coding-standards
 version: 2.63.0-dev
-description: MISRA C 2012
+description: MISRA C 2025
 suites: codeql-suites
 license: MIT
 default-suite-file: codeql-suites/misra-c-default.qls

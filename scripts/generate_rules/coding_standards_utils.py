@@ -79,6 +79,7 @@ def write_exclusion_template(template: Type[Template], args: Dict[str, str], pac
 def extract_metadata_from_query(rule_id, title, rule_category, q, rule_query_tags, language_name, ql_language_name, standard_name, standard_short_name, standard_metadata, anonymise):
 
     metadata = q.copy()
+    metadata["tags"] = list(q["tags"])
 
     # Add rule properties to the query dict, ready for template generation
     metadata["standard_name"] = standard_name
@@ -130,7 +131,8 @@ def write_query_help_file(help_dir: Type[Path], env: any, query: any, package_na
     # Add Markdown help file, partially overwriting elements that are automatically generated.
     help_path = help_dir.joinpath(
         query["short_name"] + ".md")
-    help_template = env.get_template(f"{standard_name.lower()}-help.md.template")
+    help_standard = "MISRA-C-2012" if standard_name == "MISRA-C-2025" else standard_name
+    help_template = env.get_template(f"{help_standard.lower()}-help.md.template")
 
     if not help_path.exists():
         print(

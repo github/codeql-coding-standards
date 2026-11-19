@@ -73,9 +73,9 @@ class Query extends TQuery {
   }
 
   EffectiveCategory getEffectiveCategory() {
-    if exists(GuidelineRecategorization gr | gr.getQuery() = this)
+    if exists(GuidelineRecategorization gr | gr.getApplicableQuery() = this)
     then
-      exists(GuidelineRecategorization gr | gr.getQuery() = this |
+      exists(GuidelineRecategorization gr | gr.getApplicableQuery() = this |
         result = gr.getEffectiveCategory()
       )
     else result.toString() = this.getCategory()

@@ -1,2 +1,3 @@
-| test.c:4:1:4:2 | declaration of f2 | Function declaration is implicit. |
-| test.c:12:15:12:15 | declaration of f3 | Function declaration is implicit. |
+| test.c:5:1:5:2 | declaration of f2 | Function declaration is implicit. |
+| test.c:13:15:13:15 | declaration of f3 | Function declaration is implicit. |
+| test_c99.c:8:3:8:3 | declaration of undeclared | Function declaration is implicit. |

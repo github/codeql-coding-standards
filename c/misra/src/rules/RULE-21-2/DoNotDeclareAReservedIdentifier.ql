@@ -10,6 +10,7 @@
  *       maintainability
  *       readability
  *       external/misra/c/2012/third-edition-first-revision
+ *       external/misra/legacy
  *       external/misra/obligation/required
  */
 

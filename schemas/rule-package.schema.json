@@ -179,7 +179,7 @@
                     "description": "Rules part of the MISRA C 2012 standard",
                     "type": "object",
                     "patternProperties": {
-                        "^RULE-\\d+-\\d+": {
+                        "^(RULE|DIR)-\\d+-\\d+": {
                             "description": "A coding standard rule",
                             "type": "object",
                             "properties": {
@@ -191,7 +191,8 @@
                                             "enum": [
                                                 "required",
                                                 "advisory",
-                                                "mandatory"
+                                                "mandatory",
+                                                "disapplied"
                                             ]
                                         }
                                     },
@@ -222,6 +223,9 @@
                         }
                     },
                     "minProperties": 1
+                },
+                "MISRA-C-2025": {
+                    "$ref": "#/allOf/3/properties/MISRA-C-2012"
                 }
             }
         },
@@ -349,7 +353,10 @@
                             "external/misra/c/2012/amendment2",
                             "external/misra/c/2012/amendment3",
                             "external/misra/c/2012/amendment4",
-                            "external/misra/c/strict",
+                            "external/misra/c/2025",
+                            "external/misra/default-disabled",
+                            "external/misra/legacy",
+                            "external/misra/strict",
                             "external/cert/severity/low",
                             "external/cert/severity/medium",
                             "external/cert/severity/high",

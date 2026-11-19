@@ -101,5 +101,21 @@
       ],
       "title": "An object should be defined at block scope if its identifier only appears in a single function"
     }
+  },
+  "MISRA-C-2025": {
+    "RULE-8-18": {
+      "properties": {
+        "obligation": "required"
+      },
+      "queries": [],
+      "title": "There shall be no tentative definitions in a header file"
+    },
+    "RULE-8-19": {
+      "properties": {
+        "obligation": "advisory"
+      },
+      "queries": [],
+      "title": "There should be no external declarations in a source file"
+    }
   }
 }
