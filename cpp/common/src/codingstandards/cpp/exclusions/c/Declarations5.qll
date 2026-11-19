@@ -8,7 +8,8 @@ newtype Declarations5Query =
   TExternalObjectOrFunctionNotDeclaredInOneFileQuery() or
   TMissingStaticSpecifierFunctionRedeclarationCQuery() or
   TMissingStaticSpecifierObjectRedeclarationCQuery() or
-  TUnnecessaryExposedIdentifierDeclarationCQuery()
+  TUnnecessaryExposedIdentifierDeclarationCQuery() or
+  TDefinitionsInHeaderQuery()
 
 predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleId, string category) {
   query =
@@ -55,6 +56,15 @@ predicate isDeclarations5QueryMetadata(Query query, string queryId, string ruleI
     "c/misra/unnecessary-exposed-identifier-declaration-c" and
   ruleId = "RULE-8-9" and
   category = "advisory"
+  or
+  query =
+    // `Query` instance for the `definitionsInHeader` query
+    Declarations5Package::definitionsInHeaderQuery() and
+  queryId =
+    // `@id` for the `definitionsInHeader` query
+    "c/misra/definitions-in-header" and
+  ruleId = "RULE-8-18" and
+  category = "required"
 }
 
 module Declarations5Package {
@@ -91,5 +101,12 @@ module Declarations5Package {
     result =
       // `Query` type for `unnecessaryExposedIdentifierDeclarationC` query
       TQueryC(TDeclarations5PackageQuery(TUnnecessaryExposedIdentifierDeclarationCQuery()))
+  }
+
+  Query definitionsInHeaderQuery() {
+    //autogenerate `Query` type
+    result =
+      // `Query` type for `definitionsInHeader` query
+      TQueryC(TDeclarations5PackageQuery(TDefinitionsInHeaderQuery()))
   }
 }

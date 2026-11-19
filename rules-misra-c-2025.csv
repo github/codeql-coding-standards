@@ -4,7 +4,7 @@ c,MISRA-C-2025,Edition2025,DIR-4-6,Yes,Refine,No,Medium
 c,MISRA-C-2025,Edition2025,DIR-4-10,Yes,Expand,No,Medium
 c,MISRA-C-2025,Edition2025,RULE-1-2,Yes,Renumber,Yes,Easy
 c,MISRA-C-2025,Edition2025,RULE-5-10,Yes,Renumber,Yes,Easy
-c,MISRA-C-2025,Edition2025,RULE-8-18,Yes,New,No,Medium
+c,MISRA-C-2025,Edition2025,RULE-8-18,Yes,New,Yes,Medium
 c,MISRA-C-2025,Edition2025,RULE-8-19,Yes,New,No,Medium
 c,MISRA-C-2025,Edition2025,RULE-10-1,Yes,Refine,No,Hard
 c,MISRA-C-2025,Edition2025,RULE-11-3,Yes,Refine,No,Medium
