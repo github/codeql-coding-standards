@@ -24,6 +24,7 @@ designated as certified under ISO 26262.
 | 0.6.0   | 2023-08-14 | Luke Cartey       | Update use and testing statement after LGTM.com deprecation.                             |
 | 0.7.0   | 2024-07-23 | Luke Cartey       | Fix development handbook link                                                            |
 | 0.8.0   | 2025-08-29 | Luke Cartey       | Update Safety Manager                                                                    |
+| 0.9.0   | 2026-11-20 | Samuel Abdelsayed | Add ISO 26262 qualified releases section.                                                |
 
 ## Introduction
 
