@@ -8,7 +8,7 @@ designated as certified under ISO 26262.
 
 | Certified Release | Certification Date | Certification Period | Status | Release Reference |
 |---|---|---|---|---|
-| `v2.55.0-certified` | To be confirmed | Year| Certified release | [v2.55.0-certified](https://github.com/github/codeql-coding-standards/releases/tag/v2.55.0-certified) |
+| `v2.55.0-certified` | June-12-2026 | Valid Until Aug-23-2027 | Certified release | [v2.55.0-certified](https://github.com/github/codeql-coding-standards/releases/tag/v2.55.0-certified) |
 
 ## Document Management
 
