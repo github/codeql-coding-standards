@@ -14,7 +14,10 @@
           "severity": "error",
           "short_name": "NoConversionFromBool",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "maintainability",
+            "readability",
+            "correctness"
           ]
         }
       ],
@@ -34,7 +37,10 @@
           "severity": "error",
           "short_name": "NoImplicitBoolConversion",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "maintainability",
+            "readability",
+            "correctness"
           ]
         }
       ],
@@ -54,7 +60,9 @@
           "severity": "error",
           "short_name": "NoCharacterNumericalValue",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "maintainability",
+            "readability"
           ]
         }
       ],
@@ -74,7 +82,8 @@
           "severity": "error",
           "short_name": "InappropriateBitwiseOrShiftOperands",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness"
           ]
         }
       ],
@@ -94,7 +103,9 @@
           "severity": "error",
           "short_name": "NoSignednessChangeFromPromotion",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
           ],
           "implementation_scope": {
             "description": "Arithmetic conversions in preprocessor directives are not supported."
@@ -117,7 +128,9 @@
           "severity": "error",
           "short_name": "NumericAssignmentTypeMismatch",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "maintainability"
           ]
         }
       ],
@@ -137,7 +150,9 @@
           "severity": "error",
           "short_name": "FunctionPointerConversionContext",
           "tags": [
-            "scope/single-translation-unit"
+            "scope/single-translation-unit",
+            "correctness",
+            "readability"
           ]
         }
       ],
