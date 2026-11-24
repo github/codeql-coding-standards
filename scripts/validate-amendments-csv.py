@@ -94,7 +94,7 @@ else:
             rule = rules_from_csv[rule_id]
 
             if rule["standard"] != standard and not (
-                rule["standard"] == "MISRA-C-2025" and standard == "MISRA-C-2012"
+                {rule["standard"], standard} == {"MISRA-C-2012", "MISRA-C-2025"}
             ):
                 print(f"🟡 Invalid: {amendment_id} has a different standard than the {rule_id} in rules.csv")
                 print(f"   '{standard}' vs '{rule['standard']}'")
