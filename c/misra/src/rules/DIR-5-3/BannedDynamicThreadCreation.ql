@@ -8,7 +8,7 @@
  * @problem.severity error
  * @tags external/misra/id/dir-5-3
  *       external/misra/c/2012/amendment4
- *       external/misra/c/audit
+ *       external/misra/audit
  *       correctness
  *       maintainability
  *       concurrency

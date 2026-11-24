@@ -1,4 +1,4 @@
-- description: MISRA C 2023 (Strict)
+- description: MISRA C 2025 (Strict)
 - qlpack: codeql/misra-c-coding-standards
 - include:
     kind:
@@ -6,3 +6,6 @@
     - path-problem
     tags contain:
     - external/misra/strict
+- exclude:
+    tags contain:
+    - external/misra/legacy

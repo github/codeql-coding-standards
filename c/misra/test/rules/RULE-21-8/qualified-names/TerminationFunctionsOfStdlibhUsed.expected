@@ -1,0 +1,3 @@
+| test.cpp:12:3:12:7 | call to abort | Call to banned function abort. |
+| test.cpp:13:3:13:6 | call to exit | Call to banned function exit. |
+| test.cpp:14:3:14:8 | call to system | Call to banned function system. |

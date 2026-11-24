@@ -1,2 +1,2 @@
-- description: "DEPRECATED - MISRA C  2012 - use misra-c-default.qls instead"
+- description: "DEPRECATED - MISRA C 2025 - use misra-c-default.qls instead"
 - import: codeql-suites/misra-c-default.qls

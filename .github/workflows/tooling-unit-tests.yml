@@ -116,4 +116,10 @@ jobs:
 
       - name: Run PyTest
         run: |
-          pytest scripts/release/update_release_assets_test.py
+          pytest scripts/release/update_release_assets_test.py \
+            scripts/release/create_supported_rules_list_test.py \
+            scripts/verify_rule_package_consistency_test.py
+
+      - name: Run matrix tooling regression tests
+        shell: pwsh
+        run: ./scripts/matrix_testing/Get-TestFile.Tests.ps1

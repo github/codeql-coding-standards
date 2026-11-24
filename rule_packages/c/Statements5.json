@@ -41,7 +41,8 @@
             "maintainability",
             "readability",
             "correctness",
-            "external/misra/c/2012/third-edition-first-revision"
+            "external/misra/c/2012/third-edition-first-revision",
+            "external/misra/legacy"
           ]
         }
       ],
@@ -69,6 +70,28 @@
         }
       ],
       "title": "All exit paths from a function with non-void return type shall have an explicit return statement with an expression"
+    }
+  },
+  "MISRA-C-2025": {
+    "RULE-15-5": {
+      "properties": {
+        "obligation": "disapplied"
+      },
+      "queries": [
+        {
+          "description": "A single exit can be enforced when this Disapplied guideline is recategorized.",
+          "kind": "problem",
+          "name": "A function should have a single point of exit at the end",
+          "precision": "very-high",
+          "severity": "recommendation",
+          "short_name": "SinglePointOfExit",
+          "tags": [
+            "maintainability",
+            "external/misra/c/2025"
+          ]
+        }
+      ],
+      "title": "A function should have a single point of exit at the end"
     }
   }
 }

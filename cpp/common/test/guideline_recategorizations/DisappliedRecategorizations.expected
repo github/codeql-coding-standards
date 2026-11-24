@@ -1,0 +1,6 @@
+| A0-1-1 | disapplied | advisory | disapplied | advisory/mandatory | 0 |
+| A0-1-1 | disapplied | mandatory | disapplied | advisory/mandatory | 0 |
+| A0-1-2 | advisory | disapplied | advisory | disapplied | 0 |
+| A0-1-2 | required | disapplied | advisory | required | 0 |
+| A0-1-6 | disapplied | disapplied | disapplied | disapplied | 1 |
+| A10-4-1 | disapplied | required | disapplied | required | 0 |
