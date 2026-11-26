@@ -1,3 +1,5 @@
+| headers/dir410_a.h:0:0:0:0 | headers/dir410_a.h | Header file 'dir410_a.h' uses an include guard also used by $@. | headers/dir410_b.hpp:0:0:0:0 | headers/dir410_b.hpp | header file |
+| headers/dir410_b.hpp:0:0:0:0 | headers/dir410_b.hpp | Header file 'dir410_b.hpp' uses an include guard also used by $@. | headers/dir410_a.h:0:0:0:0 | headers/dir410_a.h | header file |
 | headers/test3.hpp:0:0:0:0 | headers/test3.hpp | Header file test3.hpp is missing expected include guard. | headers/test3.hpp:0:0:0:0 | headers/test3.hpp |  |
 | headers/test4.hpp:0:0:0:0 | headers/test4.hpp | Header file test4.hpp is missing expected include guard. | headers/test4.hpp:0:0:0:0 | headers/test4.hpp |  |
 | headers/test5.hpp:0:0:0:0 | headers/test5.hpp | Header file test5.hpp is missing expected include guard. | headers/test5.hpp:0:0:0:0 | headers/test5.hpp |  |

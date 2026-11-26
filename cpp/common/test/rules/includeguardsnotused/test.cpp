@@ -14,3 +14,5 @@
 #include "headers/test7.hpp" //NON_COMPLIANT - missing include guard, not excluded
 
 #include "headers/excluded/test7.hpp" // COMPLIANT - excluded via deviation
+
+#include "headers/dir410_a.h" // NON_COMPLIANT - shares a guard across translation units
