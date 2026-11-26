@@ -164,7 +164,8 @@ class ArrayAllocation extends TArrayAllocation {
       result = this.asStackAllocation().getLength(inode.getIndirectionIndex())
     )
     or
-    node.asUninitialized() = this.asStackAllocation().getVariable() and
+    node.asInstruction().(UninitializedInstruction).getLocalVariable() =
+      this.asStackAllocation().getVariable() and
     result = this.asStackAllocation().getLength(0)
     or
     node.asConvertedExpr() = this.asDynamicAllocation() and

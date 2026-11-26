@@ -42,17 +42,15 @@ class VaArgArg extends VaAccess {
     // rx_n = VariableAddress[p]
     // ...
     // ry_0 = Load[p] : &:rx_n
-    // ry_1 = Load[?] : &:ry_n
+    // ry_1 = Load[?] : &:ry_0
     // ry_2 = NextVarArg : ry_1
     //
-    // The last occurrence of `va_list` that we have dataflow to is `ry_0` via an `OperandNode`,
-    // and the simplest attachment between the AST and the IR is through `ry_2` and our parent AST
-    // node, the `__builtin_vararg(...)` call.
-    exists(IR::Operand ry0, IR::Instruction ry1, IR::NextVarArgInstruction ry2 |
-      ry2.getAnOperand().getDef() = ry1 and
+    // `ry_1` loads the `va_list` object that `p` refers to, and the simplest attachment between
+    // the AST and the IR is through `ry_2` and our parent AST node, the `__builtin_vararg(...)`
+    // call.
+    exists(IR::NextVarArgInstruction ry2 |
       ry2.getAst() = this.getParent() and
-      ry1.getAnOperand() = ry0 and
-      result.(DataFlow::OperandNode).getOperand() = ry0
+      result.asOperand() = ry2.getUnaryOperand()
     )
   }
 }
@@ -63,19 +61,20 @@ class VaArgArg extends VaAccess {
 class VaEndArg extends VaAccess {
   VaEndArg() { this = any(MacroInvocation m | m.getMacroName() = ["va_end"]).getExpr().getChild(0) }
 
-  override DataFlow::Node getDfn() { result.asExpr() = this }
+  override DataFlow::Node getDfn() { result.asIndirectExpr() = this }
 }
 
 /**
- * Dataflow configuration for flow from between `va_list` usages.
+ * Dataflow configuration for flow from the initialization of a `va_list` object by `va_start` to
+ * the uses of that object.
  */
 module VaArgConfig implements DataFlow::ConfigSig {
-  predicate isSource(DataFlow::Node src) {
-    src.asUninitialized() =
-      any(VariableDeclarationEntry m | m.getType().hasName("va_list")).getVariable()
-  }
+  predicate isSource(DataFlow::Node src) { src.asDefinition() instanceof BuiltInVarArgsStart }
 
   predicate isSink(DataFlow::Node sink) { exists(VaAccess va_acc | sink = va_acc.getDfn()) }
+
+  // `va_copy` creates a new `va_list` object, so the copy is not the same object as the original.
+  predicate isBarrier(DataFlow::Node node) { node.asDefinition() instanceof BuiltInVarArgCopy }
 }
 
 module VaArgFlow = DataFlow::Global<VaArgConfig>;
