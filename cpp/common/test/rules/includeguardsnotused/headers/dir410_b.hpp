@@ -1,0 +1,4 @@
+#ifndef DIR_4_10_DUPLICATE_GUARD
+#define DIR_4_10_DUPLICATE_GUARD
+int g9;
+#endif
