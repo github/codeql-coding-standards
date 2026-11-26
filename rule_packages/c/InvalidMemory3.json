@@ -36,7 +36,8 @@
           "tags": [
             "external/misra/c/2012/amendment3",
             "correctness",
-            "security"
+            "security",
+            "external/cwe/cwe-562"
           ]
         },
         {
@@ -49,7 +50,8 @@
           "tags": [
             "external/misra/c/2012/amendment3",
             "correctness",
-            "security"
+            "security",
+            "external/cwe/cwe-562"
           ]
         }
       ],

@@ -10,6 +10,11 @@
  *       correctness
  *       external/misra/c/2012/third-edition-first-revision
  *       external/misra/c/2012/amendment3
+ *       external/cwe/cwe-119
+ *       external/cwe/cwe-130
+ *       external/cwe/cwe-134
+ *       external/cwe/cwe-680
+ *       external/cwe/cwe-805
  *       external/misra/obligation/required
  */
 

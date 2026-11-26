@@ -10,6 +10,8 @@
  *       correctness
  *       security
  *       external/misra/c/2012/third-edition-first-revision
+ *       external/cwe/cwe-244
+ *       external/cwe/cwe-789
  *       external/misra/obligation/required
  */
 
