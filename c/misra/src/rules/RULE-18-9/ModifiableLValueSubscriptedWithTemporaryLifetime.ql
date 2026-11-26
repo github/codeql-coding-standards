@@ -10,6 +10,7 @@
  *       external/misra/c/2012/amendment3
  *       correctness
  *       security
+ *       external/cwe/cwe-562
  *       external/misra/obligation/required
  */
 

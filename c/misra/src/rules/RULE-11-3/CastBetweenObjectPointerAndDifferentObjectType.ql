@@ -10,6 +10,9 @@
  * @tags external/misra/id/rule-11-3
  *       correctness
  *       external/misra/c/2012/third-edition-first-revision
+ *       external/cwe/cwe-119
+ *       external/cwe/cwe-680
+ *       external/cwe/cwe-822
  *       external/misra/obligation/required
  */
 

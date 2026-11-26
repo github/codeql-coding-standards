@@ -13,6 +13,11 @@
  * @tags external/misra/id/dir-4-7
  *       maintainability
  *       external/misra/c/2012/third-edition-first-revision
+ *       external/cwe/cwe-119
+ *       external/cwe/cwe-252
+ *       external/cwe/cwe-680
+ *       external/cwe/cwe-690
+ *       external/cwe/cwe-822
  *       external/misra/obligation/required
  */
 

@@ -10,6 +10,16 @@
  *       correctness
  *       security
  *       external/misra/c/2012/third-edition-first-revision
+ *       external/cwe/cwe-119
+ *       external/cwe/cwe-401
+ *       external/cwe/cwe-415
+ *       external/cwe/cwe-416
+ *       external/cwe/cwe-590
+ *       external/cwe/cwe-680
+ *       external/cwe/cwe-761
+ *       external/cwe/cwe-762
+ *       external/cwe/cwe-763
+ *       external/cwe/cwe-825
  *       external/misra/obligation/mandatory
  */
 

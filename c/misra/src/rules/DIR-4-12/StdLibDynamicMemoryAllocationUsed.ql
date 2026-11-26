@@ -12,6 +12,11 @@
  *       correctness
  *       maintainability
  *       external/misra/c/2012/third-edition-first-revision
+ *       external/cwe/cwe-244
+ *       external/cwe/cwe-401
+ *       external/cwe/cwe-415
+ *       external/cwe/cwe-416
+ *       external/cwe/cwe-789
  *       external/misra/obligation/required
  */
 

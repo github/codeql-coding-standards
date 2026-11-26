@@ -8,6 +8,7 @@
  * @tags external/misra/id/rule-19-2
  *       correctness
  *       external/misra/c/2012/third-edition-first-revision
+ *       external/cwe/cwe-188
  *       external/misra/obligation/advisory
  */
 
