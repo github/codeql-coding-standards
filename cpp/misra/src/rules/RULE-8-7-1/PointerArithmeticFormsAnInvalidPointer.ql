@@ -27,17 +27,30 @@ class ArrayDeclaration extends VariableDeclarationEntry {
   ArrayDeclaration() { this.getType().getUnderlyingType() instanceof ArrayType }
 
   /**
-   * Gets the declared length of this array at the given level of indirection.
+   * Gets the declared length of the dimension of this array whose elements have type
+   * `elementType`. For example, for `int a[2][3]` the length is 2 if `elementType` is `int[3]`,
+   * and 3 if `elementType` is `int`.
    */
-  int getLength(int indirection) { result = this.getArrayType(indirection).getArraySize() }
-
-  private ArrayType getArrayType(int indirection) {
-    indirection = 0 and result = this.getType().getUnderlyingType()
-    or
+  int getLength(Type elementType) {
     exists(ArrayType at |
-      at = getArrayType(indirection - 1) and
-      result = at.getBaseType().getUnderlyingType()
+      at = this.getAnArrayType() and
+      at.getBaseType().getUnspecifiedType() = elementType.getUnspecifiedType() and
+      result = at.getArraySize()
     )
+  }
+
+  /**
+   * Gets the number of dimensions of this array.
+   */
+  int getNumberOfDimensions() { result = count(this.getAnArrayType()) }
+
+  /**
+   * Gets the type of this array, or the type of a nested array in a multi-dimensional array.
+   */
+  private ArrayType getAnArrayType() {
+    result = this.getType().getUnderlyingType()
+    or
+    result = this.getAnArrayType().getBaseType().getUnderlyingType()
   }
 }
 
@@ -154,25 +167,23 @@ class ArrayAllocation extends TArrayAllocation {
   }
 
   /**
-   * Gets the number of the object that the array holds. This number is exact for a stack-allocated
-   * array, and the minimum estimated value for a heap-allocated one.
+   * Gets the number of objects that the array holds when it is accessed through a pointer to
+   * `elementType`. This number is exact for a stack-allocated array, and the minimum estimated
+   * value for a heap-allocated one.
+   *
+   * For a stack-allocated multi-dimensional array, this is the length of the dimension whose
+   * elements have type `elementType`. For example, for `int a[2][3]` the length is 2 when the
+   * array is accessed through a pointer to `int[3]`, and 3 when it is accessed through a pointer
+   * to `int`.
    */
-  int getLength(DataFlow::Node node) {
-    exists(DataFlow::IndirectUninitializedNode inode |
-      inode = node and
-      inode.getLocalVariable() = this.asStackAllocation().getVariable() and
-      result = this.asStackAllocation().getLength(inode.getIndirectionIndex())
-    )
+  bindingset[elementType]
+  int getLength(Type elementType) {
+    result = this.asStackAllocation().getLength(elementType)
     or
-    node.asInstruction().(UninitializedInstruction).getLocalVariable() =
-      this.asStackAllocation().getVariable() and
-    result = this.asStackAllocation().getLength(0)
-    or
-    node.asConvertedExpr() = this.asDynamicAllocation() and
     result = this.asDynamicAllocation().getMinNumElements()
     or
     result = 1 and
-    node.asExpr() = this.asAddressOfExpr()
+    exists(this.asAddressOfExpr())
   }
 
   Location getLocation() {
@@ -184,7 +195,22 @@ class ArrayAllocation extends TArrayAllocation {
   /**
    * Gets the node associated with this allocation.
    */
-  DataFlow::Node getNode() { exists(this.getLength(result)) }
+  DataFlow::Node getNode() {
+    exists(ArrayDeclaration decl, LocalVariable v |
+      decl = this.asStackAllocation() and v = decl.getVariable()
+    |
+      exists(DataFlow::IndirectUninitializedNode inode | inode = result |
+        inode.getLocalVariable() = v and
+        inode.getIndirectionIndex() < decl.getNumberOfDimensions()
+      )
+      or
+      result.asInstruction().(UninitializedInstruction).getLocalVariable() = v
+    )
+    or
+    result.asConvertedExpr() = this.asDynamicAllocation()
+    or
+    result.asExpr() = this.asAddressOfExpr()
+  }
 
   Expr asExpr() {
     result = this.asStackAllocation().getVariable().getAnAccess() or
@@ -272,6 +298,15 @@ class PointerFormation extends TPointerFormation {
   DataFlow::Node getBaseNode() { result.asIndirectExpr() = this.getBase() }
 
   /**
+   * Gets the type of the elements that the base pointer points to. If the base is an array,
+   * this is the element type of the array. For example, for `a[1][2]` where `a` has type
+   * `int[2][3]`, this is `int[3]` for `a[1]`, and `int` for `a[1][2]`.
+   */
+  Type getBaseElementType() {
+    result = this.getBase().getFullyConverted().getUnspecifiedType().(PointerType).getBaseType()
+  }
+
+  /**
    * Gets the expression associated with this pointer formation.
    */
   Expr asExpr() {
@@ -327,6 +362,12 @@ class FatPointer extends TFatPointer {
     or
     result = this.asIndexAdjusted().getOffset()
   }
+
+  /**
+   * Gets the type of the elements that the base pointer of this fat pointer points to, if this
+   * is an index-adjusted pointer.
+   */
+  Type getBaseElementType() { result = this.asIndexAdjusted().getBaseElementType() }
 
   DataFlow::Node getNode() {
     result = this.asAllocated().getNode() or
@@ -389,9 +430,10 @@ class FatPointer extends TFatPointer {
  * - currentOffset_0  = srcOffset_0         + sinkOffset_0 if src is an ArrayAllocation
  * - currentOffset_n  = currentOffset_{n-1} + sinkOffset_n if src is a  PointerFormation
  *
- * Note that for n-dimensional stack-initialized arrays, the length information is created for each
- * initialization level. For example, the below 2-dimensional array produces two `def. of buf` with
- * length 2 and length 3, respectively.
+ * Note that n-dimensional stack-initialized arrays have a length for each dimension. The length
+ * that is used is determined by the type of the base pointer of `end`. For example, the below
+ * 2-dimensional array has length 2 when it is accessed through a pointer to `int[3]` (as in
+ * `buf[2]`), and length 3 when it is accessed through a pointer to `int` (as in `buf[0][3]`).
  *
  * ``` C++
  * int buf[2][3] = {{1, 2, 3}, {4, 5, 6}}
@@ -411,7 +453,7 @@ predicate srcSinkLengthMap(
     /* Implement the equation that computes the current offset. */
     (
       /* Base case: The object is allocated and a fat pointer created. */
-      length = start.asAllocated().getLength(src.getNode()) and // Get the length at the given indirection level.
+      length = start.asAllocated().getLength(end.getBaseElementType()) and
       currentOffset = srcOffset + sinkOffset
       or
       /* Recursive case: A fat pointer is derived from a fat pointer. */
