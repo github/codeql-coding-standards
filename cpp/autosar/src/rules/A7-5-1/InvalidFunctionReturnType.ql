@@ -18,13 +18,14 @@ import cpp
 import codingstandards.cpp.autosar
 import semmle.code.cpp.dataflow.new.DataFlow
 
-from Parameter p, ReturnStmt ret
+from Parameter p, ReturnStmt ret, DataFlow::Node n
 where
   not isExcluded(p, FunctionsPackage::invalidFunctionReturnTypeQuery()) and
   p.getUnderlyingType().isDeeplyConst() and
   p.getType() instanceof DerivedType and
   p.getFunction().getType().stripTopLevelSpecifiers() instanceof DerivedType and
-  DataFlow::localFlow(DataFlow::parameterNode(p), DataFlow::exprNode(ret.getExpr()))
+  n.asParameter(0) = p and
+  DataFlow::localFlow(n, DataFlow::exprNode(ret.getExpr()))
 select ret,
   "Function " + p.getFunction().getName() +
     " returns a reference or a pointer to $@ that is passed by reference to const.", p, "parameter"
