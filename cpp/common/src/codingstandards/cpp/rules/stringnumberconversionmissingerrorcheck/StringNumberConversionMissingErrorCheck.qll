@@ -91,10 +91,10 @@ class StreamErrorStateCheck extends FunctionCall {
     checkedArg = this.(StreamErrorStateCheckDirectCall).getACheckedStream()
     or
     // Or a wrapper around an existing `StreamErrorStateCheck`
-    exists(Function wrapper, int param, StreamErrorStateCheck wrappedErrorCheck |
+    exists(Function wrapper, int param, StreamErrorStateCheck wrappedErrorCheck, DataFlow::Node n |
       getTarget() = wrapper and
-      DataFlow::localFlow(DataFlow::parameterNode(wrapper.getParameter(param)),
-        DataFlow::exprNode(wrappedErrorCheck.getACheckedStream())) and
+      n.asParameter(0) = wrapper.getParameter(param) and
+      DataFlow::localFlow(n, DataFlow::exprNode(wrappedErrorCheck.getACheckedStream())) and
       checkedArg = getArgument(param)
     )
   }
